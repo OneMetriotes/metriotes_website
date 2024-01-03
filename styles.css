@@ -1,0 +1,93 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #0077cc;
+}
+
+/* Estilos para las secciones */
+section {
+    padding: 50px 20px;
+}
+
+h1, h2 {
+    color: #0077cc;
+}
+
+/* Estilos para los enlaces */
+a {
+    color: #0077cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #005580;
+}
+
+/* Estilos para el pie de página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Estilos para los botones */
+a[href^="#join-now"], a[href^="#start-your-journey"], a[href^="mailto:"] {
+    display: inline-block;
+    background-color: #0077cc;
+    color: white;
+    padding: 12px 24px;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+a[href^="#join-now"]:hover, a[href^="#start-your-journey"]:hover, a[href^="mailto:"]:hover {
+    background-color: #005580;
+}
+
+/* Estilos para la sección de inicio */
+#home {
+    text-align: center;
+}
+
+#home p {
+    max-width: 600px;
+    margin: 20px auto;
+}

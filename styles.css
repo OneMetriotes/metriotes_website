@@ -8,9 +8,9 @@
 /* Estilos generales para el cuerpo de la página */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    background-color: #e3e3e3;
 }
 
 .container {
@@ -19,6 +19,7 @@ body {
     height: 100vh;
     width: 100vw;
 }
+
 
 section {
     height: 100vh;
@@ -55,6 +56,12 @@ a:hover {
 h1 {
     font-size: 48px;
     font-weight: 600;
+}
+
+h3 {
+    font-size: 24px;
+    color: #0077cc;
+    font-weight: 400;
 }
 
 p {

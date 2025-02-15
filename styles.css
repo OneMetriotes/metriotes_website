@@ -32,6 +32,7 @@ section {
     text-align: center;
     gap: 20px;
     padding: 10% 5%;
+    margin-bottom: 20%;
 
     /* scroll-snap-align: start; */
 }

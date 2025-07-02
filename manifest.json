@@ -1,6 +1,6 @@
 {
-    "name": "metriotes_front",
-    "short_name": "metriotes_front",
+    "name": "Metriotes",
+    "short_name": "Metriotes",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

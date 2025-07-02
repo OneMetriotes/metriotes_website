@@ -112717,7 +112717,7 @@ return A.W(["achievement",A.W(["name","Achievement","icon","\ud83c\udfc6"],s,s),
 $.b2B=A.a([B.a1k,B.a1l],t.ss)
 $.bbt=function(){var s=t.N,r=t.z
 return A.a([A.W(["title","Gratitude","type","Gratitude","emoji","\ud83d\ude4f","imageUrl","icons/2.jpg"],s,r),A.W(["title","Desire","type","Desire","emoji","\u2728","imageUrl","icons/4.jpg"],s,r),A.W(["title","Passion","type","Passion","emoji","\ud83d\udd25","imageUrl","icons/3.jpg"],s,r),A.W(["title","Motivation","type","Motivation","emoji","\ud83d\udcaa","imageUrl","icons/5.jpg"],s,r),A.W(["title","Belief","type","Belief","emoji","\ud83d\udcad","imageUrl","icons/6.jpg"],s,r),A.W(["title","Learning","type","Learning","emoji","\ud83d\udcda","imageUrl","icons/7.jpg"],s,r),A.W(["title","Fear","type","Fear","emoji","\ud83d\ude31","imageUrl","icons/8.jpg"],s,r),A.W(["title","Insecurity","type","Insecurity","emoji","\ud83d\ude22","imageUrl","icons/9.jpg"],s,r)],t.H7)}()
-$.cS="http://127.0.0.1:8000"
+$.cS="https://metriotes-22732fa1f31f.herokuapp.com"
 $.aUP=null
 $.aIK=null
 $.arz=null

@@ -120633,7 +120633,7 @@ $.ci=A.a([B.PA,B.Pb,B.Ph,B.PD,B.Pv,B.PI,B.Pz,B.mF],t.t_)
 $.b6x=A.a([B.a2R,B.a2S],t.ss)
 $.bfh=function(){var s=t.N,r=t.z
 return A.a([A.Y(["title","Gratitude","type","Gratitude","emoji","\ud83d\ude4f","imageUrl","icons/2.jpg"],s,r),A.Y(["title","Desire","type","Desire","emoji","\u2728","imageUrl","icons/4.jpg"],s,r),A.Y(["title","Passion","type","Passion","emoji","\ud83d\udd25","imageUrl","icons/3.jpg"],s,r),A.Y(["title","Motivation","type","Motivation","emoji","\ud83d\udcaa","imageUrl","icons/5.jpg"],s,r),A.Y(["title","Belief","type","Belief","emoji","\ud83d\udcad","imageUrl","icons/6.jpg"],s,r),A.Y(["title","Learning","type","Learning","emoji","\ud83d\udcda","imageUrl","icons/7.jpg"],s,r),A.Y(["title","Fear","type","Fear","emoji","\ud83d\ude31","imageUrl","icons/8.jpg"],s,r),A.Y(["title","Insecurity","type","Insecurity","emoji","\ud83d\ude22","imageUrl","icons/9.jpg"],s,r)],t.H7)}()
-$.cC="http://127.0.0.1:8000"
+$.cC="https://metriotes-22732fa1f31f.herokuapp.com"
 $.la=A.bet()
 $.aPC=0
 $.b5D=A.a([],A.aC("I<bjb>"))

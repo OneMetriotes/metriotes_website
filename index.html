@@ -35,5 +35,13 @@
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Register sqflite service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sqflite_sw.js');
+      });
+    }
+  </script>
 </body>
 </html>

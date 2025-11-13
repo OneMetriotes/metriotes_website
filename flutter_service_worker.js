@@ -3,11 +3,11 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "9a9eeb48092f795b2b0a79b483258d02",
+const RESOURCES = {"flutter_bootstrap.js": "1993534599ac5d4d6e3c900e864d55de",
 "version.json": "60c15629866419db489698dc2784dc04",
 "index.html": "e7b4145dd4b981d0c361ebf0586848f9",
 "/": "e7b4145dd4b981d0c361ebf0586848f9",
-"main.dart.js": "4d9a0781c384db371df4f9e16d74a7fb",
+"main.dart.js": "6c5c6bcd210b77533f0b58bff7994233",
 "Metriotes.png": "05624a56a01aebd78326a51c821fe1da",
 "sqlite3.wasm": "33e37e7fcae44dfab4ec6d071f4e301b",
 "flutter.js": "888483df48293866f9f41d3d9274a779",
@@ -56,7 +56,7 @@ const RESOURCES = {"flutter_bootstrap.js": "9a9eeb48092f795b2b0a79b483258d02",
 "assets/icons/inspiracion.png": "6bfe4ab3458051061cd54712a5f34f24",
 "assets/icons/emotions.png": "9986fe4bf8cd8c3f67243f29bc233949",
 "assets/packages/mesh/shaders/omesh.frag": "242b80a0ff93acfab4745ef36f76f6f2",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "33b7d9392238c04c131b6ce224e13711",
+"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "34a693df7990a2c9dccbad11e02acffc",
 "assets/packages/simple_circular_progress_bar/fonts/Roboto-Regular.ttf": "8a36205bd9b83e03af0591a004bc97f4",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/AssetManifest.bin": "6845da734e7006b3cf65d9749df0c2e1",

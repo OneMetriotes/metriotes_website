@@ -1,0 +1,4 @@
+# GitHub Pages configuration for Metriotes
+include:
+  - .well-known
+  - apple-app-site-association

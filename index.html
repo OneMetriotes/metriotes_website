@@ -1,47 +1,441 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metriotes - Tus Objetivos, Tu Camino</title>
+    <meta name="description"
+        content="Transforma tus objetivos en hábitos sostenibles. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.">
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metriotes.com/">
+    <meta property="og:title" content="Metriotes - Tus Objetivos, Tu Camino">
+    <meta property="og:description" content="Transforma tus objetivos en hábitos sostenibles">
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metriotes.com/">
+    <meta property="twitter:title" content="Metriotes - Tus Objetivos, Tu Camino">
+    <meta property="twitter:description" content="Transforma tus objetivos en hábitos sostenibles">
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Metriotes">
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --background: #ffffff;
+            --surface: #f9fafb;
+        }
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Metriotes">
-  <link rel="apple-touch-icon" href="icons/Metriotes.png">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+        }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="Metriotes.png"/>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-  <title>Metriotes</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="google-signin-client_id" content="454333235960-qpai8rp5v3k0omp482jf7f668i8uvo03.apps.googleusercontent.com">
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: inline-flex;
+            gap: 8px;
+            background: var(--surface);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 32px;
+            padding: 0 20px;
+        }
+
+        /* Download Buttons */
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 240px;
+            justify-content: center;
+        }
+
+        .store-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .store-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .store-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .feature {
+            padding: 28px;
+            background: var(--surface);
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .feature p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 60px;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .download-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-  <script src="flutter_bootstrap.js" async></script>
-  <script>
-    // Register sqflite service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sqflite_sw.js');
-      });
-    }
-  </script>
+    <div class="container">
+        <header>
+            <div class="logo">Metriotes</div>
+
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="es">Español</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div data-i18n-group="hero">
+                    <h1 data-i18n="hero-title">Tus Objetivos, Tu Camino</h1>
+                    <p data-i18n="hero-description">
+                        Transforma tus objetivos en hábitos sostenibles.
+                        Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.
+                    </p>
+                </div>
+
+                <div class="download-buttons">
+                    <a href="#" class="store-btn disabled">
+                        <span class="store-icon"></span>
+                        <span>
+                            <div style="font-size: 0.7rem; opacity: 0.8;" data-i18n="download-on">Descargar en</div>
+                            <div>App Store</div>
+                        </span>
+                        <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
+                    </a>
+                    <a href="#" class="store-btn disabled">
+                        <span class="store-icon">▶</span>
+                        <span>
+                            <div style="font-size: 0.7rem; opacity: 0.8;" data-i18n="get-it-on">Disponible en</div>
+                            <div>Google Play</div>
+                        </span>
+                        <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3 data-i18n="feature1-title">Objetivos Personalizados</h3>
+                    <p data-i18n="feature1-desc">
+                        Crea objetivos que se adapten a tu vida y ritmo personal.
+                        Define tu propio camino hacia el éxito.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3 data-i18n="feature2-title">Seguimiento Visual</h3>
+                    <p data-i18n="feature2-desc">
+                        Visualiza tu progreso con gráficos intuitivos.
+                        Mantén la motivación viendo cuánto has avanzado.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔔</div>
+                    <h3 data-i18n="feature3-title">Recordatorios Inteligentes</h3>
+                    <p data-i18n="feature3-desc">
+                        Recibe notificaciones en el momento perfecto.
+                        Nunca olvides trabajar en tus objetivos.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💡</div>
+                    <h3 data-i18n="feature4-title">Plantillas Inspiradoras</h3>
+                    <p data-i18n="feature4-desc">
+                        Comienza rápido con plantillas prediseñadas.
+                        O crea objetivos completamente personalizados.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Traducciones
+        const translations = {
+            es: {
+                'hero-title': 'Tus Objetivos, Tu Camino',
+                'hero-description': 'Transforma tus objetivos en hábitos sostenibles. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.',
+                'download-on': 'Descargar en',
+                'get-it-on': 'Disponible en',
+                'coming-soon': 'Próximamente',
+                'feature1-title': 'Objetivos Personalizados',
+                'feature1-desc': 'Crea objetivos que se adapten a tu vida y ritmo personal. Define tu propio camino hacia el éxito.',
+                'feature2-title': 'Seguimiento Visual',
+                'feature2-desc': 'Visualiza tu progreso con gráficos intuitivos. Mantén la motivación viendo cuánto has avanzado.',
+                'feature3-title': 'Recordatorios Inteligentes',
+                'feature3-desc': 'Recibe notificaciones en el momento perfecto. Nunca olvides trabajar en tus objetivos.',
+                'feature4-title': 'Plantillas Inspiradoras',
+                'feature4-desc': 'Comienza rápido con plantillas prediseñadas. O crea objetivos completamente personalizados.',
+                'footer': '© 2026 Metriotes. Todos los derechos reservados.'
+            },
+            en: {
+                'hero-title': 'Your Goals, Your Path',
+                'hero-description': 'Transform your goals into sustainable habits. Metriotes helps you create a personalized plan to achieve your goals.',
+                'download-on': 'Download on',
+                'get-it-on': 'Get it on',
+                'coming-soon': 'Coming Soon',
+                'feature1-title': 'Personalized Goals',
+                'feature1-desc': 'Create goals that fit your life and personal pace. Define your own path to success.',
+                'feature2-title': 'Visual Tracking',
+                'feature2-desc': 'Visualize your progress with intuitive charts. Stay motivated by seeing how far you\'ve come.',
+                'feature3-title': 'Smart Reminders',
+                'feature3-desc': 'Receive notifications at the perfect time. Never forget to work on your goals.',
+                'feature4-title': 'Inspiring Templates',
+                'feature4-desc': 'Get started quickly with pre-designed templates. Or create completely custom goals.',
+                'footer': '© 2026 Metriotes. All rights reserved.'
+            }
+        };
+
+        // Detectar idioma del navegador
+        let currentLang = (navigator.language || navigator.userLanguage).split('-')[0];
+        if (!translations[currentLang]) {
+            currentLang = 'es'; // Default a español
+        }
+
+        // Función para cambiar idioma
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            // Actualizar botones
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Actualizar textos
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.dataset.i18n;
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Guardar preferencia
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Event listeners para botones de idioma
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Cargar idioma guardado o detectado
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && translations[savedLang]) {
+            setLanguage(savedLang);
+        } else {
+            setLanguage(currentLang);
+        }
+
+        // Manejar deep links a templates
+        const path = window.location.pathname;
+        const templateMatch = path.match(/^\/template\/(\d+)$/);
+
+        if (templateMatch) {
+            const templateId = templateMatch[1];
+
+            // Intentar abrir en la app si está instalada
+            const appScheme = `metriotes://template/${templateId}`;
+
+            // Crear un iframe oculto para intentar abrir la app
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appScheme;
+            document.body.appendChild(iframe);
+
+            // Si la app no se abre en 2 segundos, mostrar mensaje
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+
+                // Mostrar mensaje de descarga
+                const message = currentLang === 'es'
+                    ? 'Descarga Metriotes para ver este objetivo'
+                    : 'Download Metriotes to view this goal';
+
+                alert(message);
+            }, 2000);
+        }
+    </script>
 </body>
+
 </html>

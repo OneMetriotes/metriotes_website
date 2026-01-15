@@ -4,21 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metriotes - Tus Objetivos, Tu Camino</title>
+    <title>Metriotes - Herramientas para vivir una vida consciente</title>
     <meta name="description"
-        content="Transforma tus objetivos en hábitos sostenibles. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.">
+        content="Herramientas para vivir una vida consciente. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metriotes.com/">
-    <meta property="og:title" content="Metriotes - Tus Objetivos, Tu Camino">
-    <meta property="og:description" content="Transforma tus objetivos en hábitos sostenibles">
+    <meta property="og:title" content="Metriotes - Herramientas para vivir una vida consciente">
+    <meta property="og:description" content="Herramientas para vivir una vida consciente">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://metriotes.com/">
-    <meta property="twitter:title" content="Metriotes - Tus Objetivos, Tu Camino">
-    <meta property="twitter:description" content="Transforma tus objetivos en hábitos sostenibles">
+    <meta property="twitter:title" content="Metriotes - Herramientas para vivir una vida consciente">
+    <meta property="twitter:description" content="Herramientas para vivir una vida consciente">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -27,129 +34,97 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --background: #ffffff;
-            --surface: #f9fafb;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: var(--text);
-            background: var(--background);
+            color: #1f2937;
+            background: #ffffff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Hero Fullscreen Section */
+        .hero-fullscreen {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        /* Header */
-        header {
+        .mesh-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            padding: 40px 0 20px;
+            padding: 0 20px;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .logo {
-            font-size: 2.5rem;
+        .logo-large {
+            font-family: 'Kalnia', serif;
+            font-size: 4rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
+            color: white;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .tagline {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        /* Language Toggle */
-        .lang-toggle {
-            display: inline-flex;
-            gap: 8px;
-            background: var(--surface);
-            padding: 4px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .lang-btn {
-            padding: 8px 16px;
-            border: none;
-            background: transparent;
-            color: var(--text-light);
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 24px;
-            color: white;
-            margin-bottom: 60px;
-        }
-
-        .hero h1 {
-            font-size: 2rem;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 32px;
-            padding: 0 20px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 48px;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Download Buttons */
         .download-buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
         }
 
         .store-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 14px 28px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+            gap: 16px;
+            padding: 18px 40px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: white;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 16px;
             font-weight: 600;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 240px;
-            justify-content: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            min-width: 320px;
+            justify-content: flex-start;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .store-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
         }
 
         .store-btn.disabled {
-            opacity: 0.5;
+            opacity: 0.7;
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -158,89 +133,204 @@
             font-size: 1.5rem;
         }
 
-        /* Features */
+        .coming-soon-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2f4930;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            opacity: 0.8;
+            z-index: 10;
+            user-select: none;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            50% {
+                transform: translate(-50%, 10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features-section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            background: white;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .features-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .features {
             display: grid;
-            gap: 24px;
-            margin-bottom: 60px;
+            gap: 32px;
+            margin-bottom: 100px;
         }
 
         .feature {
-            padding: 28px;
-            background: var(--surface);
-            border-radius: 16px;
-            transition: all 0.3s;
+            padding: 40px;
+            background: rgba(249, 250, 251, 0.8);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(89, 169, 85, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(89, 169, 85, 0.1), rgba(87, 190, 157, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .feature:hover::before {
+            opacity: 1;
         }
 
         .feature:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 24px 48px rgba(89, 169, 85, 0.2);
+            border-color: rgba(89, 169, 85, 0.4);
+        }
+
+        .feature-content {
+            position: relative;
+            z-index: 1;
         }
 
         .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .feature:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            color: var(--text);
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #1f2937;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .feature p {
-            color: var(--text-light);
-            line-height: 1.6;
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px 0;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            border-top: 1px solid #e5e7eb;
-            margin-top: 60px;
+            padding: 60px 20px 40px;
+            color: #6b7280;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(89, 169, 85, 0.1);
         }
 
         .footer-links {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: var(--text-light);
+            color: #6b7280;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #59a955;
+            transition: width 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: var(--primary);
+            color: #59a955;
         }
 
-        .coming-soon-badge {
-            display: inline-block;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 8px;
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-links span {
+            color: rgba(107, 114, 128, 0.4);
         }
 
         /* Responsive */
         @media (min-width: 768px) {
-            .container {
-                padding: 40px;
+            .logo-large {
+                font-size: 7rem;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .tagline {
+                font-size: 1.5rem;
             }
 
             .download-buttons {
@@ -253,110 +343,121 @@
             }
         }
 
-        .hidden {
-            display: none;
+        @media (min-width: 1024px) {
+            .logo-large {
+                font-size: 8rem;
+            }
+
+            .tagline {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Fallback for browsers that don't support backdrop-filter */
+        @supports not (backdrop-filter: blur(10px)) {
+            .store-btn {
+                background: rgba(255, 255, 255, 0.8);
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">Metriotes</div>
+    <!-- Hero Fullscreen -->
+    <section class="hero-fullscreen">
+        <canvas id="mesh-gradient" class="mesh-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="logo-large">Metriotes</h1>
+            <p class="tagline" data-i18n="tagline">Herramientas para vivir una vida consciente</p>
 
-            <div class="lang-toggle">
-                <button class="lang-btn active" data-lang="es">Español</button>
-                <button class="lang-btn" data-lang="en">English</button>
+            <div class="download-buttons">
+                <a href="#" class="store-btn disabled">
+                    <span class="store-icon"></span>
+                    <span>
+                        <div style="font-size: 0.7rem; opacity: 0.9;" data-i18n="download-on">Descargar en</div>
+                        <div>App Store</div>
+                    </span>
+                    <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
+                </a>
+                <a href="#" class="store-btn disabled">
+                    <span class="store-icon">▶</span>
+                    <span>
+                        <div style="font-size: 0.7rem; opacity: 0.9;" data-i18n="get-it-on">Disponible en</div>
+                        <div>Google Play</div>
+                    </span>
+                    <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
+                </a>
             </div>
-        </header>
+        </div>
+        <div class="scroll-indicator"
+            onclick="document.querySelector('.features-section').scrollIntoView({behavior: 'smooth'})">↓</div>
+    </section>
 
-        <main>
-            <!-- Hero Section -->
-            <section class="hero">
-                <div data-i18n-group="hero">
-                    <h1 data-i18n="hero-title">Tus Objetivos, Tu Camino</h1>
-                    <p data-i18n="hero-description">
-                        Transforma tus objetivos en hábitos sostenibles.
-                        Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.
-                    </p>
-                </div>
-
-                <div class="download-buttons">
-                    <a href="#" class="store-btn disabled">
-                        <span class="store-icon"></span>
-                        <span>
-                            <div style="font-size: 0.7rem; opacity: 0.8;" data-i18n="download-on">Descargar en</div>
-                            <div>App Store</div>
-                        </span>
-                        <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
-                    </a>
-                    <a href="#" class="store-btn disabled">
-                        <span class="store-icon">▶</span>
-                        <span>
-                            <div style="font-size: 0.7rem; opacity: 0.8;" data-i18n="get-it-on">Disponible en</div>
-                            <div>Google Play</div>
-                        </span>
-                        <span class="coming-soon-badge" data-i18n="coming-soon">Próximamente</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Features -->
-            <section class="features">
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <div class="features">
                 <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <h3 data-i18n="feature1-title">Objetivos Personalizados</h3>
-                    <p data-i18n="feature1-desc">
-                        Crea objetivos que se adapten a tu vida y ritmo personal.
-                        Define tu propio camino hacia el éxito.
-                    </p>
+                    <div class="feature-content">
+                        <div class="feature-icon">🎯</div>
+                        <h3 data-i18n="feature1-title">Objetivos Personalizados</h3>
+                        <p data-i18n="feature1-desc">
+                            Crea objetivos que se adapten a tu vida y ritmo personal.
+                            Define tu propio camino hacia el éxito.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="feature">
-                    <div class="feature-icon">📊</div>
-                    <h3 data-i18n="feature2-title">Seguimiento Visual</h3>
-                    <p data-i18n="feature2-desc">
-                        Visualiza tu progreso con gráficos intuitivos.
-                        Mantén la motivación viendo cuánto has avanzado.
-                    </p>
+                    <div class="feature-content">
+                        <div class="feature-icon">📊</div>
+                        <h3 data-i18n="feature2-title">Seguimiento Visual</h3>
+                        <p data-i18n="feature2-desc">
+                            Visualiza tu progreso con gráficos intuitivos.
+                            Mantén la motivación viendo cuánto has avanzado.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="feature">
-                    <div class="feature-icon">🔔</div>
-                    <h3 data-i18n="feature3-title">Recordatorios Inteligentes</h3>
-                    <p data-i18n="feature3-desc">
-                        Recibe notificaciones en el momento perfecto.
-                        Nunca olvides trabajar en tus objetivos.
-                    </p>
+                    <div class="feature-content">
+                        <div class="feature-icon">🔔</div>
+                        <h3 data-i18n="feature3-title">Recordatorios Inteligentes</h3>
+                        <p data-i18n="feature3-desc">
+                            Recibe notificaciones en el momento perfecto.
+                            Nunca olvides trabajar en tus objetivos.
+                        </p>
+                    </div>
                 </div>
 
                 <div class="feature">
-                    <div class="feature-icon">💡</div>
-                    <h3 data-i18n="feature4-title">Plantillas Inspiradoras</h3>
-                    <p data-i18n="feature4-desc">
-                        Comienza rápido con plantillas prediseñadas.
-                        O crea objetivos completamente personalizados.
-                    </p>
+                    <div class="feature-content">
+                        <div class="feature-icon">💡</div>
+                        <h3 data-i18n="feature4-title">Plantillas Inspiradoras</h3>
+                        <p data-i18n="feature4-desc">
+                            Comienza rápido con plantillas prediseñadas.
+                            O crea objetivos completamente personalizados.
+                        </p>
+                    </div>
                 </div>
-            </section>
-        </main>
-
-        <footer>
-            <div class="footer-links">
-                <a href="privacy.html" data-i18n="privacy-link">Política de Privacidad</a>
-                <span>•</span>
-                <a href="terms.html" data-i18n="terms-link">Términos de Servicio</a>
             </div>
-            <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
-        </footer>
-    </div>
+
+            <footer>
+                <div class="footer-links">
+                    <a href="privacy.html" data-i18n="privacy-link">Política de Privacidad</a>
+                    <span>•</span>
+                    <a href="terms.html" data-i18n="terms-link">Términos de Servicio</a>
+                </div>
+                <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
+            </footer>
+        </div>
+    </section>
 
     <script>
         // Traducciones
         const translations = {
             es: {
-                'hero-title': 'Tus Objetivos, Tu Camino',
-                'hero-description': 'Transforma tus objetivos en hábitos sostenibles. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.',
+                'tagline': 'Herramientas para vivir una vida consciente',
                 'download-on': 'Descargar en',
                 'get-it-on': 'Disponible en',
                 'coming-soon': 'Próximamente',
@@ -373,8 +474,7 @@
                 'terms-link': 'Términos de Servicio'
             },
             en: {
-                'hero-title': 'Your Goals, Your Path',
-                'hero-description': 'Transform your goals into sustainable habits. Metriotes helps you create a personalized plan to achieve your goals.',
+                'tagline': 'Tools for conscious living',
                 'download-on': 'Download on',
                 'get-it-on': 'Get it on',
                 'coming-soon': 'Coming Soon',
@@ -392,7 +492,7 @@
             }
         };
 
-        // Detectar idioma del navegador
+        // Detectar idioma del navegador automáticamente
         let currentLang = (navigator.language || navigator.userLanguage).split('-')[0];
         if (!translations[currentLang]) {
             currentLang = 'es'; // Default a español
@@ -400,13 +500,7 @@
 
         // Función para cambiar idioma
         function setLanguage(lang) {
-            currentLang = lang;
             document.documentElement.lang = lang;
-
-            // Actualizar botones
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
 
             // Actualizar textos
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -420,20 +514,136 @@
             localStorage.setItem('preferredLang', lang);
         }
 
-        // Event listeners para botones de idioma
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                setLanguage(btn.dataset.lang);
-            });
-        });
-
         // Cargar idioma guardado o detectado
         const savedLang = localStorage.getItem('preferredLang');
         if (savedLang && translations[savedLang]) {
-            setLanguage(savedLang);
-        } else {
-            setLanguage(currentLang);
+            currentLang = savedLang;
         }
+        setLanguage(currentLang);
+
+        // Mesh Gradient Animation
+        class MeshGradient {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.colors = [
+                    { r: 89, g: 169, b: 85 },    // Verde principal
+                    { r: 1, g: 21, b: 86 },      // Azul oscuro
+                    { r: 229, g: 155, b: 4 },    // Amarillo/Naranja
+                    { r: 47, g: 73, b: 48 },     // Verde oscuro
+                    { r: 244, g: 143, b: 118 },  // Rosa/Coral
+                    { r: 238, g: 220, b: 195 },  // Beige claro
+                    { r: 126, g: 143, b: 49 },   // Verde oliva
+                    { r: 87, g: 190, b: 157 }    // Verde agua
+                ];
+                this.points = [];
+                this.time = 0;
+                this.init();
+            }
+
+            init() {
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.createPoints();
+                this.animate();
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            createPoints() {
+                const gridSize = window.innerWidth < 768 ? 4 : 5;
+                this.points = [];
+
+                for (let i = 0; i < gridSize; i++) {
+                    for (let j = 0; j < gridSize; j++) {
+                        this.points.push({
+                            x: (i / (gridSize - 1)) * this.canvas.width,
+                            y: (j / (gridSize - 1)) * this.canvas.height,
+                            baseX: (i / (gridSize - 1)) * this.canvas.width,
+                            baseY: (j / (gridSize - 1)) * this.canvas.height,
+                            color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                            phase: Math.random() * Math.PI * 2,
+                            radius: Math.max(this.canvas.width, this.canvas.height) * 0.6
+                        });
+                    }
+                }
+            }
+
+            drawGradient() {
+                const ctx = this.ctx;
+
+                // Usar gradientes radiales de canvas en lugar de pixel by pixel
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Primero, llenar con un color base suave
+                const baseGradient = ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+                baseGradient.addColorStop(0, `rgb(${this.colors[0].r}, ${this.colors[0].g}, ${this.colors[0].b})`);
+                baseGradient.addColorStop(1, `rgb(${this.colors[1].r}, ${this.colors[1].g}, ${this.colors[1].b})`);
+                ctx.fillStyle = baseGradient;
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Aplicar modo de mezcla para los círculos
+                ctx.globalCompositeOperation = 'screen';
+
+                // Dibujar círculos con gradientes radiales
+                this.points.forEach(point => {
+                    const gradient = ctx.createRadialGradient(
+                        point.x, point.y, 0,
+                        point.x, point.y, point.radius
+                    );
+
+                    const color = point.color;
+                    gradient.addColorStop(0, `rgba(${color.r}, ${color.g}, ${color.b}, 0.8)`);
+                    gradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, 0.4)`);
+                    gradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                });
+
+                // Restaurar modo de mezcla
+                ctx.globalCompositeOperation = 'source-over';
+
+                // Aplicar un overlay sutil para suavizar más
+                const overlay = ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+                overlay.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
+                overlay.addColorStop(1, 'rgba(0, 0, 0, 0.05)');
+                ctx.fillStyle = overlay;
+                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+
+            animate() {
+                this.time += 0.003;
+
+                // Actualizar posiciones de puntos con movimiento más suave
+                this.points.forEach(point => {
+                    const moveRange = window.innerWidth < 768 ? 60 : 100;
+                    point.x = point.baseX + Math.sin(this.time + point.phase) * moveRange;
+                    point.y = point.baseY + Math.cos(this.time * 0.7 + point.phase) * moveRange;
+                });
+
+                this.drawGradient();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Inicializar mesh gradient
+        const canvas = document.getElementById('mesh-gradient');
+        new MeshGradient(canvas);
+
+        // Intersection Observer para efecto fade en features
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(document.querySelector('.features-section'));
 
         // Manejar deep links a templates
         const path = window.location.pathname;
@@ -441,25 +651,17 @@
 
         if (templateMatch) {
             const templateId = templateMatch[1];
-
-            // Intentar abrir en la app si está instalada
             const appScheme = `metriotes://template/${templateId}`;
-
-            // Crear un iframe oculto para intentar abrir la app
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = appScheme;
             document.body.appendChild(iframe);
 
-            // Si la app no se abre en 2 segundos, mostrar mensaje
             setTimeout(() => {
                 document.body.removeChild(iframe);
-
-                // Mostrar mensaje de descarga
                 const message = currentLang === 'es'
                     ? 'Descarga Metriotes para ver este objetivo'
                     : 'Download Metriotes to view this goal';
-
                 alert(message);
             }, 2000);
         }

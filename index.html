@@ -203,6 +203,25 @@
             margin-top: 60px;
         }
 
+        .footer-links {
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
         .coming-soon-badge {
             display: inline-block;
             background: #fef3c7;
@@ -323,6 +342,11 @@
         </main>
 
         <footer>
+            <div class="footer-links">
+                <a href="privacy.html" data-i18n="privacy-link">Política de Privacidad</a>
+                <span>•</span>
+                <a href="terms.html" data-i18n="terms-link">Términos de Servicio</a>
+            </div>
             <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
         </footer>
     </div>
@@ -344,7 +368,9 @@
                 'feature3-desc': 'Recibe notificaciones en el momento perfecto. Nunca olvides trabajar en tus objetivos.',
                 'feature4-title': 'Plantillas Inspiradoras',
                 'feature4-desc': 'Comienza rápido con plantillas prediseñadas. O crea objetivos completamente personalizados.',
-                'footer': '© 2026 Metriotes. Todos los derechos reservados.'
+                'footer': '© 2026 Metriotes. Todos los derechos reservados.',
+                'privacy-link': 'Política de Privacidad',
+                'terms-link': 'Términos de Servicio'
             },
             en: {
                 'hero-title': 'Your Goals, Your Path',
@@ -360,7 +386,9 @@
                 'feature3-desc': 'Receive notifications at the perfect time. Never forget to work on your goals.',
                 'feature4-title': 'Inspiring Templates',
                 'feature4-desc': 'Get started quickly with pre-designed templates. Or create completely custom goals.',
-                'footer': '© 2026 Metriotes. All rights reserved.'
+                'footer': '© 2026 Metriotes. All rights reserved.',
+                'privacy-link': 'Privacy Policy',
+                'terms-link': 'Terms of Service'
             }
         };
 

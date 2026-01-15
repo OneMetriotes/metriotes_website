@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title">Términos de Servicio - Metriotes</title>
+    <meta name="description" content="Términos de Servicio de Metriotes">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --background: #ffffff;
+            --surface: #f9fafb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: inline-flex;
+            gap: 8px;
+            background: var(--surface);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Content */
+        .content {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .last-updated {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        ul {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text);
+        }
+
+        .placeholder {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+
+        .placeholder p {
+            color: #92400e;
+            margin: 0;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo">Metriotes</div>
+            </a>
+
+            <div class="lang-toggle">
+                <button class="lang-btn active" data-lang="es">Español</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="content">
+                <h1 data-i18n="title">Términos de Servicio</h1>
+                <p class="last-updated" data-i18n="last-updated">Última actualización: 15 de enero de 2026</p>
+
+                <div class="placeholder">
+                    <p data-i18n="placeholder-text">📝 Esta página está lista para que agregues el contenido de los Términos de Servicio. Puedes editar el archivo terms.html directamente.</p>
+                </div>
+
+                <p data-i18n="intro">Al utilizar Metriotes, aceptas los siguientes términos y condiciones de servicio.</p>
+
+                <h2 data-i18n="section1-title">1. Aceptación de los Términos</h2>
+                <p data-i18n="section1-text">[Aquí puedes describir cómo el usuario acepta estos términos al usar la aplicación]</p>
+
+                <h2 data-i18n="section2-title">2. Descripción del Servicio</h2>
+                <p data-i18n="section2-text">[Describe qué ofrece Metriotes y cómo funciona el servicio]</p>
+
+                <h2 data-i18n="section3-title">3. Cuenta de Usuario</h2>
+                <p data-i18n="section3-text">[Explica los requisitos y responsabilidades relacionadas con la cuenta de usuario]</p>
+
+                <h2 data-i18n="section4-title">4. Uso Aceptable</h2>
+                <p data-i18n="section4-text">[Define qué usos están permitidos y cuáles están prohibidos]</p>
+
+                <h2 data-i18n="section5-title">5. Propiedad Intelectual</h2>
+                <p data-i18n="section5-text">[Especifica los derechos de propiedad intelectual sobre la aplicación y sus contenidos]</p>
+
+                <h2 data-i18n="section6-title">6. Limitación de Responsabilidad</h2>
+                <p data-i18n="section6-text">[Define las limitaciones de responsabilidad de Metriotes]</p>
+
+                <h2 data-i18n="section7-title">7. Modificaciones del Servicio</h2>
+                <p data-i18n="section7-text">[Explica cómo y cuándo se pueden modificar los términos o el servicio]</p>
+
+                <h2 data-i18n="section8-title">8. Terminación</h2>
+                <p data-i18n="section8-text">[Describe las condiciones bajo las cuales se puede terminar el servicio o la cuenta]</p>
+
+                <h2 data-i18n="section9-title">9. Ley Aplicable y Jurisdicción</h2>
+                <p data-i18n="section9-text">[Especifica la ley aplicable y la jurisdicción para resolver disputas]</p>
+
+                <h2 data-i18n="section10-title">10. Contacto</h2>
+                <p data-i18n="section10-text">Para cualquier consulta sobre estos términos, puedes contactarnos en: info.metriotes@gmail.com</p>
+
+                <div style="margin-top: 40px;">
+                    <a href="index.html" class="back-btn">
+                        <span>←</span>
+                        <span data-i18n="back-home">Volver al inicio</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Traducciones
+        const translations = {
+            es: {
+                'page-title': 'Términos de Servicio - Metriotes',
+                'title': 'Términos de Servicio',
+                'last-updated': 'Última actualización: 15 de enero de 2026',
+                'placeholder-text': '📝 Esta página está lista para que agregues el contenido de los Términos de Servicio. Puedes editar el archivo terms.html directamente.',
+                'intro': 'Al utilizar Metriotes, aceptas los siguientes términos y condiciones de servicio.',
+                'section1-title': '1. Aceptación de los Términos',
+                'section1-text': '[Aquí puedes describir cómo el usuario acepta estos términos al usar la aplicación]',
+                'section2-title': '2. Descripción del Servicio',
+                'section2-text': '[Describe qué ofrece Metriotes y cómo funciona el servicio]',
+                'section3-title': '3. Cuenta de Usuario',
+                'section3-text': '[Explica los requisitos y responsabilidades relacionadas con la cuenta de usuario]',
+                'section4-title': '4. Uso Aceptable',
+                'section4-text': '[Define qué usos están permitidos y cuáles están prohibidos]',
+                'section5-title': '5. Propiedad Intelectual',
+                'section5-text': '[Especifica los derechos de propiedad intelectual sobre la aplicación y sus contenidos]',
+                'section6-title': '6. Limitación de Responsabilidad',
+                'section6-text': '[Define las limitaciones de responsabilidad de Metriotes]',
+                'section7-title': '7. Modificaciones del Servicio',
+                'section7-text': '[Explica cómo y cuándo se pueden modificar los términos o el servicio]',
+                'section8-title': '8. Terminación',
+                'section8-text': '[Describe las condiciones bajo las cuales se puede terminar el servicio o la cuenta]',
+                'section9-title': '9. Ley Aplicable y Jurisdicción',
+                'section9-text': '[Especifica la ley aplicable y la jurisdicción para resolver disputas]',
+                'section10-title': '10. Contacto',
+                'section10-text': 'Para cualquier consulta sobre estos términos, puedes contactarnos en: info.metriotes@gmail.com',
+                'back-home': 'Volver al inicio',
+                'footer': '© 2026 Metriotes. Todos los derechos reservados.'
+            },
+            en: {
+                'page-title': 'Terms of Service - Metriotes',
+                'title': 'Terms of Service',
+                'last-updated': 'Last updated: January 15, 2026',
+                'placeholder-text': '📝 This page is ready for you to add the Terms of Service content. You can edit the terms.html file directly.',
+                'intro': 'By using Metriotes, you agree to the following terms and conditions of service.',
+                'section1-title': '1. Acceptance of Terms',
+                'section1-text': '[Here you can describe how the user accepts these terms by using the application]',
+                'section2-title': '2. Service Description',
+                'section2-text': '[Describe what Metriotes offers and how the service works]',
+                'section3-title': '3. User Account',
+                'section3-text': '[Explain the requirements and responsibilities related to the user account]',
+                'section4-title': '4. Acceptable Use',
+                'section4-text': '[Define what uses are permitted and which are prohibited]',
+                'section5-title': '5. Intellectual Property',
+                'section5-text': '[Specify intellectual property rights over the application and its contents]',
+                'section6-title': '6. Limitation of Liability',
+                'section6-text': '[Define the limitations of liability for Metriotes]',
+                'section7-title': '7. Service Modifications',
+                'section7-text': '[Explain how and when the terms or service can be modified]',
+                'section8-title': '8. Termination',
+                'section8-text': '[Describe the conditions under which the service or account can be terminated]',
+                'section9-title': '9. Applicable Law and Jurisdiction',
+                'section9-text': '[Specify the applicable law and jurisdiction for resolving disputes]',
+                'section10-title': '10. Contact',
+                'section10-text': 'For any questions about these terms, you can contact us at: info.metriotes@gmail.com',
+                'back-home': 'Back to home',
+                'footer': '© 2026 Metriotes. All rights reserved.'
+            }
+        };
+
+        // Detectar idioma del navegador
+        let currentLang = (navigator.language || navigator.userLanguage).split('-')[0];
+        if (!translations[currentLang]) {
+            currentLang = 'es'; // Default a español
+        }
+
+        // Función para cambiar idioma
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.title = translations[lang]['page-title'];
+
+            // Actualizar botones
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Actualizar textos
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.dataset.i18n;
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Guardar preferencia
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Event listeners para botones de idioma
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Cargar idioma guardado o detectado
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && translations[savedLang]) {
+            setLanguage(savedLang);
+        } else {
+            setLanguage(currentLang);
+        }
+    </script>
+</body>
+
+</html>

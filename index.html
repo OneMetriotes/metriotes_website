@@ -645,12 +645,13 @@
 
         observer.observe(document.querySelector('.features-section'));
 
-        // Manejar deep links a templates
+        // Manejar deep links a templates con URLs traducidas
         const path = window.location.pathname;
-        const templateMatch = path.match(/^\/template\/(\d+)$/);
+        // Formato: /objetivos/slug-123 o /goals/slug-123
+        const templateMatch = path.match(/^\/(objetivos|goals)\/(.+)-(\d+)$/);
 
         if (templateMatch) {
-            const templateId = templateMatch[1];
+            const templateId = templateMatch[3]; // Extraer el ID del formato "slug-123"
             const appScheme = `metriotes://template/${templateId}`;
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
@@ -659,7 +660,9 @@
 
             setTimeout(() => {
                 document.body.removeChild(iframe);
-                const message = currentLang === 'es'
+                // Determinar idioma según la URL
+                const isSpanish = path.startsWith('/objetivos');
+                const message = isSpanish
                     ? 'Descarga Metriotes para ver este objetivo'
                     : 'Download Metriotes to view this goal';
                 alert(message);

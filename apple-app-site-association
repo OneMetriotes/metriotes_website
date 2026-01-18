@@ -5,7 +5,6 @@
       {
         "appID": "W3PHUFUMUY.com.metriotes.metriotesFront",
         "paths": [
-          "/objetivos/*",
           "/goals/*"
         ]
       }

@@ -645,13 +645,25 @@
 
         observer.observe(document.querySelector('.features-section'));
 
-        // Manejar deep links a templates con URLs traducidas
-        const path = window.location.pathname;
-        // Formato: /objetivos/slug-123 o /goals/slug-123
-        const templateMatch = path.match(/^\/(objetivos|goals)\/(.+)-(\d+)$/);
+        // Función para decodificar Base62
+        function decodeBase62(encoded) {
+            const alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let num = 0;
+            for (let char of encoded) {
+                num = num * 62 + alphabet.indexOf(char);
+            }
+            return num;
+        }
 
-        if (templateMatch) {
-            const templateId = templateMatch[3]; // Extraer el ID del formato "slug-123"
+        // Manejar deep links con hash Base62
+        const path = window.location.pathname;
+        const hashMatch = path.match(/^\/goals\/([a-zA-Z0-9]+)$/);
+
+        if (hashMatch) {
+            const hash = hashMatch[1];
+            const templateId = decodeBase62(hash);
+            
+            // Intentar abrir en la app
             const appScheme = `metriotes://template/${templateId}`;
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
@@ -660,9 +672,7 @@
 
             setTimeout(() => {
                 document.body.removeChild(iframe);
-                // Determinar idioma según la URL
-                const isSpanish = path.startsWith('/objetivos');
-                const message = isSpanish
+                const message = currentLang === 'es'
                     ? 'Descarga Metriotes para ver este objetivo'
                     : 'Download Metriotes to view this goal';
                 alert(message);

@@ -3,9 +3,10 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.metriotes.Metriotes",
+      "package_name": "com.metriotes.metriotes_front",
       "sha256_cert_fingerprints": [
-        "YOUR_SHA256_FINGERPRINT_HERE"
+        "PLACEHOLDER_SHA256_FINGERPRINT_DEBUG",
+        "PLACEHOLDER_SHA256_FINGERPRINT_RELEASE"
       ]
     }
   }

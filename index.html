@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metriotes - Herramientas para vivir una vida consciente</title>
+    <title>Metriotes</title>
     <meta name="description"
         content="Herramientas para vivir una vida consciente. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.">
 
@@ -662,7 +662,7 @@
         if (hashMatch) {
             const hash = hashMatch[1];
             const templateId = decodeBase62(hash);
-            
+
             // Intentar abrir en la app
             const appScheme = `metriotes://template/${templateId}`;
             const iframe = document.createElement('iframe');

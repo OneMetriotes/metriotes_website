@@ -117,14 +117,17 @@
 
         .store-btn.app-store-btn {
             justify-content: center;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.95);
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            min-width: unset;
         }
 
         .store-btn.app-store-btn:hover {
-            background: rgba(255, 255, 255, 1);
+            background: transparent;
+            box-shadow: none;
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
         }
 
         .store-btn:hover {
@@ -196,37 +199,6 @@
         }
 
         /* Download Section */
-        .download-section {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #59a955 0%, #57be9d 100%);
-            text-align: center;
-            color: white;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .download-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .download-section h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        .download-section p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         .app-store-link {
             display: inline-block;
             transition: transform 0.3s ease, opacity 0.3s ease;
@@ -414,14 +386,6 @@
                 justify-content: center;
             }
 
-            .download-section h2 {
-                font-size: 2.5rem;
-            }
-
-            .download-section p {
-                font-size: 1.3rem;
-            }
-
             .app-store-link img {
                 height: 70px;
             }
@@ -438,10 +402,6 @@
 
             .tagline {
                 font-size: 1.6rem;
-            }
-
-            .download-section h2 {
-                font-size: 3rem;
             }
 
             .app-store-link img {
@@ -488,16 +448,7 @@
             </div>
         </div>
         <div class="scroll-indicator"
-            onclick="document.querySelector('.download-section').scrollIntoView({behavior: 'smooth'})">↓</div>
-    </section>
-
-    <!-- Download Section -->
-    <section class="download-section">
-        <h2 data-i18n="download-title">Ya estamos en vivo</h2>
-        <p data-i18n="download-text">Estás oficialmente invitado a ver las novedades. Descarga en la App Store hoy.</p>
-        <a href="https://apple.co/3LX7yom" class="app-store-link" target="_blank" rel="noopener">
-            <img id="app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store">
-        </a>
+            onclick="document.querySelector('.features-section').scrollIntoView({behavior: 'smooth'})">↓</div>
     </section>
 
     <!-- Features Section -->
@@ -545,6 +496,16 @@
                         <p data-i18n="feature4-desc">
                             Tus datos son completamente privados. Nada se comparte.
                             Metriotes es un espacio seguro, solo para ti.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-content">
+                        <h3 data-i18n="feature5-title">Objetivos Compartidos</h3>
+                        <p data-i18n="feature5-desc">
+                            Algunas metas se alcanzan mejor en compañía. Comparte objetivos con quien quieras y avancen
+                            juntos: más motivación, más compromiso y la satisfacción de crecer acompañado.
                         </p>
                     </div>
                 </div>
@@ -611,6 +572,8 @@
                 'feature3-desc': 'Convierte tus objetivos en acciones concretas. Tareas con fechas específicas y hábitos diarios o semanales. Cada día, verás solo lo que necesitas hacer hoy, manteniendo tu enfoque claro y tu mente tranquila.',
                 'feature4-title': 'Privacidad Total',
                 'feature4-desc': 'Tus datos son completamente privados. Nada se comparte. Metriotes es un espacio seguro, solo para ti.',
+                'feature5-title': 'Objetivos Compartidos',
+                'feature5-desc': 'Algunas metas se alcanzan mejor en compañía. Comparte objetivos con quien quieras y avancen juntos: más motivación, más compromiso y la satisfacción de crecer acompañado.',
                 'footer': '© 2026 Metriotes. Todos los derechos reservados.',
                 'privacy-link': 'Política de Privacidad',
                 'terms-link': 'Términos de Servicio'
@@ -630,6 +593,8 @@
                 'feature3-desc': 'Turn your goals into concrete actions. Tasks with specific dates and daily or weekly habits. Each day, you\'ll see only what needs to be done today, keeping your focus clear and your mind calm.',
                 'feature4-title': 'Complete Privacy',
                 'feature4-desc': 'Your data is completely private. Nothing is shared. Metriotes is a safe space, just for you.',
+                'feature5-title': 'Shared Goals',
+                'feature5-desc': 'Some goals are better achieved together. Share goals with whoever you want and move forward as a team: more motivation, more commitment, and the satisfaction of growing side by side.',
                 'footer': '© 2026 Metriotes. All rights reserved.',
                 'privacy-link': 'Privacy Policy',
                 'terms-link': 'Terms of Service'
@@ -810,7 +775,6 @@
             });
         }, { threshold: 0.2 });
 
-        observer.observe(document.querySelector('.download-section'));
         observer.observe(document.querySelector('.features-section'));
 
         // Función para decodificar Base62

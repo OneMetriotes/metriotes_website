@@ -20,527 +20,1184 @@
     <meta property="twitter:title" content="Metriotes - Herramientas para vivir una vida consciente">
     <meta property="twitter:description" content="Herramientas para vivir una vida consciente">
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ─── Design Tokens ─────────────────────────────────── */
+        :root {
+            --terra:            #C4622D;
+            --terra-dark:       #9A4820;
+            --terra-light:      rgba(196,98,45,0.1);
+            --terra-glow:       rgba(196,98,45,0.2);
+            --amber:            #D4833A;
+            --canvas:           #FAF7F4;
+            --surface:          #FFFFFF;
+            --surface-raised:   #F5F0EB;
+            --text-primary:     #1C1410;
+            --text-secondary:   #7A6658;
+            --text-muted:       #A8968A;
+            --border:           rgba(196,98,45,0.12);
+            --border-strong:    rgba(196,98,45,0.22);
+            --shadow-card:      0 1px 3px rgba(28,20,16,0.04), 0 8px 24px rgba(28,20,16,0.07);
+            --shadow-card-hover:0 4px 6px rgba(28,20,16,0.05), 0 20px 48px rgba(28,20,16,0.12);
+            --ease-spring:      cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out:         cubic-bezier(0.0, 0, 0.2, 1);
+            --section-py:       clamp(5rem, 9vw, 9rem);
+            --container:        1400px;
         }
 
+        /* ─── Reset ──────────────────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-            background: #ffffff;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.65;
+            color: var(--text-primary);
+            background: var(--canvas);
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
         }
+        img { display: block; max-width: 100%; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-        /* Hero Fullscreen Section */
-        .hero-fullscreen {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .mesh-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 0 20px;
-            max-width: 900px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .logo-large {
-            font-family: 'Kalnia', serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: black;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: black;
-            margin-bottom: 48px;
-            font-weight: 400;
-        }
-
-        /* Download Buttons */
-        .download-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .store-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 40px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: white;
-            text-decoration: none;
-            border-radius: 16px;
-            font-weight: 600;
-            transition: all 0.4s ease;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            min-width: 320px;
-            justify-content: flex-start;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .store-btn.app-store-btn {
-            justify-content: center;
-            padding: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            min-width: unset;
-        }
-
-        .store-btn.app-store-btn:hover {
-            background: transparent;
-            box-shadow: none;
-            transform: translateY(-4px);
-        }
-
-        .store-btn:hover {
-            background: rgba(255, 255, 255, 0.35);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .store-btn.disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .store-icon {
-            font-size: 1.5rem;
-        }
-
-        .coming-soon-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.9);
-            color: #2f4930;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-left: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            opacity: 0.8;
-            z-index: 10;
-            user-select: none;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translate(-50%, 0);
-            }
-
-            50% {
-                transform: translate(-50%, 10px);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Download Section */
-        .app-store-link {
-            display: inline-block;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .app-store-link:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        .app-store-link img {
-            height: 60px;
-            width: auto;
-        }
-
-        /* Features Section */
-        .features-section {
-            min-height: 100vh;
-            padding: 100px 20px;
-            background: white;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .features-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .features-container {
-            max-width: 1200px;
+        /* ─── Shared Layout ──────────────────────────────────── */
+        .section-container {
+            max-width: var(--container);
             margin: 0 auto;
+            padding: var(--section-py) clamp(1.25rem, 4vw, 3rem);
+        }
+        .section-intro { margin-bottom: 3.5rem; }
+        .section-heading {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--text-primary);
+            max-width: 36ch;
+        }
+        .section-sub {
+            margin-top: 1rem;
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            max-width: 52ch;
+            line-height: 1.7;
         }
 
-        .features {
-            display: grid;
-            gap: 32px;
-            margin-bottom: 100px;
+        /* ─── Navigation ─────────────────────────────────────── */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253,251,247,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 300ms var(--ease-out);
         }
+        .site-nav.scrolled {
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+        }
+        .nav-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 200ms var(--ease-out);
+        }
+        .nav-link:hover { color: var(--text-primary); }
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: none;
+            border: 1px solid var(--border-strong);
+            border-radius: 9999px;
+            padding: 0.3rem 0.875rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: border-color 200ms, color 200ms;
+        }
+        .lang-toggle:hover { border-color: var(--terra); color: var(--text-primary); }
+        .lang-option { transition: color 200ms; }
+        .lang-option.active { color: var(--terra); }
+        .lang-sep { opacity: 0.35; }
 
-        .feature {
-            padding: 40px;
-            background: rgba(249, 250, 251, 0.8);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(89, 169, 85, 0.2);
+        /* ─── Hero ───────────────────────────────────────────── */
+        .hero-section {
+            min-height: 100dvh;
+            background:
+                radial-gradient(ellipse 70% 55% at 85% 15%, rgba(196,98,45,0.10) 0%, transparent 55%),
+                radial-gradient(ellipse 55% 50% at 95% 85%, rgba(212,131,58,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 35% at 15% 85%, rgba(196,98,45,0.06) 0%, transparent 55%),
+                var(--canvas);
+            display: flex;
+            align-items: center;
             position: relative;
             overflow: hidden;
         }
-
-        .feature::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(89, 169, 85, 0.1), rgba(87, 190, 157, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
+        .hero-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .shape { position: absolute; }
+        .shape-1 {
+            width: clamp(400px, 50vw, 700px);
+            height: clamp(400px, 50vw, 700px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(196,98,45,0.13) 0%, transparent 70%);
+            top: -15%; right: -10%;
         }
-
-        .feature:hover::before {
-            opacity: 1;
+        .shape-2 {
+            width: clamp(280px, 32vw, 480px);
+            height: clamp(280px, 32vw, 480px);
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            background: rgba(212,131,58,0.07);
+            bottom: -10%; left: -5%;
         }
-
-        .feature:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 24px 48px rgba(89, 169, 85, 0.2);
-            border-color: rgba(89, 169, 85, 0.4);
+        .shape-3 {
+            width: clamp(100px, 12vw, 180px);
+            height: clamp(100px, 12vw, 180px);
+            border-radius: 1.5rem;
+            border: 1.5px solid rgba(196,98,45,0.18);
+            top: 28%; right: 12%;
+            transform: rotate(15deg);
         }
-
-        .feature-content {
+        .shape-4 {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            border: 1px solid rgba(196,98,45,0.2);
+            top: 16%; left: 40%;
+        }
+        .hero-grid {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+            width: 100%;
             position: relative;
             z-index: 1;
         }
-
-        .feature h3 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            color: #1f2937;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+        .hero-headline {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.0;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            max-width: 14ch;
         }
-
-        .feature p {
-            color: #6b7280;
+        .hero-sub {
+            font-size: clamp(1rem, 1.5vw, 1.175rem);
+            color: var(--text-secondary);
+            max-width: 52ch;
             line-height: 1.7;
-            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
         }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 20px 40px;
-            color: #6b7280;
-            font-size: 0.95rem;
-            border-top: 1px solid rgba(89, 169, 85, 0.1);
-        }
-
-        .social-links {
+        .hero-ctas {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 1rem;
             flex-wrap: wrap;
         }
+        .hero-store-link,
+        .hero-gplay-link {
+            display: inline-flex;
+            align-items: center;
+            height: 52px;
+            overflow: hidden;
+            transition: transform 300ms var(--ease-spring), opacity 200ms;
+        }
+        .hero-store-link:hover, .hero-gplay-link:hover { transform: translateY(-3px); }
+        .hero-store-link:active, .hero-gplay-link:active { transform: scale(0.97); }
+        .hero-store-link img { height: 52px; width: auto; }
+        .hero-gplay-link img { height: 78px; width: auto; }
 
+        /* ─── Reveal Animations ──────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 900ms var(--ease-spring),
+                        transform 900ms var(--ease-spring);
+            transition-delay: calc(var(--index, 0) * 120ms);
+        }
+        .reveal.is-loaded { opacity: 1; transform: translateY(0); }
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 800ms var(--ease-spring),
+                        transform 800ms var(--ease-spring);
+            transition-delay: calc(var(--index, 0) * 90ms);
+        }
+        [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, [data-reveal] { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* ─── Features List ──────────────────────────────────── */
+        .features-section { background: var(--canvas); }
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--border-strong);
+        }
+        .feature-item {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border-strong);
+            transition: opacity 400ms var(--ease-out);
+        }
+        .feature-item:hover { opacity: 0.65; }
+        .feature-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            padding-top: 0.3rem;
+        }
+        .feature-body h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .feature-body p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 68ch;
+        }
+        /* ─── Professionals Section ──────────────────────────── */
+        .pros-section { background: var(--text-primary); }
+        .pros-header { margin-bottom: 3rem; }
+        .pros-header .section-heading { color: #FFFFFF; max-width: 28ch; }
+        .pros-header .section-sub { color: rgba(255,255,255,0.55); }
+
+        .pros-list { border-top: 1px solid rgba(255,255,255,0.12); }
+        .pros-item {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: opacity 400ms var(--ease-out);
+        }
+        .pros-item:hover { opacity: 0.65; }
+        .pros-item-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.04em;
+            padding-top: 0.3rem;
+        }
+        .pros-item-body h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+        .pros-item-body p {
+            font-size: 0.9375rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.7;
+            max-width: 68ch;
+        }
+
+        /* ─── Pricing ────────────────────────────────────────── */
+        .pricing-section { background: var(--canvas); }
+        .pricing-group {
+            margin-bottom: 4rem;
+        }
+        .pricing-group:last-child { margin-bottom: 0; }
+        .pricing-group-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-strong);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .pricing-card {
+            border-radius: 2.5rem;
+            padding: 2.75rem;
+            border: 1px solid var(--border-strong);
+            background: var(--surface);
+            box-shadow: var(--shadow-card);
+        }
+        .pricing-card--pro {
+            background: var(--text-primary);
+            border-color: rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card--pro::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--terra), transparent);
+        }
+        .pricing-tier {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .pricing-card--pro .pricing-tier { color: var(--amber); }
+        .pricing-price {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        .pricing-card--pro .pricing-price { color: #FFFFFF; }
+        .pricing-period {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .pricing-card--pro .pricing-period { color: rgba(255,255,255,0.4); }
+        .pricing-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .pricing-card--pro .pricing-desc { color: rgba(255,255,255,0.4); }
+        .pricing-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .pricing-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .pricing-card--pro .pricing-feature { color: rgba(255,255,255,0.6); }
+        .pricing-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--terra-light);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+        .pricing-card--pro .pricing-check { background: rgba(196,98,45,0.25); }
+        .pricing-check svg { width: 10px; height: 10px; color: var(--terra); }
+        .pricing-card--pro .pricing-check svg { color: var(--amber); }
+        .pricing-cta {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.875rem;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 200ms var(--ease-spring), opacity 200ms;
+        }
+        .pricing-cta:hover { transform: translateY(-2px); opacity: 0.9; }
+        .pricing-cta:active { transform: scale(0.98); }
+        .pricing-cta--ghost {
+            background: transparent;
+            border: 1.5px solid var(--border-strong);
+            color: var(--text-primary);
+        }
+        .pricing-cta--ghost:hover { border-color: var(--text-primary); }
+        .pricing-cta--primary {
+            background: var(--terra);
+            border: 1.5px solid transparent;
+            color: #FFFFFF;
+        }
+        .pricing-popular {
+            display: inline-flex;
+            background: rgba(196,98,45,0.2);
+            color: var(--amber);
+            border-radius: 9999px;
+            padding: 0.2rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-left: 0.75rem;
+            vertical-align: middle;
+        }
+
+        /* ─── Testimonials ───────────────────────────────────── */
+        .testimonials-section { background: var(--surface-raised); overflow: hidden; }
+        .testimonials-section .section-container { padding-bottom: 0; }
+        .testimonials-carousel {
+            position: relative;
+            padding-bottom: var(--section-py);
+        }
+        .testimonials-carousel::before,
+        .testimonials-carousel::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: clamp(4rem, 8vw, 8rem);
+            z-index: 2;
+            pointer-events: none;
+        }
+        .testimonials-carousel::before {
+            left: 0;
+            background: linear-gradient(to right, var(--surface-raised) 0%, transparent 100%);
+        }
+        .testimonials-carousel::after {
+            right: 0;
+            background: linear-gradient(to left, var(--surface-raised) 0%, transparent 100%);
+        }
+        .testimonials-track {
+            display: flex;
+            gap: 1.25rem;
+            width: max-content;
+            animation: carousel-scroll 55s linear infinite;
+        }
+        .testimonials-carousel:hover .testimonials-track {
+            animation-play-state: paused;
+        }
+        @keyframes carousel-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .testimonials-track { animation: none; }
+        }
+        .testimonial-card {
+            flex: 0 0 320px;
+            background: var(--surface);
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            padding: 1.75rem;
+            position: relative;
+            user-select: none;
+        }
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 1.25rem;
+            right: 1.75rem;
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--terra-light);
+            font-weight: 900;
+            pointer-events: none;
+        }
+        .testimonial-quote {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            padding-right: 2rem;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--surface-raised);
+        }
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+        .testimonial-role {
+            font-size: 0.775rem;
+            color: var(--text-muted);
+        }
+
+        /* ─── Download CTA ───────────────────────────────────── */
+        .download-section {
+            background: var(--canvas);
+            text-align: center;
+        }
+        .download-section .section-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .download-heading {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .download-sub {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+        .download-badges {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .download-store-link {
+            display: inline-block;
+            transition: transform 300ms var(--ease-spring);
+        }
+        .download-store-link:hover { transform: translateY(-3px); }
+        .download-store-link:active { transform: scale(0.97); }
+        .download-store-link { display: inline-flex; align-items: center; height: 56px; overflow: hidden; }
+        .download-store-link img { height: 56px; width: auto; }
+        .download-gplay {
+            display: inline-flex;
+            align-items: center;
+            height: 56px;
+            overflow: hidden;
+            transition: transform 300ms var(--ease-spring);
+        }
+        .download-gplay:hover { transform: translateY(-3px); }
+        .download-gplay:active { transform: scale(0.97); }
+        .download-gplay img { height: 84px; width: auto; }
+
+        /* ─── Footer ─────────────────────────────────────────── */
+        .site-footer {
+            background: var(--text-primary);
+            padding: 3.5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
+        }
+        .footer-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer-logo {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+        .footer-copy {
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.35);
+        }
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1.25rem;
+        }
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
         .social-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(89, 169, 85, 0.1);
-            color: #59a955;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.6);
+            transition: background 250ms var(--ease-out), color 250ms, transform 300ms var(--ease-spring);
         }
-
         .social-link:hover {
-            background: #59a955;
-            color: white;
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: 0 8px 16px rgba(89, 169, 85, 0.3);
+            background: var(--terra);
+            color: #FFFFFF;
+            transform: translateY(-2px);
         }
-
+        .social-link svg { width: 18px; height: 18px; }
         .footer-links {
-            margin-bottom: 20px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            gap: 1.25rem;
         }
-
         .footer-links a {
-            color: #6b7280;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.4);
+            transition: color 200ms;
+        }
+        .footer-links a:hover { color: rgba(255,255,255,0.8); }
+        .footer-links span { color: rgba(255,255,255,0.15); }
+
+        /* ─── Responsive ─────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
+            .pricing-group { margin-bottom: 3rem; }
+            .footer-right { align-items: flex-start; }
+            .nav-link { display: none; }
         }
 
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #59a955;
-            transition: width 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #59a955;
-        }
-
-        .footer-links a:hover::after {
-            width: 100%;
-        }
-
-        .footer-links span {
-            color: rgba(107, 114, 128, 0.4);
-        }
-
-        /* Responsive */
-        @media (min-width: 768px) {
-            .logo-large {
-                font-size: 7rem;
-            }
-
-            .tagline {
-                font-size: 1.5rem;
-            }
-
-            .download-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            .app-store-link img {
-                height: 70px;
-            }
-
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .logo-large {
-                font-size: 8rem;
-            }
-
-            .tagline {
-                font-size: 1.6rem;
-            }
-
-            .app-store-link img {
-                height: 80px;
-            }
-
-            .social-link {
-                width: 56px;
-                height: 56px;
-                font-size: 1.75rem;
-            }
-        }
-
-        /* Fallback for browsers that don't support backdrop-filter */
-        @supports not (backdrop-filter: blur(10px)) {
-            .store-btn {
-                background: rgba(255, 255, 255, 0.8);
-            }
+        @media (max-width: 640px) {
+            .hero-ctas { flex-direction: column; align-items: flex-start; }
+            .feature-item,
+            .pros-item { grid-template-columns: 2rem 1fr; gap: 1rem; padding: 1.75rem 0; }
+            .shape-3, .shape-4 { display: none; }
         }
     </style>
 </head>
 
 <body>
-    <!-- Hero Fullscreen -->
-    <section class="hero-fullscreen">
-        <canvas id="mesh-gradient" class="mesh-canvas"></canvas>
-        <div class="hero-content">
-            <h1 class="logo-large">Metriotes</h1>
-            <p class="tagline" data-i18n="tagline">Herramientas para vivir una vida consciente</p>
 
-            <div class="download-buttons">
-                <a href="https://apple.co/3LX7yom" class="store-btn app-store-btn" target="_blank" rel="noopener">
-                    <img id="hero-app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store"
-                        style="height: 52px; width: auto;">
+    <!-- ── Navigation ─────────────────────────────────────────── -->
+    <nav class="site-nav" id="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="Metriotes">Metriotes</a>
+            <div class="nav-actions">
+                <a href="#profesionales" class="nav-link" data-i18n="nav-pros">Para Profesionales</a>
+                <button class="lang-toggle" id="lang-toggle" aria-label="Cambiar idioma">
+                    <span class="lang-option" data-lang="es">ES</span>
+                    <span class="lang-sep">/</span>
+                    <span class="lang-option" data-lang="en">EN</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ───────────────────────────────────────────────── -->
+    <section class="hero-section" id="hero">
+        <div class="hero-shapes" aria-hidden="true">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <div class="hero-grid">
+            <h1 class="hero-headline reveal" style="--index:0">
+                <span data-i18n="hero-line1">La persona que</span><br>
+                <span data-i18n="hero-line2">quieres ser.</span>
+            </h1>
+            <p class="hero-sub reveal" style="--index:1" data-i18n="hero-sub">
+                Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas — construyes quien eres.
+            </p>
+            <div class="hero-ctas reveal" style="--index:2">
+                <a href="https://apple.co/3LX7yom" class="hero-store-link" target="_blank" rel="noopener">
+                    <img id="hero-app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store">
                 </a>
-                <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front" class="store-btn google-play-btn" target="_blank" rel="noopener">
-                    <span>
-                        <div style="font-size: 0.7rem; opacity: 0.9; color: rgba(0, 0, 0, 0.7);" data-i18n="get-it-on">
-                            Disponible en</div>
-                        <div style="color: #000;">Google Play</div>
-                    </span>
+                <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front"
+                   class="hero-gplay-link" target="_blank" rel="noopener">
+                    <img id="hero-gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
                 </a>
             </div>
         </div>
-        <div class="scroll-indicator"
-            onclick="document.querySelector('.features-section').scrollIntoView({behavior: 'smooth'})">↓</div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="features-container">
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-content">
-                        <h3 data-i18n="feature1-title">Define tu Norte</h3>
-                        <p data-i18n="feature1-desc">
-                            Tu Norte es tu estrella guía. No es un destino final, sino la forma en que eliges vivir cada
-                            día.
-                            Con Metriotes, puedes definir tu Norte y mantenerlo presente, para que tus decisiones se
-                            alineen con lo que realmente importa.
-                        </p>
+    <!-- ── Features ──────────────────────────────────────────── -->
+    <section class="features-section" id="funcionalidades">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="features-heading">
+                    Todo lo que necesitas para convertirte en quien quieres ser
+                </h2>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item" data-reveal style="--index:0">
+                    <div class="feature-num">01</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature1-title">Tu Estrella del Norte</h3>
+                        <p data-i18n="feature1-desc">Las personas más realizadas no gestionan listas — viven desde una dirección clara. Define tu Norte y cada decisión, grande o pequeña, encontrará su lugar naturalmente.</p>
                     </div>
                 </div>
-
-                <div class="feature">
-                    <div class="feature-content">
-                        <h3 data-i18n="feature2-title">Objetivos con Propósito</h3>
-                        <p data-i18n="feature2-desc">
-                            Crea objetivos alineados con tu Norte. No se trata de hacer más, sino de hacer lo que tiene
-                            sentido para ti.
-                            Cada objetivo es un paso consciente hacia donde quieres ir.
-                        </p>
+                <div class="feature-item" data-reveal style="--index:1">
+                    <div class="feature-num">02</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature2-title">Objetivos que Importan</h3>
+                        <p data-i18n="feature2-desc">No más metas vacías. Cada objetivo en Metriotes nace de tus valores reales. Cuando empiezas, ya sabes por qué lo estás haciendo — y eso lo cambia todo.</p>
                     </div>
                 </div>
-
-                <div class="feature">
-                    <div class="feature-content">
-                        <h3 data-i18n="feature3-title">Tareas y Hábitos Diarios</h3>
-                        <p data-i18n="feature3-desc">
-                            Convierte tus objetivos en acciones concretas. Tareas con fechas específicas y hábitos
-                            diarios o semanales.
-                            Cada día, verás solo lo que necesitas hacer hoy, manteniendo tu enfoque claro y tu mente
-                            tranquila.
-                        </p>
+                <div class="feature-item" data-reveal style="--index:2">
+                    <div class="feature-num">03</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature3-title">El Día a Día que te Construye</h3>
+                        <p data-i18n="feature3-desc">Tu versión futura no aparece de golpe. Se construye en los hábitos que eliges hoy. Metriotes convierte tus grandes ambiciones en el próximo paso concreto — y luego en el siguiente.</p>
                     </div>
                 </div>
-
-                <div class="feature">
-                    <div class="feature-content">
-                        <h3 data-i18n="feature4-title">Privacidad Total</h3>
-                        <p data-i18n="feature4-desc">
-                            Tus datos son completamente privados. Nada se comparte.
-                            Metriotes es un espacio seguro, solo para ti.
-                        </p>
+                <div class="feature-item" data-reveal style="--index:3">
+                    <div class="feature-num">04</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature4-title">Solo para Ti</h3>
+                        <p data-i18n="feature4-desc">Tu crecimiento personal es tuyo. Nada se comparte sin tu permiso. Metriotes es el espacio más privado de tu día — donde puedes ser completamente honesto contigo mismo.</p>
                     </div>
                 </div>
+                <div class="feature-item" data-reveal style="--index:4">
+                    <div class="feature-num">05</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature5-title">Crecer Juntos</h3>
+                        <p data-i18n="feature5-desc">Hay metas que se sienten más posibles cuando alguien más las comparte. Une a tu pareja, amigo o compañero en los objetivos que quieres vivir juntos — y descubran hasta dónde pueden llegar.</p>
+                    </div>
+                </div>
+                <div class="feature-item" data-reveal style="--index:5">
+                    <div class="feature-num">06</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature6-title">Con Testigos que Te Sostienen</h3>
+                        <p data-i18n="feature6-desc">Cuando alguien sabe que estás en ello, es más difícil rendirse. Tus testigos ven tu progreso sin editar nada — solo están ahí para celebrarte cuando llegas.</p>
+                    </div>
+                </div>
+                <div class="feature-item" data-reveal style="--index:6">
+                    <div class="feature-num">07</div>
+                    <div class="feature-body">
+                        <h3 data-i18n="feature7-title">Los Momentos que te Revelan</h3>
+                        <p data-i18n="feature7-desc">Las mejores ideas aparecen entre medias. Captura esos momentos de claridad — sobre ti, sobre lo que quieres, sobre cómo vivir. Son el mapa de quien te estás convirtiendo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="feature">
-                    <div class="feature-content">
-                        <h3 data-i18n="feature5-title">Objetivos Compartidos</h3>
-                        <p data-i18n="feature5-desc">
-                            Algunas metas se alcanzan mejor en compañía. Comparte objetivos con quien quieras y avancen
-                            juntos: más motivación, más compromiso y la satisfacción de crecer acompañado.
-                        </p>
+    <!-- ── Professionals Section ──────────────────────────────── -->
+    <section class="pros-section" id="profesionales">
+        <div class="section-container">
+            <div class="pros-header">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="pros-heading">La plataforma que hace crecer tu práctica profesional</h2>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="pros-sub">Para coaches, psicólogos, nutricionistas, instructores de yoga, pilates y cualquier profesional del bienestar. Los mejores no solo transforman a sus clientes — construyen una presencia que los encuentra antes de que te busquen.</p>
+            </div>
+
+            <div class="pros-list">
+                <div class="pros-item" data-reveal style="--index:0">
+                    <div class="pros-item-num">01</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat1-title">Tu Vitrina Profesional</h3>
+                        <p data-i18n="pros-feat1-desc">La primera impresión lo decide todo. Construye un perfil que transmita exactamente quién eres: tu historia, tus credenciales y lo que te hace diferente — todo en un solo lugar donde tus clientes ideales puedan encontrarte.</p>
+                    </div>
+                </div>
+                <div class="pros-item" data-reveal style="--index:1">
+                    <div class="pros-item-num">02</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat2-title">Tus Eventos, Tu Audiencia</h3>
+                        <p data-i18n="pros-feat2-desc">Talleres, retiros, webinars, cursos — publica cualquier formato y ponlo delante de personas que ya están buscando lo que tú ofreces. Deja de buscar clientes. Deja que te encuentren.</p>
+                    </div>
+                </div>
+                <div class="pros-item" data-reveal style="--index:2">
+                    <div class="pros-item-num">03</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat3-title">Servicios que Cierran Solos</h3>
+                        <p data-i18n="pros-feat3-desc">Cuando un cliente potencial ve claramente tus paquetes, precios y lo que incluyen, la decisión se vuelve fácil. Define tu oferta una vez y que trabaje por ti mientras tú te dedicas a transformar vidas.</p>
+                    </div>
+                </div>
+                <div class="pros-item" data-reveal style="--index:3">
+                    <div class="pros-item-num">04</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat4-title">Credenciales que Generan Confianza</h3>
+                        <p data-i18n="pros-feat4-desc">En un mercado saturado, la confianza no se pide — se demuestra. Muestra tus certificaciones verificadas y que cada cliente sepa, desde el primer segundo, que está en manos expertas.</p>
+                    </div>
+                </div>
+                <div class="pros-item" data-reveal style="--index:4">
+                    <div class="pros-item-num">05</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat5-title">La Prueba que más Convierte</h3>
+                        <p data-i18n="pros-feat5-desc">Nada vende mejor que un cliente satisfecho hablando por ti. Recopila testimonios reales de quienes ya transformaste y conviértelos en el argumento más poderoso de tu perfil.</p>
+                    </div>
+                </div>
+                <div class="pros-item" data-reveal style="--index:5">
+                    <div class="pros-item-num">06</div>
+                    <div class="pros-item-body">
+                        <h3 data-i18n="pros-feat6-title">Datos que te Dicen qué Funciona</h3>
+                        <p data-i18n="pros-feat6-desc">Deja de adivinar. Sigue tu alcance, tus visualizaciones y tu tasa de conversión en tiempo real. Crece de forma inteligente — sabe qué funciona y multiplícalo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Pricing ─────────────────────────────────────────────── -->
+    <section class="pricing-section" id="precios">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="pricing-heading">Empieza gratis, crece con PRO</h2>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="pricing-sub">Planes separados para usuarios y profesionales — cada uno pensado para lo que realmente necesitas.</p>
+            </div>
+
+            <!-- ── Para usuarios ── -->
+            <div class="pricing-group" data-reveal style="--index:0">
+                <div class="pricing-group-label" data-i18n="pricing-group-users">Para usuarios</div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-tier" data-i18n="plan-free">Gratis</div>
+                        <div class="pricing-price">0€</div>
+                        <div class="pricing-desc" data-i18n="plan-user-free-desc">Para empezar a vivir con intención</div>
+                        <ul class="pricing-features">
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-north-star">Tu Estrella del Norte</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-goals-limit">Hasta 3 objetivos activos</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-habits">Tareas y Hábitos Diarios</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-shared-limit">2 objetivos compartidos/mes</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-privacy">Privacidad Total</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-ai-limited">Funciones de asistencia (límite mensual)</span></li>
+                        </ul>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--ghost" target="_blank" rel="noopener" data-i18n="plan-cta-free">Descargar la app</a>
+                    </div>
+
+                    <div class="pricing-card pricing-card--pro">
+                        <div class="pricing-tier">PREMIUM <span class="pricing-popular" data-i18n="plan-popular">Más popular</span></div>
+                        <div class="pricing-price">4,99€</div>
+                        <div class="pricing-period" data-i18n="plan-period">/mes</div>
+                        <div class="pricing-desc" data-i18n="plan-user-pro-desc">Sin límites para crecer sin fricción</div>
+                        <ul class="pricing-features">
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-goals">Objetivos activos ilimitados</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-shared">Objetivos compartidos ilimitados</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-smart-goals">Generación inteligente de objetivos</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-checkin">Check-in diario con voz</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-diary">Análisis de diario y emociones</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-gratitude">Reflexión de gratitud diaria</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-plan-mod">Ajuste de plan con asistencia</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-templates">Plantillas premium exclusivas</span></li>
+                        </ul>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-premium">Suscribirse</a>
                     </div>
                 </div>
             </div>
 
-            <footer>
+            <!-- ── Para profesionales ── -->
+            <div class="pricing-group" data-reveal style="--index:1">
+                <div class="pricing-group-label" data-i18n="pricing-group-pros">Para profesionales</div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-tier" data-i18n="plan-free">Gratis</div>
+                        <div class="pricing-price">0€</div>
+                        <div class="pricing-desc" data-i18n="plan-pro-free-desc">Para empezar a construir tu presencia</div>
+                        <ul class="pricing-features">
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-profile">Perfil profesional público</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-1-event">Hasta 1 evento publicado</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-2-services">Hasta 2 servicios</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-certs">Certificaciones verificadas</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-testimonials-pro">Testimonios de clientes</span></li>
+                        </ul>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--ghost" target="_blank" rel="noopener" data-i18n="plan-cta-free-pro">Empezar gratis</a>
+                    </div>
+
+                    <div class="pricing-card pricing-card--pro">
+                        <div class="pricing-tier">PRO <span class="pricing-popular" data-i18n="plan-popular">Más popular</span></div>
+                        <div class="pricing-price">19,99€</div>
+                        <div class="pricing-period" data-i18n="plan-period">/mes</div>
+                        <div class="pricing-desc" data-i18n="plan-pro-pro-desc">Para profesionales que quieren crecer sin límites</div>
+                        <ul class="pricing-features">
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-events">Eventos ilimitados</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-services">Servicios ilimitados</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-priority-listing">Posición prioritaria en el directorio</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-pro-badge">Badge PRO en tu perfil</span></li>
+                            <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-analytics">Panel de analítica avanzada</span></li>
+                        </ul>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-premium">Suscribirse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Testimonials ────────────────────────────────────────── -->
+    <section class="testimonials-section" id="testimonios">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="testimonials-heading">Lo que dicen quienes ya lo usan</h2>
+            </div>
+        </div>
+        <div class="testimonials-carousel">
+            <!-- Original set -->
+            <div class="testimonials-track" aria-hidden="false">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/ana-garcia/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial1-author">Ana G.</div>
+                            <div class="testimonial-role" data-i18n="testimonial1-role">Coach de vida</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial2-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/carlos-martin/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial2-author">Carlos M.</div>
+                            <div class="testimonial-role" data-i18n="testimonial2-role">Coach de bienestar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial3-quote">El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/maria-rodriguez/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial3-author">María R.</div>
+                            <div class="testimonial-role" data-i18n="testimonial3-role">Psicóloga</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial4-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/diego-flores/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial4-author">Diego F.</div>
+                            <div class="testimonial-role" data-i18n="testimonial4-role">Instructor de yoga</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial5-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/sofia-leon/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial5-author">Sofía L.</div>
+                            <div class="testimonial-role" data-i18n="testimonial5-role">Nutricionista</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial6-author">Javier P.</div>
+                            <div class="testimonial-role" data-i18n="testimonial6-role">Instructor de pilates</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial7-quote">La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/elena-vidal/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial7-author">Elena V.</div>
+                            <div class="testimonial-role" data-i18n="testimonial7-role">Terapeuta holística</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial8-author">Pablo S.</div>
+                            <div class="testimonial-role" data-i18n="testimonial8-role">Entrenador personal</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial9-quote">Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/isabel-mora/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial9-author">Isabel M.</div>
+                            <div class="testimonial-role" data-i18n="testimonial9-role">Instructora de meditación</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial10-author">Laura T.</div>
+                            <div class="testimonial-role" data-i18n="testimonial10-role">Usuaria</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate set for seamless loop -->
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/ana-garcia/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial1-author">Ana G.</div>
+                            <div class="testimonial-role" data-i18n="testimonial1-role">Coach de vida</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial2-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/carlos-martin/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial2-author">Carlos M.</div>
+                            <div class="testimonial-role" data-i18n="testimonial2-role">Coach de bienestar</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial3-quote">El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/maria-rodriguez/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial3-author">María R.</div>
+                            <div class="testimonial-role" data-i18n="testimonial3-role">Psicóloga</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial4-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/diego-flores/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial4-author">Diego F.</div>
+                            <div class="testimonial-role" data-i18n="testimonial4-role">Instructor de yoga</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial5-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/sofia-leon/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial5-author">Sofía L.</div>
+                            <div class="testimonial-role" data-i18n="testimonial5-role">Nutricionista</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial6-author">Javier P.</div>
+                            <div class="testimonial-role" data-i18n="testimonial6-role">Instructor de pilates</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial7-quote">La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/elena-vidal/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial7-author">Elena V.</div>
+                            <div class="testimonial-role" data-i18n="testimonial7-role">Terapeuta holística</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial8-author">Pablo S.</div>
+                            <div class="testimonial-role" data-i18n="testimonial8-role">Entrenador personal</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial9-quote">Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/isabel-mora/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial9-author">Isabel M.</div>
+                            <div class="testimonial-role" data-i18n="testimonial9-role">Instructora de meditación</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" aria-hidden="true">
+                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                    <div class="testimonial-author">
+                        <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
+                        <div>
+                            <div class="testimonial-name" data-i18n="testimonial10-author">Laura T.</div>
+                            <div class="testimonial-role" data-i18n="testimonial10-role">Usuaria</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Download CTA ────────────────────────────────────────── -->
+    <section class="download-section" id="descarga">
+        <div class="section-container">
+            <h2 class="download-heading" data-reveal style="--index:0" data-i18n="cta-heading">Descarga la app y empieza hoy</h2>
+            <p class="download-sub" data-reveal style="--index:1" data-i18n="cta-sub">Disponible en iOS. Próximamente en Android.</p>
+            <div class="download-badges" data-reveal style="--index:2">
+                <a href="https://apple.co/3LX7yom" class="download-store-link" target="_blank" rel="noopener">
+                    <img id="app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front"
+                   class="download-gplay" target="_blank" rel="noopener">
+                    <img id="gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ──────────────────────────────────────────────── -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div class="footer-logo">Metriotes</div>
+                <p class="footer-copy" data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-right">
                 <div class="social-links">
-                    <a href="https://x.com/metrioteslife?s=11" class="social-link" target="_blank" rel="noopener"
-                        aria-label="X (Twitter)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
+                    <a href="https://x.com/metrioteslife?s=11" class="social-link" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/metrioteslife?igsh=djVqOGNqY2Jjamhn&utm_source=qr"
-                        class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
+                    <a href="https://www.instagram.com/metrioteslife?igsh=djVqOGNqY2Jjamhn&utm_source=qr" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
-                    <a href="https://www.tiktok.com/@metriotes_ok?_r=1&_t=ZS-93VguFsYYba" class="social-link"
-                        target="_blank" rel="noopener" aria-label="TikTok">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-                        </svg>
+                    <a href="https://www.tiktok.com/@metriotes_ok?_r=1&_t=ZS-93VguFsYYba" class="social-link" target="_blank" rel="noopener" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
                     </a>
-                    <a href="https://www.threads.com/@metrioteslife?igshid=NTc4MTIwNjQ2YQ==" class="social-link"
-                        target="_blank" rel="noopener" aria-label="Threads">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-.54-1.925-1.485-3.396-2.812-4.385-1.437-1.073-3.351-1.626-5.69-1.644-3.037.018-5.354 1.001-6.89 2.92-1.467 1.834-2.224 4.31-2.254 7.36v.013c.027 3.049.786 5.523 2.254 7.356 1.537 1.918 3.854 2.902 6.89 2.92 2.682-.018 4.846-.647 6.432-1.873 1.32-1.019 2.281-2.465 2.855-4.3l2.043.568c-.685 2.196-1.894 4.013-3.598 5.403-1.943 1.584-4.574 2.394-7.825 2.414z" />
-                            <path
-                                d="M17.356 10.314c-.267-1.182-.917-2.086-1.936-2.686-.94-.553-2.081-.86-3.392-.913-.007 0-.015 0-.022-.001h-.13c-2.355.052-4.195.77-5.465 2.135-1.283 1.378-1.969 3.33-2.04 5.803v.054c.07 2.473.756 4.425 2.04 5.803 1.27 1.365 3.11 2.083 5.465 2.135h.13c.007 0 .015 0 .022-.001 1.311-.053 2.452-.36 3.392-.913 1.019-.6 1.669-1.504 1.936-2.686.197-.87.296-1.768.296-2.67 0-.902-.099-1.8-.296-2.67zm-2.083 5.065c-.196.871-.626 1.54-1.278 1.987-.67.459-1.52.708-2.527.741h-.056c-1.796-.033-3.204-.585-4.185-1.639-.908-.977-1.398-2.395-1.457-4.217v-.044c.06-1.822.549-3.24 1.457-4.217.981-1.054 2.389-1.606 4.185-1.639h.056c1.007.033 1.857.282 2.527.741.652.447 1.082 1.116 1.278 1.987.177.786.266 1.594.266 2.404 0 .81-.089 1.618-.266 2.404z" />
-                        </svg>
+                    <a href="https://www.threads.com/@metrioteslife?igshid=NTc4MTIwNjQ2YQ==" class="social-link" target="_blank" rel="noopener" aria-label="Threads">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-.54-1.925-1.485-3.396-2.812-4.385-1.437-1.073-3.351-1.626-5.69-1.644-3.037.018-5.354 1.001-6.89 2.92-1.467 1.834-2.224 4.31-2.254 7.36v.013c.027 3.049.786 5.523 2.254 7.356 1.537 1.918 3.854 2.902 6.89 2.92 2.682-.018 4.846-.647 6.432-1.873 1.32-1.019 2.281-2.465 2.855-4.3l2.043.568c-.685 2.196-1.894 4.013-3.598 5.403-1.943 1.584-4.574 2.394-7.825 2.414z"/><path d="M17.356 10.314c-.267-1.182-.917-2.086-1.936-2.686-.94-.553-2.081-.86-3.392-.913-.007 0-.015 0-.022-.001h-.13c-2.355.052-4.195.77-5.465 2.135-1.283 1.378-1.969 3.33-2.04 5.803v.054c.07 2.473.756 4.425 2.04 5.803 1.27 1.365 3.11 2.083 5.465 2.135h.13c.007 0 .015 0 .022-.001 1.311-.053 2.452-.36 3.392-.913 1.019-.6 1.669-1.504 1.936-2.686.197-.87.296-1.768.296-2.67 0-.902-.099-1.8-.296-2.67zm-2.083 5.065c-.196.871-.626 1.54-1.278 1.987-.67.459-1.52.708-2.527.741h-.056c-1.796-.033-3.204-.585-4.185-1.639-.908-.977-1.398-2.395-1.457-4.217v-.044c.06-1.822.549-3.24 1.457-4.217.981-1.054 2.389-1.606 4.185-1.639h.056c1.007.033 1.857.282 2.527.741.652.447 1.082 1.116 1.278 1.987.177.786.266 1.594.266 2.404 0 .81-.089 1.618-.266 2.404z"/></svg>
                     </a>
                 </div>
                 <div class="footer-links">
@@ -548,13 +1205,12 @@
                     <span>•</span>
                     <a href="terms.html" data-i18n="terms-link">Términos de Servicio</a>
                 </div>
-                <p data-i18n="footer">© 2026 Metriotes. Todos los derechos reservados.</p>
-            </footer>
+            </div>
         </div>
-    </section>
+    </footer>
 
     <script>
-        // Traducciones
+        /* ── Translations ──────────────────────────────────────── */
         const translations = {
             es: {
                 'tagline': 'Herramientas para vivir una vida consciente',
@@ -562,16 +1218,116 @@
                 'get-it-on': 'Disponible en',
                 'download-title': 'Ya estamos en vivo',
                 'download-text': 'Estás oficialmente invitado a ver las novedades. Descarga en la App Store hoy.',
-                'feature1-title': 'Define tu Norte',
-                'feature1-desc': 'Tu Norte es tu estrella guía. No es un destino final, sino la forma en que eliges vivir cada día. Con Metriotes, puedes definir tu Norte y mantenerlo presente, para que tus decisiones se alineen con lo que realmente importa.',
-                'feature2-title': 'Objetivos con Propósito',
-                'feature2-desc': 'Crea objetivos alineados con tu Norte. No se trata de hacer más, sino de hacer lo que tiene sentido para ti. Cada objetivo es un paso consciente hacia donde quieres ir.',
-                'feature3-title': 'Tareas y Hábitos Diarios',
-                'feature3-desc': 'Convierte tus objetivos en acciones concretas. Tareas con fechas específicas y hábitos diarios o semanales. Cada día, verás solo lo que necesitas hacer hoy, manteniendo tu enfoque claro y tu mente tranquila.',
-                'feature4-title': 'Privacidad Total',
-                'feature4-desc': 'Tus datos son completamente privados. Nada se comparte. Metriotes es un espacio seguro, solo para ti.',
-                'feature5-title': 'Objetivos Compartidos',
-                'feature5-desc': 'Algunas metas se alcanzan mejor en compañía. Comparte objetivos con quien quieras y avancen juntos: más motivación, más compromiso y la satisfacción de crecer acompañado.',
+                'nav-pros': 'Para Profesionales',
+                'hero-line1': 'La persona que',
+                'hero-line2': 'quieres ser.',
+                'hero-sub': 'Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas — construyes quien eres.',
+                'features-heading': 'Todo lo que necesitas para convertirte en quien quieres ser',
+                'feature1-title': 'Tu Estrella del Norte',
+                'feature1-desc': 'Las personas más realizadas no gestionan listas — viven desde una dirección clara. Define tu Norte y cada decisión, grande o pequeña, encontrará su lugar naturalmente.',
+                'feature2-title': 'Objetivos que Importan',
+                'feature2-desc': 'No más metas vacías. Cada objetivo en Metriotes nace de tus valores reales. Cuando empiezas, ya sabes por qué lo estás haciendo — y eso lo cambia todo.',
+                'feature3-title': 'El Día a Día que te Construye',
+                'feature3-desc': 'Tu versión futura no aparece de golpe. Se construye en los hábitos que eliges hoy. Metriotes convierte tus grandes ambiciones en el próximo paso concreto — y luego en el siguiente.',
+                'feature4-title': 'Solo para Ti',
+                'feature4-desc': 'Tu crecimiento personal es tuyo. Nada se comparte sin tu permiso. Metriotes es el espacio más privado de tu día — donde puedes ser completamente honesto contigo mismo.',
+                'feature5-title': 'Crecer Juntos',
+                'feature5-desc': 'Hay metas que se sienten más posibles cuando alguien más las comparte. Une a tu pareja, amigo o compañero en los objetivos que quieres vivir juntos — y descubran hasta dónde pueden llegar.',
+                'feature6-title': 'Con Testigos que Te Sostienen',
+                'feature6-desc': 'Cuando alguien sabe que estás en ello, es más difícil rendirse. Tus testigos ven tu progreso sin editar nada — solo están ahí para celebrarte cuando llegas.',
+                'feature7-title': 'Los Momentos que te Revelan',
+                'feature7-desc': 'Las mejores ideas aparecen entre medias. Captura esos momentos de claridad — sobre ti, sobre lo que quieres, sobre cómo vivir. Son el mapa de quien te estás convirtiendo.',
+                'pros-heading': 'La plataforma que hace crecer tu práctica profesional',
+                'pros-sub': 'Para coaches, psicólogos, nutricionistas, instructores de yoga, pilates y cualquier profesional del bienestar. Los mejores no solo transforman a sus clientes — construyen una presencia que los encuentra antes de que te busquen.',
+                'pros-feat1-title': 'Tu Vitrina Profesional',
+                'pros-feat1-desc': 'La primera impresión lo decide todo. Construye un perfil que transmita exactamente quién eres: tu historia, tus credenciales y lo que te hace diferente — todo en un solo lugar donde tus clientes ideales puedan encontrarte.',
+                'pros-feat2-title': 'Tus Eventos, Tu Audiencia',
+                'pros-feat2-desc': 'Talleres, retiros, webinars, cursos — publica cualquier formato y ponlo delante de personas que ya están buscando lo que tú ofreces. Deja de buscar clientes. Deja que te encuentren.',
+                'pros-feat3-title': 'Servicios que Cierran Solos',
+                'pros-feat3-desc': 'Cuando un cliente potencial ve claramente tus paquetes, precios y lo que incluyen, la decisión se vuelve fácil. Define tu oferta una vez y que trabaje por ti mientras tú te dedicas a transformar vidas.',
+                'pros-feat4-title': 'Credenciales que Generan Confianza',
+                'pros-feat4-desc': 'En un mercado saturado, la confianza no se pide — se demuestra. Muestra tus certificaciones verificadas y que cada cliente sepa, desde el primer segundo, que está en manos expertas.',
+                'pros-feat5-title': 'La Prueba que más Convierte',
+                'pros-feat5-desc': 'Nada vende mejor que un cliente satisfecho hablando por ti. Recopila testimonios reales de quienes ya transformaste y conviértelos en el argumento más poderoso de tu perfil.',
+                'pros-feat6-title': 'Datos que te Dicen qué Funciona',
+                'pros-feat6-desc': 'Deja de adivinar. Sigue tu alcance, tus visualizaciones y tu tasa de conversión en tiempo real. Crece de forma inteligente — sabe qué funciona y multiplícalo.',
+                'events-heading': 'Tipos de eventos',
+                'event-workshops': 'Talleres',
+                'event-retreats': 'Retiros',
+                'event-webinars': 'Webinars',
+                'event-courses': 'Cursos',
+                'pricing-heading': 'Empieza gratis, crece con PRO',
+                'plan-free': 'Gratis',
+                'plan-period': '/mes',
+                'plan-cta-free': 'Descargar la app',
+                'plan-cta-pro': 'Únete a la lista',
+                'plan-cta-premium': 'Suscribirse',
+                'plan-popular': 'Más popular',
+                'pricing-sub': 'Planes separados para usuarios y profesionales — cada uno pensado para lo que realmente necesitas.',
+                'pricing-group-users': 'Para usuarios',
+                'pricing-group-pros': 'Para profesionales',
+                'plan-user-free-desc': 'Para empezar a vivir con intención',
+                'plan-user-pro-desc': 'Sin límites para crecer sin fricción',
+                'plan-pro-free-desc': 'Para empezar a construir tu presencia',
+                'plan-pro-pro-desc': 'Para profesionales que quieren crecer sin límites',
+                'plan-cta-free-pro': 'Empezar gratis',
+                'feat-north-star': 'Tu Estrella del Norte',
+                'feat-goals-limit': 'Hasta 3 objetivos activos',
+                'feat-habits': 'Tareas y Hábitos Diarios',
+                'feat-shared-limit': '2 objetivos compartidos/mes',
+                'feat-privacy': 'Privacidad Total',
+                'feat-ai-limited': 'Funciones de asistencia (límite mensual)',
+                'feat-unlimited-goals': 'Objetivos activos ilimitados',
+                'feat-unlimited-shared': 'Objetivos compartidos ilimitados',
+                'feat-smart-goals': 'Generación inteligente de objetivos',
+                'feat-checkin': 'Check-in diario con voz',
+                'feat-diary': 'Análisis de diario y emociones',
+                'feat-gratitude': 'Reflexión de gratitud diaria',
+                'feat-plan-mod': 'Ajuste de plan con asistencia',
+                'feat-templates': 'Plantillas premium exclusivas',
+                'feat-profile': 'Perfil profesional público',
+                'feat-1-event': 'Hasta 1 evento publicado',
+                'feat-2-services': 'Hasta 2 servicios',
+                'feat-certs': 'Certificaciones verificadas',
+                'feat-testimonials-pro': 'Testimonios de clientes',
+                'feat-unlimited-events': 'Eventos ilimitados',
+                'feat-unlimited-services': 'Servicios ilimitados',
+                'feat-priority-listing': 'Posición prioritaria en el directorio',
+                'feat-pro-badge': 'Badge PRO en tu perfil',
+                'feat-analytics': 'Panel de analítica avanzada',
+                'testimonials-heading': 'Lo que dicen quienes ya lo usan',
+                'testimonial1-quote': 'Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.',
+                'testimonial1-author': 'Ana G.',
+                'testimonial1-role': 'Coach de vida',
+                'testimonial2-quote': 'Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.',
+                'testimonial2-author': 'Carlos M.',
+                'testimonial2-role': 'Coach de bienestar',
+                'testimonial3-quote': 'El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.',
+                'testimonial3-author': 'María R.',
+                'testimonial3-role': 'Psicóloga',
+                'testimonial4-quote': 'Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.',
+                'testimonial4-author': 'Diego F.',
+                'testimonial4-role': 'Instructor de yoga',
+                'testimonial5-quote': 'Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.',
+                'testimonial5-author': 'Sofía L.',
+                'testimonial5-role': 'Nutricionista',
+                'testimonial6-quote': 'Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.',
+                'testimonial6-author': 'Javier P.',
+                'testimonial6-role': 'Instructor de pilates',
+                'testimonial7-quote': 'La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.',
+                'testimonial7-author': 'Elena V.',
+                'testimonial7-role': 'Terapeuta holística',
+                'testimonial8-quote': 'Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.',
+                'testimonial8-author': 'Pablo S.',
+                'testimonial8-role': 'Entrenador personal',
+                'testimonial9-quote': 'Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.',
+                'testimonial9-author': 'Isabel M.',
+                'testimonial9-role': 'Instructora de meditación',
+                'testimonial10-quote': 'Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.',
+                'testimonial10-author': 'Laura T.',
+                'testimonial10-role': 'Usuaria',
+                'cta-heading': 'Descarga la app y empieza hoy',
+                'cta-sub': 'Disponible en iOS. Próximamente en Android.',
                 'footer': '© 2026 Metriotes. Todos los derechos reservados.',
                 'privacy-link': 'Política de Privacidad',
                 'terms-link': 'Términos de Servicio'
@@ -582,199 +1338,189 @@
                 'get-it-on': 'Get it on',
                 'download-title': 'We are live',
                 'download-text': 'You\'re officially invited to see what\'s new. Download on the App Store today.',
-                'feature1-title': 'Define Your North',
-                'feature1-desc': 'Your North is your guiding star. It\'s not a final destination, but the way you choose to live each day. With Metriotes, you can define your North and keep it present, so your decisions stay aligned with what truly matters to you.',
-                'feature2-title': 'Meaningful Goals',
-                'feature2-desc': 'Create goals aligned with your North. It\'s not about doing more, but doing what makes sense for you. Each goal is a conscious step toward where you want to go.',
-                'feature3-title': 'Daily Tasks and Habits',
-                'feature3-desc': 'Turn your goals into concrete actions. Tasks with specific dates and daily or weekly habits. Each day, you\'ll see only what needs to be done today, keeping your focus clear and your mind calm.',
-                'feature4-title': 'Complete Privacy',
-                'feature4-desc': 'Your data is completely private. Nothing is shared. Metriotes is a safe space, just for you.',
-                'feature5-title': 'Shared Goals',
-                'feature5-desc': 'Some goals are better achieved together. Share goals with whoever you want and move forward as a team: more motivation, more commitment, and the satisfaction of growing side by side.',
+                'nav-pros': 'For Professionals',
+                'hero-line1': 'The person you',
+                'hero-line2': 'want to become.',
+                'hero-sub': 'Metriotes turns your deepest values into concrete habits. You\'re not managing tasks — you\'re building who you are.',
+                'features-heading': 'Everything you need to become who you want to be',
+                'feature1-title': 'Your North Star',
+                'feature1-desc': 'The most fulfilled people don\'t manage lists — they live from a clear direction. Define your North and every decision, big or small, will naturally find its place.',
+                'feature2-title': 'Goals That Actually Matter',
+                'feature2-desc': 'No more empty targets. Every goal in Metriotes is born from your real values. When you start, you already know why — and that changes everything.',
+                'feature3-title': 'The Daily Practice That Builds You',
+                'feature3-desc': 'Your future self doesn\'t appear overnight. It\'s built in the habits you choose today. Metriotes turns your biggest ambitions into the next concrete step — and then the next one.',
+                'feature4-title': 'Completely Yours',
+                'feature4-desc': 'Your personal growth is private. Nothing is shared without your permission. Metriotes is the most honest space in your day — where you can be fully truthful with yourself.',
+                'feature5-title': 'Growing Together',
+                'feature5-desc': 'Some goals feel more possible when someone else shares them. Join your partner, friend, or companion on the goals you want to live together — and discover how far you can go.',
+                'feature6-title': 'With Witnesses Who Hold You',
+                'feature6-desc': 'When someone knows you\'re working on something, it\'s harder to quit. Your witnesses see your progress without editing anything — they\'re just there to celebrate when you arrive.',
+                'feature7-title': 'The Moments That Reveal You',
+                'feature7-desc': 'The best insights come in-between. Capture those moments of clarity — about yourself, what you want, how you want to live. They\'re the map of who you\'re becoming.',
+                'pros-heading': 'The platform that grows your professional practice',
+                'pros-sub': 'For coaches, psychologists, nutritionists, yoga and pilates instructors, and any wellness professional. The best don\'t just transform their clients — they build a presence that finds new ones before they even search.',
+                'pros-feat1-title': 'Your Professional Showcase',
+                'pros-feat1-desc': 'First impressions decide everything. Build a profile that communicates exactly who you are: your story, credentials, and what makes you different — all in one place where your ideal clients can find you.',
+                'pros-feat2-title': 'Your Events, Your Audience',
+                'pros-feat2-desc': 'Workshops, retreats, webinars, courses — publish any format and put it in front of people already looking for what you offer. Stop searching for clients. Let them find you.',
+                'pros-feat3-title': 'Services That Close Themselves',
+                'pros-feat3-desc': 'When a potential client sees your packages, pricing, and what\'s included clearly, the decision becomes easy. Define your offer once and let it work for you while you focus on transforming lives.',
+                'pros-feat4-title': 'Credentials That Build Trust',
+                'pros-feat4-desc': 'In a saturated market, trust isn\'t asked for — it\'s demonstrated. Show your verified certifications and let every client know, from the very first second, they\'re in expert hands.',
+                'pros-feat5-title': 'The Proof That Converts Best',
+                'pros-feat5-desc': 'Nothing sells better than a satisfied client speaking for you. Collect real testimonials from those you\'ve already transformed and turn them into the most powerful argument on your profile.',
+                'pros-feat6-title': 'Data That Tells You What Works',
+                'pros-feat6-desc': 'Stop guessing. Track your reach, views, and conversion rate in real time. Grow intelligently — know what works and multiply it.',
+                'pricing-heading': 'Start free, grow with PRO',
+                'plan-free': 'Free',
+                'plan-period': '/month',
+                'plan-cta-free': 'Download the app',
+                'plan-cta-pro': 'Join the list',
+                'plan-cta-premium': 'Subscribe',
+                'plan-popular': 'Most popular',
+                'pricing-sub': 'Separate plans for users and professionals — each built for what you actually need.',
+                'pricing-group-users': 'For users',
+                'pricing-group-pros': 'For professionals',
+                'plan-user-free-desc': 'Start living with intention',
+                'plan-user-pro-desc': 'No limits to grow without friction',
+                'plan-pro-free-desc': 'Start building your presence',
+                'plan-pro-pro-desc': 'For professionals who want to grow without limits',
+                'plan-cta-free-pro': 'Get started free',
+                'feat-north-star': 'Your North Star',
+                'feat-goals-limit': 'Up to 3 active goals',
+                'feat-habits': 'Daily Tasks and Habits',
+                'feat-shared-limit': '2 shared goals/month',
+                'feat-privacy': 'Complete Privacy',
+                'feat-ai-limited': 'Assistance features (monthly limit)',
+                'feat-unlimited-goals': 'Unlimited active goals',
+                'feat-unlimited-shared': 'Unlimited shared goals',
+                'feat-smart-goals': 'Smart goal generation',
+                'feat-checkin': 'Daily voice check-in',
+                'feat-diary': 'Diary and emotion analysis',
+                'feat-gratitude': 'Daily gratitude reflection',
+                'feat-plan-mod': 'Plan adjustment with assistance',
+                'feat-templates': 'Exclusive premium templates',
+                'feat-profile': 'Public professional profile',
+                'feat-1-event': 'Up to 1 published event',
+                'feat-2-services': 'Up to 2 services',
+                'feat-certs': 'Verified certifications',
+                'feat-testimonials-pro': 'Client testimonials',
+                'feat-unlimited-events': 'Unlimited events',
+                'feat-unlimited-services': 'Unlimited services',
+                'feat-priority-listing': 'Priority position in the directory',
+                'feat-pro-badge': 'PRO badge on your profile',
+                'feat-analytics': 'Advanced analytics dashboard',
+                'testimonials-heading': 'What people who use it say',
+                'testimonial1-quote': 'I used to have goals scattered everywhere. Metriotes helped me connect it all to my North Star. Now I know exactly why I do what I do.',
+                'testimonial1-author': 'Ana G.',
+                'testimonial1-role': 'Life Coach',
+                'testimonial2-quote': 'Having my profile, workshops, and services in one place changed my business. My clients find exactly what they need without me having to explain it.',
+                'testimonial2-author': 'Carlos M.',
+                'testimonial2-role': 'Wellness Coach',
+                'testimonial3-quote': 'The marketplace lets me reach patients who would never have found me otherwise. It\'s the visibility my practice needed.',
+                'testimonial3-author': 'María R.',
+                'testimonial3-role': 'Psychologist',
+                'testimonial4-quote': 'I published my first yoga retreat on Metriotes and it filled up in less than a week. Now I manage all my events from there without any hassle.',
+                'testimonial4-author': 'Diego F.',
+                'testimonial4-role': 'Yoga Instructor',
+                'testimonial5-quote': 'My clients use Metriotes to track their habits between sessions. It\'s like having a bridge of constant support that multiplies the results of the work we do together.',
+                'testimonial5-author': 'Sofía L.',
+                'testimonial5-role': 'Nutritionist',
+                'testimonial6-quote': 'Verified certifications set me apart in the directory. New clients arrive already trusting me — without me having to convince anyone.',
+                'testimonial6-author': 'Javier P.',
+                'testimonial6-role': 'Pilates Instructor',
+                'testimonial7-quote': 'Analytics tells me which services are most in demand. I made business decisions I never would have made without that data. My practice grew 40% in six months.',
+                'testimonial7-author': 'Elena V.',
+                'testimonial7-role': 'Holistic Therapist',
+                'testimonial8-quote': 'My clients share their training goals with me as a witness. Seeing their progress in real time makes me a better trainer — and them, more consistent.',
+                'testimonial8-author': 'Pablo S.',
+                'testimonial8-role': 'Personal Trainer',
+                'testimonial9-quote': 'I went from having no online presence to a complete profile with real reviews from my students. Metriotes made that change possible in weeks.',
+                'testimonial9-author': 'Isabel M.',
+                'testimonial9-role': 'Meditation Instructor',
+                'testimonial10-quote': 'I shared my goal of running a marathon with my partner. We achieved it together. Metriotes was part of that journey — the app that kept us focused when we needed it most.',
+                'testimonial10-author': 'Laura T.',
+                'testimonial10-role': 'User',
+                'cta-heading': 'Download the app and start today',
+                'cta-sub': 'Available on iOS. Coming soon on Android.',
                 'footer': '© 2026 Metriotes. All rights reserved.',
                 'privacy-link': 'Privacy Policy',
                 'terms-link': 'Terms of Service'
             }
         };
 
-        // Detectar idioma del navegador automáticamente
+        /* ── Language Detection & Management ──────────────────── */
         let currentLang = (navigator.language || navigator.userLanguage).split('-')[0];
-        if (!translations[currentLang]) {
-            currentLang = 'es'; // Default a español
-        }
+        if (!translations[currentLang]) currentLang = 'es';
 
-        // Función para cambiar idioma
         function setLanguage(lang) {
             document.documentElement.lang = lang;
-
-            // Actualizar textos
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.dataset.i18n;
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang][key]) el.textContent = translations[lang][key];
             });
-
-            // Actualizar badge de App Store según idioma (sección download y hero)
-            const appStoreBadge = document.getElementById('app-store-badge');
-            if (appStoreBadge) {
-                if (lang === 'es') {
-                    appStoreBadge.src = 'assets/download_app_store_es.svg';
-                    appStoreBadge.alt = 'Descargar en App Store';
-                } else {
-                    appStoreBadge.src = 'assets/download_app_store_en.svg';
-                    appStoreBadge.alt = 'Download on the App Store';
-                }
+            const badge = document.getElementById('app-store-badge');
+            if (badge) {
+                badge.src = lang === 'es' ? 'assets/download_app_store_es.svg' : 'assets/download_app_store_en.svg';
+                badge.alt = lang === 'es' ? 'Descargar en App Store' : 'Download on the App Store';
             }
-
-            const heroAppStoreBadge = document.getElementById('hero-app-store-badge');
-            if (heroAppStoreBadge) {
-                if (lang === 'es') {
-                    heroAppStoreBadge.src = 'assets/download_app_store_es.svg';
-                    heroAppStoreBadge.alt = 'Descargar en App Store';
-                } else {
-                    heroAppStoreBadge.src = 'assets/download_app_store_en.svg';
-                    heroAppStoreBadge.alt = 'Download on the App Store';
-                }
+            const heroBadge = document.getElementById('hero-app-store-badge');
+            if (heroBadge) {
+                heroBadge.src = lang === 'es' ? 'assets/download_app_store_es.svg' : 'assets/download_app_store_en.svg';
+                heroBadge.alt = lang === 'es' ? 'Descargar en App Store' : 'Download on the App Store';
             }
-
-            // Guardar preferencia
+            const gplayBadges = document.querySelectorAll('#hero-gplay-badge, #gplay-badge');
+            gplayBadges.forEach(el => {
+                el.src = lang === 'es'
+                    ? 'https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png'
+                    : 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png';
+                el.alt = lang === 'es' ? 'Disponible en Google Play' : 'Get it on Google Play';
+            });
             localStorage.setItem('preferredLang', lang);
+            updateLangToggleUI(lang);
         }
 
-        // Cargar idioma guardado o detectado
-        const savedLang = localStorage.getItem('preferredLang');
-        if (savedLang && translations[savedLang]) {
-            currentLang = savedLang;
+        function updateLangToggleUI(lang) {
+            document.querySelectorAll('.lang-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.lang === lang);
+            });
         }
+
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && translations[savedLang]) currentLang = savedLang;
         setLanguage(currentLang);
 
-        // Mesh Gradient Animation
-        class MeshGradient {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.colors = [
-                    { r: 89, g: 169, b: 85 },    // Verde principal
-                    { r: 1, g: 21, b: 86 },      // Azul oscuro
-                    { r: 229, g: 155, b: 4 },    // Amarillo/Naranja
-                    { r: 47, g: 73, b: 48 },     // Verde oscuro
-                    { r: 244, g: 143, b: 118 },  // Rosa/Coral
-                    { r: 238, g: 220, b: 195 },  // Beige claro
-                    { r: 126, g: 143, b: 49 },   // Verde oliva
-                    { r: 87, g: 190, b: 157 }    // Verde agua
-                ];
-                this.points = [];
-                this.time = 0;
-                this.init();
-            }
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            setLanguage(currentLang);
+        });
 
-            init() {
-                this.resize();
-                window.addEventListener('resize', () => this.resize());
-                this.createPoints();
-                this.animate();
-            }
+        /* ── Hero Load Reveal ──────────────────────────────────── */
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-loaded'));
+            }, 80);
+        });
 
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-
-            createPoints() {
-                const gridSize = window.innerWidth < 768 ? 4 : 5;
-                this.points = [];
-
-                for (let i = 0; i < gridSize; i++) {
-                    for (let j = 0; j < gridSize; j++) {
-                        this.points.push({
-                            x: (i / (gridSize - 1)) * this.canvas.width,
-                            y: (j / (gridSize - 1)) * this.canvas.height,
-                            baseX: (i / (gridSize - 1)) * this.canvas.width,
-                            baseY: (j / (gridSize - 1)) * this.canvas.height,
-                            color: this.colors[Math.floor(Math.random() * this.colors.length)],
-                            phase: Math.random() * Math.PI * 2,
-                            radius: Math.max(this.canvas.width, this.canvas.height) * 0.6
-                        });
-                    }
-                }
-            }
-
-            drawGradient() {
-                const ctx = this.ctx;
-
-                // Usar gradientes radiales de canvas en lugar de pixel by pixel
-                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-                // Primero, llenar con un color base suave
-                const baseGradient = ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-                baseGradient.addColorStop(0, `rgb(${this.colors[0].r}, ${this.colors[0].g}, ${this.colors[0].b})`);
-                baseGradient.addColorStop(1, `rgb(${this.colors[1].r}, ${this.colors[1].g}, ${this.colors[1].b})`);
-                ctx.fillStyle = baseGradient;
-                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-                // Aplicar modo de mezcla para los círculos
-                ctx.globalCompositeOperation = 'screen';
-
-                // Dibujar círculos con gradientes radiales
-                this.points.forEach(point => {
-                    const gradient = ctx.createRadialGradient(
-                        point.x, point.y, 0,
-                        point.x, point.y, point.radius
-                    );
-
-                    const color = point.color;
-                    gradient.addColorStop(0, `rgba(${color.r}, ${color.g}, ${color.b}, 0.8)`);
-                    gradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, 0.4)`);
-                    gradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
-
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                });
-
-                // Restaurar modo de mezcla
-                ctx.globalCompositeOperation = 'source-over';
-
-                // Aplicar un overlay sutil para suavizar más
-                const overlay = ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
-                overlay.addColorStop(0, 'rgba(0, 0, 0, 0.1)');
-                overlay.addColorStop(1, 'rgba(0, 0, 0, 0.05)');
-                ctx.fillStyle = overlay;
-                ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-
-            animate() {
-                this.time += 0.003;
-
-                // Actualizar posiciones de puntos con movimiento más suave
-                this.points.forEach(point => {
-                    const moveRange = window.innerWidth < 768 ? 60 : 100;
-                    point.x = point.baseX + Math.sin(this.time + point.phase) * moveRange;
-                    point.y = point.baseY + Math.cos(this.time * 0.7 + point.phase) * moveRange;
-                });
-
-                this.drawGradient();
-                requestAnimationFrame(() => this.animate());
-            }
-        }
-
-        // Inicializar mesh gradient
-        const canvas = document.getElementById('mesh-gradient');
-        new MeshGradient(canvas);
-
-        // Intersection Observer para efecto fade en features
-        const observer = new IntersectionObserver((entries) => {
+        /* ── Scroll Reveal ─────────────────────────────────────── */
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
-        observer.observe(document.querySelector('.features-section'));
+        document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
 
-        // Función para decodificar Base62
+        /* ── Nav Scroll State ──────────────────────────────────── */
+        const siteNav = document.getElementById('site-nav');
+        window.addEventListener('scroll', () => {
+            siteNav.classList.toggle('scrolled', window.scrollY > 80);
+        }, { passive: true });
+
+        /* ── Deep Link Handler (preserved) ────────────────────── */
         function decodeBase62(encoded) {
             const alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             let num = 0;
@@ -784,21 +1530,16 @@
             return num;
         }
 
-        // Manejar deep links con hash Base62
         const path = window.location.pathname;
         const hashMatch = path.match(/^\/goals\/([a-zA-Z0-9]+)$/);
-
         if (hashMatch) {
             const hash = hashMatch[1];
             const templateId = decodeBase62(hash);
-
-            // Intentar abrir en la app
             const appScheme = `metriotes://template/${templateId}`;
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = appScheme;
             document.body.appendChild(iframe);
-
             setTimeout(() => {
                 document.body.removeChild(iframe);
                 const message = currentLang === 'es'
@@ -809,5 +1550,4 @@
         }
     </script>
 </body>
-
 </html>

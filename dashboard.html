@@ -1,0 +1,540 @@
+---
+layout: null
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Metriotes — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f1115;
+            --panel: #171a21;
+            --panel-2: #1f232c;
+            --border: #262b36;
+            --text: #e6e8ee;
+            --muted: #9aa0ad;
+            --accent: #C4622D;
+            --accent-2: #D4833A;
+            --good: #4ade80;
+            --warn: #fbbf24;
+            --bad: #ef4444;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Login */
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 380px;
+        }
+        .login-card h1 {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .login-card p {
+            margin: 0 0 28px 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .field { margin-bottom: 16px; }
+        .field label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .field input {
+            width: 100%;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .field input:focus { border-color: var(--accent); }
+        button.primary {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 8px;
+        }
+        button.primary:hover { background: var(--accent-2); }
+        button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        /* Dashboard */
+        header {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+        header .user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        header .user button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        header .user button:hover { border-color: var(--accent); color: var(--accent); }
+
+        main { padding: 32px; max-width: 1400px; margin: 0 auto; }
+        section { margin-bottom: 40px; }
+        h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            margin: 0 0 16px 0;
+            font-weight: 600;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .kpi {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .kpi .label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .kpi .value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+        .kpi .value.accent { color: var(--accent); }
+        .kpi .value.good { color: var(--good); }
+        .kpi .value.warn { color: var(--warn); }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .chart-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .chart-card h3 {
+            margin: 0 0 16px 0;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .chart-card canvas { max-height: 300px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        td.num { text-align: right; font-variant-numeric: tabular-nums; }
+        .tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+        .tab {
+            padding: 8px 14px;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .hidden { display: none !important; }
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login screen -->
+    <div id="view-login" class="login-wrap">
+        <div class="login-card">
+            <h1>Metriotes Dashboard</h1>
+            <p>Acceso restringido</p>
+            <div id="login-error" class="error hidden"></div>
+            <form id="login-form">
+                <div class="field">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
+                </div>
+                <div class="field">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="primary" id="login-btn">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="view-loading" class="loading hidden">Cargando datos…</div>
+
+    <!-- Dashboard -->
+    <div id="view-dashboard" class="hidden">
+        <header>
+            <h1>Metriotes — Dashboard</h1>
+            <div class="user">
+                <span id="user-label"></span>
+                <button id="logout-btn">Cerrar sesión</button>
+            </div>
+        </header>
+        <main>
+            <section>
+                <h2>Usuarios</h2>
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="label">Total</div>
+                        <div class="value" id="k-total-users">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Activos (30d)</div>
+                        <div class="value good" id="k-active-users">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Inactivos</div>
+                        <div class="value warn" id="k-inactive-users">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Nunca logueados</div>
+                        <div class="value" id="k-never-users">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Nuevos (30d)</div>
+                        <div class="value accent" id="k-new-users">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Días prom. sin login</div>
+                        <div class="value" id="k-avg-days">–</div>
+                    </div>
+                </div>
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3>Distribución por actividad</h3>
+                        <canvas id="chart-users-activity"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Objetivos</h2>
+                <div class="kpi-grid">
+                    <div class="kpi">
+                        <div class="label">Total goals</div>
+                        <div class="value" id="k-total-goals">–</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="label">Promedio por usuario</div>
+                        <div class="value accent" id="k-avg-goals">–</div>
+                    </div>
+                </div>
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3>Goals por status</h3>
+                        <canvas id="chart-goals-status"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Goals por contexto</h3>
+                        <canvas id="chart-goals-context"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Template Goals (Store)</h2>
+                <div class="tabs">
+                    <div class="tab active" data-metric="usage_count">Más agregados</div>
+                    <div class="tab" data-metric="views_count">Más vistos</div>
+                    <div class="tab" data-metric="shares_count">Más compartidos</div>
+                </div>
+                <div class="chart-card">
+                    <table id="templates-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Título</th>
+                                <th>Contextos</th>
+                                <th class="num">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = 'https://metriotes-22732fa1f31f.herokuapp.com';
+        const TOKEN_KEY = 'metriotes_dash_jwt';
+
+        const $ = (id) => document.getElementById(id);
+        const show = (id) => $(id).classList.remove('hidden');
+        const hide = (id) => $(id).classList.add('hidden');
+
+        let stats = null;
+        let charts = {};
+
+        async function login(username, password) {
+            const res = await fetch(`${API_BASE}/token/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
+            if (!res.ok) {
+                if (res.status === 401) throw new Error('Usuario o contraseña incorrectos');
+                throw new Error(`Error de login (${res.status})`);
+            }
+            const data = await res.json();
+            return data.access;
+        }
+
+        async function fetchStats(token) {
+            const res = await fetch(`${API_BASE}/analytics/admin-stats/`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+            });
+            if (res.status === 401) throw new Error('Sesión expirada');
+            if (res.status === 403) throw new Error('El usuario no tiene permisos de superuser');
+            if (!res.ok) throw new Error(`Error al cargar stats (${res.status})`);
+            return await res.json();
+        }
+
+        function parseJwt(token) {
+            try {
+                const payload = token.split('.')[1];
+                return JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+            } catch { return null; }
+        }
+
+        function renderDashboard() {
+            const u = stats.users;
+            $('k-total-users').textContent = u.total_users;
+            $('k-active-users').textContent = u.active_users;
+            $('k-inactive-users').textContent = u.inactive_users;
+            $('k-never-users').textContent = u.never_logged_in;
+            $('k-new-users').textContent = u.new_users_last_30_days;
+            $('k-avg-days').textContent = u.engagement_stats.avg_days_since_last_login;
+
+            $('k-total-goals').textContent = stats.goals.total_goals;
+            $('k-avg-goals').textContent = stats.goals.avg_goals_per_user;
+
+            Chart.defaults.color = '#9aa0ad';
+            Chart.defaults.borderColor = '#262b36';
+            Chart.defaults.font.family = 'Poppins, -apple-system, sans-serif';
+
+            const PALETTE = ['#C4622D', '#D4833A', '#4ade80', '#fbbf24', '#ef4444', '#f472b6', '#60a5fa', '#a78bfa'];
+
+            Object.values(charts).forEach(c => c.destroy());
+            charts = {};
+
+            charts.activity = new Chart($('chart-users-activity'), {
+                type: 'doughnut',
+                data: {
+                    labels: u.engagement_stats.users_by_activity.map(x => x.label),
+                    datasets: [{
+                        data: u.engagement_stats.users_by_activity.map(x => x.count),
+                        backgroundColor: PALETTE,
+                        borderColor: '#171a21',
+                        borderWidth: 2,
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'right' } } }
+            });
+
+            const statusEntries = Object.entries(stats.goals.goals_by_status);
+            charts.status = new Chart($('chart-goals-status'), {
+                type: 'bar',
+                data: {
+                    labels: statusEntries.map(([k]) => k),
+                    datasets: [{ label: 'Goals', data: statusEntries.map(([, v]) => v), backgroundColor: '#C4622D' }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+
+            charts.context = new Chart($('chart-goals-context'), {
+                type: 'bar',
+                data: {
+                    labels: stats.goals.goals_by_context.map(x => x.context_name),
+                    datasets: [{ label: 'Goals', data: stats.goals.goals_by_context.map(x => x.count), backgroundColor: '#D4833A' }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+                }
+            });
+
+            renderTemplates('usage_count');
+        }
+
+        const METRIC_MAP = {
+            usage_count: 'most_added',
+            views_count: 'most_viewed',
+            shares_count: 'most_shared',
+        };
+        function renderTemplates(metric) {
+            const items = stats.template_goals[METRIC_MAP[metric]];
+            document.querySelector('#templates-table tbody').innerHTML = items.map((it, i) => `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${escapeHtml(it.title)}</td>
+                    <td>${it.contexts.map(c => escapeHtml(c.name)).join(', ') || '—'}</td>
+                    <td class="num">${it[metric]}</td>
+                </tr>
+            `).join('');
+        }
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        async function boot(token) {
+            hide('view-login');
+            show('view-loading');
+            try {
+                stats = await fetchStats(token);
+                sessionStorage.setItem(TOKEN_KEY, token);
+                const payload = parseJwt(token);
+                $('user-label').textContent = payload?.user_id ? `user #${payload.user_id}` : '';
+                hide('view-loading');
+                show('view-dashboard');
+                renderDashboard();
+            } catch (err) {
+                sessionStorage.removeItem(TOKEN_KEY);
+                hide('view-loading');
+                show('view-login');
+                showLoginError(err.message);
+            }
+        }
+
+        function showLoginError(msg) {
+            const el = $('login-error');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+        }
+
+        $('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            $('login-error').classList.add('hidden');
+            $('login-btn').disabled = true;
+            try {
+                const token = await login($('username').value, $('password').value);
+                await boot(token);
+            } catch (err) {
+                showLoginError(err.message);
+            } finally {
+                $('login-btn').disabled = false;
+            }
+        });
+
+        $('logout-btn').addEventListener('click', () => {
+            sessionStorage.removeItem(TOKEN_KEY);
+            location.reload();
+        });
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                renderTemplates(tab.dataset.metric);
+            });
+        });
+
+        // Auto-login from stored token
+        const savedToken = sessionStorage.getItem(TOKEN_KEY);
+        if (savedToken) boot(savedToken);
+    </script>
+</body>
+</html>

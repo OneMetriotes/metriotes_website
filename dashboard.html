@@ -8,7 +8,7 @@ sitemap: false
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Metriotes — Dashboard</title>
+    <title>Metriotes Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -165,7 +165,7 @@ sitemap: false
     <!-- Dashboard -->
     <div id="view-dashboard" class="hidden">
         <header>
-            <h1>Metriotes — Dashboard</h1>
+            <h1>Metriotes Dashboard</h1>
             <div class="user">
                 <span id="generated-at"></span>
                 <span id="user-label"></span>
@@ -183,7 +183,7 @@ sitemap: false
             <!-- ========================= USUARIOS ========================= -->
             <div id="panel-users" class="tab-panel active">
                 <section>
-                    <h2>Usuarios — Resumen</h2>
+                    <h2>Usuarios Resumen</h2>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total users</div><div class="value" id="k-total-users">–</div></div>
                         <div class="kpi"><div class="label">Profiles</div><div class="value" id="k-total-profiles">–</div></div>
@@ -275,7 +275,7 @@ sitemap: false
             <!-- ========================= PROFESIONALES ========================= -->
             <div id="panel-professionals" class="tab-panel">
                 <section>
-                    <h2>Profesionales — Resumen</h2>
+                    <h2>Profesionales Resumen</h2>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total</div><div class="value" id="k-p-total">–</div></div>
                         <div class="kpi"><div class="label">Visibles</div><div class="value good" id="k-p-visible">–</div></div>
@@ -346,7 +346,7 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Rankings — Top 10</h2>
+                    <h2>Rankings Top 10</h2>
                     <div class="sub-tabs">
                         <div class="sub-tab active" data-ranking="top_by_clients">Por clientes</div>
                         <div class="sub-tab" data-ranking="top_by_sessions">Por sesiones</div>
@@ -580,7 +580,7 @@ sitemap: false
                 <tr>
                     <td>${i + 1}</td>
                     <td>${escapeHtml(it.title)}</td>
-                    <td>${it.contexts.map(c => escapeHtml(c.name)).join(', ') || '—'}</td>
+                    <td>${it.contexts.map(c => escapeHtml(c.name)).join(', ') || ''}</td>
                     <td class="num">${it[metric]}</td>
                 </tr>
             `).join('') || '<tr><td colspan="4" style="color:var(--muted)">Sin datos</td></tr>';
@@ -686,7 +686,7 @@ sitemap: false
                 <tr>
                     <td>${i + 1}</td>
                     <td>${escapeHtml(it.name)}</td>
-                    <td>${escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '—')}</td>
+                    <td>${escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '')}</td>
                     <td class="num">${key === 'top_by_rating' ? it.value.toFixed(2) : it.value}</td>
                     ${key === 'top_by_rating' ? `<td class="num">${it.ratings_count}</td>` : ''}
                 </tr>

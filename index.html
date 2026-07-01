@@ -28,21 +28,22 @@
     <style>
         /* ─── Design Tokens ─────────────────────────────────── */
         :root {
-            --terra:            #C4622D;
-            --terra-dark:       #9A4820;
-            --terra-light:      rgba(196,98,45,0.1);
-            --terra-glow:       rgba(196,98,45,0.2);
-            --amber:            #D4833A;
-            --canvas:           #FAF7F4;
+            /* Steel-blue brand palette pulled from the app logo */
+            --terra:            #5B7A94;  /* primary accent (steel-blue) */
+            --terra-dark:       #3D5468;  /* deeper variant */
+            --terra-light:      rgba(91,122,148,0.10);
+            --terra-glow:       rgba(91,122,148,0.22);
+            --amber:            #8FA8B8;  /* lighter highlight (soft steel) */
+            --canvas:           #F4F7FA;  /* cool paper */
             --surface:          #FFFFFF;
-            --surface-raised:   #F5F0EB;
-            --text-primary:     #1C1410;
-            --text-secondary:   #7A6658;
-            --text-muted:       #A8968A;
-            --border:           rgba(196,98,45,0.12);
-            --border-strong:    rgba(196,98,45,0.22);
-            --shadow-card:      0 1px 3px rgba(28,20,16,0.04), 0 8px 24px rgba(28,20,16,0.07);
-            --shadow-card-hover:0 4px 6px rgba(28,20,16,0.05), 0 20px 48px rgba(28,20,16,0.12);
+            --surface-raised:   #EBF1F6;
+            --text-primary:     #0F1620;  /* near-black tinted blue (also used as dark section bg) */
+            --text-secondary:   #4A5C6E;
+            --text-muted:       #8A9AAB;
+            --border:           rgba(91,122,148,0.14);
+            --border-strong:    rgba(91,122,148,0.26);
+            --shadow-card:      0 1px 3px rgba(15,22,32,0.05), 0 8px 24px rgba(15,22,32,0.09);
+            --shadow-card-hover:0 4px 6px rgba(15,22,32,0.06), 0 20px 48px rgba(15,22,32,0.14);
             --ease-spring:      cubic-bezier(0.16, 1, 0.3, 1);
             --ease-out:         cubic-bezier(0.0, 0, 0.2, 1);
             --section-py:       clamp(5rem, 9vw, 9rem);
@@ -56,7 +57,9 @@
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.65;
             color: var(--text-primary);
-            background: var(--canvas);
+            background:
+                linear-gradient(180deg, #EEF3F8 0%, #E4EDF3 50%, #DEE8F0 100%);
+            background-attachment: fixed;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -93,15 +96,34 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(253,251,247,0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            transition: box-shadow 300ms var(--ease-out);
+            background: rgba(15,22,32,0.14);
+            backdrop-filter: blur(14px) saturate(1.2);
+            -webkit-backdrop-filter: blur(14px) saturate(1.2);
+            border-bottom: 1px solid rgba(255,255,255,0.14);
+            transition: box-shadow 300ms var(--ease-out), background 300ms, border-color 300ms;
         }
+        .site-nav .nav-logo,
+        .site-nav .nav-logo span { color: #FFFFFF; transition: color 300ms; }
+        .site-nav .nav-link { color: rgba(255,255,255,0.78); transition: color 300ms; }
+        .site-nav .nav-link:hover { color: #FFFFFF; }
+        .site-nav .lang-toggle { border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); transition: all 300ms; }
+        .site-nav .lang-option { color: rgba(255,255,255,0.72); transition: color 300ms; }
+        .site-nav .lang-option.active { color: #FFFFFF; }
+        .site-nav .lang-sep { color: rgba(255,255,255,0.35); }
+
         .site-nav.scrolled {
-            box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+            background: rgba(228,237,243,0.86);
+            border-bottom-color: rgba(91,122,148,0.16);
+            box-shadow: 0 2px 16px rgba(15,22,32,0.08);
         }
+        .site-nav.scrolled .nav-logo,
+        .site-nav.scrolled .nav-logo span { color: var(--text-primary); }
+        .site-nav.scrolled .nav-link { color: var(--text-secondary); }
+        .site-nav.scrolled .nav-link:hover { color: var(--text-primary); }
+        .site-nav.scrolled .lang-toggle { border-color: var(--border); background: transparent; }
+        .site-nav.scrolled .lang-option { color: var(--text-muted); }
+        .site-nav.scrolled .lang-option.active { color: var(--text-primary); }
+        .site-nav.scrolled .lang-sep { color: var(--text-muted); }
         .nav-inner {
             max-width: var(--container);
             margin: 0 auto;
@@ -112,11 +134,20 @@
             justify-content: space-between;
         }
         .nav-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
             font-family: 'Kalnia', Georgia, serif;
             font-size: 1.25rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             color: var(--text-primary);
+        }
+        .nav-logo-mark {
+            width: 22px;
+            height: 28px;
+            display: block;
+            flex-shrink: 0;
         }
         .nav-actions {
             display: flex;
@@ -154,14 +185,15 @@
         .hero-section {
             min-height: 100dvh;
             background:
-                radial-gradient(ellipse 70% 55% at 85% 15%, rgba(196,98,45,0.10) 0%, transparent 55%),
-                radial-gradient(ellipse 55% 50% at 95% 85%, rgba(212,131,58,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 40% 35% at 15% 85%, rgba(196,98,45,0.06) 0%, transparent 55%),
-                var(--canvas);
+                radial-gradient(ellipse 70% 55% at 82% 12%, rgba(255,255,255,0.16) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 20% 88%, rgba(15,22,32,0.28) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 45% at 30% 20%, rgba(143,168,184,0.35) 0%, transparent 60%),
+                linear-gradient(165deg, #7A98AF 0%, #5B7A94 42%, #3D5468 100%);
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            color: #FFFFFF;
         }
         .hero-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
         .shape { position: absolute; }
@@ -169,28 +201,28 @@
             width: clamp(400px, 50vw, 700px);
             height: clamp(400px, 50vw, 700px);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(196,98,45,0.13) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);
             top: -15%; right: -10%;
         }
         .shape-2 {
             width: clamp(280px, 32vw, 480px);
             height: clamp(280px, 32vw, 480px);
             border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-            background: rgba(212,131,58,0.07);
+            background: rgba(255,255,255,0.08);
             bottom: -10%; left: -5%;
         }
         .shape-3 {
             width: clamp(100px, 12vw, 180px);
             height: clamp(100px, 12vw, 180px);
             border-radius: 1.5rem;
-            border: 1.5px solid rgba(196,98,45,0.18);
+            border: 1.5px solid rgba(255,255,255,0.28);
             top: 28%; right: 12%;
             transform: rotate(15deg);
         }
         .shape-4 {
             width: 72px; height: 72px;
             border-radius: 50%;
-            border: 1px solid rgba(196,98,45,0.2);
+            border: 1px solid rgba(255,255,255,0.32);
             top: 16%; left: 40%;
         }
         .hero-grid {
@@ -207,13 +239,14 @@
             font-weight: 900;
             letter-spacing: -0.03em;
             line-height: 1.0;
-            color: var(--text-primary);
+            color: #FFFFFF;
+            text-shadow: 0 2px 40px rgba(15,22,32,0.18);
             margin-bottom: 1.5rem;
             max-width: 14ch;
         }
         .hero-sub {
             font-size: clamp(1rem, 1.5vw, 1.175rem);
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.82);
             max-width: 52ch;
             line-height: 1.7;
             margin-bottom: 2.5rem;
@@ -261,82 +294,1379 @@
         }
 
         /* ─── Features List ──────────────────────────────────── */
-        .features-section { background: var(--canvas); }
-        .feature-list {
+        .features-section {
+            position: relative;
+            background:
+                radial-gradient(65% 50% at 88% 20%, rgba(91,122,148,0.14), transparent 60%),
+                radial-gradient(55% 45% at 8% 78%, rgba(143,168,184,0.11), transparent 65%),
+                linear-gradient(180deg, transparent 0%, rgba(91,122,148,0.03) 100%);
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .features-section .section-container { position: relative; z-index: 1; }
+        /* Badge shared with pros-badge but tinted for light bg */
+        .feat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.12);
+            border: 1px solid rgba(91,122,148,0.28);
+            color: var(--terra-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .feat-badge::before {
+            content: "";
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 999px;
+            background: var(--terra);
+            box-shadow: 0 0 8px rgba(91,122,148,0.5);
+        }
+        .features-section .section-heading {
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            letter-spacing: -0.035em;
+            line-height: 1.02;
+            max-width: 22ch;
+        }
+        .features-section .section-sub {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 60ch;
+            line-height: 1.65;
+            margin-top: 1.25rem;
+        }
+
+        /* Featured hero card for users (light theme) */
+        .feat-featured {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem;
+            margin: 3.5rem 0;
+            background:
+                radial-gradient(100% 140% at 0% 0%, rgba(91,122,148,0.14), transparent 55%),
+                linear-gradient(180deg, #FFFFFF, #F1F5F9);
+            border: 1px solid rgba(91,122,148,0.16);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -30px rgba(15,22,32,0.14);
+        }
+        .feat-featured::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(91,122,148,0.4), transparent 55%, rgba(91,122,148,0.08));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
+        }
+        .feat-featured-body { position: relative; z-index: 1; }
+        .feat-featured-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 1rem;
+        }
+        .feat-featured-eyebrow::before {
+            content: "";
+            width: 2rem;
+            height: 1px;
+            background: var(--terra);
+        }
+        .feat-featured h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.08;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+        }
+        .feat-featured-desc {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 46ch;
+            margin-bottom: 1.5rem;
+        }
+        .feat-featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .feat-featured-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(91,122,148,0.08);
+            border: 1px solid rgba(91,122,148,0.18);
+            color: var(--text-primary);
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+        .feat-featured-tag svg { width: 0.875rem; height: 0.875rem; color: var(--terra); flex-shrink: 0; }
+
+        /* Reverse layout: mockup left, text right */
+        .feat-featured--reverse { grid-template-columns: 1fr 1.15fr; }
+        .feat-featured--reverse .feat-featured-body { order: 2; }
+        .feat-featured--reverse .feat-mockup,
+        .feat-featured--reverse .feat-compass { order: 1; }
+
+        /* Light-theme mockup container (shared with app-style card) */
+        .feat-mockup {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            padding: 1.5rem 1.25rem;
+            justify-self: center;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+            border: 1px solid rgba(91,122,148,0.16);
+            border-radius: 22px;
+            box-shadow:
+                0 30px 60px -20px rgba(15,22,32,0.14),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        /* ── Shared-goal mockup ── */
+        .feat-mockup-shared-head {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.15rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(91,122,148,0.12);
+        }
+        .feat-mockup-avatars {
+            display: flex;
+            flex-shrink: 0;
+        }
+        .feat-mockup-avatar {
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 1px 4px rgba(15,22,32,0.12);
+        }
+        .feat-mockup-avatar-1 {
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+        }
+        .feat-mockup-avatar-2 {
+            background: linear-gradient(135deg, var(--terra), var(--terra-dark));
+            margin-left: -0.75rem;
+        }
+        .feat-mockup-shared-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .feat-mockup-shared-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .feat-mockup-goal-eyebrow {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 0.35rem;
+        }
+        .feat-mockup-goal {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.85rem;
+        }
+        .feat-mockup-progress {
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.12);
+            overflow: hidden;
+            margin-bottom: 0.35rem;
+        }
+        .feat-mockup-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--amber), var(--terra));
+            border-radius: inherit;
+        }
+        .feat-mockup-progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-variant-numeric: tabular-nums;
+        }
+        .feat-mockup-progress-meta strong {
+            color: var(--terra-dark);
+            font-weight: 600;
+        }
+        .feat-mockup-chat {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            padding: 0.65rem 0.8rem;
+            background: rgba(91,122,148,0.08);
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 12px;
+            border-top-left-radius: 4px;
+        }
+        .feat-mockup-chat-avatar {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terra), var(--terra-dark));
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .feat-mockup-chat-body { flex: 1; }
+        .feat-mockup-chat-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--terra-dark);
+            margin-bottom: 2px;
+        }
+        .feat-mockup-chat-msg {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.35;
+        }
+
+        /* ── Privacy / witnesses mockup ── */
+        .feat-mockup-shield {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(143,168,184,0.28), rgba(91,122,148,0.18));
+            border: 1px solid rgba(91,122,148,0.22);
+            color: var(--terra);
+            margin-bottom: 0.85rem;
+        }
+        .feat-mockup-shield svg { width: 1.3rem; height: 1.3rem; }
+        .feat-mockup-privacy-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.55rem;
+        }
+        .feat-mockup-privacy-goal {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(91,122,148,0.12);
+        }
+        .feat-mockup-witnesses-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.55rem;
+        }
+        .feat-mockup-witness {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.7rem;
+            border-radius: 10px;
+            background: rgba(91,122,148,0.06);
+            border: 1px solid rgba(91,122,148,0.14);
+            margin-bottom: 0.4rem;
+        }
+        .feat-mockup-witness--empty {
+            background: transparent;
+            border-style: dashed;
+            color: var(--text-muted);
+        }
+        .feat-mockup-witness-dot {
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(15,22,32,0.1);
+        }
+        .feat-mockup-witness--empty .feat-mockup-witness-dot {
+            background: none;
+            border: 1.5px dashed rgba(91,122,148,0.35);
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--terra);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .feat-mockup-witness-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        .feat-mockup-witness--empty .feat-mockup-witness-name {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .feat-mockup-witness-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.14);
+            color: var(--terra-dark);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* ─── Sub-section: Los momentos (Discovery, Diario, Gratitud, etc) ─ */
+        .feat-subsection {
+            margin-top: 6rem;
+            padding-top: 4rem;
+            border-top: 1px solid rgba(91,122,148,0.16);
+        }
+        .feat-subsection-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 1rem;
+        }
+        .feat-subsection-eyebrow::before {
+            content: "";
+            width: 2rem;
+            height: 1px;
+            background: var(--terra);
+        }
+        .feat-subsection-heading {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(2rem, 4.5vw, 3.25rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: var(--text-primary);
+            max-width: 26ch;
+            margin-bottom: 1.25rem;
+        }
+        .feat-subsection-sub {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            max-width: 60ch;
+            line-height: 1.65;
+            margin-bottom: 3rem;
+        }
+
+        /* ── Mockup: Weekly discovery wheel ── */
+        .feat-mockup-week {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1 / 1;
+            justify-self: center;
+        }
+        .feat-mockup-week-ring {
+            position: absolute;
+            inset: 12%;
+            border-radius: 50%;
+            border: 1px dashed rgba(91,122,148,0.28);
+        }
+        .feat-mockup-week-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 38%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background: linear-gradient(160deg, #FFFFFF, #EEF3F8);
+            border: 1px solid rgba(91,122,148,0.18);
+            box-shadow:
+                0 10px 30px -8px rgba(15,22,32,0.14),
+                inset 0 1px 0 rgba(255,255,255,0.9);
             display: flex;
             flex-direction: column;
-            border-top: 1px solid var(--border-strong);
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            text-align: center;
+            gap: 0.15rem;
         }
-        .feature-item {
+        .feat-mockup-week-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+            background: rgba(91,122,148,0.12);
+            color: var(--terra);
+            margin-bottom: 0.15rem;
+        }
+        .feat-mockup-week-icon svg { width: 1.4rem; height: 1.4rem; }
+        .feat-mockup-week-topic {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .feat-mockup-week-hint {
+            font-size: 0.58rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .feat-mockup-week-dot {
+            position: absolute;
+            /* Radial system relative to parent */
+            left: calc(50% + 42% * sin(var(--angle, 0deg)));
+            top:  calc(50% - 42% * cos(var(--angle, 0deg)));
+            transform: translate(-50%, -50%);
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.2);
+            box-shadow: 0 4px 12px -3px rgba(15,22,32,0.12);
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .feat-mockup-week-dot--active {
+            background: linear-gradient(160deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            border-color: var(--terra);
+            box-shadow: 0 8px 20px -4px rgba(91,122,148,0.5);
+            transform: translate(-50%, -50%) scale(1.08);
+            font-weight: 700;
+        }
+
+        /* ── Mockup: Diary entry ── */
+        .feat-mockup-diary-date {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--terra);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .feat-mockup-diary-title {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.55rem;
+        }
+        .feat-mockup-diary-text {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 1rem;
+        }
+        .feat-mockup-diary-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid rgba(91,122,148,0.12);
+        }
+        .feat-mockup-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.08);
+            border: 1px solid rgba(91,122,148,0.16);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .feat-mockup-chip--mood {
+            background: linear-gradient(135deg, rgba(143,168,184,0.24), rgba(91,122,148,0.14));
+            border-color: rgba(91,122,148,0.28);
+            color: var(--terra-dark);
+            font-weight: 600;
+        }
+
+        /* Compass mockup for light featured */
+        .feat-compass {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            aspect-ratio: 1 / 1;
+            justify-self: center;
+            padding: 3.5rem;
+        }
+        .feat-compass-ring {
+            position: absolute;
+            inset: 3.5rem;
+            border-radius: 50%;
+            border: 1px solid rgba(91,122,148,0.32);
+        }
+        .feat-compass-ring--2 { inset: calc(3.5rem + 12%); border-color: rgba(91,122,148,0.26); }
+        .feat-compass-ring--3 { inset: calc(3.5rem + 22%); border-color: rgba(91,122,148,0.2); border-style: dashed; }
+        .feat-compass-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32%;
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), transparent 55%),
+                linear-gradient(160deg, var(--amber), var(--terra) 55%, var(--terra-dark));
+            box-shadow:
+                0 18px 40px -10px rgba(91,122,148,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .feat-compass-logo {
+            width: 62%;
+            height: 62%;
+            object-fit: contain;
+            /* Paint the PNG pure white while keeping transparency */
+            filter: brightness(0) invert(1);
+        }
+
+        /* Radial markers positioned around the compass core via --angle */
+        .feat-compass-marker {
+            position: absolute;
+            /* 0deg = top; increases clockwise */
+            left: calc(50% + var(--radius, 46%) * sin(var(--angle, 0deg)));
+            top:  calc(50% - var(--radius, 46%) * cos(var(--angle, 0deg)));
+            transform: translate(-50%, -50%);
+            padding: 0.4rem 0.75rem;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.2);
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            box-shadow: 0 4px 14px -4px rgba(15,22,32,0.14);
+            white-space: nowrap;
+            transition: box-shadow 300ms;
+        }
+        .feat-compass-marker--primary {
+            color: var(--terra-dark);
+            font-weight: 600;
+            border-color: rgba(91,122,148,0.32);
+            box-shadow: 0 6px 18px -4px rgba(91,122,148,0.28);
+        }
+
+        /* Manifesto slice (light) */
+        .feat-manifesto {
+            position: relative;
+            padding: 3.5rem 0 2.5rem;
+            margin: 2rem 0 3rem;
+            border-top: 1px solid rgba(91,122,148,0.14);
+        }
+        .feat-manifesto-line {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.12;
+            color: var(--text-primary);
+            max-width: 24ch;
+        }
+        .feat-manifesto-line span {
+            color: rgba(15,22,32,0.35);
+        }
+
+        /* Grid of feature cards (light) */
+        .feat-grid {
             display: grid;
-            grid-template-columns: 3rem 1fr;
-            gap: 2rem;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid var(--border-strong);
-            transition: opacity 400ms var(--ease-out);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
         }
-        .feature-item:hover { opacity: 0.65; }
-        .feature-num {
+        .feat-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F6F9FC 100%);
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: border-color 400ms var(--ease-out), transform 400ms var(--ease-spring), box-shadow 400ms var(--ease-out);
+        }
+        .feat-card::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: radial-gradient(400px circle at var(--mx,-100%) var(--my,-100%), rgba(91,122,148,0.16), transparent 45%);
+            opacity: 0;
+            transition: opacity 400ms var(--ease-out);
+            pointer-events: none;
+        }
+        .feat-card:hover {
+            border-color: rgba(91,122,148,0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 30px 50px -20px rgba(15,22,32,0.14);
+        }
+        .feat-card:hover::after { opacity: 1; }
+        .feat-card > * { position: relative; z-index: 1; }
+        .feat-card-head {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .feat-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 10px;
+            background: rgba(91,122,148,0.14);
+            color: var(--terra);
+            flex-shrink: 0;
+        }
+        .feat-card-icon svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.75; }
+        .feat-card-num {
             font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 0.04em;
-            padding-top: 0.3rem;
+            letter-spacing: 0.08em;
         }
-        .feature-body h3 {
+        .feat-card h3 {
             font-family: 'Kalnia', Georgia, serif;
-            font-size: 1.2rem;
+            font-size: 1.375rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
         }
-        .feature-body p {
+        .feat-card-hook {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--terra-dark);
+            line-height: 1.55;
+            margin-bottom: 0.85rem;
+            letter-spacing: -0.005em;
+        }
+        .feat-card-desc {
             font-size: 0.9375rem;
             color: var(--text-secondary);
             line-height: 1.7;
-            max-width: 68ch;
         }
         /* ─── Professionals Section ──────────────────────────── */
-        .pros-section { background: var(--text-primary); }
-        .pros-header { margin-bottom: 3rem; }
-        .pros-header .section-heading { color: #FFFFFF; max-width: 28ch; }
-        .pros-header .section-sub { color: rgba(255,255,255,0.55); }
-
-        .pros-list { border-top: 1px solid rgba(255,255,255,0.12); }
-        .pros-item {
-            display: grid;
-            grid-template-columns: 3rem 1fr;
-            gap: 2rem;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            transition: opacity 400ms var(--ease-out);
+        .pros-section {
+            position: relative;
+            background:
+                radial-gradient(140% 90% at 50% 0%, #1A2838 0%, #0F1620 55%, #0A0F16 100%);
+            overflow: hidden;
+            isolation: isolate;
         }
-        .pros-item:hover { opacity: 0.65; }
-        .pros-item-num {
+        .pros-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(60% 45% at 12% 8%,  rgba(143,168,184,0.16), transparent 65%),
+                radial-gradient(55% 40% at 88% 30%, rgba(91,122,148,0.12), transparent 70%),
+                radial-gradient(50% 40% at 20% 85%, rgba(143,168,184,0.08), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .pros-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.035 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: overlay;
+        }
+        .pros-section .section-container { position: relative; z-index: 1; }
+
+        .pros-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.12);
+            border: 1px solid rgba(91,122,148,0.28);
+            color: var(--amber);
             font-size: 0.75rem;
             font-weight: 600;
-            color: rgba(255,255,255,0.3);
-            letter-spacing: 0.04em;
-            padding-top: 0.3rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
         }
-        .pros-item-body h3 {
+        .pros-badge::before {
+            content: "";
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 999px;
+            background: var(--amber);
+            box-shadow: 0 0 8px var(--amber);
+        }
+        .pros-header { margin-bottom: 2.5rem; }
+        .pros-header .section-heading {
+            color: #FFFFFF;
+            max-width: 22ch;
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            letter-spacing: -0.035em;
+            line-height: 1.02;
+        }
+        .pros-header .section-sub {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.125rem;
+            max-width: 58ch;
+            line-height: 1.65;
+        }
+
+        .pros-audience {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2.25rem 0 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .pros-audience-label {
+            width: 100%;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+        }
+        .pros-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 0.875rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            transition: all 200ms var(--ease-out);
+        }
+        .pros-chip:hover {
+            background: rgba(91,122,148,0.15);
+            border-color: rgba(91,122,148,0.4);
+            color: #FFFFFF;
+        }
+
+        .pros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.25rem;
+        }
+        .pros-grid--three { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+        /* When --three has 5 cards on wide screens: 3 on top, 2 stretched below */
+        @media (min-width: 1000px) {
+            .pros-grid--three {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .pros-grid--three > .pros-card { grid-column: span 2; }
+            .pros-grid--three > .pros-card:nth-child(4):nth-last-child(2),
+            .pros-grid--three > .pros-card:nth-child(5):nth-last-child(1) {
+                grid-column: span 3;
+            }
+        }
+        .pros-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 2rem 1.75rem;
+            background:
+                radial-gradient(120% 100% at 0% 0%, rgba(255,255,255,0.04), rgba(255,255,255,0.02) 40%, rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: border-color 400ms var(--ease-out), transform 400ms var(--ease-spring), box-shadow 400ms var(--ease-out);
+        }
+        .pros-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 40%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
+        }
+        .pros-card::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: radial-gradient(400px circle at var(--mx,-100%) var(--my,-100%), rgba(91,122,148,0.16), transparent 45%);
+            opacity: 0;
+            transition: opacity 400ms var(--ease-out);
+            pointer-events: none;
+        }
+        .pros-card:hover {
+            border-color: rgba(91,122,148,0.4);
+            transform: translateY(-3px);
+            box-shadow:
+                0 30px 60px -20px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(91,122,148,0.12);
+        }
+        .pros-card:hover::after { opacity: 1; }
+        .pros-card > * { position: relative; z-index: 1; }
+        .pros-card-head {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .pros-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 10px;
+            background: rgba(91,122,148,0.12);
+            color: var(--amber);
+            flex-shrink: 0;
+        }
+        .pros-card-icon svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke-width: 1.75;
+        }
+        .pros-card-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.08em;
+        }
+        .pros-card h3 {
             font-family: 'Kalnia', Georgia, serif;
-            font-size: 1.2rem;
+            font-size: 1.375rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .pros-card-hook {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--amber);
+            line-height: 1.55;
+            margin-bottom: 1rem;
+            letter-spacing: -0.005em;
+        }
+        .pros-card-desc {
+            font-size: 0.9375rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .pros-card-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+            margin-top: auto;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .pros-card-benefit {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.625rem;
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.5;
+        }
+        .pros-card-benefit-dot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 1rem;
+            height: 1rem;
+            margin-top: 0.1875rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.18);
+            color: var(--terra);
+        }
+        .pros-card-benefit-dot svg {
+            width: 0.625rem;
+            height: 0.625rem;
+            stroke-width: 3;
+        }
+
+        /* ── Featured hero card ── */
+        .pros-featured {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            background:
+                radial-gradient(100% 140% at 100% 0%, rgba(91,122,148,0.16), transparent 55%),
+                linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .pros-featured::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(91,122,148,0.35), transparent 50%, rgba(255,255,255,0.06));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
+        }
+        .pros-featured-body { position: relative; z-index: 1; }
+        .pros-featured-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 1rem;
+        }
+        .pros-featured-eyebrow::before {
+            content: "";
+            width: 2rem;
+            height: 1px;
+            background: var(--amber);
+        }
+        .pros-featured h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.08;
+            color: #FFFFFF;
+            margin-bottom: 1.25rem;
+        }
+        .pros-featured-desc {
+            font-size: 1.0625rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            margin-bottom: 1.75rem;
+            max-width: 46ch;
+        }
+        .pros-featured-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .pros-featured-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+        .pros-featured-tag svg { width: 0.875rem; height: 0.875rem; color: var(--amber); }
+
+        /* ── UI Mockup (booking) ── */
+        .pros-mockup {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            max-width: 320px;
+            justify-self: end;
+            padding: 1.25rem;
+            background: linear-gradient(180deg, #1a2432, #0F1620);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 22px;
+            box-shadow:
+                0 30px 80px -20px rgba(0,0,0,0.7),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .pros-mockup-notch {
+            width: 40%;
+            height: 4px;
+            background: rgba(255,255,255,0.14);
+            border-radius: 999px;
+            margin: 0 auto 1rem;
+        }
+        .pros-mockup-title {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
             margin-bottom: 0.5rem;
         }
-        .pros-item-body p {
-            font-size: 0.9375rem;
+        .pros-mockup-day {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.75rem;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 0.5rem;
+        }
+        .pros-mockup-day--active {
+            background: rgba(91,122,148,0.14);
+            border: 1px solid rgba(91,122,148,0.4);
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        .pros-mockup-day span:last-child {
+            font-variant-numeric: tabular-nums;
             color: rgba(255,255,255,0.55);
-            line-height: 1.7;
-            max-width: 68ch;
+            font-size: 0.75rem;
+        }
+        .pros-mockup-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.375rem;
+            margin-top: 0.75rem;
+        }
+        .pros-mockup-slot {
+            padding: 0.45rem 0;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.75rem;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-variant-numeric: tabular-nums;
+        }
+        .pros-mockup-slot--picked {
+            background: var(--terra);
+            border-color: var(--terra);
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+        .pros-mockup-slot--taken {
+            color: rgba(255,255,255,0.25);
+            text-decoration: line-through;
+        }
+        .pros-mockup-confirm {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background: linear-gradient(180deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 6px 16px -4px rgba(91,122,148,0.5);
+        }
+
+        /* Featured reverse (mockup on the left) */
+        .pros-featured--reverse { grid-template-columns: 1fr 1.15fr; }
+        .pros-featured--reverse .pros-featured-body { order: 2; }
+        .pros-featured--reverse .pros-mockup { order: 1; justify-self: start; }
+
+        /* ── Mockup: Session notes ── */
+        .pros-mockup-avatar {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.15rem 0 1rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .pros-mockup-avatar-dot {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(91,122,148,0.35);
+        }
+        .pros-mockup-avatar-body { font-size: 0.75rem; line-height: 1.3; }
+        .pros-mockup-avatar-name { color: rgba(255,255,255,0.9); font-weight: 500; }
+        .pros-mockup-avatar-meta { color: rgba(255,255,255,0.45); font-size: 0.68rem; margin-top: 2px; font-variant-numeric: tabular-nums; }
+        .pros-mockup-note {
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-left-width: 2px;
+            margin-bottom: 0.55rem;
+        }
+        .pros-mockup-note--pre { border-left-color: var(--amber); }
+        .pros-mockup-note--post { border-left-color: var(--terra); }
+        .pros-mockup-note-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 0.35rem;
+        }
+        .pros-mockup-note--post .pros-mockup-note-label { color: rgba(255,255,255,0.5); }
+        .pros-mockup-note-text {
+            font-size: 0.72rem;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.72);
+        }
+
+        /* ── Mockup: Weekly calendar ── */
+        .pros-mockup-week {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+            margin-top: 0.35rem;
+        }
+        .pros-mockup-week-row {
+            display: grid;
+            grid-template-columns: 1.75rem 1fr auto;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 0.7rem;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.72);
+        }
+        .pros-mockup-week-row--active {
+            background: rgba(91,122,148,0.18);
+            border-color: rgba(143,168,184,0.42);
+            color: #FFFFFF;
+        }
+        .pros-mockup-week-day {
+            font-weight: 700;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.7rem;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        .pros-mockup-week-row--active .pros-mockup-week-day { color: var(--amber); }
+        .pros-mockup-week-name { font-weight: 500; }
+        .pros-mockup-week-hour {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            font-variant-numeric: tabular-nums;
+        }
+        .pros-mockup-week-row--active .pros-mockup-week-hour { color: rgba(255,255,255,0.85); }
+        .pros-mockup-week-badge {
+            grid-column: 1 / -1;
+            margin-top: 0.5rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 8px;
+            background: linear-gradient(180deg, rgba(143,168,184,0.14), rgba(91,122,148,0.06));
+            border: 1px solid rgba(143,168,184,0.28);
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.75);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .pros-mockup-week-badge svg { width: 0.75rem; height: 0.75rem; color: var(--amber); }
+
+        /* ── Stats strip ── */
+        .pros-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 2.5rem 0;
+            margin: 4rem 0;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .pros-stat { text-align: center; }
+        .pros-stat-num {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #FFFFFF;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+            background: linear-gradient(180deg, #FFFFFF 40%, var(--amber));
+            -webkit-background-clip: text;
+                    background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .pros-stat-label {
+            display: block;
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.02em;
+            max-width: 26ch;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* ── Manifesto slice ── */
+        .pros-manifesto {
+            position: relative;
+            padding: 4rem 0;
+            margin: 3rem 0;
+            text-align: left;
+        }
+        .pros-manifesto-line {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.1;
+            color: #FFFFFF;
+            max-width: 22ch;
+        }
+        .pros-manifesto-line span {
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── Section CTA ── */
+        .pros-cta {
+            position: relative;
+            margin-top: 5rem;
+            padding: 3.5rem 3rem;
+            background:
+                radial-gradient(100% 120% at 100% 100%, rgba(91,122,148,0.22), transparent 60%),
+                radial-gradient(100% 120% at 0% 0%, rgba(143,168,184,0.14), transparent 55%),
+                linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 24px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            overflow: hidden;
+        }
+        .pros-cta::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(91,122,148,0.4), transparent 55%, rgba(255,255,255,0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
+        }
+        .pros-cta-body { position: relative; z-index: 1; }
+        .pros-cta h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.08;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+        }
+        .pros-cta p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.65;
+            max-width: 44ch;
+        }
+        .pros-cta-actions {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .pros-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(180deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            box-shadow:
+                0 12px 32px -8px rgba(91,122,148,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+            transition: transform 200ms var(--ease-spring), box-shadow 300ms var(--ease-out);
+        }
+        .pros-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 20px 40px -8px rgba(91,122,148,0.55),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        .pros-cta-primary:active { transform: translateY(0); }
+        .pros-cta-fineprint {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            letter-spacing: 0.01em;
         }
 
         /* ─── Pricing ────────────────────────────────────────── */
-        .pricing-section { background: var(--canvas); }
+        .pricing-section {
+            position: relative;
+            background:
+                radial-gradient(60% 45% at 10% 15%, rgba(91,122,148,0.10), transparent 60%),
+                radial-gradient(50% 40% at 92% 78%, rgba(143,168,184,0.10), transparent 60%),
+                transparent;
+        }
         .pricing-group {
             margin-bottom: 4rem;
         }
@@ -432,7 +1762,7 @@
             justify-content: center;
             margin-top: 1px;
         }
-        .pricing-card--pro .pricing-check { background: rgba(196,98,45,0.25); }
+        .pricing-card--pro .pricing-check { background: rgba(91,122,148,0.25); }
         .pricing-check svg { width: 10px; height: 10px; color: var(--terra); }
         .pricing-card--pro .pricing-check svg { color: var(--amber); }
         .pricing-cta {
@@ -462,7 +1792,7 @@
         }
         .pricing-popular {
             display: inline-flex;
-            background: rgba(196,98,45,0.2);
+            background: rgba(91,122,148,0.2);
             color: var(--amber);
             border-radius: 9999px;
             padding: 0.2rem 0.75rem;
@@ -690,10 +2020,61 @@
             .nav-link { display: none; }
         }
 
+        @media (min-width: 1000px) {
+            .feat-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .feat-grid > .feat-card { grid-column: span 2; }
+            /* Two-column variant for exploratory formats (Diario, Gratitud, etc) */
+            .feat-grid--two { grid-template-columns: repeat(2, 1fr); }
+            .feat-grid--two > .feat-card { grid-column: auto; }
+            /* 5 cards → 3+2 stretched */
+            .feat-grid > .feat-card:nth-child(4):nth-last-child(2),
+            .feat-grid > .feat-card:nth-child(5):nth-last-child(1) {
+                grid-column: span 3;
+            }
+            /* 7 cards → 3 + 3 + 1 spans 6 (full-width) */
+            .feat-grid > .feat-card:nth-child(7):nth-last-child(1) {
+                grid-column: span 6;
+                display: grid;
+                grid-template-columns: 2.5rem 1fr 2fr;
+                gap: 2rem;
+                align-items: center;
+            }
+            .feat-grid > .feat-card:nth-child(7):nth-last-child(1) .feat-card-head {
+                margin-bottom: 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .feat-grid > .feat-card:nth-child(7):nth-last-child(1) h3 { margin-bottom: 0; }
+            .feat-grid > .feat-card:nth-child(7):nth-last-child(1) .feat-card-hook { margin-bottom: 0; }
+        }
+        @media (max-width: 900px) {
+            .pros-featured,
+            .pros-featured--reverse,
+            .feat-featured,
+            .feat-featured--reverse { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+            .pros-featured--reverse .pros-featured-body,
+            .pros-featured--reverse .pros-mockup,
+            .feat-featured--reverse .feat-featured-body,
+            .feat-featured--reverse .feat-mockup,
+            .feat-featured--reverse .feat-compass { order: initial; }
+            .pros-mockup,
+            .feat-mockup { justify-self: center; max-width: 280px; }
+            .pros-cta { grid-template-columns: 1fr; padding: 2.5rem 2rem; gap: 2rem; }
+            .pros-stats { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 0; margin: 2.5rem 0; }
+            .pros-stat-label { max-width: 30ch; }
+            .feat-compass { max-width: 260px; }
+            .feat-mockup-week { max-width: 260px; }
+        }
         @media (max-width: 640px) {
             .hero-ctas { flex-direction: column; align-items: flex-start; }
-            .feature-item,
-            .pros-item { grid-template-columns: 2rem 1fr; gap: 1rem; padding: 1.75rem 0; }
+            .feature-item { grid-template-columns: 2rem 1fr; gap: 1rem; padding: 1.75rem 0; }
+            .pros-card { padding: 1.5rem 1.5rem 1.25rem; }
+            .pros-card h3 { font-size: 1.25rem; }
+            .pros-featured { padding: 1.75rem 1.5rem; }
+            .pros-cta { padding: 2rem 1.5rem; }
             .shape-3, .shape-4 { display: none; }
         }
     </style>
@@ -704,7 +2085,12 @@
     <!-- ── Navigation ─────────────────────────────────────────── -->
     <nav class="site-nav" id="site-nav">
         <div class="nav-inner">
-            <a href="/" class="nav-logo" aria-label="Metriotes">Metriotes</a>
+            <a href="/" class="nav-logo" aria-label="Metriotes">
+                <svg class="nav-logo-mark" viewBox="0 0 100 130" fill="currentColor" aria-hidden="true">
+                    <path d="M50 6 L94 122 Q50 88 6 122 Z"/>
+                </svg>
+                <span>Metriotes</span>
+            </a>
             <div class="nav-actions">
                 <a href="#profesionales" class="nav-link" data-i18n="nav-pros">Para Profesionales</a>
                 <button class="lang-toggle" id="lang-toggle" aria-label="Cambiar idioma">
@@ -730,7 +2116,7 @@
                 <span data-i18n="hero-line2">quieres ser.</span>
             </h1>
             <p class="hero-sub reveal" style="--index:1" data-i18n="hero-sub">
-                Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas — construyes quien eres.
+                Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas construyes quien eres.
             </p>
             <div class="hero-ctas reveal" style="--index:2">
                 <a href="https://apple.co/3LX7yom" class="hero-store-link" target="_blank" rel="noopener">
@@ -748,59 +2134,247 @@
     <section class="features-section" id="funcionalidades">
         <div class="section-container">
             <div class="section-intro">
-                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="features-heading">
-                    Todo lo que necesitas para convertirte en quien quieres ser
-                </h2>
+                <div class="feat-badge" data-reveal style="--index:0" data-i18n="feat-badge">Para ti</div>
+                <h2 class="section-heading" data-reveal style="--index:1" data-i18n="features-heading">Todo lo que necesitas para convertirte en quien quieres ser</h2>
+                <p class="section-sub" data-reveal style="--index:2" data-i18n="features-sub">Metriotes no te ayuda a hacer más cosas. Te ayuda a vivir con más sentido. Cada función existe para que el día a día se parezca cada vez más a la vida que quieres.</p>
             </div>
 
-            <div class="feature-list">
-                <div class="feature-item" data-reveal style="--index:0">
-                    <div class="feature-num">01</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature1-title">Tu Estrella del Norte</h3>
-                        <p data-i18n="feature1-desc">Las personas más realizadas no gestionan listas — viven desde una dirección clara. Define tu Norte y cada decisión, grande o pequeña, encontrará su lugar naturalmente.</p>
+            <!-- Featured hero: Tu Norte -->
+            <article class="feat-featured" data-reveal style="--index:0">
+                <div class="feat-featured-body">
+                    <div class="feat-featured-eyebrow" data-i18n="feat-featured-eyebrow">Empieza por lo esencial</div>
+                    <h3 data-i18n="feat-featured-title">Cuando sabes hacia dónde vas, lo demás se ordena solo.</h3>
+                    <p class="feat-featured-desc" data-i18n="feat-featured-desc">Tu Norte es la brújula de todo lo que haces. Al tenerlo claro, dejas de responder a lo urgente para vivir desde lo importante. Cada decisión pequeña encuentra su lugar sin que tengas que pensarla dos veces.</p>
+                </div>
+                <div class="feat-compass" aria-hidden="true">
+                    <div class="feat-compass-ring"></div>
+                    <div class="feat-compass-ring feat-compass-ring--2"></div>
+                    <div class="feat-compass-ring feat-compass-ring--3"></div>
+                    <div class="feat-compass-core">
+                        <img src="assets/logo.png" alt="" class="feat-compass-logo">
+                    </div>
+                    <!-- 11 markers · alternating radii for organic zig-zag -->
+                    <div class="feat-compass-marker feat-compass-marker--primary" style="--angle: 0deg; --radius: 42%;" data-i18n="feat-compass-north">Norte</div>
+                    <div class="feat-compass-marker" style="--angle: 33deg; --radius: 30%;" data-i18n="feat-compass-objetivos">Objetivos</div>
+                    <div class="feat-compass-marker" style="--angle: 65deg; --radius: 42%;" data-i18n="feat-compass-salud">Salud</div>
+                    <div class="feat-compass-marker" style="--angle: 98deg; --radius: 30%;" data-i18n="feat-compass-habitos">Hábitos</div>
+                    <div class="feat-compass-marker" style="--angle: 131deg; --radius: 42%;" data-i18n="feat-compass-familia">Familia</div>
+                    <div class="feat-compass-marker" style="--angle: 164deg; --radius: 30%;" data-i18n="feat-compass-tareas">Tareas</div>
+                    <div class="feat-compass-marker" style="--angle: 197deg; --radius: 42%;" data-i18n="feat-compass-miedos">Miedos</div>
+                    <div class="feat-compass-marker" style="--angle: 229deg; --radius: 30%;" data-i18n="feat-compass-deseos">Deseos</div>
+                    <div class="feat-compass-marker" style="--angle: 262deg; --radius: 42%;" data-i18n="feat-compass-proposito">Propósito</div>
+                    <div class="feat-compass-marker" style="--angle: 295deg; --radius: 36%;" data-i18n="feat-compass-inseguridades">Inseguridades</div>
+                    <div class="feat-compass-marker" style="--angle: 327deg; --radius: 30%;" data-i18n="feat-compass-amigos">Amigos</div>
+                </div>
+            </article>
+
+            <!-- Manifesto -->
+            <div class="feat-manifesto" data-reveal style="--index:0">
+                <p class="feat-manifesto-line" data-i18n="feat-manifesto">No gestionas tareas. <span>Construyes quien eres.</span></p>
+            </div>
+
+            <!-- Grid de 6 cards (Objetivos, Día a día, Solo para ti, Crecer juntos, Testigos, Momentos) -->
+            <div class="feat-grid">
+                <!-- Objetivos que Importan -->
+                <div class="feat-card" data-reveal style="--index:0">
+                    <div class="feat-card-head">
+                        <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg></span>
+                        <span class="feat-card-num">01</span>
+                    </div>
+                    <h3 data-i18n="feat1-title">Objetivos que importan</h3>
+                    <p class="feat-card-hook" data-i18n="feat1-hook">Metas que arrancan desde lo que realmente sientes.</p>
+                    <p class="feat-card-desc" data-i18n="feat1-desc">Cada objetivo en Metriotes nace de tus valores, tus miedos, tus sueños. Cuando empiezas ya sabes por qué lo haces, y esa claridad cambia todo lo que sigue.</p>
+                </div>
+
+                <!-- El Día a Día que te Construye -->
+                <div class="feat-card" data-reveal style="--index:1">
+                    <div class="feat-card-head">
+                        <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg></span>
+                        <span class="feat-card-num">02</span>
+                    </div>
+                    <h3 data-i18n="feat2-title">El día a día que te construye</h3>
+                    <p class="feat-card-hook" data-i18n="feat2-hook">Tu versión futura se construye en el próximo paso, no en el próximo enero.</p>
+                    <p class="feat-card-desc" data-i18n="feat2-desc">Metriotes convierte tus grandes ambiciones en el paso concreto de hoy. Y luego en el de mañana. Sin listas eternas, sin sentirte abrumado, sin perder el hilo de lo importante.</p>
+                </div>
+
+                <!-- Solo para Ti (privacidad) -->
+                <div class="feat-card" data-reveal style="--index:2">
+                    <div class="feat-card-head">
+                        <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+                        <span class="feat-card-num">03</span>
+                    </div>
+                    <h3 data-i18n="feat3-title">Un espacio solo tuyo</h3>
+                    <p class="feat-card-hook" data-i18n="feat3-hook">Un lugar donde puedes ser completamente honesto contigo mismo.</p>
+                    <p class="feat-card-desc" data-i18n="feat3-desc">Nada se comparte sin tu permiso. Tus reflexiones, tus miedos, tus avances existen para ti primero. Solo cuando decides invitar a alguien, alguien entra.</p>
+                </div>
+
+            </div>
+
+            <!-- Featured: Crecer con quien te importa (reverse: mockup left) -->
+            <article class="feat-featured feat-featured--reverse" data-reveal style="--index:0; margin-top: 3rem;">
+                <div class="feat-featured-body">
+                    <div class="feat-featured-eyebrow" data-i18n="feat-shared-eyebrow">Cuando alguien camina contigo</div>
+                    <h3 data-i18n="feat-shared-title">Las metas que se comparten se sienten más cerca de suceder.</h3>
+                    <p class="feat-featured-desc" data-i18n="feat-shared-desc">Invita a tu pareja, a un amigo o a alguien de confianza a un objetivo. Ambos ven el mismo camino, se apoyan en los momentos difíciles y celebran los avances. Lo que empieza como una decisión individual se vuelve un pacto compartido, y los pactos compartidos casi nunca se abandonan.</p>
+                    <div class="feat-featured-tags">
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/></svg><span data-i18n="feat-shared-tag1">Objetivos compartidos</span></span>
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h5l2-4 2 8 2-4h5"/></svg><span data-i18n="feat-shared-tag2">Progreso visible para ambos</span></span>
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="feat-shared-tag3">Chat privado del objetivo</span></span>
                     </div>
                 </div>
-                <div class="feature-item" data-reveal style="--index:1">
-                    <div class="feature-num">02</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature2-title">Objetivos que Importan</h3>
-                        <p data-i18n="feature2-desc">No más metas vacías. Cada objetivo en Metriotes nace de tus valores reales. Cuando empiezas, ya sabes por qué lo estás haciendo — y eso lo cambia todo.</p>
+                <div class="feat-mockup" aria-hidden="true">
+                    <div class="feat-mockup-shared-head">
+                        <div class="feat-mockup-avatars">
+                            <div class="feat-mockup-avatar feat-mockup-avatar-1"></div>
+                            <div class="feat-mockup-avatar feat-mockup-avatar-2"></div>
+                        </div>
+                        <div>
+                            <div class="feat-mockup-shared-name">Tú y Ana</div>
+                            <div class="feat-mockup-shared-sub">Compartido desde marzo</div>
+                        </div>
+                    </div>
+                    <div class="feat-mockup-goal-eyebrow">Objetivo activo</div>
+                    <div class="feat-mockup-goal">Correr 5 km sin parar</div>
+                    <div class="feat-mockup-progress">
+                        <div class="feat-mockup-progress-bar" style="width: 62%;"></div>
+                    </div>
+                    <div class="feat-mockup-progress-meta">
+                        <span><strong>62%</strong> completado</span>
+                        <span>3 semanas restantes</span>
+                    </div>
+                    <div class="feat-mockup-chat">
+                        <div class="feat-mockup-chat-avatar"></div>
+                        <div class="feat-mockup-chat-body">
+                            <div class="feat-mockup-chat-name">Ana</div>
+                            <div class="feat-mockup-chat-msg">¡Ayer entrené yo también! Vamos por esos 5 juntos.</div>
+                        </div>
                     </div>
                 </div>
-                <div class="feature-item" data-reveal style="--index:2">
-                    <div class="feature-num">03</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature3-title">El Día a Día que te Construye</h3>
-                        <p data-i18n="feature3-desc">Tu versión futura no aparece de golpe. Se construye en los hábitos que eliges hoy. Metriotes convierte tus grandes ambiciones en el próximo paso concreto — y luego en el siguiente.</p>
+            </article>
+
+            <!-- Featured: Testigos que te sostienen (mockup right) -->
+            <article class="feat-featured" data-reveal style="--index:0; margin-top: 3rem;">
+                <div class="feat-featured-body">
+                    <div class="feat-featured-eyebrow" data-i18n="feat-privacy-eyebrow">Tú controlas quién ve qué</div>
+                    <h3 data-i18n="feat-privacy-title">Nadie ve tu progreso sin tu permiso. Nunca.</h3>
+                    <p class="feat-featured-desc" data-i18n="feat-privacy-desc">Metriotes es privado por defecto. Nada aparece en un feed público, nada se comparte por accidente. Solo cuando eliges invitar a alguien como testigo de un objetivo específico, esa persona puede acompañarte. Ni un objetivo más, ni un rincón más de tu app.</p>
+                    <div class="feat-featured-tags">
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-i18n="feat-privacy-tag1">Privado por defecto</span></span>
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg><span data-i18n="feat-privacy-tag2">Elige testigos por objetivo</span></span>
+                        <span class="feat-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18"/><path d="M10.5 6.3A5 5 0 0 1 17 12c0 1-.3 1.9-.8 2.7M5.6 8.4A5 5 0 0 0 7 15.2M12 2v2M12 20v2"/></svg><span data-i18n="feat-privacy-tag3">Silencia o revoca cuando quieras</span></span>
                     </div>
                 </div>
-                <div class="feature-item" data-reveal style="--index:3">
-                    <div class="feature-num">04</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature4-title">Solo para Ti</h3>
-                        <p data-i18n="feature4-desc">Tu crecimiento personal es tuyo. Nada se comparte sin tu permiso. Metriotes es el espacio más privado de tu día — donde puedes ser completamente honesto contigo mismo.</p>
+                <div class="feat-mockup" aria-hidden="true">
+                    <div class="feat-mockup-shield">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L20 6 V12 C20 17 16 20 12 22 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                    </div>
+                    <div class="feat-mockup-privacy-title">Objetivo privado</div>
+                    <div class="feat-mockup-privacy-goal">Terminar mi tesis antes de junio</div>
+                    <div class="feat-mockup-witnesses-label">Compartido con:</div>
+                    <div class="feat-mockup-witness">
+                        <div class="feat-mockup-witness-dot"></div>
+                        <div class="feat-mockup-witness-name">Mamá</div>
+                        <div class="feat-mockup-witness-badge">Testigo</div>
+                    </div>
+                    <div class="feat-mockup-witness feat-mockup-witness--empty">
+                        <div class="feat-mockup-witness-dot">+</div>
+                        <div class="feat-mockup-witness-name">Invitar a alguien más</div>
                     </div>
                 </div>
-                <div class="feature-item" data-reveal style="--index:4">
-                    <div class="feature-num">05</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature5-title">Crecer Juntos</h3>
-                        <p data-i18n="feature5-desc">Hay metas que se sienten más posibles cuando alguien más las comparte. Une a tu pareja, amigo o compañero en los objetivos que quieres vivir juntos — y descubran hasta dónde pueden llegar.</p>
-                    </div>
+            </article>
+
+            <!-- ═══ Sub-section: Los momentos que te revelan ═══ -->
+            <div class="feat-subsection">
+                <div class="section-intro">
+                    <div class="feat-subsection-eyebrow" data-reveal style="--index:0" data-i18n="feat-moments-eyebrow">Los momentos que te revelan</div>
+                    <h2 class="feat-subsection-heading" data-reveal style="--index:1" data-i18n="feat-moments-heading">La vida entera está en los detalles que casi no ves.</h2>
+                    <p class="feat-subsection-sub" data-reveal style="--index:2" data-i18n="feat-moments-sub">Metriotes te devuelve un lugar donde detenerte, respirar y encontrarte con lo que estás sintiendo, aprendiendo o descubriendo hoy. Sin apuros, sin notificaciones que te sacan del hilo. Solo tú, algunas preguntas, y el tiempo suficiente para escucharte.</p>
                 </div>
-                <div class="feature-item" data-reveal style="--index:5">
-                    <div class="feature-num">06</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature6-title">Con Testigos que Te Sostienen</h3>
-                        <p data-i18n="feature6-desc">Cuando alguien sabe que estás en ello, es más difícil rendirse. Tus testigos ven tu progreso sin editar nada — solo están ahí para celebrarte cuando llegas.</p>
+
+                <!-- Featured: Descubrimientos diarios (8 rasgos, uno por día) -->
+                <article class="feat-featured feat-featured--reverse" data-reveal style="--index:0">
+                    <div class="feat-featured-body">
+                        <div class="feat-featured-eyebrow" data-i18n="feat-discovery-eyebrow">Un rasgo cada día</div>
+                        <h3 data-i18n="feat-discovery-title">Ocho piezas de ti mismo, exploradas una por una.</h3>
+                        <p class="feat-featured-desc" data-i18n="feat-discovery-desc">Lunes tus deseos, martes tus miedos, miércoles tus pasiones. Cada día Metriotes te invita a explorar un rasgo tuyo distinto en pequeñas dosis. No es un test que rellenas en una tarde: es un mapa que se dibuja solo, con el tiempo. Al cabo de unas semanas empiezas a ver cosas de ti que ni sabías que estaban ahí.</p>
+                        <div class="feat-featured-tags">
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag1">Deseos</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag2">Miedos</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag3">Pasiones</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag4">Motivaciones</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag5">Aprendizajes</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag6">Inseguridades</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag7">Creencias</span>
+                            <span class="feat-featured-tag" data-i18n="feat-discovery-tag8">Gratitudes</span>
+                        </div>
                     </div>
-                </div>
-                <div class="feature-item" data-reveal style="--index:6">
-                    <div class="feature-num">07</div>
-                    <div class="feature-body">
-                        <h3 data-i18n="feature7-title">Los Momentos que te Revelan</h3>
-                        <p data-i18n="feature7-desc">Las mejores ideas aparecen entre medias. Captura esos momentos de claridad — sobre ti, sobre lo que quieres, sobre cómo vivir. Son el mapa de quien te estás convirtiendo.</p>
+                    <div class="feat-mockup-week" aria-hidden="true">
+                        <div class="feat-mockup-week-ring"></div>
+                        <div class="feat-mockup-week-center">
+                            <div class="feat-mockup-week-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                                    <circle cx="12" cy="8" r="4"/>
+                                    <path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+                                </svg>
+                            </div>
+                            <div class="feat-mockup-week-topic">Tú</div>
+                            <div class="feat-mockup-week-hint">Explorado por partes</div>
+                        </div>
+                        <div class="feat-mockup-week-dot" style="--angle: 0deg;">Deseos</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 45deg;">Miedos</div>
+                        <div class="feat-mockup-week-dot feat-mockup-week-dot--active" style="--angle: 90deg;">Pasiones</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 135deg;">Motivaciones</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 180deg;">Aprendizajes</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 225deg;">Inseguridades</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 270deg;">Creencias</div>
+                        <div class="feat-mockup-week-dot" style="--angle: 315deg;">Gratitudes</div>
+                    </div>
+                </article>
+
+                <!-- Grid 2x2 de formatos de exploración -->
+                <div class="feat-grid feat-grid--two" style="margin-top: 3rem;">
+                    <!-- Diario -->
+                    <div class="feat-card" data-reveal style="--index:0">
+                        <div class="feat-card-head">
+                            <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h14a2 2 0 0 1 2 2v14l-4-3H6a2 2 0 0 1-2-2z"/><path d="M8 10h8M8 14h5"/></svg></span>
+                            <span class="feat-card-num">01</span>
+                        </div>
+                        <h3 data-i18n="feat-diary-title">Diario</h3>
+                        <p class="feat-card-hook" data-i18n="feat-diary-hook">Donde termina el día y empieza la comprensión.</p>
+                        <p class="feat-card-desc" data-i18n="feat-diary-desc">Cuenta lo que pasó, cómo te sentiste, con quién estabas, qué contextos entraron en juego. Suma una foto si el momento lo merece, marca las emociones que aparecieron, vincula el día a un objetivo si hoy fue parte de algo más grande. Metriotes organiza cada entrada por emociones, personas y contextos para que, en un mes, puedas ver de dónde vienen tus mejores días y qué se repite en los que no lo son. Escribir el día se vuelve la forma más honesta de conocerlo.</p>
+                    </div>
+
+                    <!-- Gratitud -->
+                    <div class="feat-card" data-reveal style="--index:1">
+                        <div class="feat-card-head">
+                            <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21s-8-5.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-8 11-8 11"/></svg></span>
+                            <span class="feat-card-num">02</span>
+                        </div>
+                        <h3 data-i18n="feat-gratitude-title">Gratitud</h3>
+                        <p class="feat-card-hook" data-i18n="feat-gratitude-hook">Tres cosas al día que cambian cómo miras el resto.</p>
+                        <p class="feat-card-desc" data-i18n="feat-gratitude-desc">Tres líneas cada noche: lo que te salió, lo que agradeces, lo que decidiste no dar por sentado. Un ritual de dos minutos que reeduca la mirada, poco a poco, sin que te des cuenta. Con el tiempo, Metriotes te muestra qué personas, qué contextos y qué momentos aparecen más seguido en tu gratitud, y con qué estado emocional te dejan. Lo que empezó como una lista se convierte en el patrón invisible de tus mejores días.</p>
+                    </div>
+
+                    <!-- Pregunta del día -->
+                    <div class="feat-card" data-reveal style="--index:2">
+                        <div class="feat-card-head">
+                            <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 9c0-1.5 1.3-2.5 3-2.5S15 7.5 15 9c0 1-.5 1.5-1.5 2s-1.5 1-1.5 2"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg></span>
+                            <span class="feat-card-num">03</span>
+                        </div>
+                        <h3 data-i18n="feat-question-title">Pregunta del día</h3>
+                        <p class="feat-card-hook" data-i18n="feat-question-hook">Una pregunta compartida, mil formas distintas de responder.</p>
+                        <p class="feat-card-desc" data-i18n="feat-question-desc">Cada día una pregunta nueva, la misma para toda la comunidad. A veces liviana, a veces incómoda, siempre puntual. Respondes en unas líneas y descubres cómo la vive el resto: personas distintas a ti, con historias distintas, pensando la misma cosa desde ángulos que no habrías imaginado. Un rincón donde el aprendizaje no viene de un experto, sino de la mirada de otras personas comunes, y donde una sola pregunta bien hecha puede cambiarte toda la semana.</p>
+                    </div>
+
+                    <!-- Frases -->
+                    <div class="feat-card" data-reveal style="--index:3">
+                        <div class="feat-card-head">
+                            <span class="feat-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 7h3v3c0 3-1.5 5-4 5.5V13H4V7zM17 7h-3v3c0 3 1.5 5 4 5.5V13h2V7z" fill="currentColor" stroke="none"/></svg></span>
+                            <span class="feat-card-num">04</span>
+                        </div>
+                        <h3 data-i18n="feat-quotes-title">Frases que resuenan</h3>
+                        <p class="feat-card-hook" data-i18n="feat-quotes-hook">Guarda lo que te movió. Escribe lo que descubriste.</p>
+                        <p class="feat-card-desc" data-i18n="feat-quotes-desc">Metriotes te propone frases cada día en tu idioma, elegidas para acompañarte sin adoctrinarte. Guardas las que te llegan, escribes las tuyas cuando algo hace clic durante una conversación, un libro o un paseo. Con el tiempo se arma un cuaderno de bolsillo lleno de tus ideas y de las que te resonaron: siempre a mano cuando necesitas volver a acordarte de algo que ya sabías pero que se te había olvidado.</p>
                     </div>
                 </div>
             </div>
@@ -811,54 +2385,323 @@
     <section class="pros-section" id="profesionales">
         <div class="section-container">
             <div class="pros-header">
-                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="pros-heading">La plataforma que hace crecer tu práctica profesional</h2>
-                <p class="section-sub" data-reveal style="--index:1" data-i18n="pros-sub">Para coaches, psicólogos, nutricionistas, instructores de yoga, pilates y cualquier profesional del bienestar. Los mejores no solo transforman a sus clientes — construyen una presencia que los encuentra antes de que te busquen.</p>
+                <div class="pros-badge" data-reveal style="--index:0" data-i18n="pros-badge">Para profesionales</div>
+                <h2 class="section-heading" data-reveal style="--index:1" data-i18n="pros-heading">Tu práctica, tu agenda y tus clientes. En una sola app.</h2>
+                <p class="section-sub" data-reveal style="--index:2" data-i18n="pros-sub">Deja de saltar entre Instagram, WhatsApp, hojas de cálculo y Calendly. Metriotes reúne tu perfil, tus servicios, tu calendario y tus clientes en un solo lugar para que dediques tu tiempo a lo que haces mejor, no a coordinarlo.</p>
             </div>
 
-            <div class="pros-list">
-                <div class="pros-item" data-reveal style="--index:0">
-                    <div class="pros-item-num">01</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat1-title">Tu Vitrina Profesional</h3>
-                        <p data-i18n="pros-feat1-desc">La primera impresión lo decide todo. Construye un perfil que transmita exactamente quién eres: tu historia, tus credenciales y lo que te hace diferente — todo en un solo lugar donde tus clientes ideales puedan encontrarte.</p>
+            <div class="pros-audience" data-reveal style="--index:3">
+                <div class="pros-audience-label" data-i18n="pros-audience-label">Diseñado para</div>
+                <span class="pros-chip" data-i18n="audience-coach">Coaches</span>
+                <span class="pros-chip" data-i18n="audience-psy">Psicólogos</span>
+                <span class="pros-chip" data-i18n="audience-nutri">Nutricionistas</span>
+                <span class="pros-chip" data-i18n="audience-yoga">Instructores de yoga</span>
+                <span class="pros-chip" data-i18n="audience-pilates">Pilates</span>
+                <span class="pros-chip" data-i18n="audience-fitness">Personal trainers</span>
+                <span class="pros-chip" data-i18n="audience-mindfulness">Meditación y mindfulness</span>
+                <span class="pros-chip" data-i18n="audience-lang">Profesores de idiomas</span>
+                <span class="pros-chip" data-i18n="audience-music">Profesores de música</span>
+                <span class="pros-chip" data-i18n="audience-therapy">Terapeutas y fisios</span>
+                <span class="pros-chip" data-i18n="audience-more">y más</span>
+            </div>
+
+            <!-- Featured hero card: Reservas -->
+            <article class="pros-featured" data-reveal style="--index:0">
+                <div class="pros-featured-body">
+                    <div class="pros-featured-eyebrow" data-i18n="pros-featured-eyebrow">La función que lo cambia todo</div>
+                    <h3 data-i18n="pros-featured-title">Tus clientes reservan solos. Tú te dedicas a atender.</h3>
+                    <p class="pros-featured-desc" data-i18n="pros-featured-desc">Se acabaron las cadenas de mensajes preguntando disponibilidad. Tus clientes ven tu agenda real desde la app, eligen el horario y reservan. Tú recibes la confirmación, con el recordatorio y el enlace de sesión listos.</p>
+                    <div class="pros-featured-tags">
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span data-i18n="pros-featured-tag1">Reservas 24/7</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 12 10 18 20 6"/></svg><span data-i18n="pros-featured-tag2">Confirmación instantánea</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 1-12 0"/><path d="M12 2v10M8 6l4-4 4 4"/></svg><span data-i18n="pros-featured-tag3">Recordatorios automáticos</span></span>
                     </div>
                 </div>
-                <div class="pros-item" data-reveal style="--index:1">
-                    <div class="pros-item-num">02</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat2-title">Tus Eventos, Tu Audiencia</h3>
-                        <p data-i18n="pros-feat2-desc">Talleres, retiros, webinars, cursos — publica cualquier formato y ponlo delante de personas que ya están buscando lo que tú ofreces. Deja de buscar clientes. Deja que te encuentren.</p>
+                <div class="pros-mockup" aria-hidden="true">
+                    <div class="pros-mockup-notch"></div>
+                    <div class="pros-mockup-title">Elige un horario</div>
+                    <div class="pros-mockup-day">
+                        <span>Lunes</span><span>4 libres</span>
                     </div>
+                    <div class="pros-mockup-day pros-mockup-day--active">
+                        <span>Martes</span><span>6 libres</span>
+                    </div>
+                    <div class="pros-mockup-day">
+                        <span>Miércoles</span><span>2 libres</span>
+                    </div>
+                    <div class="pros-mockup-slots">
+                        <div class="pros-mockup-slot">09:00</div>
+                        <div class="pros-mockup-slot pros-mockup-slot--taken">10:00</div>
+                        <div class="pros-mockup-slot">11:00</div>
+                        <div class="pros-mockup-slot pros-mockup-slot--taken">15:00</div>
+                        <div class="pros-mockup-slot pros-mockup-slot--picked">16:00</div>
+                        <div class="pros-mockup-slot">17:00</div>
+                    </div>
+                    <div class="pros-mockup-confirm">Reservar sesión</div>
                 </div>
-                <div class="pros-item" data-reveal style="--index:2">
-                    <div class="pros-item-num">03</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat3-title">Servicios que Cierran Solos</h3>
-                        <p data-i18n="pros-feat3-desc">Cuando un cliente potencial ve claramente tus paquetes, precios y lo que incluyen, la decisión se vuelve fácil. Define tu oferta una vez y que trabaje por ti mientras tú te dedicas a transformar vidas.</p>
-                    </div>
+            </article>
+
+            <!-- Stats bar -->
+            <div class="pros-stats" data-reveal style="--index:0">
+                <div class="pros-stat">
+                    <div class="pros-stat-num">24/7</div>
+                    <span class="pros-stat-label" data-i18n="pros-stat1">Tus clientes reservan cuando quieren, aunque tú estés durmiendo.</span>
                 </div>
-                <div class="pros-item" data-reveal style="--index:3">
-                    <div class="pros-item-num">04</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat4-title">Credenciales que Generan Confianza</h3>
-                        <p data-i18n="pros-feat4-desc">En un mercado saturado, la confianza no se pide — se demuestra. Muestra tus certificaciones verificadas y que cada cliente sepa, desde el primer segundo, que está en manos expertas.</p>
-                    </div>
+                <div class="pros-stat">
+                    <div class="pros-stat-num">1</div>
+                    <span class="pros-stat-label" data-i18n="pros-stat2">Una sola app en lugar de cinco herramientas desconectadas.</span>
                 </div>
-                <div class="pros-item" data-reveal style="--index:4">
-                    <div class="pros-item-num">05</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat5-title">La Prueba que más Convierte</h3>
-                        <p data-i18n="pros-feat5-desc">Nada vende mejor que un cliente satisfecho hablando por ti. Recopila testimonios reales de quienes ya transformaste y conviértelos en el argumento más poderoso de tu perfil.</p>
-                    </div>
-                </div>
-                <div class="pros-item" data-reveal style="--index:5">
-                    <div class="pros-item-num">06</div>
-                    <div class="pros-item-body">
-                        <h3 data-i18n="pros-feat6-title">Datos que te Dicen qué Funciona</h3>
-                        <p data-i18n="pros-feat6-desc">Deja de adivinar. Sigue tu alcance, tus visualizaciones y tu tasa de conversión en tiempo real. Crece de forma inteligente — sabe qué funciona y multiplícalo.</p>
-                    </div>
+                <div class="pros-stat">
+                    <div class="pros-stat-num">5 min</div>
+                    <span class="pros-stat-label" data-i18n="pros-stat3">Es lo que tardas en publicar un taller y ponerlo frente a miles.</span>
                 </div>
             </div>
+
+            <!-- Grupo 1: Visibilidad (video, eventos, vitrina, disponibilidad) -->
+            <div class="pros-grid">
+                <!-- Video de Presentación -->
+                <div class="pros-card" data-reveal style="--index:0">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14" rx="2"/><polygon points="10 9 15 12 10 15" fill="currentColor" stroke="none"/></svg></span>
+                        <span class="pros-card-num">01</span>
+                    </div>
+                    <h3 data-i18n="pros-feat2-title">Video de presentación</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat2-hook">Que te conozcan antes de reservar te ahorra la mayoría de las dudas.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat2-desc">Un video breve donde te presentas genera una confianza que ningún texto logra. Cuando el cliente llega a la primera sesión, ya te siente cercano y no empiezas desde cero.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat2-b1">Se reproduce destacado en tu perfil público</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat2-b2">Menos preguntas del tipo "¿cómo son tus sesiones?"</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat2-b3">Mayor conversión con quienes aún no te conocen</span></li>
+                    </ul>
+                </div>
+
+                <!-- Eventos -->
+                <div class="pros-card" data-reveal style="--index:1">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11l7-8 4 6h7l-4 5 3 8-8-4-8 4 3-8-4-3z"/></svg></span>
+                        <span class="pros-card-num">02</span>
+                    </div>
+                    <h3 data-i18n="pros-feat6-title">Eventos, talleres y retiros</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat6-hook">Cinco minutos y tu taller está frente a quienes ya buscan lo que ofreces.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat6-desc">Cargas el evento una vez y la app se encarga de la difusión, las inscripciones y la lista de espera. Tú te concentras en el contenido, no en armar planillas de asistentes.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat6-b1">Talleres, retiros, webinars, cursos y seminarios</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat6-b2">Inscripción directa desde el perfil de cada usuario</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat6-b3">Lista de espera automática cuando se llena el cupo</span></li>
+                    </ul>
+                </div>
+
+                <!-- Vitrina Profesional -->
+                <div class="pros-card" data-reveal style="--index:2">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M5 18c1-2 3-3 4-3s3 1 4 3"/><path d="M14 9h5M14 13h4"/></svg></span>
+                        <span class="pros-card-num">03</span>
+                    </div>
+                    <h3 data-i18n="pros-feat1-title">Tu vitrina profesional</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat1-hook">Un perfil pensado para que digan sí antes de escribirte.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat1-desc">Todo lo que un cliente necesita saber, presentado como te gustaría verlo si fueras tú el cliente. Sin fricción, sin dudas, sin repetir lo mismo por WhatsApp una y otra vez.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat1-b1">Foto, historia, especialidades y precios en una vista clara</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat1-b2">Ubicación, idiomas que hablas y modalidad online o presencial</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat1-b3">Credenciales verificadas al lado de tus reseñas reales</span></li>
+                    </ul>
+                </div>
+
+                <!-- Disponibilidad -->
+                <div class="pros-card" data-reveal style="--index:3">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
+                        <span class="pros-card-num">04</span>
+                    </div>
+                    <h3 data-i18n="pros-feat7-title">Tu disponibilidad, tus reglas</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat7-hook">Nunca más te reservan a las ocho de la noche del domingo.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat7-desc">Tú marcas qué días y horas trabajas, cuándo estás de vacaciones y qué días son solo para ti. La app respeta tus límites incluso cuando tú los olvidas.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat7-b1">Horarios semanales por defecto</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat7-b2">Bloqueos puntuales por vacaciones o feriados</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat7-b3">Reglas distintas para 1:1 y para clases grupales</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Featured #2: Sesiones 1:1 (mockup a la izquierda) -->
+            <article class="pros-featured pros-featured--reverse" data-reveal style="--index:0; margin-top: 3rem;">
+                <div class="pros-featured-body">
+                    <div class="pros-featured-eyebrow" data-i18n="pros-featured2-eyebrow">Cada cliente, su historia</div>
+                    <h3 data-i18n="pros-featured2-title">Notas privadas antes y después de cada sesión.</h3>
+                    <p class="pros-featured-desc" data-i18n="pros-featured2-desc">El historial de trabajo con cada persona ordenado por fecha. Prepara la próxima cita en un minuto, deja constancia de lo importante al terminar y nunca más olvides dónde lo dejaste.</p>
+                    <div class="pros-featured-tags">
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg><span data-i18n="pros-featured2-tag1">Notas pre-sesión</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h5l2-4 2 8 2-4h5"/></svg><span data-i18n="pros-featured2-tag2">Notas post-sesión</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg><span data-i18n="pros-featured2-tag3">Historial ordenado por fecha</span></span>
+                    </div>
+                </div>
+                <div class="pros-mockup" aria-hidden="true">
+                    <div class="pros-mockup-notch"></div>
+                    <div class="pros-mockup-avatar">
+                        <div class="pros-mockup-avatar-dot"></div>
+                        <div class="pros-mockup-avatar-body">
+                            <div class="pros-mockup-avatar-name">Ana M.</div>
+                            <div class="pros-mockup-avatar-meta">Sesión N.º 7 · Martes 16:00</div>
+                        </div>
+                    </div>
+                    <div class="pros-mockup-note pros-mockup-note--pre">
+                        <div class="pros-mockup-note-label">Antes de la sesión</div>
+                        <div class="pros-mockup-note-text">Retomar tema del cambio de trabajo. Ver si avanzó con los ejercicios.</div>
+                    </div>
+                    <div class="pros-mockup-note pros-mockup-note--post">
+                        <div class="pros-mockup-note-label">Después</div>
+                        <div class="pros-mockup-note-text">Muy buena respuesta al ejercicio. Enviar lectura sobre límites.</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Manifesto slice -->
+            <div class="pros-manifesto" data-reveal style="--index:0">
+                <p class="pros-manifesto-line" data-i18n="pros-manifesto">Deja de coordinar. <span>Empieza a atender.</span></p>
+            </div>
+
+            <!-- Featured #3: Clases regulares (mockup a la derecha) -->
+            <article class="pros-featured" data-reveal style="--index:0">
+                <div class="pros-featured-body">
+                    <div class="pros-featured-eyebrow" data-i18n="pros-featured3-eyebrow">Tu semana, en piloto automático</div>
+                    <h3 data-i18n="pros-featured3-title">Publica tus clases una vez. Se llenan solas cada semana.</h3>
+                    <p class="pros-featured-desc" data-i18n="pros-featured3-desc">Yoga los lunes, pilates los miércoles, tu clase de idiomas cada tarde. Programa la recurrencia una sola vez, define cupos y precios, y deja que tus alumnos se inscriban desde la app. Ves quién viene sin confirmar por WhatsApp uno por uno.</p>
+                    <div class="pros-featured-tags">
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2v4M7 2v4M3 10h18M4 6h16a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg><span data-i18n="pros-featured3-tag1">Recurrencia semanal</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span data-i18n="pros-featured3-tag2">Cupo y lista de asistencia</span></span>
+                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="pros-featured3-tag3">Cancelaciones ordenadas</span></span>
+                    </div>
+                </div>
+                <div class="pros-mockup" aria-hidden="true">
+                    <div class="pros-mockup-notch"></div>
+                    <div class="pros-mockup-title">Esta semana</div>
+                    <div class="pros-mockup-week">
+                        <div class="pros-mockup-week-row">
+                            <span class="pros-mockup-week-day">LUN</span>
+                            <span class="pros-mockup-week-name">Yoga vinyasa</span>
+                            <span class="pros-mockup-week-hour">08:00</span>
+                        </div>
+                        <div class="pros-mockup-week-row pros-mockup-week-row--active">
+                            <span class="pros-mockup-week-day">MIÉ</span>
+                            <span class="pros-mockup-week-name">Pilates suelo</span>
+                            <span class="pros-mockup-week-hour">19:00</span>
+                        </div>
+                        <div class="pros-mockup-week-row">
+                            <span class="pros-mockup-week-day">JUE</span>
+                            <span class="pros-mockup-week-name">Conversación EN</span>
+                            <span class="pros-mockup-week-hour">18:30</span>
+                        </div>
+                        <div class="pros-mockup-week-row">
+                            <span class="pros-mockup-week-day">SÁB</span>
+                            <span class="pros-mockup-week-name">Meditación</span>
+                            <span class="pros-mockup-week-hour">10:00</span>
+                        </div>
+                    </div>
+                    <div class="pros-mockup-week-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span>8 inscritos esta semana</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Grupo 2: Configuración y crecimiento (5 cards en grid-3) -->
+            <div class="pros-grid pros-grid--three" style="margin-top: 3rem;">
+                <!-- Servicios y Paquetes -->
+                <div class="pros-card" data-reveal style="--index:0">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg></span>
+                        <span class="pros-card-num">05</span>
+                    </div>
+                    <h3 data-i18n="pros-feat8-title">Servicios y paquetes que cierran solos</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat8-hook">El cliente ve qué recibe por lo que paga. No hay que negociar.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat8-desc">Sesión suelta, bono de diez, plan mensual, primer contacto gratuito. Cada opción con su descripción y su precio. Cuando la oferta se explica sola, la venta es más rápida.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat8-b1">Múltiples paquetes conviviendo en tu perfil</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat8-b2">Duración y descripción detallada por servicio</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat8-b3">Marca cuáles se pueden reservar directamente</span></li>
+                    </ul>
+                </div>
+
+                <!-- Formularios -->
+                <div class="pros-card" data-reveal style="--index:1">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><polyline points="8 12 10 14 13 11"/><path d="M8 17h8"/></svg></span>
+                        <span class="pros-card-num">06</span>
+                    </div>
+                    <h3 data-i18n="pros-feat9-title">Formularios de admisión</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat9-hook">Que la primera sesión no se te vaya presentándote y preguntando lo básico.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat9-desc">Preguntas una vez todo lo que necesitas saber. El cliente lo completa antes de reservar y tú llegas a la sesión con la información en la mano. La primera reunión rinde el doble.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat9-b1">Preguntas personalizadas por profesional</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat9-b2">Respuestas asociadas al perfil del cliente</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat9-b3">Se completan una sola vez, se reutilizan siempre</span></li>
+                    </ul>
+                </div>
+
+                <!-- Credenciales -->
+                <div class="pros-card" data-reveal style="--index:2">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="9" r="5"/><polyline points="8 12 11 15 16 10"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></span>
+                        <span class="pros-card-num">07</span>
+                    </div>
+                    <h3 data-i18n="pros-feat10-title">Credenciales y testimonios que venden</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat10-hook">Los testimonios trabajan por ti incluso cuando no estás online.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat10-desc">Certificaciones verificadas y reseñas visibles en tu perfil. Cada cliente satisfecho que te evalúa es un argumento nuevo para el próximo que te encuentre.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat10-b1">Certificaciones cargadas con archivo adjunto</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat10-b2">Reseñas de clientes con valoración</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat10-b3">Testimonios destacados que eliges tú</span></li>
+                    </ul>
+                </div>
+
+                <!-- Canales -->
+                <div class="pros-card" data-reveal style="--index:3">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-2 2"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l2-2"/></svg></span>
+                        <span class="pros-card-num">08</span>
+                    </div>
+                    <h3 data-i18n="pros-feat11-title">Todos tus canales, uno solo</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat11-hook">El cliente elige por dónde contactarte. Tú eliges por dónde responder.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat11-desc">WhatsApp, email, Instagram, LinkedIn, tu web personal. Todos linkeados desde tu perfil y uno destacado como preferido. Nada de perder leads en DMs de tres apps distintas.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat11-b1">Múltiples canales tras un solo botón de contacto</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat11-b2">Marca tu canal preferido como principal</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat11-b3">Enlaces directos a WhatsApp e Instagram</span></li>
+                    </ul>
+                </div>
+
+                <!-- Analytics -->
+                <div class="pros-card" data-reveal style="--index:4">
+                    <div class="pros-card-head">
+                        <span class="pros-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></span>
+                        <span class="pros-card-num">09</span>
+                    </div>
+                    <h3 data-i18n="pros-feat12-title">Datos que te dicen qué funciona</h3>
+                    <p class="pros-card-hook" data-i18n="pros-feat12-hook">"No sé por qué anduvo mejor este mes" se convierte en decisiones concretas.</p>
+                    <p class="pros-card-desc" data-i18n="pros-feat12-desc">Sabes cuántas personas ven tu perfil, cuántas reservan, qué servicio se pide más y a cuántos clientes retienes. Con eso ajustas precios, ofertas o formatos con criterio, no a ojo.</p>
+                    <ul class="pros-card-benefits">
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat12-b1">Visitas a tu perfil por período</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat12-b2">Tasa de conversión de visita a reserva</span></li>
+                        <li class="pros-card-benefit"><span class="pros-card-benefit-dot"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="pros-feat12-b3">Retención de clientes recurrentes</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section CTA -->
+            <aside class="pros-cta" data-reveal style="--index:0">
+                <div class="pros-cta-body">
+                    <h3 data-i18n="pros-cta-title">Empieza gratis. Sube a PRO cuando estés listo.</h3>
+                    <p data-i18n="pros-cta-desc">Publica tu perfil, recibe reservas y prueba todas las funciones sin poner una tarjeta. Cuando llenes tu agenda, subes a PRO desde la misma app.</p>
+                </div>
+                <div class="pros-cta-actions">
+                    <a href="https://apple.co/3LX7yom" class="pros-cta-primary" target="_blank" rel="noopener">
+                        <span data-i18n="pros-cta-button">Descargar Metriotes</span>
+                        <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+                    </a>
+                    <span class="pros-cta-fineprint" data-i18n="pros-cta-fine">Disponible para iOS y Android</span>
+                </div>
+            </aside>
         </div>
     </section>
 
@@ -867,7 +2710,7 @@
         <div class="section-container">
             <div class="section-intro">
                 <h2 class="section-heading" data-reveal style="--index:0" data-i18n="pricing-heading">Empieza gratis, crece con PRO</h2>
-                <p class="section-sub" data-reveal style="--index:1" data-i18n="pricing-sub">Planes separados para usuarios y profesionales — cada uno pensado para lo que realmente necesitas.</p>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="pricing-sub">Planes separados para usuarios y profesionales cada uno pensado para lo que realmente necesitas.</p>
             </div>
 
             <!-- ── Para usuarios ── -->
@@ -1007,7 +2850,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
                         <div>
@@ -1027,7 +2870,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
                         <div>
@@ -1047,7 +2890,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
                         <div>
@@ -1108,7 +2951,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
                         <div>
@@ -1128,7 +2971,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
                         <div>
@@ -1148,7 +2991,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
                     <div class="testimonial-author">
                         <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
                         <div>
@@ -1221,36 +3064,175 @@
                 'nav-pros': 'Para Profesionales',
                 'hero-line1': 'La persona que',
                 'hero-line2': 'quieres ser.',
-                'hero-sub': 'Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas — construyes quien eres.',
+                'hero-sub': 'Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas construyes quien eres.',
+                'feat-badge': 'Para ti',
                 'features-heading': 'Todo lo que necesitas para convertirte en quien quieres ser',
-                'feature1-title': 'Tu Estrella del Norte',
-                'feature1-desc': 'Las personas más realizadas no gestionan listas — viven desde una dirección clara. Define tu Norte y cada decisión, grande o pequeña, encontrará su lugar naturalmente.',
-                'feature2-title': 'Objetivos que Importan',
-                'feature2-desc': 'No más metas vacías. Cada objetivo en Metriotes nace de tus valores reales. Cuando empiezas, ya sabes por qué lo estás haciendo — y eso lo cambia todo.',
-                'feature3-title': 'El Día a Día que te Construye',
-                'feature3-desc': 'Tu versión futura no aparece de golpe. Se construye en los hábitos que eliges hoy. Metriotes convierte tus grandes ambiciones en el próximo paso concreto — y luego en el siguiente.',
-                'feature4-title': 'Solo para Ti',
-                'feature4-desc': 'Tu crecimiento personal es tuyo. Nada se comparte sin tu permiso. Metriotes es el espacio más privado de tu día — donde puedes ser completamente honesto contigo mismo.',
-                'feature5-title': 'Crecer Juntos',
-                'feature5-desc': 'Hay metas que se sienten más posibles cuando alguien más las comparte. Une a tu pareja, amigo o compañero en los objetivos que quieres vivir juntos — y descubran hasta dónde pueden llegar.',
-                'feature6-title': 'Con Testigos que Te Sostienen',
-                'feature6-desc': 'Cuando alguien sabe que estás en ello, es más difícil rendirse. Tus testigos ven tu progreso sin editar nada — solo están ahí para celebrarte cuando llegas.',
-                'feature7-title': 'Los Momentos que te Revelan',
-                'feature7-desc': 'Las mejores ideas aparecen entre medias. Captura esos momentos de claridad — sobre ti, sobre lo que quieres, sobre cómo vivir. Son el mapa de quien te estás convirtiendo.',
-                'pros-heading': 'La plataforma que hace crecer tu práctica profesional',
-                'pros-sub': 'Para coaches, psicólogos, nutricionistas, instructores de yoga, pilates y cualquier profesional del bienestar. Los mejores no solo transforman a sus clientes — construyen una presencia que los encuentra antes de que te busquen.',
-                'pros-feat1-title': 'Tu Vitrina Profesional',
-                'pros-feat1-desc': 'La primera impresión lo decide todo. Construye un perfil que transmita exactamente quién eres: tu historia, tus credenciales y lo que te hace diferente — todo en un solo lugar donde tus clientes ideales puedan encontrarte.',
-                'pros-feat2-title': 'Tus Eventos, Tu Audiencia',
-                'pros-feat2-desc': 'Talleres, retiros, webinars, cursos — publica cualquier formato y ponlo delante de personas que ya están buscando lo que tú ofreces. Deja de buscar clientes. Deja que te encuentren.',
-                'pros-feat3-title': 'Servicios que Cierran Solos',
-                'pros-feat3-desc': 'Cuando un cliente potencial ve claramente tus paquetes, precios y lo que incluyen, la decisión se vuelve fácil. Define tu oferta una vez y que trabaje por ti mientras tú te dedicas a transformar vidas.',
-                'pros-feat4-title': 'Credenciales que Generan Confianza',
-                'pros-feat4-desc': 'En un mercado saturado, la confianza no se pide — se demuestra. Muestra tus certificaciones verificadas y que cada cliente sepa, desde el primer segundo, que está en manos expertas.',
-                'pros-feat5-title': 'La Prueba que más Convierte',
-                'pros-feat5-desc': 'Nada vende mejor que un cliente satisfecho hablando por ti. Recopila testimonios reales de quienes ya transformaste y conviértelos en el argumento más poderoso de tu perfil.',
-                'pros-feat6-title': 'Datos que te Dicen qué Funciona',
-                'pros-feat6-desc': 'Deja de adivinar. Sigue tu alcance, tus visualizaciones y tu tasa de conversión en tiempo real. Crece de forma inteligente — sabe qué funciona y multiplícalo.',
+                'features-sub': 'Metriotes no te ayuda a hacer más cosas. Te ayuda a vivir con más sentido. Cada función existe para que el día a día se parezca cada vez más a la vida que quieres.',
+                'feat-featured-eyebrow': 'Empieza por lo esencial',
+                'feat-featured-title': 'Cuando sabes hacia dónde vas, lo demás se ordena solo.',
+                'feat-featured-desc': 'Tu Norte es la brújula de todo lo que haces. Al tenerlo claro, dejas de responder a lo urgente para vivir desde lo importante. Cada decisión pequeña encuentra su lugar sin que tengas que pensarla dos veces.',
+                'feat-compass-north': 'Norte',
+                'feat-compass-objetivos': 'Objetivos',
+                'feat-compass-salud': 'Salud',
+                'feat-compass-habitos': 'Hábitos',
+                'feat-compass-familia': 'Familia',
+                'feat-compass-tareas': 'Tareas',
+                'feat-compass-miedos': 'Miedos',
+                'feat-compass-deseos': 'Deseos',
+                'feat-compass-proposito': 'Propósito',
+                'feat-compass-inseguridades': 'Inseguridades',
+                'feat-compass-amigos': 'Amigos',
+                'feat-manifesto': 'No gestionas tareas. Construyes quien eres.',
+                'feat1-title': 'Objetivos que importan',
+                'feat1-hook': 'Metas que arrancan desde lo que realmente sientes.',
+                'feat1-desc': 'Cada objetivo en Metriotes nace de tus valores, tus miedos, tus sueños. Cuando empiezas ya sabes por qué lo haces, y esa claridad cambia todo lo que sigue.',
+                'feat2-title': 'El día a día que te construye',
+                'feat2-hook': 'Tu versión futura se construye en el próximo paso, no en el próximo enero.',
+                'feat2-desc': 'Metriotes convierte tus grandes ambiciones en el paso concreto de hoy. Y luego en el de mañana. Sin listas eternas, sin sentirte abrumado, sin perder el hilo de lo importante.',
+                'feat3-title': 'Un espacio solo tuyo',
+                'feat3-hook': 'Un lugar donde puedes ser completamente honesto contigo mismo.',
+                'feat3-desc': 'Nada se comparte sin tu permiso. Tus reflexiones, tus miedos, tus avances existen para ti primero. Solo cuando decides invitar a alguien, alguien entra.',
+                'feat-shared-eyebrow': 'Cuando alguien camina contigo',
+                'feat-shared-title': 'Las metas que se comparten se sienten más cerca de suceder.',
+                'feat-shared-desc': 'Invita a tu pareja, a un amigo o a alguien de confianza a un objetivo. Ambos ven el mismo camino, se apoyan en los momentos difíciles y celebran los avances. Lo que empieza como una decisión individual se vuelve un pacto compartido, y los pactos compartidos casi nunca se abandonan.',
+                'feat-shared-tag1': 'Objetivos compartidos',
+                'feat-shared-tag2': 'Progreso visible para ambos',
+                'feat-shared-tag3': 'Chat privado del objetivo',
+                'feat-privacy-eyebrow': 'Tú controlas quién ve qué',
+                'feat-privacy-title': 'Nadie ve tu progreso sin tu permiso. Nunca.',
+                'feat-privacy-desc': 'Metriotes es privado por defecto. Nada aparece en un feed público, nada se comparte por accidente. Solo cuando eliges invitar a alguien como testigo de un objetivo específico, esa persona puede acompañarte. Ni un objetivo más, ni un rincón más de tu app.',
+                'feat-privacy-tag1': 'Privado por defecto',
+                'feat-privacy-tag2': 'Elige testigos por objetivo',
+                'feat-privacy-tag3': 'Silencia o revoca cuando quieras',
+                'feat-moments-eyebrow': 'Los momentos que te revelan',
+                'feat-moments-heading': 'La vida entera está en los detalles que casi no ves.',
+                'feat-moments-sub': 'Metriotes te devuelve un lugar donde detenerte, respirar y encontrarte con lo que estás sintiendo, aprendiendo o descubriendo hoy. Sin apuros, sin notificaciones que te sacan del hilo. Solo tú, algunas preguntas, y el tiempo suficiente para escucharte.',
+                'feat-discovery-eyebrow': 'Un rasgo cada día',
+                'feat-discovery-title': 'Ocho piezas de ti mismo, exploradas una por una.',
+                'feat-discovery-desc': 'Lunes tus deseos, martes tus miedos, miércoles tus pasiones. Cada día Metriotes te invita a explorar un rasgo tuyo distinto en pequeñas dosis. No es un test que rellenas en una tarde: es un mapa que se dibuja solo, con el tiempo. Al cabo de unas semanas empiezas a ver cosas de ti que ni sabías que estaban ahí.',
+                'feat-discovery-tag1': 'Deseos',
+                'feat-discovery-tag2': 'Miedos',
+                'feat-discovery-tag3': 'Pasiones',
+                'feat-discovery-tag4': 'Motivaciones',
+                'feat-discovery-tag5': 'Aprendizajes',
+                'feat-discovery-tag6': 'Inseguridades',
+                'feat-discovery-tag7': 'Creencias',
+                'feat-discovery-tag8': 'Gratitudes',
+                'feat-diary-title': 'Diario',
+                'feat-diary-hook': 'Donde termina el día y empieza la comprensión.',
+                'feat-diary-desc': 'Cuenta lo que pasó, cómo te sentiste, con quién estabas, qué contextos entraron en juego. Suma una foto si el momento lo merece, marca las emociones que aparecieron, vincula el día a un objetivo si hoy fue parte de algo más grande. Metriotes organiza cada entrada por emociones, personas y contextos para que, en un mes, puedas ver de dónde vienen tus mejores días y qué se repite en los que no lo son. Escribir el día se vuelve la forma más honesta de conocerlo.',
+                'feat-gratitude-title': 'Gratitud',
+                'feat-gratitude-hook': 'Tres cosas al día que cambian cómo miras el resto.',
+                'feat-gratitude-desc': 'Tres líneas cada noche: lo que te salió, lo que agradeces, lo que decidiste no dar por sentado. Un ritual de dos minutos que reeduca la mirada, poco a poco, sin que te des cuenta. Con el tiempo, Metriotes te muestra qué personas, qué contextos y qué momentos aparecen más seguido en tu gratitud, y con qué estado emocional te dejan. Lo que empezó como una lista se convierte en el patrón invisible de tus mejores días.',
+                'feat-question-title': 'Pregunta del día',
+                'feat-question-hook': 'Una pregunta compartida, mil formas distintas de responder.',
+                'feat-question-desc': 'Cada día una pregunta nueva, la misma para toda la comunidad. A veces liviana, a veces incómoda, siempre puntual. Respondes en unas líneas y descubres cómo la vive el resto: personas distintas a ti, con historias distintas, pensando la misma cosa desde ángulos que no habrías imaginado. Un rincón donde el aprendizaje no viene de un experto, sino de la mirada de otras personas comunes, y donde una sola pregunta bien hecha puede cambiarte toda la semana.',
+                'feat-quotes-title': 'Frases que resuenan',
+                'feat-quotes-hook': 'Guarda lo que te movió. Escribe lo que descubriste.',
+                'feat-quotes-desc': 'Metriotes te propone frases cada día en tu idioma, elegidas para acompañarte sin adoctrinarte. Guardas las que te llegan, escribes las tuyas cuando algo hace clic durante una conversación, un libro o un paseo. Con el tiempo se arma un cuaderno de bolsillo lleno de tus ideas y de las que te resonaron: siempre a mano cuando necesitas volver a acordarte de algo que ya sabías pero que se te había olvidado.',
+                'pros-badge': 'Para profesionales',
+                'pros-heading': 'Tu práctica, tu agenda y tus clientes. En una sola app.',
+                'pros-sub': 'Deja de saltar entre Instagram, WhatsApp, hojas de cálculo y Calendly. Metriotes reúne tu perfil, tus servicios, tu calendario y tus clientes en un solo lugar para que dediques tu tiempo a lo que haces mejor, no a coordinarlo.',
+                'pros-featured-eyebrow': 'La función que lo cambia todo',
+                'pros-featured-title': 'Tus clientes reservan solos. Tú te dedicas a atender.',
+                'pros-featured-desc': 'Se acabaron las cadenas de mensajes preguntando disponibilidad. Tus clientes ven tu agenda real desde la app, eligen el horario y reservan. Tú recibes la confirmación, con el recordatorio y el enlace de sesión listos.',
+                'pros-featured-tag1': 'Reservas 24/7',
+                'pros-featured-tag2': 'Confirmación instantánea',
+                'pros-featured-tag3': 'Recordatorios automáticos',
+                'pros-featured2-eyebrow': 'Cada cliente, su historia',
+                'pros-featured2-title': 'Notas privadas antes y después de cada sesión.',
+                'pros-featured2-desc': 'El historial de trabajo con cada persona ordenado por fecha. Prepara la próxima cita en un minuto, deja constancia de lo importante al terminar y nunca más olvides dónde lo dejaste.',
+                'pros-featured2-tag1': 'Notas pre-sesión',
+                'pros-featured2-tag2': 'Notas post-sesión',
+                'pros-featured2-tag3': 'Historial ordenado por fecha',
+                'pros-featured3-eyebrow': 'Tu semana, en piloto automático',
+                'pros-featured3-title': 'Publica tus clases una vez. Se llenan solas cada semana.',
+                'pros-featured3-desc': 'Yoga los lunes, pilates los miércoles, tu clase de idiomas cada tarde. Programa la recurrencia una sola vez, define cupos y precios, y deja que tus alumnos se inscriban desde la app. Ves quién viene sin confirmar por WhatsApp uno por uno.',
+                'pros-featured3-tag1': 'Recurrencia semanal',
+                'pros-featured3-tag2': 'Cupo y lista de asistencia',
+                'pros-featured3-tag3': 'Cancelaciones ordenadas',
+                'pros-stat1': 'Tus clientes reservan cuando quieren, aunque tú estés durmiendo.',
+                'pros-stat2': 'Una sola app en lugar de cinco herramientas desconectadas.',
+                'pros-stat3': 'Es lo que tardas en publicar un taller y ponerlo frente a miles.',
+                'pros-manifesto': 'Deja de coordinar. Empieza a atender.',
+                'pros-cta-title': 'Empieza gratis. Sube a PRO cuando estés listo.',
+                'pros-cta-desc': 'Publica tu perfil, recibe reservas y prueba todas las funciones sin poner una tarjeta. Cuando llenes tu agenda, subes a PRO desde la misma app.',
+                'pros-cta-button': 'Descargar Metriotes',
+                'pros-cta-fine': 'Disponible para iOS y Android',
+                'pros-audience-label': 'Diseñado para',
+                'audience-coach': 'Coaches',
+                'audience-psy': 'Psicólogos',
+                'audience-nutri': 'Nutricionistas',
+                'audience-yoga': 'Instructores de yoga',
+                'audience-pilates': 'Pilates',
+                'audience-fitness': 'Personal trainers',
+                'audience-mindfulness': 'Meditación y mindfulness',
+                'audience-lang': 'Profesores de idiomas',
+                'audience-music': 'Profesores de música',
+                'audience-therapy': 'Terapeutas y fisios',
+                'audience-more': 'y más',
+                'pros-feat1-title': 'Tu vitrina profesional',
+                'pros-feat1-hook': 'Un perfil pensado para que digan sí antes de escribirte.',
+                'pros-feat1-desc': 'Todo lo que un cliente necesita saber, presentado como te gustaría verlo si fueras tú el cliente. Sin fricción, sin dudas, sin repetir lo mismo por WhatsApp una y otra vez.',
+                'pros-feat1-b1': 'Foto, historia, especialidades y precios en una vista clara',
+                'pros-feat1-b2': 'Ubicación, idiomas que hablas y modalidad online o presencial',
+                'pros-feat1-b3': 'Credenciales verificadas al lado de tus reseñas reales',
+
+                'pros-feat2-title': 'Video de presentación',
+                'pros-feat2-hook': 'Que te conozcan antes de reservar te ahorra la mayoría de las dudas.',
+                'pros-feat2-desc': 'Un video breve donde te presentas genera una confianza que ningún texto logra. Cuando el cliente llega a la primera sesión, ya te siente cercano y no empiezas desde cero.',
+                'pros-feat2-b1': 'Se reproduce destacado en tu perfil público',
+                'pros-feat2-b2': 'Menos preguntas del tipo "¿cómo son tus sesiones?"',
+                'pros-feat2-b3': 'Mayor conversión con quienes aún no te conocen',
+
+'pros-feat6-title': 'Eventos, talleres y retiros',
+                'pros-feat6-hook': 'Cinco minutos y tu taller está frente a quienes ya buscan lo que ofreces.',
+                'pros-feat6-desc': 'Cargas el evento una vez y la app se encarga de la difusión, las inscripciones y la lista de espera. Tú te concentras en el contenido, no en armar planillas de asistentes.',
+                'pros-feat6-b1': 'Talleres, retiros, webinars, cursos y seminarios',
+                'pros-feat6-b2': 'Inscripción directa desde el perfil de cada usuario',
+                'pros-feat6-b3': 'Lista de espera automática cuando se llena el cupo',
+
+                'pros-feat7-title': 'Tu disponibilidad, tus reglas',
+                'pros-feat7-hook': 'Nunca más te reservan a las ocho de la noche del domingo.',
+                'pros-feat7-desc': 'Tú marcas qué días y horas trabajas, cuándo estás de vacaciones y qué días son solo para ti. La app respeta tus límites incluso cuando tú los olvidas.',
+                'pros-feat7-b1': 'Horarios semanales por defecto',
+                'pros-feat7-b2': 'Bloqueos puntuales por vacaciones o feriados',
+                'pros-feat7-b3': 'Reglas distintas para 1:1 y para clases grupales',
+
+                'pros-feat8-title': 'Servicios y paquetes que cierran solos',
+                'pros-feat8-hook': 'El cliente ve qué recibe por lo que paga. No hay que negociar.',
+                'pros-feat8-desc': 'Sesión suelta, bono de diez, plan mensual, primer contacto gratuito. Cada opción con su descripción y su precio. Cuando la oferta se explica sola, la venta es más rápida.',
+                'pros-feat8-b1': 'Múltiples paquetes conviviendo en tu perfil',
+                'pros-feat8-b2': 'Duración y descripción detallada por servicio',
+                'pros-feat8-b3': 'Marca cuáles se pueden reservar directamente',
+
+                'pros-feat9-title': 'Formularios de admisión',
+                'pros-feat9-hook': 'Que la primera sesión no se te vaya presentándote y preguntando lo básico.',
+                'pros-feat9-desc': 'Preguntas una vez todo lo que necesitas saber. El cliente lo completa antes de reservar y tú llegas a la sesión con la información en la mano. La primera reunión rinde el doble.',
+                'pros-feat9-b1': 'Preguntas personalizadas por profesional',
+                'pros-feat9-b2': 'Respuestas asociadas al perfil del cliente',
+                'pros-feat9-b3': 'Se completan una sola vez, se reutilizan siempre',
+
+                'pros-feat10-title': 'Credenciales y testimonios que venden',
+                'pros-feat10-hook': 'Los testimonios trabajan por ti incluso cuando no estás online.',
+                'pros-feat10-desc': 'Certificaciones verificadas y reseñas visibles en tu perfil. Cada cliente satisfecho que te evalúa es un argumento nuevo para el próximo que te encuentre.',
+                'pros-feat10-b1': 'Certificaciones cargadas con archivo adjunto',
+                'pros-feat10-b2': 'Reseñas de clientes con valoración',
+                'pros-feat10-b3': 'Testimonios destacados que eliges tú',
+
+                'pros-feat11-title': 'Todos tus canales, uno solo',
+                'pros-feat11-hook': 'El cliente elige por dónde contactarte. Tú eliges por dónde responder.',
+                'pros-feat11-desc': 'WhatsApp, email, Instagram, LinkedIn, tu web personal. Todos linkeados desde tu perfil y uno destacado como preferido. Nada de perder leads en DMs de tres apps distintas.',
+                'pros-feat11-b1': 'Múltiples canales tras un solo botón de contacto',
+                'pros-feat11-b2': 'Marca tu canal preferido como principal',
+                'pros-feat11-b3': 'Enlaces directos a WhatsApp e Instagram',
+
+                'pros-feat12-title': 'Datos que te dicen qué funciona',
+                'pros-feat12-hook': '"No sé por qué anduvo mejor este mes" se convierte en decisiones concretas.',
+                'pros-feat12-desc': 'Sabes cuántas personas ven tu perfil, cuántas reservan, qué servicio se pide más y a cuántos clientes retienes. Con eso ajustas precios, ofertas o formatos con criterio, no a ojo.',
+                'pros-feat12-b1': 'Visitas a tu perfil por período',
+                'pros-feat12-b2': 'Tasa de conversión de visita a reserva',
+                'pros-feat12-b3': 'Retención de clientes recurrentes',
                 'events-heading': 'Tipos de eventos',
                 'event-workshops': 'Talleres',
                 'event-retreats': 'Retiros',
@@ -1263,7 +3245,7 @@
                 'plan-cta-pro': 'Únete a la lista',
                 'plan-cta-premium': 'Suscribirse',
                 'plan-popular': 'Más popular',
-                'pricing-sub': 'Planes separados para usuarios y profesionales — cada uno pensado para lo que realmente necesitas.',
+                'pricing-sub': 'Planes separados para usuarios y profesionales cada uno pensado para lo que realmente necesitas.',
                 'pricing-group-users': 'Para usuarios',
                 'pricing-group-pros': 'Para profesionales',
                 'plan-user-free-desc': 'Para empezar a vivir con intención',
@@ -1311,19 +3293,19 @@
                 'testimonial5-quote': 'Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.',
                 'testimonial5-author': 'Sofía L.',
                 'testimonial5-role': 'Nutricionista',
-                'testimonial6-quote': 'Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí — sin que yo tenga que convencer a nadie.',
+                'testimonial6-quote': 'Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.',
                 'testimonial6-author': 'Javier P.',
                 'testimonial6-role': 'Instructor de pilates',
                 'testimonial7-quote': 'La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.',
                 'testimonial7-author': 'Elena V.',
                 'testimonial7-role': 'Terapeuta holística',
-                'testimonial8-quote': 'Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador — y a ellos, más constantes.',
+                'testimonial8-quote': 'Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.',
                 'testimonial8-author': 'Pablo S.',
                 'testimonial8-role': 'Entrenador personal',
                 'testimonial9-quote': 'Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.',
                 'testimonial9-author': 'Isabel M.',
                 'testimonial9-role': 'Instructora de meditación',
-                'testimonial10-quote': 'Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje — la app que nos mantuvo enfocados cuando más lo necesitábamos.',
+                'testimonial10-quote': 'Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.',
                 'testimonial10-author': 'Laura T.',
                 'testimonial10-role': 'Usuaria',
                 'cta-heading': 'Descarga la app y empieza hoy',
@@ -1341,36 +3323,175 @@
                 'nav-pros': 'For Professionals',
                 'hero-line1': 'The person you',
                 'hero-line2': 'want to become.',
-                'hero-sub': 'Metriotes turns your deepest values into concrete habits. You\'re not managing tasks — you\'re building who you are.',
+                'hero-sub': 'Metriotes turns your deepest values into concrete habits. You\'re not managing tasks you\'re building who you are.',
+                'feat-badge': 'For you',
                 'features-heading': 'Everything you need to become who you want to be',
-                'feature1-title': 'Your North Star',
-                'feature1-desc': 'The most fulfilled people don\'t manage lists — they live from a clear direction. Define your North and every decision, big or small, will naturally find its place.',
-                'feature2-title': 'Goals That Actually Matter',
-                'feature2-desc': 'No more empty targets. Every goal in Metriotes is born from your real values. When you start, you already know why — and that changes everything.',
-                'feature3-title': 'The Daily Practice That Builds You',
-                'feature3-desc': 'Your future self doesn\'t appear overnight. It\'s built in the habits you choose today. Metriotes turns your biggest ambitions into the next concrete step — and then the next one.',
-                'feature4-title': 'Completely Yours',
-                'feature4-desc': 'Your personal growth is private. Nothing is shared without your permission. Metriotes is the most honest space in your day — where you can be fully truthful with yourself.',
-                'feature5-title': 'Growing Together',
-                'feature5-desc': 'Some goals feel more possible when someone else shares them. Join your partner, friend, or companion on the goals you want to live together — and discover how far you can go.',
-                'feature6-title': 'With Witnesses Who Hold You',
-                'feature6-desc': 'When someone knows you\'re working on something, it\'s harder to quit. Your witnesses see your progress without editing anything — they\'re just there to celebrate when you arrive.',
-                'feature7-title': 'The Moments That Reveal You',
-                'feature7-desc': 'The best insights come in-between. Capture those moments of clarity — about yourself, what you want, how you want to live. They\'re the map of who you\'re becoming.',
-                'pros-heading': 'The platform that grows your professional practice',
-                'pros-sub': 'For coaches, psychologists, nutritionists, yoga and pilates instructors, and any wellness professional. The best don\'t just transform their clients — they build a presence that finds new ones before they even search.',
+                'features-sub': 'Metriotes doesn\'t help you do more. It helps you live with more meaning. Every feature exists so your day-to-day looks more and more like the life you actually want.',
+                'feat-featured-eyebrow': 'Start with what matters',
+                'feat-featured-title': 'When you know where you\'re going, everything else falls into place.',
+                'feat-featured-desc': 'Your North is the compass behind everything you do. Once it\'s clear, you stop reacting to what\'s urgent and start living what\'s important. Every small decision finds its place without you having to think twice.',
+                'feat-compass-north': 'North',
+                'feat-compass-objetivos': 'Goals',
+                'feat-compass-salud': 'Health',
+                'feat-compass-habitos': 'Habits',
+                'feat-compass-familia': 'Family',
+                'feat-compass-tareas': 'Tasks',
+                'feat-compass-miedos': 'Fears',
+                'feat-compass-deseos': 'Desires',
+                'feat-compass-proposito': 'Purpose',
+                'feat-compass-inseguridades': 'Insecurities',
+                'feat-compass-amigos': 'Friends',
+                'feat-manifesto': 'You\'re not managing tasks. You\'re building who you are.',
+                'feat-shared-eyebrow': 'When someone walks with you',
+                'feat-shared-title': 'Goals that are shared feel closer to happening.',
+                'feat-shared-desc': 'Invite your partner, a friend, or someone you trust into a goal. You both see the same path, hold each other in the hard moments, and celebrate the wins. What starts as a personal decision becomes a shared pact, and shared pacts almost never get abandoned.',
+                'feat-shared-tag1': 'Shared goals',
+                'feat-shared-tag2': 'Progress visible to both',
+                'feat-shared-tag3': 'Private goal chat',
+                'feat-privacy-eyebrow': 'You control who sees what',
+                'feat-privacy-title': 'No one sees your progress without your permission. Ever.',
+                'feat-privacy-desc': 'Metriotes is private by default. Nothing appears in a public feed, nothing gets shared by accident. Only when you choose to invite someone as a witness of a specific goal can they come along. Not one more goal, not one more corner of your app.',
+                'feat-privacy-tag1': 'Private by default',
+                'feat-privacy-tag2': 'Pick witnesses per goal',
+                'feat-privacy-tag3': 'Mute or revoke anytime',
+                'feat1-title': 'Goals that actually matter',
+                'feat1-hook': 'Targets rooted in what you truly feel.',
+                'feat1-desc': 'Every goal in Metriotes is born from your values, your fears, your dreams. When you start you already know why, and that clarity changes everything that follows.',
+                'feat2-title': 'The daily practice that builds you',
+                'feat2-hook': 'Your future self is built in today\'s next step, not next January.',
+                'feat2-desc': 'Metriotes turns big ambitions into today\'s concrete step. And then tomorrow\'s. No endless lists, no feeling overwhelmed, no losing the thread of what matters.',
+                'feat3-title': 'A space that\'s only yours',
+                'feat3-hook': 'A place where you can be fully honest with yourself.',
+                'feat3-desc': 'Nothing is shared without your permission. Your reflections, fears, and progress exist for you first. Only when you invite someone in, someone comes in.',
+                'feat-moments-eyebrow': 'The moments that reveal you',
+                'feat-moments-heading': 'A whole life lives in the details you barely notice.',
+                'feat-moments-sub': 'Metriotes gives you back a space to pause, breathe, and meet whatever you\'re feeling, learning, or discovering today. No rush, no notifications pulling you out of the thread. Just you, a few questions, and enough time to actually listen to yourself.',
+                'feat-discovery-eyebrow': 'One trait each day',
+                'feat-discovery-title': 'Eight pieces of yourself, explored one by one.',
+                'feat-discovery-desc': 'Mondays your desires, Tuesdays your fears, Wednesdays your passions. Every day Metriotes invites you to explore a different trait in small doses. Not a test you fill out in one afternoon: a map that draws itself over time. After a few weeks you start seeing things about yourself you didn\'t know were there.',
+                'feat-discovery-tag1': 'Desires',
+                'feat-discovery-tag2': 'Fears',
+                'feat-discovery-tag3': 'Passions',
+                'feat-discovery-tag4': 'Motivations',
+                'feat-discovery-tag5': 'Learnings',
+                'feat-discovery-tag6': 'Insecurities',
+                'feat-discovery-tag7': 'Beliefs',
+                'feat-discovery-tag8': 'Gratitudes',
+                'feat-diary-title': 'Diary',
+                'feat-diary-hook': 'Where the day ends and understanding begins.',
+                'feat-diary-desc': 'Write what happened, how you felt, who you were with, what contexts were in play. Add a photo if the moment deserves it, tag the emotions that showed up, link the day to a goal if today was part of something bigger. Metriotes organizes every entry by emotions, people, and contexts so that, in a month, you can see where your best days come from and what keeps showing up in the ones that aren\'t. Writing the day becomes the most honest way to know it.',
+                'feat-gratitude-title': 'Gratitude',
+                'feat-gratitude-hook': 'Three things a day that change how you look at the rest.',
+                'feat-gratitude-desc': 'Three lines every night: what went well, what you\'re thankful for, what you decided not to take for granted. A two-minute ritual that reshapes your gaze, quietly, without you noticing. Over time, Metriotes shows you which people, contexts, and moments show up most often in your gratitude, and what emotional state they leave you in. What began as a list becomes the invisible pattern behind your best days.',
+                'feat-question-title': 'Question of the day',
+                'feat-question-hook': 'One shared question, a thousand different ways to answer.',
+                'feat-question-desc': 'Every day a new question, the same one for the whole community. Sometimes light, sometimes uncomfortable, always on point. You answer in a few lines and discover how everyone else lives it: different people, different stories, thinking about the same thing from angles you wouldn\'t have imagined. A corner where learning doesn\'t come from an expert but from the gaze of ordinary strangers, and where a single well-crafted question can change your whole week.',
+                'feat-quotes-title': 'Quotes that resonate',
+                'feat-quotes-hook': 'Save what moved you. Write what you discovered.',
+                'feat-quotes-desc': 'Metriotes suggests quotes every day in your language, picked to keep you company without preaching. You save the ones that land, write your own when something clicks during a conversation, a book, or a walk. Over time you build a pocket notebook of your own ideas and the ones that resonated: always there when you need to remember something you already knew but had forgotten.',
+                'pros-badge': 'For professionals',
+                'pros-heading': 'Your practice, your calendar, your clients. In one app.',
+                'pros-sub': 'Stop juggling Instagram, WhatsApp, spreadsheets, and Calendly. Metriotes brings your profile, services, calendar, and clients into one place so you spend your time on what you do best, not on coordinating it.',
+                'pros-featured-eyebrow': 'The feature that changes everything',
+                'pros-featured-title': 'Your clients book themselves. You focus on serving them.',
+                'pros-featured-desc': 'No more chains of messages asking about availability. Your clients see your real calendar in the app, pick a time, and book. You get the confirmation, with reminder and session link ready.',
+                'pros-featured-tag1': '24/7 bookings',
+                'pros-featured-tag2': 'Instant confirmation',
+                'pros-featured-tag3': 'Automatic reminders',
+                'pros-featured2-eyebrow': 'Every client, their own story',
+                'pros-featured2-title': 'Private notes before and after every session.',
+                'pros-featured2-desc': 'The work record with each person ordered by date. Prepare the next session in one minute, capture what matters right after, and never forget where you left off.',
+                'pros-featured2-tag1': 'Pre-session notes',
+                'pros-featured2-tag2': 'Post-session notes',
+                'pros-featured2-tag3': 'History ordered by date',
+                'pros-featured3-eyebrow': 'Your week, on autopilot',
+                'pros-featured3-title': 'Publish your classes once. They fill themselves week after week.',
+                'pros-featured3-desc': 'Yoga on Mondays, pilates on Wednesdays, your language class every afternoon. Set the recurrence once, define capacity and pricing, and let your students sign up from the app. See who is coming without confirming by WhatsApp one by one.',
+                'pros-featured3-tag1': 'Weekly recurrence',
+                'pros-featured3-tag2': 'Capacity and attendance',
+                'pros-featured3-tag3': 'Cancellations kept clean',
+                'pros-stat1': 'Your clients book whenever they want, even while you sleep.',
+                'pros-stat2': 'A single app instead of five disconnected tools.',
+                'pros-stat3': 'That is what it takes to publish a workshop and put it in front of thousands.',
+                'pros-manifesto': 'Stop coordinating. Start serving.',
+                'pros-cta-title': 'Start free. Upgrade to PRO when you are ready.',
+                'pros-cta-desc': 'Publish your profile, receive bookings, and try every feature without a credit card. When your calendar fills up, upgrade to PRO from the same app.',
+                'pros-cta-button': 'Download Metriotes',
+                'pros-cta-fine': 'Available for iOS and Android',
+                'pros-audience-label': 'Built for',
+                'audience-coach': 'Coaches',
+                'audience-psy': 'Psychologists',
+                'audience-nutri': 'Nutritionists',
+                'audience-yoga': 'Yoga instructors',
+                'audience-pilates': 'Pilates',
+                'audience-fitness': 'Personal trainers',
+                'audience-mindfulness': 'Meditation & mindfulness',
+                'audience-lang': 'Language teachers',
+                'audience-music': 'Music teachers',
+                'audience-therapy': 'Therapists & physios',
+                'audience-more': 'and more',
                 'pros-feat1-title': 'Your Professional Showcase',
-                'pros-feat1-desc': 'First impressions decide everything. Build a profile that communicates exactly who you are: your story, credentials, and what makes you different — all in one place where your ideal clients can find you.',
-                'pros-feat2-title': 'Your Events, Your Audience',
-                'pros-feat2-desc': 'Workshops, retreats, webinars, courses — publish any format and put it in front of people already looking for what you offer. Stop searching for clients. Let them find you.',
-                'pros-feat3-title': 'Services That Close Themselves',
-                'pros-feat3-desc': 'When a potential client sees your packages, pricing, and what\'s included clearly, the decision becomes easy. Define your offer once and let it work for you while you focus on transforming lives.',
-                'pros-feat4-title': 'Credentials That Build Trust',
-                'pros-feat4-desc': 'In a saturated market, trust isn\'t asked for — it\'s demonstrated. Show your verified certifications and let every client know, from the very first second, they\'re in expert hands.',
-                'pros-feat5-title': 'The Proof That Converts Best',
-                'pros-feat5-desc': 'Nothing sells better than a satisfied client speaking for you. Collect real testimonials from those you\'ve already transformed and turn them into the most powerful argument on your profile.',
-                'pros-feat6-title': 'Data That Tells You What Works',
-                'pros-feat6-desc': 'Stop guessing. Track your reach, views, and conversion rate in real time. Grow intelligently — know what works and multiply it.',
+                'pros-feat1-hook': 'A profile designed so they say yes before writing to you.',
+                'pros-feat1-desc': 'Everything a potential client needs to know, presented the way you would want to see it if you were the client. No friction, no doubts, no explaining the same thing over WhatsApp every time.',
+                'pros-feat1-b1': 'Photo, story, specialties and pricing in one clear view',
+                'pros-feat1-b2': 'Location, languages you speak, online or in-person modality',
+                'pros-feat1-b3': 'Verified credentials next to your real client reviews',
+
+                'pros-feat2-title': 'Presentation Video',
+                'pros-feat2-hook': 'Getting them to know you first saves you 80% of the questions.',
+                'pros-feat2-desc': 'A short video introducing yourself builds trust that no text can. When the client arrives at the first session they already feel close to you, and you don\'t start from scratch.',
+                'pros-feat2-b1': 'Featured playback on your public profile',
+                'pros-feat2-b2': 'Fewer "how do your sessions work?" messages',
+                'pros-feat2-b3': 'Higher booking rate from clients who don\'t know you yet',
+
+'pros-feat6-title': 'Events, Workshops & Retreats',
+                'pros-feat6-hook': 'Five minutes and your workshop is in front of people already searching.',
+                'pros-feat6-desc': 'You upload the event once and the app handles the promotion, registrations, and waiting list. You focus on preparing the content, not on building spreadsheets of attendees.',
+                'pros-feat6-b1': 'Workshops, retreats, webinars, courses, seminars',
+                'pros-feat6-b2': 'Direct registration from each user\'s profile',
+                'pros-feat6-b3': 'Automatic waiting list when capacity is full',
+
+                'pros-feat7-title': 'Your Availability, Your Rules',
+                'pros-feat7-hook': 'Never again booked at 8pm on a Sunday.',
+                'pros-feat7-desc': 'You set what days and hours you work, when you\'re on vacation, and what days are just for you. The app respects your limits even when you forget.',
+                'pros-feat7-b1': 'Default weekly hours',
+                'pros-feat7-b2': 'One-off blocks for vacations or holidays',
+                'pros-feat7-b3': 'Different rules for 1:1 and group classes',
+
+                'pros-feat8-title': 'Services and Packages That Close Themselves',
+                'pros-feat8-hook': 'The client sees exactly what they get for their money. No negotiation needed.',
+                'pros-feat8-desc': 'Single session, 10-pack, monthly plan, free first consultation. Each option with its clear description and its price. When the offer explains itself, the sale is faster.',
+                'pros-feat8-b1': 'Multiple packages coexisting on your profile',
+                'pros-feat8-b2': 'Duration and detailed description per service',
+                'pros-feat8-b3': 'Mark which ones can be booked directly',
+
+                'pros-feat9-title': 'Intake Forms',
+                'pros-feat9-hook': 'Never again a first session presenting yourself and asking the basics.',
+                'pros-feat9-desc': 'You ask everything you need to know once, the client fills it in before booking, and you arrive at the session with the information in hand. The first meeting delivers twice the value.',
+                'pros-feat9-b1': 'Personalized questions per professional',
+                'pros-feat9-b2': 'Answers linked to the client\'s profile',
+                'pros-feat9-b3': 'Completed once, reused forever',
+
+                'pros-feat10-title': 'Credentials and Testimonials That Sell',
+                'pros-feat10-hook': 'Testimonials work for you even when you\'re not online.',
+                'pros-feat10-desc': 'Verified certifications and reviews visible on your profile. Every satisfied client who rates you is one more argument for the next one who finds you in the directory.',
+                'pros-feat10-b1': 'Certifications uploaded with file attachment',
+                'pros-feat10-b2': 'Client reviews with rating',
+                'pros-feat10-b3': 'Featured testimonials you pick yourself',
+
+                'pros-feat11-title': 'All Your Channels, One Place',
+                'pros-feat11-hook': 'The client picks how to reach you. You pick how to answer.',
+                'pros-feat11-desc': 'WhatsApp, email, Instagram, LinkedIn, your personal website. All linked from your profile, one set as the preferred channel. No losing leads across DMs in three different apps.',
+                'pros-feat11-b1': 'Multiple channels behind a single contact button',
+                'pros-feat11-b2': 'Set your preferred channel as primary',
+                'pros-feat11-b3': 'Deep links straight to WhatsApp and Instagram',
+
+                'pros-feat12-title': 'Data That Tells You What Works',
+                'pros-feat12-hook': '"I don\'t know why this month went better" becomes concrete decisions.',
+                'pros-feat12-desc': 'You know how many people view your profile, how many book, which service gets requested most, and how many clients you retain. With that you adjust prices, offers, or formats with judgment, not guesses.',
+                'pros-feat12-b1': 'Profile visits per period',
+                'pros-feat12-b2': 'Visit-to-booking conversion rate',
+                'pros-feat12-b3': 'Retention of recurring clients',
                 'pricing-heading': 'Start free, grow with PRO',
                 'plan-free': 'Free',
                 'plan-period': '/month',
@@ -1378,7 +3499,7 @@
                 'plan-cta-pro': 'Join the list',
                 'plan-cta-premium': 'Subscribe',
                 'plan-popular': 'Most popular',
-                'pricing-sub': 'Separate plans for users and professionals — each built for what you actually need.',
+                'pricing-sub': 'Separate plans for users and professionals each built for what you actually need.',
                 'pricing-group-users': 'For users',
                 'pricing-group-pros': 'For professionals',
                 'plan-user-free-desc': 'Start living with intention',
@@ -1426,19 +3547,19 @@
                 'testimonial5-quote': 'My clients use Metriotes to track their habits between sessions. It\'s like having a bridge of constant support that multiplies the results of the work we do together.',
                 'testimonial5-author': 'Sofía L.',
                 'testimonial5-role': 'Nutritionist',
-                'testimonial6-quote': 'Verified certifications set me apart in the directory. New clients arrive already trusting me — without me having to convince anyone.',
+                'testimonial6-quote': 'Verified certifications set me apart in the directory. New clients arrive already trusting me without me having to convince anyone.',
                 'testimonial6-author': 'Javier P.',
                 'testimonial6-role': 'Pilates Instructor',
                 'testimonial7-quote': 'Analytics tells me which services are most in demand. I made business decisions I never would have made without that data. My practice grew 40% in six months.',
                 'testimonial7-author': 'Elena V.',
                 'testimonial7-role': 'Holistic Therapist',
-                'testimonial8-quote': 'My clients share their training goals with me as a witness. Seeing their progress in real time makes me a better trainer — and them, more consistent.',
+                'testimonial8-quote': 'My clients share their training goals with me as a witness. Seeing their progress in real time makes me a better trainer and them, more consistent.',
                 'testimonial8-author': 'Pablo S.',
                 'testimonial8-role': 'Personal Trainer',
                 'testimonial9-quote': 'I went from having no online presence to a complete profile with real reviews from my students. Metriotes made that change possible in weeks.',
                 'testimonial9-author': 'Isabel M.',
                 'testimonial9-role': 'Meditation Instructor',
-                'testimonial10-quote': 'I shared my goal of running a marathon with my partner. We achieved it together. Metriotes was part of that journey — the app that kept us focused when we needed it most.',
+                'testimonial10-quote': 'I shared my goal of running a marathon with my partner. We achieved it together. Metriotes was part of that journey the app that kept us focused when we needed it most.',
                 'testimonial10-author': 'Laura T.',
                 'testimonial10-role': 'User',
                 'cta-heading': 'Download the app and start today',
@@ -1513,6 +3634,19 @@
         }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 
         document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+        /* ── Cards spotlight hover (pros + features) ────────────── */
+        document.querySelectorAll('.pros-card, .feat-card').forEach(card => {
+            card.addEventListener('pointermove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+                card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+            });
+            card.addEventListener('pointerleave', () => {
+                card.style.removeProperty('--mx');
+                card.style.removeProperty('--my');
+            });
+        });
 
         /* ── Nav Scroll State ──────────────────────────────────── */
         const siteNav = document.getElementById('site-nav');

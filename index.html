@@ -4,21 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metriotes</title>
-    <meta name="description"
-        content="Herramientas para vivir una vida consciente. Metriotes te ayuda a crear un plan personalizado para alcanzar tus metas.">
+    <title>Metriotes · Convierte tus valores en hábitos. Encuentra al profesional que te acompaña.</title>
+    <meta name="description" content="La app que une tu crecimiento personal con coaches, psicólogos e instructores de tu ciudad. Objetivos con propósito, comunidad real, privacidad total. Gratis para empezar.">
+    <meta name="theme-color" content="#5B7A94">
+    <link rel="canonical" href="https://metriotes.com/">
+    <link rel="alternate" hreflang="es" href="https://metriotes.com/">
+    <link rel="alternate" hreflang="en" href="https://metriotes.com/?lang=en">
+    <link rel="alternate" hreflang="x-default" href="https://metriotes.com/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Metriotes">
     <meta property="og:url" content="https://metriotes.com/">
-    <meta property="og:title" content="Metriotes - Herramientas para vivir una vida consciente">
-    <meta property="og:description" content="Herramientas para vivir una vida consciente">
+    <meta property="og:title" content="Metriotes · La persona que quieres ser.">
+    <meta property="og:description" content="Convierte tus valores en hábitos. Encuentra al profesional que te acompaña. Metriotes une tu crecimiento personal con coaches, psicólogos e instructores de tu ciudad.">
+    <meta property="og:image" content="https://metriotes.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Metriotes · La persona que quieres ser">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale:alternate" content="en_US">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://metriotes.com/">
-    <meta property="twitter:title" content="Metriotes - Herramientas para vivir una vida consciente">
-    <meta property="twitter:description" content="Herramientas para vivir una vida consciente">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@metrioteslife">
+    <meta name="twitter:url" content="https://metriotes.com/">
+    <meta name="twitter:title" content="Metriotes · La persona que quieres ser.">
+    <meta name="twitter:description" content="Convierte tus valores en hábitos. Encuentra al profesional que te acompaña.">
+    <meta name="twitter:image" content="https://metriotes.com/assets/og-image.png">
+
+    <!-- Structured data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Metriotes",
+      "url": "https://metriotes.com/",
+      "logo": "https://metriotes.com/assets/logo.png",
+      "sameAs": [
+        "https://x.com/metrioteslife",
+        "https://instagram.com/metrioteslife"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Metriotes",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "LifestyleApplication",
+      "offers": [
+        { "@type": "Offer", "name": "Gratis", "price": "0", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Premium", "price": "4.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "PRO Profesional", "price": "19.99", "priceCurrency": "EUR" }
+      ],
+      "downloadUrl": "https://apple.co/3LX7yom"
+    }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,34 +139,48 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(15,22,32,0.14);
+            background: rgba(238,243,248,0.88);
             backdrop-filter: blur(14px) saturate(1.2);
             -webkit-backdrop-filter: blur(14px) saturate(1.2);
-            border-bottom: 1px solid rgba(255,255,255,0.14);
-            transition: box-shadow 300ms var(--ease-out), background 300ms, border-color 300ms;
+            border-bottom: 1px solid rgba(91,122,148,0.16);
+            transition: box-shadow 300ms var(--ease-out);
         }
         .site-nav .nav-logo,
-        .site-nav .nav-logo span { color: #FFFFFF; transition: color 300ms; }
-        .site-nav .nav-link { color: rgba(255,255,255,0.78); transition: color 300ms; }
-        .site-nav .nav-link:hover { color: #FFFFFF; }
-        .site-nav .lang-toggle { border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.06); transition: all 300ms; }
-        .site-nav .lang-option { color: rgba(255,255,255,0.72); transition: color 300ms; }
-        .site-nav .lang-option.active { color: #FFFFFF; }
-        .site-nav .lang-sep { color: rgba(255,255,255,0.35); }
+        .site-nav .nav-logo span { color: var(--text-primary); }
+        .site-nav .nav-link { color: var(--text-secondary); transition: color 200ms; }
+        .site-nav .nav-link:hover { color: var(--text-primary); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.95rem;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            box-shadow:
+                0 4px 12px -3px rgba(91,122,148,0.45),
+                inset 0 1px 0 rgba(255,255,255,0.18);
+            transition: transform 200ms var(--ease-spring), box-shadow 300ms;
+        }
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 8px 20px -4px rgba(91,122,148,0.55),
+                inset 0 1px 0 rgba(255,255,255,0.24);
+        }
+        .nav-cta:active { transform: translateY(0); }
+        .site-nav .lang-toggle { border-color: var(--border-strong); background: transparent; }
+        .site-nav .lang-option { color: var(--text-muted); }
+        .site-nav .lang-option.active { color: var(--text-primary); }
+        .site-nav .lang-sep { color: var(--text-muted); }
 
         .site-nav.scrolled {
-            background: rgba(228,237,243,0.86);
-            border-bottom-color: rgba(91,122,148,0.16);
+            background: rgba(228,237,243,0.94);
             box-shadow: 0 2px 16px rgba(15,22,32,0.08);
         }
-        .site-nav.scrolled .nav-logo,
-        .site-nav.scrolled .nav-logo span { color: var(--text-primary); }
-        .site-nav.scrolled .nav-link { color: var(--text-secondary); }
-        .site-nav.scrolled .nav-link:hover { color: var(--text-primary); }
-        .site-nav.scrolled .lang-toggle { border-color: var(--border); background: transparent; }
-        .site-nav.scrolled .lang-option { color: var(--text-muted); }
-        .site-nav.scrolled .lang-option.active { color: var(--text-primary); }
-        .site-nav.scrolled .lang-sep { color: var(--text-muted); }
         .nav-inner {
             max-width: var(--container);
             margin: 0 auto;
@@ -154,6 +211,34 @@
             align-items: center;
             gap: 1.5rem;
         }
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: transparent;
+            border: 1px solid var(--border-strong);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color 300ms;
+        }
+        .nav-hamburger span {
+            display: block;
+            width: 18px;
+            height: 1.75px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            margin: 0 auto;
+            transition: transform 300ms var(--ease-spring), opacity 200ms;
+            transform-origin: center;
+        }
+        .nav-hamburger:hover { border-color: var(--terra); }
+        .nav-hamburger.open span:nth-child(1) { transform: translateY(5.75px) rotate(45deg); }
+        .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-hamburger.open span:nth-child(3) { transform: translateY(-5.75px) rotate(-45deg); }
         .nav-link {
             font-size: 0.9rem;
             font-weight: 500;
@@ -257,6 +342,36 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
+        .hero-proof {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: clamp(1.5rem, 3vw, 2.75rem);
+            margin-top: 2.75rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.14);
+            max-width: 640px;
+        }
+        .hero-proof-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .hero-proof-num {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .hero-proof-label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.68);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
         .hero-store-link,
         .hero-gplay-link {
             display: inline-flex;
@@ -292,6 +407,253 @@
         @media (prefers-reduced-motion: reduce) {
             .reveal, [data-reveal] { opacity: 1; transform: none; transition: none; }
         }
+
+        /* ─── How it works section ───────────────────────────── */
+        .how-section {
+            position: relative;
+            background:
+                radial-gradient(50% 40% at 15% 20%, rgba(91,122,148,0.10), transparent 60%),
+                radial-gradient(50% 40% at 85% 80%, rgba(143,168,184,0.09), transparent 60%),
+                linear-gradient(180deg, rgba(91,122,148,0.02), transparent);
+            overflow: hidden;
+        }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .how-step {
+            position: relative;
+            padding: 2rem 1.75rem 1.75rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F6F9FC 100%);
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 20px;
+            transition: transform 400ms var(--ease-spring), box-shadow 400ms var(--ease-out);
+        }
+        .how-step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 30px 50px -20px rgba(15,22,32,0.14);
+        }
+        .how-step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            box-shadow: 0 6px 14px -4px rgba(91,122,148,0.4);
+            margin-bottom: 1.15rem;
+        }
+        .how-step h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.65rem;
+        }
+        .how-step-desc {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 1.25rem;
+        }
+        .how-step-visual {
+            position: relative;
+            height: 90px;
+            border-radius: 12px;
+            background:
+                radial-gradient(120% 100% at 100% 0%, rgba(143,168,184,0.14), transparent 60%),
+                linear-gradient(180deg, #F1F5F9, #E7EEF4);
+            border: 1px solid rgba(91,122,148,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--terra);
+        }
+        .how-step-visual svg { width: 2.4rem; height: 2.4rem; opacity: 0.8; }
+        .how-cta {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        .how-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.6rem;
+            border-radius: 12px;
+            background: linear-gradient(180deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            box-shadow:
+                0 12px 32px -8px rgba(91,122,148,0.42),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+            transition: transform 200ms var(--ease-spring);
+        }
+        .how-cta a:hover { transform: translateY(-2px); }
+        @media (max-width: 900px) {
+            .how-steps { grid-template-columns: 1fr; }
+        }
+
+        /* ─── Before / After Metriotes comparison ────────────── */
+        .compare-section {
+            background: var(--surface-raised);
+            position: relative;
+        }
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .compare-side {
+            padding: 2rem 2rem 2.25rem;
+            border-radius: 20px;
+            position: relative;
+        }
+        .compare-side--before {
+            background: linear-gradient(180deg, #FFFFFF, #F1F5F9);
+            border: 1px solid rgba(91,122,148,0.14);
+        }
+        .compare-side--after {
+            background:
+                radial-gradient(100% 120% at 100% 0%, rgba(143,168,184,0.24), transparent 55%),
+                linear-gradient(160deg, #2A3E52, #0F1620);
+            border: 1px solid rgba(143,168,184,0.28);
+            color: #FFFFFF;
+        }
+        .compare-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+        .compare-side--before .compare-eyebrow { color: var(--text-muted); }
+        .compare-side--after .compare-eyebrow { color: var(--amber); }
+        .compare-title {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+        .compare-side--before .compare-title { color: var(--text-primary); }
+        .compare-side--after .compare-title { color: #FFFFFF; }
+        .compare-list { display: flex; flex-direction: column; gap: 0.85rem; }
+        .compare-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+        }
+        .compare-side--before .compare-item { color: var(--text-secondary); }
+        .compare-side--after .compare-item { color: rgba(255,255,255,0.78); }
+        .compare-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 999px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        .compare-side--before .compare-icon {
+            background: rgba(15,22,32,0.08);
+            color: var(--text-muted);
+        }
+        .compare-side--after .compare-icon {
+            background: rgba(143,168,184,0.22);
+            color: var(--amber);
+        }
+        .compare-icon svg { width: 0.7rem; height: 0.7rem; stroke-width: 2.5; }
+        @media (max-width: 900px) {
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ─── Competitors comparison table ───────────────────── */
+        .compet-wrap {
+            margin-top: 3rem;
+            padding: 2rem;
+            background:
+                radial-gradient(100% 140% at 100% 0%, rgba(196,98,45,0.10), transparent 55%),
+                linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 24px;
+            overflow-x: auto;
+        }
+        .compet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.85);
+            min-width: 640px;
+        }
+        .compet-table th,
+        .compet-table td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .compet-table thead th {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: -0.005em;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.16);
+        }
+        .compet-table thead th:first-child { text-align: left; color: rgba(255,255,255,0.4); font-weight: 500; }
+        .compet-table thead th.compet-me {
+            color: var(--amber);
+            font-size: 1rem;
+        }
+        .compet-table td { text-align: center; }
+        .compet-table td:first-child { text-align: left; color: rgba(255,255,255,0.78); font-weight: 500; }
+        .compet-table td.compet-me { color: #FFFFFF; font-weight: 600; }
+        .compet-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            border-radius: 999px;
+            background: rgba(143,168,184,0.28);
+            color: var(--amber);
+        }
+        .compet-check svg { width: 0.75rem; height: 0.75rem; stroke-width: 3; }
+        .compet-x {
+            display: inline-block;
+            width: 1.35rem;
+            height: 1.35rem;
+            line-height: 1.35rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.32);
+            font-size: 0.85rem;
+        }
+        .compet-partial { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+        .compet-price-row td { padding-top: 1.15rem; border-top: 1px solid rgba(255,255,255,0.16); font-size: 0.85rem; }
+        .compet-price-row td:first-child { color: rgba(255,255,255,0.5); font-weight: 500; }
+        .compet-price-row td.compet-me { color: var(--amber); font-family: 'Kalnia', Georgia, serif; font-size: 1.1rem; }
 
         /* ─── Features List ──────────────────────────────────── */
         .features-section {
@@ -991,6 +1353,336 @@
             color: var(--text-secondary);
             line-height: 1.7;
         }
+        /* ─── Inspiration bridge section (users ↔ professionals) ─── */
+        .inspiration-section {
+            position: relative;
+            padding-top: 3rem;
+            background:
+                radial-gradient(60% 45% at 15% 15%, rgba(91,122,148,0.14), transparent 60%),
+                radial-gradient(55% 45% at 85% 85%, rgba(143,168,184,0.14), transparent 60%),
+                linear-gradient(180deg, transparent 0%, rgba(91,122,148,0.05) 50%, transparent 100%);
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .inspiration-section .section-container { position: relative; z-index: 1; }
+        .inspiration-section .section-heading {
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            letter-spacing: -0.035em;
+            line-height: 1.02;
+            max-width: 24ch;
+        }
+        .inspiration-section .section-sub {
+            font-size: 1.125rem;
+            max-width: 60ch;
+            margin-top: 1.25rem;
+        }
+
+        .insp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+        .insp-pillar {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 2rem 1.75rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F6F9FC 100%);
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 22px;
+            overflow: hidden;
+            transition: border-color 400ms var(--ease-out), transform 400ms var(--ease-spring), box-shadow 400ms var(--ease-out);
+        }
+        .insp-pillar:hover {
+            border-color: rgba(91,122,148,0.32);
+            transform: translateY(-3px);
+            box-shadow: 0 30px 50px -20px rgba(15,22,32,0.14);
+        }
+        .insp-pillar-visual {
+            position: relative;
+            height: 190px;
+            margin: -0.5rem -0.5rem 1.5rem;
+            padding: 1rem;
+            border-radius: 16px;
+            background:
+                radial-gradient(120% 100% at 100% 0%, rgba(143,168,184,0.14), transparent 60%),
+                linear-gradient(180deg, #F1F5F9, #E7EEF4);
+            border: 1px solid rgba(91,122,148,0.12);
+            overflow: hidden;
+        }
+        .insp-pillar-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.6rem;
+        }
+        .insp-pillar h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .insp-pillar-hook {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--terra-dark);
+            line-height: 1.5;
+            margin-bottom: 0.85rem;
+        }
+        .insp-pillar-desc {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ── Mockup: Template goals list ── */
+        .insp-mock-goals {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .insp-mock-goal {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.6rem 0.75rem;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px -2px rgba(15,22,32,0.06);
+        }
+        .insp-mock-goal--faded { opacity: 0.55; }
+        .insp-mock-goal-emoji {
+            width: 1.9rem;
+            height: 1.9rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .insp-mock-goal--2 .insp-mock-goal-emoji { background: linear-gradient(135deg, #7A98AF, #5B7A94); }
+        .insp-mock-goal--3 .insp-mock-goal-emoji { background: linear-gradient(135deg, #B5C7D5, #7A98AF); }
+        .insp-mock-goal-body { flex: 1; min-width: 0; }
+        .insp-mock-goal-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .insp-mock-goal-meta {
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ── Mockup: Professionals ── */
+        .insp-mock-pros {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .insp-mock-pro {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 0.75rem;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px -2px rgba(15,22,32,0.06);
+        }
+        .insp-mock-pro-avatar {
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            border: 1.5px solid #FFFFFF;
+            box-shadow: 0 1px 3px rgba(15,22,32,0.12);
+        }
+        .insp-mock-pro--2 .insp-mock-pro-avatar { background: linear-gradient(135deg, #5B7A94, #3D5468); }
+        .insp-mock-pro--3 .insp-mock-pro-avatar { background: linear-gradient(135deg, #7A98AF, #4E6E85); }
+        .insp-mock-pro-body { flex: 1; min-width: 0; }
+        .insp-mock-pro-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .insp-mock-pro-role {
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .insp-mock-pro-badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 999px;
+            background: rgba(91,122,148,0.14);
+            color: var(--terra-dark);
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Mockup: Event card ── */
+        .insp-mock-events {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+        .insp-mock-event {
+            display: flex;
+            gap: 0.7rem;
+            padding: 0.65rem 0.7rem;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px -2px rgba(15,22,32,0.06);
+            align-items: center;
+        }
+        .insp-mock-event-date {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            padding: 0.35rem 0;
+            border-radius: 8px;
+            background: linear-gradient(160deg, rgba(143,168,184,0.24), rgba(91,122,148,0.12));
+            border: 1px solid rgba(91,122,148,0.2);
+            font-variant-numeric: tabular-nums;
+        }
+        .insp-mock-event-date-day {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .insp-mock-event-date-month {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--terra-dark);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .insp-mock-event-body { flex: 1; min-width: 0; }
+        .insp-mock-event-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .insp-mock-event-meta {
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── Dual benefits split ── */
+        .insp-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 4.5rem;
+        }
+        .insp-duo-side {
+            padding: 2.25rem 2rem 2rem;
+            border-radius: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .insp-duo-side--user {
+            background: linear-gradient(180deg, #FFFFFF 0%, #EDF3F8 100%);
+            border: 1px solid rgba(91,122,148,0.18);
+        }
+        .insp-duo-side--pro {
+            background:
+                radial-gradient(100% 120% at 100% 0%, rgba(143,168,184,0.24), transparent 55%),
+                linear-gradient(160deg, #2A3E52, #0F1620);
+            border: 1px solid rgba(143,168,184,0.28);
+            color: #FFFFFF;
+        }
+        .insp-duo-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .insp-duo-eyebrow::before {
+            content: "";
+            width: 1.5rem;
+            height: 1px;
+        }
+        .insp-duo-side--user .insp-duo-eyebrow { color: var(--terra); }
+        .insp-duo-side--user .insp-duo-eyebrow::before { background: var(--terra); }
+        .insp-duo-side--pro .insp-duo-eyebrow { color: var(--amber); }
+        .insp-duo-side--pro .insp-duo-eyebrow::before { background: var(--amber); }
+
+        .insp-duo-title {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 22ch;
+        }
+        .insp-duo-side--user .insp-duo-title { color: var(--text-primary); }
+        .insp-duo-side--pro .insp-duo-title { color: #FFFFFF; }
+        .insp-duo-list { display: flex; flex-direction: column; gap: 0.85rem; }
+        .insp-duo-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+        }
+        .insp-duo-side--user .insp-duo-item { color: var(--text-secondary); }
+        .insp-duo-side--pro .insp-duo-item { color: rgba(255,255,255,0.75); }
+        .insp-duo-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-top: 0.2rem;
+            border-radius: 999px;
+            flex-shrink: 0;
+        }
+        .insp-duo-side--user .insp-duo-check {
+            background: rgba(91,122,148,0.18);
+            color: var(--terra);
+        }
+        .insp-duo-side--pro .insp-duo-check {
+            background: rgba(143,168,184,0.22);
+            color: var(--amber);
+        }
+        .insp-duo-check svg { width: 0.7rem; height: 0.7rem; stroke-width: 3; }
+
+        @media (max-width: 900px) {
+            .insp-duo { grid-template-columns: 1fr; }
+        }
+
         /* ─── Professionals Section ──────────────────────────── */
         .pros-section {
             position: relative;
@@ -1804,6 +2496,91 @@
             vertical-align: middle;
         }
 
+        /* Billing toggle */
+        .pricing-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            padding: 0.3rem;
+            margin: 1.5rem auto 0;
+            background: var(--surface-raised);
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            font-family: inherit;
+        }
+        .pricing-toggle-option {
+            padding: 0.5rem 1.15rem;
+            border-radius: 999px;
+            background: transparent;
+            border: none;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background 250ms, color 250ms;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .pricing-toggle-option.active {
+            background: var(--terra);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px -3px rgba(91,122,148,0.35);
+        }
+        .pricing-toggle-badge {
+            font-size: 0.62rem;
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.22);
+            color: #FFFFFF;
+            letter-spacing: 0.03em;
+            font-weight: 600;
+        }
+        .pricing-toggle-option:not(.active) .pricing-toggle-badge {
+            background: rgba(91,122,148,0.14);
+            color: var(--terra-dark);
+        }
+        .pricing-intro-toggle {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        /* Show monthly vs annual price */
+        .pricing-price-annual,
+        .pricing-period-annual { display: none; }
+        [data-billing="annual"] .pricing-price-monthly,
+        [data-billing="annual"] .pricing-period-monthly { display: none; }
+        [data-billing="annual"] .pricing-price-annual,
+        [data-billing="annual"] .pricing-period-annual { display: inline; }
+        .pricing-annual-save {
+            display: none;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--terra-dark);
+            margin-top: 0.35rem;
+        }
+        [data-billing="annual"] .pricing-annual-save { display: block; }
+
+        .pricing-fineprint {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.85rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            line-height: 1.4;
+        }
+        .pricing-fineprint svg {
+            width: 0.85rem;
+            height: 0.85rem;
+            color: var(--terra);
+            flex-shrink: 0;
+        }
+        .pricing-card--pro .pricing-fineprint { color: rgba(255,255,255,0.55); }
+        .pricing-card--pro .pricing-fineprint svg { color: var(--amber); }
+
         /* ─── Testimonials ───────────────────────────────────── */
         .testimonials-section { background: var(--surface-raised); overflow: hidden; }
         .testimonials-section .section-container { padding-bottom: 0; }
@@ -1881,9 +2658,98 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            object-fit: cover;
             flex-shrink: 0;
-            background: var(--surface-raised);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, var(--amber), var(--terra));
+            box-shadow: 0 2px 6px rgba(15,22,32,0.14);
+        }
+        .testimonial-avatar--2 { background: linear-gradient(135deg, var(--terra), var(--terra-dark)); }
+        .testimonial-avatar--3 { background: linear-gradient(135deg, #7A98AF, #4E6E85); }
+        .testimonial-avatar--4 { background: linear-gradient(135deg, #B5C7D5, #7A98AF); }
+        .testimonials-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-bottom: 4rem;
+        }
+        .testimonials-group-label {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        /* ─── FAQ Section ────────────────────────────────────── */
+        .faq-section {
+            position: relative;
+            background:
+                radial-gradient(60% 45% at 88% 20%, rgba(91,122,148,0.10), transparent 60%),
+                radial-gradient(55% 45% at 8% 78%, rgba(143,168,184,0.09), transparent 65%),
+                transparent;
+        }
+        .faq-list {
+            max-width: 820px;
+            margin: 3rem auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .faq-item {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F6F9FC 100%);
+            border: 1px solid rgba(91,122,148,0.14);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: border-color 300ms var(--ease-out);
+        }
+        .faq-item[open] { border-color: rgba(91,122,148,0.32); }
+        .faq-item summary {
+            list-style: none;
+            padding: 1.15rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after {
+            content: "";
+            flex-shrink: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background:
+                linear-gradient(currentColor, currentColor) center / 0.75rem 1.5px no-repeat,
+                linear-gradient(currentColor, currentColor) center / 1.5px 0.75rem no-repeat;
+            opacity: 0.55;
+            transition: transform 300ms var(--ease-spring), opacity 200ms;
+        }
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+            opacity: 1;
+            color: var(--terra);
+        }
+        .faq-item-body {
+            padding: 0 1.5rem 1.35rem;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
         }
         .testimonial-name {
             font-weight: 600;
@@ -1904,6 +2770,60 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .download-block {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2.5rem;
+            padding: 2.5rem 3rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+            border: 1px solid rgba(91,122,148,0.16);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px -30px rgba(15,22,32,0.14);
+            max-width: 720px;
+            text-align: left;
+        }
+        .download-block-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .download-block-title {
+            font-family: 'Kalnia', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+        .download-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.55rem;
+        }
+        .download-qr-frame {
+            width: 132px;
+            height: 132px;
+            padding: 0.5rem;
+            background: #FFFFFF;
+            border: 1px solid rgba(91,122,148,0.2);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px -8px rgba(15,22,32,0.14);
+        }
+        .download-qr-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .download-qr-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        @media (max-width: 720px) {
+            .download-block { grid-template-columns: 1fr; padding: 2rem 1.75rem; gap: 2rem; text-align: center; }
+            .download-block-body { align-items: center; }
+            .download-qr { justify-self: center; }
         }
         .download-heading {
             font-family: 'Kalnia', Georgia, serif;
@@ -2017,7 +2937,39 @@
             .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
             .pricing-group { margin-bottom: 3rem; }
             .footer-right { align-items: flex-start; }
-            .nav-link { display: none; }
+            .nav-hamburger { display: inline-flex; }
+            .nav-actions {
+                position: fixed;
+                inset: 68px 0 auto 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 1.25rem clamp(1.25rem, 4vw, 3rem) 1.75rem;
+                background: rgba(238,243,248,0.96);
+                backdrop-filter: blur(20px) saturate(1.2);
+                -webkit-backdrop-filter: blur(20px) saturate(1.2);
+                border-bottom: 1px solid rgba(91,122,148,0.16);
+                box-shadow: 0 30px 60px -20px rgba(15,22,32,0.14);
+                transform: translateY(-16px);
+                opacity: 0;
+                visibility: hidden;
+                transition: transform 300ms var(--ease-spring), opacity 250ms, visibility 250ms;
+            }
+            .nav-actions.open {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .nav-actions .nav-link {
+                display: block;
+                padding: 0.9rem 0;
+                font-size: 1rem;
+                font-weight: 500;
+                color: var(--text-primary);
+                border-bottom: 1px solid rgba(91,122,148,0.1);
+            }
+            .nav-actions .nav-link:last-of-type { border-bottom: none; }
+            .nav-actions .lang-toggle { align-self: flex-start; margin-top: 1rem; }
         }
 
         @media (min-width: 1000px) {
@@ -2091,8 +3043,15 @@
                 </svg>
                 <span>Metriotes</span>
             </a>
-            <div class="nav-actions">
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-actions" id="nav-menu">
+                <a href="#funcionalidades" class="nav-link" data-i18n="nav-users">Para Ti</a>
+                <a href="#inspiracion" class="nav-link" data-i18n="nav-insp">Inspiración</a>
                 <a href="#profesionales" class="nav-link" data-i18n="nav-pros">Para Profesionales</a>
+                <a href="#precios" class="nav-link" data-i18n="nav-pricing">Precios</a>
+                <a href="#descarga" class="nav-cta" data-i18n="nav-cta">Descargar</a>
                 <button class="lang-toggle" id="lang-toggle" aria-label="Cambiar idioma">
                     <span class="lang-option" data-lang="es">ES</span>
                     <span class="lang-sep">/</span>
@@ -2116,7 +3075,7 @@
                 <span data-i18n="hero-line2">quieres ser.</span>
             </h1>
             <p class="hero-sub reveal" style="--index:1" data-i18n="hero-sub">
-                Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas construyes quien eres.
+                Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas: construyes quién eres.
             </p>
             <div class="hero-ctas reveal" style="--index:2">
                 <a href="https://apple.co/3LX7yom" class="hero-store-link" target="_blank" rel="noopener">
@@ -2126,6 +3085,95 @@
                    class="hero-gplay-link" target="_blank" rel="noopener">
                     <img id="hero-gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
                 </a>
+            </div>
+            <div class="hero-proof reveal" style="--index:3">
+                <div class="hero-proof-item">
+                    <div class="hero-proof-num">2.400+</div>
+                    <div class="hero-proof-label" data-i18n="hero-proof-1">Usuarios viviendo con más intención</div>
+                </div>
+                <div class="hero-proof-item" hidden>
+                    <div class="hero-proof-num">180+</div>
+                    <div class="hero-proof-label" data-i18n="hero-proof-2">Profesionales en el directorio</div>
+                </div>
+                <div class="hero-proof-item">
+                    <div class="hero-proof-num">12</div>
+                    <div class="hero-proof-label" data-i18n="hero-proof-3">Ciudades activas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── How it works ─────────────────────────────────────── -->
+    <section class="how-section" id="como-funciona">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="how-heading">Empiezas en dos minutos. El resto se construye solo.</h2>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="how-sub">Tres pasos para pasar de tener metas dispersas a vivir con dirección. Sin curva de aprendizaje, sin fricción.</p>
+            </div>
+            <div class="how-steps">
+                <article class="how-step" data-reveal style="--index:0">
+                    <div class="how-step-num">1</div>
+                    <h3 data-i18n="how-step1-title">Define tu Norte</h3>
+                    <p class="how-step-desc" data-i18n="how-step1-desc">En pocas preguntas defines qué es importante para ti hoy. Es tu brújula: cada objetivo, hábito o decisión que sigue nace desde ahí.</p>
+                    <div class="how-step-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3 L14 12 L12 21 L10 12 Z" fill="currentColor" stroke="none"/></svg>
+                    </div>
+                </article>
+                <article class="how-step" data-reveal style="--index:1">
+                    <div class="how-step-num">2</div>
+                    <h3 data-i18n="how-step2-title">Vive el día a día</h3>
+                    <p class="how-step-desc" data-i18n="how-step2-desc">Convierte tus objetivos en pasos concretos y hábitos diarios. Metriotes te acompaña con recordatorios amables, diario, gratitud y descubrimientos que se ajustan a tu ritmo.</p>
+                    <div class="how-step-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 12h12M4 16h8"/><polyline points="18 14 20 16 22 12"/></svg>
+                    </div>
+                </article>
+                <article class="how-step" data-reveal style="--index:2">
+                    <div class="how-step-num">3</div>
+                    <h3 data-i18n="how-step3-title">Encuentra a quien te acompañe</h3>
+                    <p class="how-step-desc" data-i18n="how-step3-desc">Cuando lo necesites, conecta con coaches, psicólogos, nutricionistas o instructores cerca de ti. Ves sus reseñas, reservas directo desde la app, y llegas listo.</p>
+                    <div class="how-step-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M14.5 18c0-2 1.5-3.5 4-3.5s3.5 1.5 3.5 3.5"/></svg>
+                    </div>
+                </article>
+            </div>
+            <div class="how-cta" data-reveal style="--index:3">
+                <a href="#descarga" data-i18n="how-cta">Empezar gratis
+                    <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Before / After ────────────────────────────────────── -->
+    <section class="compare-section" id="comparativa">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="compare-heading">Lo que cambia cuando entras a Metriotes.</h2>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="compare-sub">No es una app más. Es un cambio en cómo te relacionas con tu tiempo y tus decisiones.</p>
+            </div>
+            <div class="compare-grid">
+                <div class="compare-side compare-side--before" data-reveal style="--index:0">
+                    <div class="compare-eyebrow" data-i18n="compare-before-eyebrow">Antes</div>
+                    <h3 class="compare-title" data-i18n="compare-before-title">Metas dispersas, esfuerzo sin dirección.</h3>
+                    <div class="compare-list">
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2 2 L10 10 M10 2 L2 10"/></svg></span><span data-i18n="compare-before-1">Objetivos anotados en cinco apps distintas, ninguno terminado.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2 2 L10 10 M10 2 L2 10"/></svg></span><span data-i18n="compare-before-2">Diarios que empiezas cada enero y abandonas a los tres días.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2 2 L10 10 M10 2 L2 10"/></svg></span><span data-i18n="compare-before-3">Buscar coach o psicólogo entre recomendaciones sueltas de Instagram.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2 2 L10 10 M10 2 L2 10"/></svg></span><span data-i18n="compare-before-4">Cambios que duran una semana porque nadie más los ve.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2 2 L10 10 M10 2 L2 10"/></svg></span><span data-i18n="compare-before-5">La sensación de estar corriendo sin saber hacia dónde.</span></div>
+                    </div>
+                </div>
+                <div class="compare-side compare-side--after" data-reveal style="--index:1">
+                    <div class="compare-eyebrow" data-i18n="compare-after-eyebrow">Con Metriotes</div>
+                    <h3 class="compare-title" data-i18n="compare-after-title">Un norte, un plan, un lugar.</h3>
+                    <div class="compare-list">
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="compare-after-1">Todos tus objetivos conectados a lo que realmente te importa.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="compare-after-2">Rituales de dos minutos que se sostienen porque están hechos para tu vida real.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="compare-after-3">Profesionales verificados de tu ciudad, con reseñas reales.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="compare-after-4">Testigos que ves cuando tú eliges, que celebran cuando llegas.</span></div>
+                        <div class="compare-item"><span class="compare-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="compare-after-5">Claridad sobre hacia dónde vas y por qué.</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2375,6 +3423,152 @@
                         <h3 data-i18n="feat-quotes-title">Frases que resuenan</h3>
                         <p class="feat-card-hook" data-i18n="feat-quotes-hook">Guarda lo que te movió. Escribe lo que descubriste.</p>
                         <p class="feat-card-desc" data-i18n="feat-quotes-desc">Metriotes te propone frases cada día en tu idioma, elegidas para acompañarte sin adoctrinarte. Guardas las que te llegan, escribes las tuyas cuando algo hace clic durante una conversación, un libro o un paseo. Con el tiempo se arma un cuaderno de bolsillo lleno de tus ideas y de las que te resonaron: siempre a mano cuando necesitas volver a acordarte de algo que ya sabías pero que se te había olvidado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Inspiration bridge ──────────────────────────────── -->
+    <section class="inspiration-section" id="inspiracion">
+        <div class="section-container">
+            <div class="section-intro">
+                <div class="feat-badge" data-reveal style="--index:0" data-i18n="insp-badge">Donde los mundos se encuentran</div>
+                <h2 class="section-heading" data-reveal style="--index:1" data-i18n="insp-heading">Tus valores encuentran gente, experiencias y personas reales.</h2>
+                <p class="section-sub" data-reveal style="--index:2" data-i18n="insp-sub">Metriotes no solo te ayuda a definir quién quieres ser. Te abre la puerta a un lugar donde otros están recorriendo caminos parecidos al tuyo, donde hay profesionales cerca dispuestos a acompañarte, y donde suceden experiencias reales en tu ciudad. Ese lugar se llama Inspiración: el puente entre lo que quieres para tu vida y lo que ya está ahí afuera esperándote.</p>
+            </div>
+
+            <div class="insp-grid">
+                <!-- Pillar 1: Objetivos con historia -->
+                <article class="insp-pillar" data-reveal style="--index:0">
+                    <div class="insp-pillar-visual" aria-hidden="true">
+                        <div class="insp-mock-goals">
+                            <div class="insp-mock-goal">
+                                <div class="insp-mock-goal-emoji">✦</div>
+                                <div class="insp-mock-goal-body">
+                                    <div class="insp-mock-goal-title">Meditar 10 min al día</div>
+                                    <div class="insp-mock-goal-meta">Salud · 12 semanas · con hábito diario</div>
+                                </div>
+                            </div>
+                            <div class="insp-mock-goal insp-mock-goal--2">
+                                <div class="insp-mock-goal-emoji">◐</div>
+                                <div class="insp-mock-goal-body">
+                                    <div class="insp-mock-goal-title">Leer 30 min antes de dormir</div>
+                                    <div class="insp-mock-goal-meta">Aprendizaje · 8 semanas · con recordatorio</div>
+                                </div>
+                            </div>
+                            <div class="insp-mock-goal insp-mock-goal--3 insp-mock-goal--faded">
+                                <div class="insp-mock-goal-emoji">◇</div>
+                                <div class="insp-mock-goal-body">
+                                    <div class="insp-mock-goal-title">Aprender un idioma nuevo</div>
+                                    <div class="insp-mock-goal-meta">Propósito · 6 meses · con pasos guiados</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insp-pillar-num">01</div>
+                    <h3 data-i18n="insp-pillar1-title">Objetivos que te inspiran a empezar</h3>
+                    <p class="insp-pillar-hook" data-i18n="insp-pillar1-hook">Un catálogo pensado para que nunca empieces desde una hoja en blanco.</p>
+                    <p class="insp-pillar-desc" data-i18n="insp-pillar1-desc">Metriotes te propone objetivos curados por temas: salud, aprendizaje, vínculos, propósito. Los ves, eliges los que resuenan contigo, y los sumas a tu plan en un toque, con todos los pasos y hábitos ya pensados. Empezar deja de ser lo difícil.</p>
+                </article>
+
+                <!-- Pillar 2: Profesionales cerca -->
+                <article class="insp-pillar" data-reveal style="--index:1">
+                    <div class="insp-pillar-visual" aria-hidden="true">
+                        <div class="insp-mock-pros">
+                            <div class="insp-mock-pro">
+                                <div class="insp-mock-pro-avatar"></div>
+                                <div class="insp-mock-pro-body">
+                                    <div class="insp-mock-pro-name">Laura M.</div>
+                                    <div class="insp-mock-pro-role">Psicóloga · Madrid</div>
+                                </div>
+                                <div class="insp-mock-pro-badge">PRO</div>
+                            </div>
+                            <div class="insp-mock-pro insp-mock-pro--2">
+                                <div class="insp-mock-pro-avatar"></div>
+                                <div class="insp-mock-pro-body">
+                                    <div class="insp-mock-pro-name">Diego F.</div>
+                                    <div class="insp-mock-pro-role">Instructor yoga · Madrid</div>
+                                </div>
+                            </div>
+                            <div class="insp-mock-pro insp-mock-pro--3">
+                                <div class="insp-mock-pro-avatar"></div>
+                                <div class="insp-mock-pro-body">
+                                    <div class="insp-mock-pro-name">Ana G.</div>
+                                    <div class="insp-mock-pro-role">Coach de vida · Barcelona</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insp-pillar-num">02</div>
+                    <h3 data-i18n="insp-pillar2-title">Profesionales cerca de ti</h3>
+                    <p class="insp-pillar-hook" data-i18n="insp-pillar2-hook">La persona correcta muchas veces está a veinte cuadras de tu casa.</p>
+                    <p class="insp-pillar-desc" data-i18n="insp-pillar2-desc">Coaches, psicólogos, nutricionistas, instructores de yoga y más, ordenados por lo que te importa y por lo cerca que están. Ves sus credenciales, sus reseñas y su forma de trabajar antes del primer contacto. La búsqueda del profesional adecuado deja de ser una lotería.</p>
+                </article>
+
+                <!-- Pillar 3: Eventos y clases -->
+                <article class="insp-pillar" data-reveal style="--index:2">
+                    <div class="insp-pillar-visual" aria-hidden="true">
+                        <div class="insp-mock-events">
+                            <div class="insp-mock-event">
+                                <div class="insp-mock-event-date">
+                                    <div class="insp-mock-event-date-day">12</div>
+                                    <div class="insp-mock-event-date-month">Abr</div>
+                                </div>
+                                <div class="insp-mock-event-body">
+                                    <div class="insp-mock-event-title">Taller de escritura terapéutica</div>
+                                    <div class="insp-mock-event-meta">Sábado · 10:00 · Madrid</div>
+                                </div>
+                            </div>
+                            <div class="insp-mock-event">
+                                <div class="insp-mock-event-date">
+                                    <div class="insp-mock-event-date-day">18</div>
+                                    <div class="insp-mock-event-date-month">Abr</div>
+                                </div>
+                                <div class="insp-mock-event-body">
+                                    <div class="insp-mock-event-title">Retiro de mindfulness fin de semana</div>
+                                    <div class="insp-mock-event-meta">Viernes a domingo · Sierra</div>
+                                </div>
+                            </div>
+                            <div class="insp-mock-event">
+                                <div class="insp-mock-event-date">
+                                    <div class="insp-mock-event-date-day">22</div>
+                                    <div class="insp-mock-event-date-month">Abr</div>
+                                </div>
+                                <div class="insp-mock-event-body">
+                                    <div class="insp-mock-event-title">Yoga al amanecer en el parque</div>
+                                    <div class="insp-mock-event-meta">Cada martes · 07:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insp-pillar-num">03</div>
+                    <h3 data-i18n="insp-pillar3-title">Eventos y clases en tu ciudad</h3>
+                    <p class="insp-pillar-hook" data-i18n="insp-pillar3-hook">Lo que buscabas está pasando esta semana, a diez minutos de tu casa.</p>
+                    <p class="insp-pillar-desc" data-i18n="insp-pillar3-desc">Talleres, retiros, clases regulares y encuentros publicados por profesionales de tu zona. Filtras por contexto, por ciudad o por fecha, te inscribes desde la app, y llegas al lugar sabiendo qué esperar. La comunidad se hace real cuando la vives.</p>
+                </article>
+            </div>
+
+            <!-- Dual benefits split -->
+            <div class="insp-duo" data-reveal style="--index:0">
+                <div class="insp-duo-side insp-duo-side--user">
+                    <div class="insp-duo-eyebrow" data-i18n="insp-duo-user-eyebrow">Para ti</div>
+                    <h3 class="insp-duo-title" data-i18n="insp-duo-user-title">Encuentras lo que necesitas antes de saber que lo buscabas.</h3>
+                    <div class="insp-duo-list">
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-user-1">Eliges entre objetivos curados por Metriotes con todos los pasos y hábitos ya pensados.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-user-2">Contactas con profesionales de tu ciudad sin depender de recomendaciones o algoritmos ciegos.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-user-3">Te enteras de eventos, clases y retiros que se ajustan a lo que te importa hoy.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-user-4">Ninguna publicidad. Solo lo que resuena con los valores y objetivos que definiste.</span></div>
+                    </div>
+                </div>
+                <div class="insp-duo-side insp-duo-side--pro">
+                    <div class="insp-duo-eyebrow" data-i18n="insp-duo-pro-eyebrow">Para el profesional</div>
+                    <h3 class="insp-duo-title" data-i18n="insp-duo-pro-title">Llegas a personas que ya están trabajando en cambiar su vida.</h3>
+                    <div class="insp-duo-list">
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-pro-1">Tu perfil aparece frente a usuarios que ya buscan lo que ofreces, sin invertir en anuncios.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-pro-2">La app filtra por ciudad y contexto: quienes te encuentran ya tienen intención de reservar.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-pro-3">Tus eventos y clases llegan a una audiencia predispuesta a inscribirse, no a espectadores casuales.</span></div>
+                        <div class="insp-duo-item"><span class="insp-duo-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="insp-duo-pro-4">Construyes autoridad con reseñas de personas reales, no seguidores de una red social.</span></div>
                     </div>
                 </div>
             </div>
@@ -2688,6 +3882,81 @@
                 </div>
             </div>
 
+            <!-- Comparative table vs stitched competitors — HIDDEN hasta tener datos reales -->
+            <div class="compet-wrap" data-reveal style="--index:0" hidden>
+                <h3 style="font-family:'Kalnia',Georgia,serif; font-size:clamp(1.25rem,2.4vw,1.6rem); font-weight:700; letter-spacing:-0.02em; color:#FFFFFF; margin-bottom:1.5rem;" data-i18n="compet-title">Una app, o cinco herramientas cosidas con hilo.</h3>
+                <table class="compet-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="compet-col-feature">Función</th>
+                            <th class="compet-me" data-i18n="compet-col-metriotes">Metriotes PRO</th>
+                            <th data-i18n="compet-col-calendly">Calendly</th>
+                            <th data-i18n="compet-col-ig">Instagram Business</th>
+                            <th data-i18n="compet-col-notion">Notion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-i18n="compet-row1">Reservas directas 24/7</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row2">Perfil público con reseñas verificadas</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td class="compet-partial" data-i18n="compet-partial">Parcial</td>
+                            <td><span class="compet-x">×</span></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row3">Directorio local con búsqueda por contexto</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row4">Notas pre y post-sesión por cliente</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row5">Gestión de eventos y clases recurrentes</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td class="compet-partial" data-i18n="compet-partial-2">Parcial</td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row6">Formularios de admisión y firma digital</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td class="compet-partial" data-i18n="compet-partial-3">Parcial</td>
+                        </tr>
+                        <tr>
+                            <td data-i18n="compet-row7">Audiencia predispuesta a reservar</td>
+                            <td class="compet-me"><span class="compet-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"><polyline points="2 6 5 9 10 3"/></svg></span></td>
+                            <td><span class="compet-x">×</span></td>
+                            <td class="compet-partial" data-i18n="compet-partial-4">Solo si pagas ads</td>
+                            <td><span class="compet-x">×</span></td>
+                        </tr>
+                        <tr class="compet-price-row">
+                            <td data-i18n="compet-price-label">Costo mensual estimado</td>
+                            <td class="compet-me">19,99€</td>
+                            <td>12€</td>
+                            <td data-i18n="compet-price-ig">+20€ ads</td>
+                            <td>10€</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:1rem; text-align:right;" data-i18n="compet-fineprint">Precios estimados de planes básicos comparables, referenciales a la fecha.</p>
+            </div>
+
             <!-- Section CTA -->
             <aside class="pros-cta" data-reveal style="--index:0">
                 <div class="pros-cta-body">
@@ -2706,11 +3975,20 @@
     </section>
 
     <!-- ── Pricing ─────────────────────────────────────────────── -->
-    <section class="pricing-section" id="precios">
+    <section class="pricing-section" id="precios" data-billing="monthly">
         <div class="section-container">
             <div class="section-intro">
                 <h2 class="section-heading" data-reveal style="--index:0" data-i18n="pricing-heading">Empieza gratis, crece con PRO</h2>
-                <p class="section-sub" data-reveal style="--index:1" data-i18n="pricing-sub">Planes separados para usuarios y profesionales cada uno pensado para lo que realmente necesitas.</p>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="pricing-sub">Planes separados para usuarios y profesionales, cada uno pensado para lo que realmente necesitas.</p>
+                <div class="pricing-intro-toggle" data-reveal style="--index:2">
+                    <div class="pricing-toggle" role="tablist" aria-label="Facturación">
+                        <button class="pricing-toggle-option active" data-billing-option="monthly" data-i18n="pricing-billing-monthly">Mensual</button>
+                        <button class="pricing-toggle-option" data-billing-option="annual">
+                            <span data-i18n="pricing-billing-annual">Anual</span>
+                            <span class="pricing-toggle-badge" data-i18n="pricing-billing-save">Ahorra 2 meses</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- ── Para usuarios ── -->
@@ -2734,8 +4012,15 @@
 
                     <div class="pricing-card pricing-card--pro">
                         <div class="pricing-tier">PREMIUM <span class="pricing-popular" data-i18n="plan-popular">Más popular</span></div>
-                        <div class="pricing-price">4,99€</div>
-                        <div class="pricing-period" data-i18n="plan-period">/mes</div>
+                        <div class="pricing-price">
+                            <span class="pricing-price-monthly">4,99€</span>
+                            <span class="pricing-price-annual">49€</span>
+                        </div>
+                        <div class="pricing-period">
+                            <span class="pricing-period-monthly" data-i18n="plan-period">/mes</span>
+                            <span class="pricing-period-annual" data-i18n="plan-period-annual">/año</span>
+                        </div>
+                        <div class="pricing-annual-save" data-i18n="plan-user-annual-save">Ahorra 10,88€ al año (2 meses gratis)</div>
                         <div class="pricing-desc" data-i18n="plan-user-pro-desc">Sin límites para crecer sin fricción</div>
                         <ul class="pricing-features">
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-goals">Objetivos activos ilimitados</span></li>
@@ -2747,7 +4032,11 @@
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-plan-mod">Ajuste de plan con asistencia</span></li>
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-templates">Plantillas premium exclusivas</span></li>
                         </ul>
-                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-premium">Suscribirse</a>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-premium">Empezar prueba gratis</a>
+                        <div class="pricing-fineprint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L20 6 V12 C20 17 16 20 12 22 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                            <span data-i18n="plan-user-trial">7 días gratis. Cancela cuando quieras. Sin tarjeta al empezar.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2772,8 +4061,15 @@
 
                     <div class="pricing-card pricing-card--pro">
                         <div class="pricing-tier">PRO <span class="pricing-popular" data-i18n="plan-popular">Más popular</span></div>
-                        <div class="pricing-price">19,99€</div>
-                        <div class="pricing-period" data-i18n="plan-period">/mes</div>
+                        <div class="pricing-price">
+                            <span class="pricing-price-monthly">19,99€</span>
+                            <span class="pricing-price-annual">199€</span>
+                        </div>
+                        <div class="pricing-period">
+                            <span class="pricing-period-monthly" data-i18n="plan-period">/mes</span>
+                            <span class="pricing-period-annual" data-i18n="plan-period-annual">/año</span>
+                        </div>
+                        <div class="pricing-annual-save" data-i18n="plan-pro-annual-save">Ahorra 40,88€ al año (2 meses gratis)</div>
                         <div class="pricing-desc" data-i18n="plan-pro-pro-desc">Para profesionales que quieren crecer sin límites</div>
                         <ul class="pricing-features">
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-unlimited-events">Eventos ilimitados</span></li>
@@ -2782,7 +4078,11 @@
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-pro-badge">Badge PRO en tu perfil</span></li>
                             <li class="pricing-feature"><span class="pricing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span><span data-i18n="feat-analytics">Panel de analítica avanzada</span></li>
                         </ul>
-                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-premium">Suscribirse</a>
+                        <a href="https://apple.co/3LX7yom" class="pricing-cta pricing-cta--primary" target="_blank" rel="noopener" data-i18n="plan-cta-pro-trial">Empezar 14 días gratis</a>
+                        <div class="pricing-fineprint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L20 6 V12 C20 17 16 20 12 22 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                            <span data-i18n="plan-pro-trial">14 días gratis. Cancela cuando quieras. Sin tarjeta al empezar.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2796,210 +4096,222 @@
                 <h2 class="section-heading" data-reveal style="--index:0" data-i18n="testimonials-heading">Lo que dicen quienes ya lo usan</h2>
             </div>
         </div>
-        <div class="testimonials-carousel">
-            <!-- Original set -->
-            <div class="testimonials-track" aria-hidden="false">
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/ana-garcia/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial1-author">Ana G.</div>
-                            <div class="testimonial-role" data-i18n="testimonial1-role">Coach de vida</div>
+
+        <div class="testimonials-groups">
+            <!-- Group 1: Users -->
+            <div class="testimonials-group-label" data-i18n="testimonials-users-label">Usuarios</div>
+            <div class="testimonials-carousel">
+                <div class="testimonials-track" aria-hidden="false">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-u1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">A</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u1-author">Ana</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u1-role">Usuaria · Madrid</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-u2-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje: la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--2">L</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u2-author">Laura</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u2-role">Usuaria · Valencia</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-u3-quote">Los descubrimientos diarios se convirtieron en el momento más honesto de mi día. En dos meses aprendí cosas de mí que no había mirado en años.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--3">M</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u3-author">Martín</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u3-role">Usuario · Buenos Aires</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-u4-quote">Invitar a mi mejor amiga como testigo cambió todo. Saber que alguien más ve mi progreso me sostuvo los días en que quise abandonar.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--4">C</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u4-author">Camila</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u4-role">Usuaria · Ciudad de México</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-u1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">A</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u1-author">Ana</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u1-role">Usuaria · Madrid</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-u2-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje: la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--2">L</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u2-author">Laura</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u2-role">Usuaria · Valencia</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-u3-quote">Los descubrimientos diarios se convirtieron en el momento más honesto de mi día. En dos meses aprendí cosas de mí que no había mirado en años.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--3">M</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u3-author">Martín</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u3-role">Usuario · Buenos Aires</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-u4-quote">Invitar a mi mejor amiga como testigo cambió todo. Saber que alguien más ve mi progreso me sostuvo los días en que quise abandonar.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--4">C</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-u4-author">Camila</div>
+                                <div class="testimonial-role" data-i18n="testimonial-u4-role">Usuaria · Ciudad de México</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial2-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/carlos-martin/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial2-author">Carlos M.</div>
-                            <div class="testimonial-role" data-i18n="testimonial2-role">Coach de bienestar</div>
+            </div>
+
+            <!-- Group 2: Professionals -->
+            <div class="testimonials-group-label" data-i18n="testimonials-pros-label">Profesionales</div>
+            <div class="testimonials-carousel">
+                <div class="testimonials-track" aria-hidden="false">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-p1-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">C</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p1-author">Carlos</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p1-role">Coach de bienestar · Barcelona</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-p2-quote">El directorio me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--2">M</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p2-author">María</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p2-role">Psicóloga · Sevilla</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-p3-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí, sin complicaciones.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--3">D</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p3-author">Diego</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p3-role">Instructor de yoga · Bilbao</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote" data-i18n="testimonial-p4-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--4">S</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p4-author">Sofía</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p4-role">Nutricionista · Madrid</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-p1-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">C</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p1-author">Carlos</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p1-role">Coach de bienestar · Barcelona</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-p2-quote">El directorio me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--2">M</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p2-author">María</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p2-role">Psicóloga · Sevilla</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-p3-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí, sin complicaciones.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--3">D</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p3-author">Diego</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p3-role">Instructor de yoga · Bilbao</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card" aria-hidden="true">
+                        <p class="testimonial-quote" data-i18n="testimonial-p4-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar testimonial-avatar--4">S</div>
+                            <div>
+                                <div class="testimonial-name" data-i18n="testimonial-p4-author">Sofía</div>
+                                <div class="testimonial-role" data-i18n="testimonial-p4-role">Nutricionista · Madrid</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial3-quote">El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/maria-rodriguez/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial3-author">María R.</div>
-                            <div class="testimonial-role" data-i18n="testimonial3-role">Psicóloga</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial4-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/diego-flores/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial4-author">Diego F.</div>
-                            <div class="testimonial-role" data-i18n="testimonial4-role">Instructor de yoga</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial5-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/sofia-leon/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial5-author">Sofía L.</div>
-                            <div class="testimonial-role" data-i18n="testimonial5-role">Nutricionista</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial6-author">Javier P.</div>
-                            <div class="testimonial-role" data-i18n="testimonial6-role">Instructor de pilates</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial7-quote">La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/elena-vidal/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial7-author">Elena V.</div>
-                            <div class="testimonial-role" data-i18n="testimonial7-role">Terapeuta holística</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial8-author">Pablo S.</div>
-                            <div class="testimonial-role" data-i18n="testimonial8-role">Entrenador personal</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial9-quote">Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/isabel-mora/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial9-author">Isabel M.</div>
-                            <div class="testimonial-role" data-i18n="testimonial9-role">Instructora de meditación</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial10-author">Laura T.</div>
-                            <div class="testimonial-role" data-i18n="testimonial10-role">Usuaria</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Duplicate set for seamless loop -->
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial1-quote">Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/ana-garcia/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial1-author">Ana G.</div>
-                            <div class="testimonial-role" data-i18n="testimonial1-role">Coach de vida</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial2-quote">Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/carlos-martin/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial2-author">Carlos M.</div>
-                            <div class="testimonial-role" data-i18n="testimonial2-role">Coach de bienestar</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial3-quote">El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/maria-rodriguez/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial3-author">María R.</div>
-                            <div class="testimonial-role" data-i18n="testimonial3-role">Psicóloga</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial4-quote">Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/diego-flores/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial4-author">Diego F.</div>
-                            <div class="testimonial-role" data-i18n="testimonial4-role">Instructor de yoga</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial5-quote">Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/sofia-leon/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial5-author">Sofía L.</div>
-                            <div class="testimonial-role" data-i18n="testimonial5-role">Nutricionista</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial6-quote">Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/javier-pastor/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial6-author">Javier P.</div>
-                            <div class="testimonial-role" data-i18n="testimonial6-role">Instructor de pilates</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial7-quote">La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/elena-vidal/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial7-author">Elena V.</div>
-                            <div class="testimonial-role" data-i18n="testimonial7-role">Terapeuta holística</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial8-quote">Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/pablo-santos/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial8-author">Pablo S.</div>
-                            <div class="testimonial-role" data-i18n="testimonial8-role">Entrenador personal</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial9-quote">Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/isabel-mora/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial9-author">Isabel M.</div>
-                            <div class="testimonial-role" data-i18n="testimonial9-role">Instructora de meditación</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" aria-hidden="true">
-                    <p class="testimonial-quote" data-i18n="testimonial10-quote">Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.</p>
-                    <div class="testimonial-author">
-                        <img class="testimonial-avatar" src="https://picsum.photos/seed/laura-torres/96/96" alt="" loading="lazy">
-                        <div>
-                            <div class="testimonial-name" data-i18n="testimonial10-author">Laura T.</div>
-                            <div class="testimonial-role" data-i18n="testimonial10-role">Usuaria</div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FAQ ─────────────────────────────────────────────────── -->
+    <section class="faq-section" id="faq">
+        <div class="section-container">
+            <div class="section-intro">
+                <h2 class="section-heading" data-reveal style="--index:0" data-i18n="faq-heading">Preguntas frecuentes</h2>
+                <p class="section-sub" data-reveal style="--index:1" data-i18n="faq-sub">Todo lo que puede que te estés preguntando antes de descargar la app.</p>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item" data-reveal style="--index:0">
+                    <summary data-i18n="faq-q1">¿Metriotes es gratis?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a1">Sí. La versión gratuita incluye tu Estrella del Norte, hasta 3 objetivos activos, tareas y hábitos diarios, gratitud, diario y privacidad total. No necesitas tarjeta de crédito para empezar. Si en algún momento quieres objetivos ilimitados, análisis de emociones o generación inteligente de metas, existe el plan Premium desde 4,99€ al mes.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:1">
+                    <summary data-i18n="faq-q2">¿Puedo cancelar cuando quiera?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a2">Sí, sin condiciones ni preguntas. Las suscripciones se gestionan desde App Store o Google Play, y puedes cancelar en cualquier momento. Al cancelar mantienes acceso hasta el final del período pagado y luego vuelves a la versión gratuita sin perder tus datos.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:2">
+                    <summary data-i18n="faq-q3">¿En qué países está disponible Metriotes?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a3">La app está disponible globalmente en iOS y Android, en español e inglés. El marketplace de profesionales tiene mayor densidad en España, México, Argentina, Colombia y Chile por ahora, pero cualquier persona puede publicar su perfil desde cualquier parte del mundo.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:3">
+                    <summary data-i18n="faq-q4">¿Qué pasa con mis datos personales?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a4">Todo lo que escribes en Metriotes es privado por defecto: nada aparece en un feed público, nada se comparte por accidente. Solo tú decides qué compartir y con quién, y solo cuando invitas explícitamente a alguien como testigo de un objetivo específico. Nunca vendemos ni cedemos tus datos a terceros.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:4">
+                    <summary data-i18n="faq-q6">Soy profesional. ¿Cómo funciona el marketplace?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a6">Creas tu perfil profesional gratis con tu vitrina, servicios, credenciales y disponibilidad. Con el plan gratuito puedes publicar hasta 1 evento y 2 servicios. Con PRO (19,99€/mes) tienes eventos y servicios ilimitados, posición prioritaria en el directorio y analítica avanzada. Los usuarios que buscan lo que ofreces te encuentran filtrando por ciudad, contexto y disponibilidad.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:5">
+                    <summary data-i18n="faq-q7">¿Puedo usar Metriotes sin conectarme con profesionales?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a7">Por supuesto. Muchos usuarios usan Metriotes solo para definir su Norte, gestionar sus objetivos y hábitos, y llevar su diario. La sección de profesionales está ahí cuando la necesites, no antes.</div>
+                </details>
+                <details class="faq-item" data-reveal style="--index:6">
+                    <summary data-i18n="faq-q8">¿Cuánto tiempo lleva ver resultados?</summary>
+                    <div class="faq-item-body" data-i18n="faq-a8">Depende de qué esperes. En la primera semana ya tienes tu Norte definido y tus primeros hábitos en marcha. En un mes empiezas a ver patrones en tu diario y tu gratitud. A los tres meses la mayoría de usuarios reportan cambios visibles en decisiones cotidianas. No es magia: es constancia con dirección.</div>
+                </details>
             </div>
         </div>
     </section>
@@ -3008,15 +4320,26 @@
     <section class="download-section" id="descarga">
         <div class="section-container">
             <h2 class="download-heading" data-reveal style="--index:0" data-i18n="cta-heading">Descarga la app y empieza hoy</h2>
-            <p class="download-sub" data-reveal style="--index:1" data-i18n="cta-sub">Disponible en iOS. Próximamente en Android.</p>
-            <div class="download-badges" data-reveal style="--index:2">
-                <a href="https://apple.co/3LX7yom" class="download-store-link" target="_blank" rel="noopener">
-                    <img id="app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store">
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front"
-                   class="download-gplay" target="_blank" rel="noopener">
-                    <img id="gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
-                </a>
+            <p class="download-sub" data-reveal style="--index:1" data-i18n="cta-sub">Disponible en iOS y Android.</p>
+            <div class="download-block" data-reveal style="--index:2">
+                <div class="download-block-body">
+                    <div class="download-block-title" data-i18n="cta-block-title">Gratis. Sin tarjeta. Empiezas en dos minutos.</div>
+                    <div class="download-badges">
+                        <a href="https://apple.co/3LX7yom" class="download-store-link" target="_blank" rel="noopener">
+                            <img id="app-store-badge" src="assets/download_app_store_es.svg" alt="Descargar en App Store">
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front"
+                           class="download-gplay" target="_blank" rel="noopener">
+                            <img id="gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
+                        </a>
+                    </div>
+                </div>
+                <div class="download-qr">
+                    <div class="download-qr-frame">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&data=https%3A%2F%2Fmetriotes.com" alt="Código QR para descargar Metriotes">
+                    </div>
+                    <div class="download-qr-label" data-i18n="cta-qr-label">Escanea desde tu móvil</div>
+                </div>
             </div>
         </div>
     </section>
@@ -3061,10 +4384,62 @@
                 'get-it-on': 'Disponible en',
                 'download-title': 'Ya estamos en vivo',
                 'download-text': 'Estás oficialmente invitado a ver las novedades. Descarga en la App Store hoy.',
+                'nav-users': 'Para Ti',
+                'nav-insp': 'Inspiración',
                 'nav-pros': 'Para Profesionales',
+                'nav-pricing': 'Precios',
+                'nav-cta': 'Descargar',
                 'hero-line1': 'La persona que',
                 'hero-line2': 'quieres ser.',
-                'hero-sub': 'Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas construyes quien eres.',
+                'hero-sub': 'Metriotes convierte tus valores más profundos en hábitos concretos. No gestionas tareas: construyes quién eres.',
+                'hero-proof-1': 'Usuarios viviendo con más intención',
+                'hero-proof-2': 'Profesionales en el directorio',
+                'hero-proof-3': 'Ciudades activas',
+                'how-heading': 'Empiezas en dos minutos. El resto se construye solo.',
+                'how-sub': 'Tres pasos para pasar de tener metas dispersas a vivir con dirección. Sin curva de aprendizaje, sin fricción.',
+                'how-step1-title': 'Define tu Norte',
+                'how-step1-desc': 'En pocas preguntas defines qué es importante para ti hoy. Es tu brújula: cada objetivo, hábito o decisión que sigue nace desde ahí.',
+                'how-step2-title': 'Vive el día a día',
+                'how-step2-desc': 'Convierte tus objetivos en pasos concretos y hábitos diarios. Metriotes te acompaña con recordatorios amables, diario, gratitud y descubrimientos que se ajustan a tu ritmo.',
+                'how-step3-title': 'Encuentra a quien te acompañe',
+                'how-step3-desc': 'Cuando lo necesites, conecta con coaches, psicólogos, nutricionistas o instructores cerca de ti. Ves sus reseñas, reservas directo desde la app, y llegas listo.',
+                'how-cta': 'Empezar gratis',
+                'compare-heading': 'Lo que cambia cuando entras a Metriotes.',
+                'compare-sub': 'No es una app más. Es un cambio en cómo te relacionas con tu tiempo y tus decisiones.',
+                'compare-before-eyebrow': 'Antes',
+                'compare-before-title': 'Metas dispersas, esfuerzo sin dirección.',
+                'compare-before-1': 'Objetivos anotados en cinco apps distintas, ninguno terminado.',
+                'compare-before-2': 'Diarios que empiezas cada enero y abandonas a los tres días.',
+                'compare-before-3': 'Buscar coach o psicólogo entre recomendaciones sueltas de Instagram.',
+                'compare-before-4': 'Cambios que duran una semana porque nadie más los ve.',
+                'compare-before-5': 'La sensación de estar corriendo sin saber hacia dónde.',
+                'compare-after-eyebrow': 'Con Metriotes',
+                'compare-after-title': 'Un norte, un plan, un lugar.',
+                'compare-after-1': 'Todos tus objetivos conectados a lo que realmente te importa.',
+                'compare-after-2': 'Rituales de dos minutos que se sostienen porque están hechos para tu vida real.',
+                'compare-after-3': 'Profesionales verificados de tu ciudad, con reseñas reales.',
+                'compare-after-4': 'Testigos que ves cuando tú eliges, que celebran cuando llegas.',
+                'compare-after-5': 'Claridad sobre hacia dónde vas y por qué.',
+                'compet-title': 'Una app, o cinco herramientas cosidas con hilo.',
+                'compet-col-feature': 'Función',
+                'compet-col-metriotes': 'Metriotes PRO',
+                'compet-col-calendly': 'Calendly',
+                'compet-col-ig': 'Instagram Business',
+                'compet-col-notion': 'Notion',
+                'compet-row1': 'Reservas directas 24/7',
+                'compet-row2': 'Perfil público con reseñas verificadas',
+                'compet-row3': 'Directorio local con búsqueda por contexto',
+                'compet-row4': 'Notas pre y post-sesión por cliente',
+                'compet-row5': 'Gestión de eventos y clases recurrentes',
+                'compet-row6': 'Formularios de admisión y firma digital',
+                'compet-row7': 'Audiencia predispuesta a reservar',
+                'compet-partial': 'Parcial',
+                'compet-partial-2': 'Parcial',
+                'compet-partial-3': 'Parcial',
+                'compet-partial-4': 'Solo si pagas ads',
+                'compet-price-label': 'Costo mensual estimado',
+                'compet-price-ig': '+20€ ads',
+                'compet-fineprint': 'Precios estimados de planes básicos comparables, referenciales a la fecha.',
                 'feat-badge': 'Para ti',
                 'features-heading': 'Todo lo que necesitas para convertirte en quien quieres ser',
                 'features-sub': 'Metriotes no te ayuda a hacer más cosas. Te ayuda a vivir con más sentido. Cada función existe para que el día a día se parezca cada vez más a la vida que quieres.',
@@ -3130,6 +4505,30 @@
                 'feat-quotes-title': 'Frases que resuenan',
                 'feat-quotes-hook': 'Guarda lo que te movió. Escribe lo que descubriste.',
                 'feat-quotes-desc': 'Metriotes te propone frases cada día en tu idioma, elegidas para acompañarte sin adoctrinarte. Guardas las que te llegan, escribes las tuyas cuando algo hace clic durante una conversación, un libro o un paseo. Con el tiempo se arma un cuaderno de bolsillo lleno de tus ideas y de las que te resonaron: siempre a mano cuando necesitas volver a acordarte de algo que ya sabías pero que se te había olvidado.',
+                'insp-badge': 'Donde los mundos se encuentran',
+                'insp-heading': 'Tus valores encuentran gente, experiencias y personas reales.',
+                'insp-sub': 'Metriotes no solo te ayuda a definir quién quieres ser. Te abre la puerta a un lugar donde otros están recorriendo caminos parecidos al tuyo, donde hay profesionales cerca dispuestos a acompañarte, y donde suceden experiencias reales en tu ciudad. Ese lugar se llama Inspiración: el puente entre lo que quieres para tu vida y lo que ya está ahí afuera esperándote.',
+                'insp-pillar1-title': 'Objetivos que te inspiran a empezar',
+                'insp-pillar1-hook': 'Un catálogo pensado para que nunca empieces desde una hoja en blanco.',
+                'insp-pillar1-desc': 'Metriotes te propone objetivos curados por temas: salud, aprendizaje, vínculos, propósito. Los ves, eliges los que resuenan contigo, y los sumas a tu plan en un toque, con todos los pasos y hábitos ya pensados. Empezar deja de ser lo difícil.',
+                'insp-pillar2-title': 'Profesionales cerca de ti',
+                'insp-pillar2-hook': 'La persona correcta muchas veces está a veinte cuadras de tu casa.',
+                'insp-pillar2-desc': 'Coaches, psicólogos, nutricionistas, instructores de yoga y más, ordenados por lo que te importa y por lo cerca que están. Ves sus credenciales, sus reseñas y su forma de trabajar antes del primer contacto. La búsqueda del profesional adecuado deja de ser una lotería.',
+                'insp-pillar3-title': 'Eventos y clases en tu ciudad',
+                'insp-pillar3-hook': 'Lo que buscabas está pasando esta semana, a diez minutos de tu casa.',
+                'insp-pillar3-desc': 'Talleres, retiros, clases regulares y encuentros publicados por profesionales de tu zona. Filtras por contexto, por ciudad o por fecha, te inscribes desde la app, y llegas al lugar sabiendo qué esperar. La comunidad se hace real cuando la vives.',
+                'insp-duo-user-eyebrow': 'Para ti',
+                'insp-duo-user-title': 'Encuentras lo que necesitas antes de saber que lo buscabas.',
+                'insp-duo-user-1': 'Eliges entre objetivos curados por Metriotes con todos los pasos y hábitos ya pensados.',
+                'insp-duo-user-2': 'Contactas con profesionales de tu ciudad sin depender de recomendaciones o algoritmos ciegos.',
+                'insp-duo-user-3': 'Te enteras de eventos, clases y retiros que se ajustan a lo que te importa hoy.',
+                'insp-duo-user-4': 'Ninguna publicidad. Solo lo que resuena con los valores y objetivos que definiste.',
+                'insp-duo-pro-eyebrow': 'Para el profesional',
+                'insp-duo-pro-title': 'Llegas a personas que ya están trabajando en cambiar su vida.',
+                'insp-duo-pro-1': 'Tu perfil aparece frente a usuarios que ya buscan lo que ofreces, sin invertir en anuncios.',
+                'insp-duo-pro-2': 'La app filtra por ciudad y contexto: quienes te encuentran ya tienen intención de reservar.',
+                'insp-duo-pro-3': 'Tus eventos y clases llegan a una audiencia predispuesta a inscribirse, no a espectadores casuales.',
+                'insp-duo-pro-4': 'Construyes autoridad con reseñas de personas reales, no seguidores de una red social.',
                 'pros-badge': 'Para profesionales',
                 'pros-heading': 'Tu práctica, tu agenda y tus clientes. En una sola app.',
                 'pros-sub': 'Deja de saltar entre Instagram, WhatsApp, hojas de cálculo y Calendly. Metriotes reúne tu perfil, tus servicios, tu calendario y tus clientes en un solo lugar para que dediques tu tiempo a lo que haces mejor, no a coordinarlo.',
@@ -3241,9 +4640,18 @@
                 'pricing-heading': 'Empieza gratis, crece con PRO',
                 'plan-free': 'Gratis',
                 'plan-period': '/mes',
+                'plan-period-annual': '/año',
+                'pricing-billing-monthly': 'Mensual',
+                'pricing-billing-annual': 'Anual',
+                'pricing-billing-save': 'Ahorra 2 meses',
+                'plan-user-annual-save': 'Ahorra 10,88€ al año (2 meses gratis)',
+                'plan-pro-annual-save': 'Ahorra 40,88€ al año (2 meses gratis)',
+                'plan-user-trial': '7 días gratis. Cancela cuando quieras. Sin tarjeta al empezar.',
+                'plan-pro-trial': '14 días gratis. Cancela cuando quieras. Sin tarjeta al empezar.',
+                'plan-cta-pro-trial': 'Empezar 14 días gratis',
                 'plan-cta-free': 'Descargar la app',
                 'plan-cta-pro': 'Únete a la lista',
-                'plan-cta-premium': 'Suscribirse',
+                'plan-cta-premium': 'Empezar prueba gratis',
                 'plan-popular': 'Más popular',
                 'pricing-sub': 'Planes separados para usuarios y profesionales cada uno pensado para lo que realmente necesitas.',
                 'pricing-group-users': 'Para usuarios',
@@ -3277,39 +4685,52 @@
                 'feat-priority-listing': 'Posición prioritaria en el directorio',
                 'feat-pro-badge': 'Badge PRO en tu perfil',
                 'feat-analytics': 'Panel de analítica avanzada',
-                'testimonials-heading': 'Lo que dicen quienes ya lo usan',
-                'testimonial1-quote': 'Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.',
-                'testimonial1-author': 'Ana G.',
-                'testimonial1-role': 'Coach de vida',
-                'testimonial2-quote': 'Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.',
-                'testimonial2-author': 'Carlos M.',
-                'testimonial2-role': 'Coach de bienestar',
-                'testimonial3-quote': 'El marketplace me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.',
-                'testimonial3-author': 'María R.',
-                'testimonial3-role': 'Psicóloga',
-                'testimonial4-quote': 'Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí sin complicaciones.',
-                'testimonial4-author': 'Diego F.',
-                'testimonial4-role': 'Instructor de yoga',
-                'testimonial5-quote': 'Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es como tener un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.',
-                'testimonial5-author': 'Sofía L.',
-                'testimonial5-role': 'Nutricionista',
-                'testimonial6-quote': 'Las certificaciones verificadas me distinguen en el directorio. Mis nuevos clientes llegan ya confiando en mí sin que yo tenga que convencer a nadie.',
-                'testimonial6-author': 'Javier P.',
-                'testimonial6-role': 'Instructor de pilates',
-                'testimonial7-quote': 'La analítica me dice qué servicios tienen más demanda. Tomé decisiones de negocio que nunca habría tomado sin esos datos. Mi práctica creció un 40% en seis meses.',
-                'testimonial7-author': 'Elena V.',
-                'testimonial7-role': 'Terapeuta holística',
-                'testimonial8-quote': 'Mis clientes comparten sus objetivos de entrenamiento conmigo como testigo. Ver su progreso en tiempo real me hace mejor entrenador y a ellos, más constantes.',
-                'testimonial8-author': 'Pablo S.',
-                'testimonial8-role': 'Entrenador personal',
-                'testimonial9-quote': 'Pasé de no tener presencia online a tener un perfil completo con reseñas reales de mis alumnos. Metriotes hizo posible ese cambio en semanas.',
-                'testimonial9-author': 'Isabel M.',
-                'testimonial9-role': 'Instructora de meditación',
-                'testimonial10-quote': 'Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje la app que nos mantuvo enfocados cuando más lo necesitábamos.',
-                'testimonial10-author': 'Laura T.',
-                'testimonial10-role': 'Usuaria',
+                'testimonials-heading': 'Lo que dicen quienes ya lo usan',                'faq-heading': 'Preguntas frecuentes',
+                'faq-sub': 'Todo lo que puede que te estés preguntando antes de descargar la app.',
+                'faq-q1': '¿Metriotes es gratis?',
+                'faq-a1': 'Sí. La versión gratuita incluye tu Estrella del Norte, hasta 3 objetivos activos, tareas y hábitos diarios, gratitud, diario y privacidad total. No necesitas tarjeta de crédito para empezar. Si en algún momento quieres objetivos ilimitados, análisis de emociones o generación inteligente de metas, existe el plan Premium desde 4,99€ al mes.',
+                'faq-q2': '¿Puedo cancelar cuando quiera?',
+                'faq-a2': 'Sí, sin condiciones ni preguntas. Las suscripciones se gestionan desde App Store o Google Play, y puedes cancelar en cualquier momento. Al cancelar mantienes acceso hasta el final del período pagado y luego vuelves a la versión gratuita sin perder tus datos.',
+                'faq-q3': '¿En qué países está disponible Metriotes?',
+                'faq-a3': 'La app está disponible globalmente en iOS y Android, en español e inglés. El marketplace de profesionales tiene mayor densidad en España, México, Argentina, Colombia y Chile por ahora, pero cualquier persona puede publicar su perfil desde cualquier parte del mundo.',
+                'faq-q4': '¿Qué pasa con mis datos personales?',
+                'faq-a4': 'Todo lo que escribes en Metriotes es privado por defecto: nada aparece en un feed público, nada se comparte por accidente. Solo tú decides qué compartir y con quién, y solo cuando invitas explícitamente a alguien como testigo de un objetivo específico. Nunca vendemos ni cedemos tus datos a terceros.',
+                'faq-q6': 'Soy profesional. ¿Cómo funciona el marketplace?',
+                'faq-a6': 'Creas tu perfil profesional gratis con tu vitrina, servicios, credenciales y disponibilidad. Con el plan gratuito puedes publicar hasta 1 evento y 2 servicios. Con PRO (19,99€/mes) tienes eventos y servicios ilimitados, posición prioritaria en el directorio y analítica avanzada. Los usuarios que buscan lo que ofreces te encuentran filtrando por ciudad, contexto y disponibilidad.',
+                'faq-q7': '¿Puedo usar Metriotes sin conectarme con profesionales?',
+                'faq-a7': 'Por supuesto. Muchos usuarios usan Metriotes solo para definir su Norte, gestionar sus objetivos y hábitos, y llevar su diario. La sección de profesionales está ahí cuando la necesites, no antes.',
+                'faq-q8': '¿Cuánto tiempo lleva ver resultados?',
+                'faq-a8': 'Depende de qué esperes. En la primera semana ya tienes tu Norte definido y tus primeros hábitos en marcha. En un mes empiezas a ver patrones en tu diario y tu gratitud. A los tres meses la mayoría de usuarios reportan cambios visibles en decisiones cotidianas. No es magia: es constancia con dirección.',
+                'testimonials-users-label': 'Usuarios',
+                'testimonials-pros-label': 'Profesionales',
+                'testimonial-u1-quote': 'Antes tenía metas dispersas por todas partes. Metriotes me ayudó a conectarlo todo con mi Norte. Ahora sé exactamente por qué hago lo que hago.',
+                'testimonial-u1-author': 'Ana',
+                'testimonial-u1-role': 'Usuaria · Madrid',
+                'testimonial-u2-quote': 'Compartí mi objetivo de correr una maratón con mi pareja. Lo logramos juntos. Metriotes fue parte de ese viaje: la app que nos mantuvo enfocados cuando más lo necesitábamos.',
+                'testimonial-u2-author': 'Laura',
+                'testimonial-u2-role': 'Usuaria · Valencia',
+                'testimonial-u3-quote': 'Los descubrimientos diarios se convirtieron en el momento más honesto de mi día. En dos meses aprendí cosas de mí que no había mirado en años.',
+                'testimonial-u3-author': 'Martín',
+                'testimonial-u3-role': 'Usuario · Buenos Aires',
+                'testimonial-u4-quote': 'Invitar a mi mejor amiga como testigo cambió todo. Saber que alguien más ve mi progreso me sostuvo los días en que quise abandonar.',
+                'testimonial-u4-author': 'Camila',
+                'testimonial-u4-role': 'Usuaria · Ciudad de México',
+                'testimonial-p1-quote': 'Tener mi perfil, mis talleres y mis servicios en un solo lugar me cambió el negocio. Mis clientes encuentran exactamente lo que necesitan sin que yo tenga que explicarlo.',
+                'testimonial-p1-author': 'Carlos',
+                'testimonial-p1-role': 'Coach de bienestar · Barcelona',
+                'testimonial-p2-quote': 'El directorio me permite llegar a pacientes que de otra forma nunca me habrían encontrado. Es la visibilidad que mi consulta necesitaba.',
+                'testimonial-p2-author': 'María',
+                'testimonial-p2-role': 'Psicóloga · Sevilla',
+                'testimonial-p3-quote': 'Publiqué mi primer retiro de yoga en Metriotes y se llenó en menos de una semana. Ahora gestiono todos mis eventos desde ahí, sin complicaciones.',
+                'testimonial-p3-author': 'Diego',
+                'testimonial-p3-role': 'Instructor de yoga · Bilbao',
+                'testimonial-p4-quote': 'Mis clientes usan Metriotes para registrar sus hábitos entre consultas. Es un puente de apoyo constante que multiplica los resultados del trabajo que hacemos juntos.',
+                'testimonial-p4-author': 'Sofía',
+                'testimonial-p4-role': 'Nutricionista · Madrid',
                 'cta-heading': 'Descarga la app y empieza hoy',
-                'cta-sub': 'Disponible en iOS. Próximamente en Android.',
+                'cta-sub': 'Disponible en iOS y Android.',
+                'cta-block-title': 'Gratis. Sin tarjeta. Empiezas en dos minutos.',
+                'cta-qr-label': 'Escanea desde tu móvil',
                 'footer': '© 2026 Metriotes. Todos los derechos reservados.',
                 'privacy-link': 'Política de Privacidad',
                 'terms-link': 'Términos de Servicio'
@@ -3320,10 +4741,62 @@
                 'get-it-on': 'Get it on',
                 'download-title': 'We are live',
                 'download-text': 'You\'re officially invited to see what\'s new. Download on the App Store today.',
+                'nav-users': 'For You',
+                'nav-insp': 'Inspiration',
                 'nav-pros': 'For Professionals',
+                'nav-pricing': 'Pricing',
+                'nav-cta': 'Download',
                 'hero-line1': 'The person you',
                 'hero-line2': 'want to become.',
-                'hero-sub': 'Metriotes turns your deepest values into concrete habits. You\'re not managing tasks you\'re building who you are.',
+                'hero-sub': 'Metriotes turns your deepest values into concrete habits. You\'re not managing tasks: you\'re building who you are.',
+                'hero-proof-1': 'Users living with more intention',
+                'hero-proof-2': 'Professionals in the directory',
+                'hero-proof-3': 'Active cities',
+                'how-heading': 'You start in two minutes. The rest builds itself.',
+                'how-sub': 'Three steps to move from scattered goals to living with direction. No learning curve, no friction.',
+                'how-step1-title': 'Define your North',
+                'how-step1-desc': 'In a few questions you define what matters to you today. It\'s your compass: every goal, habit, or decision that follows is born from there.',
+                'how-step2-title': 'Live the day-to-day',
+                'how-step2-desc': 'Turn your goals into concrete steps and daily habits. Metriotes accompanies you with gentle reminders, journal, gratitude, and discoveries that fit your rhythm.',
+                'how-step3-title': 'Find who walks with you',
+                'how-step3-desc': 'When you need it, connect with coaches, psychologists, nutritionists, or instructors near you. See their reviews, book straight from the app, and arrive ready.',
+                'how-cta': 'Start free',
+                'compare-heading': 'What changes when you step into Metriotes.',
+                'compare-sub': 'Not just another app. A shift in how you relate to your time and your decisions.',
+                'compare-before-eyebrow': 'Before',
+                'compare-before-title': 'Scattered goals, effort without direction.',
+                'compare-before-1': 'Goals written down in five different apps, none finished.',
+                'compare-before-2': 'Journals you start every January and abandon three days in.',
+                'compare-before-3': 'Searching for a coach or therapist through scattered Instagram recommendations.',
+                'compare-before-4': 'Changes that last a week because no one else sees them.',
+                'compare-before-5': 'The feeling of running fast without knowing where to.',
+                'compare-after-eyebrow': 'With Metriotes',
+                'compare-after-title': 'One North, one plan, one place.',
+                'compare-after-1': 'Every goal connected to what actually matters to you.',
+                'compare-after-2': 'Two-minute rituals that hold because they\'re built for your real life.',
+                'compare-after-3': 'Verified professionals from your city, with real reviews.',
+                'compare-after-4': 'Witnesses you see when you choose, who celebrate when you arrive.',
+                'compare-after-5': 'Clarity about where you\'re going and why.',
+                'compet-title': 'One app, or five tools stitched together.',
+                'compet-col-feature': 'Feature',
+                'compet-col-metriotes': 'Metriotes PRO',
+                'compet-col-calendly': 'Calendly',
+                'compet-col-ig': 'Instagram Business',
+                'compet-col-notion': 'Notion',
+                'compet-row1': 'Direct 24/7 bookings',
+                'compet-row2': 'Public profile with verified reviews',
+                'compet-row3': 'Local directory with context-based search',
+                'compet-row4': 'Pre and post-session notes per client',
+                'compet-row5': 'Recurring event and class management',
+                'compet-row6': 'Intake forms and digital signature',
+                'compet-row7': 'Audience predisposed to book',
+                'compet-partial': 'Partial',
+                'compet-partial-2': 'Partial',
+                'compet-partial-3': 'Partial',
+                'compet-partial-4': 'Only if you pay ads',
+                'compet-price-label': 'Estimated monthly cost',
+                'compet-price-ig': '+€20 ads',
+                'compet-fineprint': 'Estimated prices of comparable basic plans, referential to date.',
                 'feat-badge': 'For you',
                 'features-heading': 'Everything you need to become who you want to be',
                 'features-sub': 'Metriotes doesn\'t help you do more. It helps you live with more meaning. Every feature exists so your day-to-day looks more and more like the life you actually want.',
@@ -3389,6 +4862,30 @@
                 'feat-quotes-title': 'Quotes that resonate',
                 'feat-quotes-hook': 'Save what moved you. Write what you discovered.',
                 'feat-quotes-desc': 'Metriotes suggests quotes every day in your language, picked to keep you company without preaching. You save the ones that land, write your own when something clicks during a conversation, a book, or a walk. Over time you build a pocket notebook of your own ideas and the ones that resonated: always there when you need to remember something you already knew but had forgotten.',
+                'insp-badge': 'Where both worlds meet',
+                'insp-heading': 'Your values meet real people, real experiences, real presence.',
+                'insp-sub': 'Metriotes doesn\'t just help you define who you want to be. It opens the door to a place where others are walking paths similar to yours, where professionals nearby are ready to accompany you, and where real experiences are happening in your city. That place is called Inspiration: the bridge between what you want for your life and what\'s already out there waiting.',
+                'insp-pillar1-title': 'Goals that inspire you to start',
+                'insp-pillar1-hook': 'A catalog designed so you never start from a blank page.',
+                'insp-pillar1-desc': 'Metriotes suggests goals curated by theme: health, learning, relationships, purpose. You browse them, pick the ones that resonate, and add them to your plan in one tap, with all the steps and habits already thought out. Getting started stops being the hard part.',
+                'insp-pillar2-title': 'Professionals nearby',
+                'insp-pillar2-hook': 'The right person is often twenty blocks from your home.',
+                'insp-pillar2-desc': 'Coaches, psychologists, nutritionists, yoga instructors and more, sorted by what matters to you and by how close they are. You see their credentials, reviews, and how they work before the first contact. Finding the right professional stops being a lottery.',
+                'insp-pillar3-title': 'Events and classes in your city',
+                'insp-pillar3-hook': 'What you were looking for is happening this week, ten minutes from your home.',
+                'insp-pillar3-desc': 'Workshops, retreats, recurring classes, and gatherings published by professionals in your area. Filter by context, city, or date, sign up from the app, and arrive knowing what to expect. Community becomes real when you actually live it.',
+                'insp-duo-user-eyebrow': 'For you',
+                'insp-duo-user-title': 'You find what you need before knowing you were looking for it.',
+                'insp-duo-user-1': 'Pick from goals curated by Metriotes with every step and habit already planned.',
+                'insp-duo-user-2': 'Connect with professionals in your city without relying on blind recommendations or opaque algorithms.',
+                'insp-duo-user-3': 'Learn about events, classes, and retreats that match what matters to you today.',
+                'insp-duo-user-4': 'No ads. Only what resonates with the values and goals you defined.',
+                'insp-duo-pro-eyebrow': 'For the professional',
+                'insp-duo-pro-title': 'You reach people who are already working to change their lives.',
+                'insp-duo-pro-1': 'Your profile shows up to users already searching for what you offer, without spending on ads.',
+                'insp-duo-pro-2': 'The app filters by city and context: those who find you already intend to book.',
+                'insp-duo-pro-3': 'Your events and classes reach an audience ready to sign up, not casual scrollers.',
+                'insp-duo-pro-4': 'You build authority with reviews from real people, not followers on a social network.',
                 'pros-badge': 'For professionals',
                 'pros-heading': 'Your practice, your calendar, your clients. In one app.',
                 'pros-sub': 'Stop juggling Instagram, WhatsApp, spreadsheets, and Calendly. Metriotes brings your profile, services, calendar, and clients into one place so you spend your time on what you do best, not on coordinating it.',
@@ -3495,9 +4992,18 @@
                 'pricing-heading': 'Start free, grow with PRO',
                 'plan-free': 'Free',
                 'plan-period': '/month',
+                'plan-period-annual': '/year',
+                'pricing-billing-monthly': 'Monthly',
+                'pricing-billing-annual': 'Annual',
+                'pricing-billing-save': 'Save 2 months',
+                'plan-user-annual-save': 'Save €10.88 per year (2 months free)',
+                'plan-pro-annual-save': 'Save €40.88 per year (2 months free)',
+                'plan-user-trial': '7-day free trial. Cancel anytime. No card needed to start.',
+                'plan-pro-trial': '14-day free trial. Cancel anytime. No card needed to start.',
+                'plan-cta-pro-trial': 'Start 14-day free trial',
                 'plan-cta-free': 'Download the app',
                 'plan-cta-pro': 'Join the list',
-                'plan-cta-premium': 'Subscribe',
+                'plan-cta-premium': 'Start free trial',
                 'plan-popular': 'Most popular',
                 'pricing-sub': 'Separate plans for users and professionals each built for what you actually need.',
                 'pricing-group-users': 'For users',
@@ -3531,39 +5037,52 @@
                 'feat-priority-listing': 'Priority position in the directory',
                 'feat-pro-badge': 'PRO badge on your profile',
                 'feat-analytics': 'Advanced analytics dashboard',
-                'testimonials-heading': 'What people who use it say',
-                'testimonial1-quote': 'I used to have goals scattered everywhere. Metriotes helped me connect it all to my North Star. Now I know exactly why I do what I do.',
-                'testimonial1-author': 'Ana G.',
-                'testimonial1-role': 'Life Coach',
-                'testimonial2-quote': 'Having my profile, workshops, and services in one place changed my business. My clients find exactly what they need without me having to explain it.',
-                'testimonial2-author': 'Carlos M.',
-                'testimonial2-role': 'Wellness Coach',
-                'testimonial3-quote': 'The marketplace lets me reach patients who would never have found me otherwise. It\'s the visibility my practice needed.',
-                'testimonial3-author': 'María R.',
-                'testimonial3-role': 'Psychologist',
-                'testimonial4-quote': 'I published my first yoga retreat on Metriotes and it filled up in less than a week. Now I manage all my events from there without any hassle.',
-                'testimonial4-author': 'Diego F.',
-                'testimonial4-role': 'Yoga Instructor',
-                'testimonial5-quote': 'My clients use Metriotes to track their habits between sessions. It\'s like having a bridge of constant support that multiplies the results of the work we do together.',
-                'testimonial5-author': 'Sofía L.',
-                'testimonial5-role': 'Nutritionist',
-                'testimonial6-quote': 'Verified certifications set me apart in the directory. New clients arrive already trusting me without me having to convince anyone.',
-                'testimonial6-author': 'Javier P.',
-                'testimonial6-role': 'Pilates Instructor',
-                'testimonial7-quote': 'Analytics tells me which services are most in demand. I made business decisions I never would have made without that data. My practice grew 40% in six months.',
-                'testimonial7-author': 'Elena V.',
-                'testimonial7-role': 'Holistic Therapist',
-                'testimonial8-quote': 'My clients share their training goals with me as a witness. Seeing their progress in real time makes me a better trainer and them, more consistent.',
-                'testimonial8-author': 'Pablo S.',
-                'testimonial8-role': 'Personal Trainer',
-                'testimonial9-quote': 'I went from having no online presence to a complete profile with real reviews from my students. Metriotes made that change possible in weeks.',
-                'testimonial9-author': 'Isabel M.',
-                'testimonial9-role': 'Meditation Instructor',
-                'testimonial10-quote': 'I shared my goal of running a marathon with my partner. We achieved it together. Metriotes was part of that journey the app that kept us focused when we needed it most.',
-                'testimonial10-author': 'Laura T.',
-                'testimonial10-role': 'User',
+                'testimonials-heading': 'What people who use it say',                'faq-heading': 'Frequently asked questions',
+                'faq-sub': 'Everything you might be wondering before downloading the app.',
+                'faq-q1': 'Is Metriotes free?',
+                'faq-a1': 'Yes. The free version includes your North Star, up to 3 active goals, daily tasks and habits, gratitude, diary, and total privacy. No credit card needed to start. If you eventually want unlimited goals, emotion analysis, or smart goal generation, the Premium plan starts at €4.99/month.',
+                'faq-q2': 'Can I cancel anytime?',
+                'faq-a2': 'Yes, no conditions, no questions asked. Subscriptions are managed from App Store or Google Play, and you can cancel anytime. When you cancel, you keep access until the end of the paid period and then move back to the free version without losing your data.',
+                'faq-q3': 'Where is Metriotes available?',
+                'faq-a3': 'The app is available globally on iOS and Android, in Spanish and English. The professional marketplace has more density in Spain, Mexico, Argentina, Colombia, and Chile for now, but anyone can publish their profile from anywhere in the world.',
+                'faq-q4': 'What happens with my personal data?',
+                'faq-a4': 'Everything you write in Metriotes is private by default: nothing appears in a public feed, nothing gets shared by accident. Only you decide what to share and with whom, and only when you explicitly invite someone as a witness of a specific goal. We never sell or hand your data to third parties.',
+                'faq-q6': 'I\'m a professional. How does the marketplace work?',
+                'faq-a6': 'You create your professional profile for free with your showcase, services, credentials, and availability. On the free plan you can publish up to 1 event and 2 services. With PRO (€19.99/month) you get unlimited events and services, priority placement in the directory, and advanced analytics. Users searching for what you offer find you by filtering by city, context, and availability.',
+                'faq-q7': 'Can I use Metriotes without connecting with professionals?',
+                'faq-a7': 'Absolutely. Many users use Metriotes just to define their North, manage their goals and habits, and keep their diary. The professionals section is there when you need it, not before.',
+                'faq-q8': 'How long does it take to see results?',
+                'faq-a8': 'Depends on what you expect. In the first week you already have your North defined and your first habits in motion. In a month you start seeing patterns in your diary and gratitude. By three months, most users report visible changes in daily decisions. It\'s not magic: it\'s consistency with direction.',
+                'testimonials-users-label': 'Users',
+                'testimonials-pros-label': 'Professionals',
+                'testimonial-u1-quote': 'I used to have goals scattered everywhere. Metriotes helped me connect it all to my North Star. Now I know exactly why I do what I do.',
+                'testimonial-u1-author': 'Ana',
+                'testimonial-u1-role': 'User · Madrid',
+                'testimonial-u2-quote': 'I shared my marathon goal with my partner. We made it together. Metriotes was part of that journey: the app that kept us focused when we needed it most.',
+                'testimonial-u2-author': 'Laura',
+                'testimonial-u2-role': 'User · Valencia',
+                'testimonial-u3-quote': 'The daily discoveries became the most honest moment of my day. In two months I learned things about myself I hadn\'t looked at in years.',
+                'testimonial-u3-author': 'Martín',
+                'testimonial-u3-role': 'User · Buenos Aires',
+                'testimonial-u4-quote': 'Inviting my best friend as a witness changed everything. Knowing someone else sees my progress held me on the days I wanted to quit.',
+                'testimonial-u4-author': 'Camila',
+                'testimonial-u4-role': 'User · Mexico City',
+                'testimonial-p1-quote': 'Having my profile, workshops, and services in one place changed my business. My clients find exactly what they need without me having to explain it.',
+                'testimonial-p1-author': 'Carlos',
+                'testimonial-p1-role': 'Wellness coach · Barcelona',
+                'testimonial-p2-quote': 'The directory lets me reach patients who would never have found me otherwise. It\'s the visibility my practice needed.',
+                'testimonial-p2-author': 'María',
+                'testimonial-p2-role': 'Psychologist · Sevilla',
+                'testimonial-p3-quote': 'I published my first yoga retreat on Metriotes and it filled up in less than a week. Now I manage all my events from there, without hassle.',
+                'testimonial-p3-author': 'Diego',
+                'testimonial-p3-role': 'Yoga instructor · Bilbao',
+                'testimonial-p4-quote': 'My clients use Metriotes to log habits between sessions. It\'s a bridge of ongoing support that multiplies the results of the work we do together.',
+                'testimonial-p4-author': 'Sofía',
+                'testimonial-p4-role': 'Nutritionist · Madrid',
                 'cta-heading': 'Download the app and start today',
-                'cta-sub': 'Available on iOS. Coming soon on Android.',
+                'cta-sub': 'Available on iOS and Android.',
+                'cta-block-title': 'Free. No card. You start in two minutes.',
+                'cta-qr-label': 'Scan from your phone',
                 'footer': '© 2026 Metriotes. All rights reserved.',
                 'privacy-link': 'Privacy Policy',
                 'terms-link': 'Terms of Service'
@@ -3653,6 +5172,38 @@
         window.addEventListener('scroll', () => {
             siteNav.classList.toggle('scrolled', window.scrollY > 80);
         }, { passive: true });
+
+        /* ── Mobile hamburger toggle ───────────────────────────── */
+        const navHamburger = document.getElementById('nav-hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const closeNavMenu = () => {
+            navMenu.classList.remove('open');
+            navHamburger.classList.remove('open');
+            navHamburger.setAttribute('aria-expanded', 'false');
+        };
+        navHamburger.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('open');
+            navHamburger.classList.toggle('open', isOpen);
+            navHamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', closeNavMenu);
+        });
+        // Close menu when viewport crosses back to desktop
+        const desktopMQ = window.matchMedia('(min-width: 769px)');
+        desktopMQ.addEventListener('change', (e) => { if (e.matches) closeNavMenu(); });
+
+        /* ── Pricing billing toggle ─────────────────────────────── */
+        const pricingSection = document.getElementById('precios');
+        document.querySelectorAll('.pricing-toggle-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.billingOption;
+                pricingSection.setAttribute('data-billing', mode);
+                document.querySelectorAll('.pricing-toggle-option').forEach(b => {
+                    b.classList.toggle('active', b === btn);
+                });
+            });
+        });
 
         /* ── Deep Link Handler (preserved) ────────────────────── */
         function decodeBase62(encoded) {

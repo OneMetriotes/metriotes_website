@@ -2864,6 +2864,31 @@
         .download-gplay:hover { transform: translateY(-3px); }
         .download-gplay:active { transform: scale(0.97); }
         .download-gplay img { height: 84px; width: auto; }
+        .download-web-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            height: 56px;
+            padding: 0 1.5rem;
+            border-radius: 12px;
+            background: var(--color-brand, #ff6a3d);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring);
+            box-shadow: 0 6px 18px rgba(255, 106, 61, 0.28);
+        }
+        .download-web-link:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(255, 106, 61, 0.34); }
+        .download-web-link:active { transform: scale(0.97); }
+        .download-web-link svg { width: 18px; height: 18px; }
+        .download-web-sub {
+            color: var(--color-text-muted, #6b6b70);
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+        }
 
         /* ─── Footer ─────────────────────────────────────────── */
         .site-footer {
@@ -4333,6 +4358,11 @@
                             <img id="gplay-badge" src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
                         </a>
                     </div>
+                    <div class="download-web-sub" data-i18n="cta-web-or">O directamente desde el navegador:</div>
+                    <a href="/app/" class="download-web-link" data-i18n="cta-web-cta">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        Ingresar aquí
+                    </a>
                 </div>
                 <div class="download-qr">
                     <div class="download-qr-frame">
@@ -4731,6 +4761,8 @@
                 'cta-sub': 'Disponible en iOS y Android.',
                 'cta-block-title': 'Gratis. Sin tarjeta. Empiezas en dos minutos.',
                 'cta-qr-label': 'Escanea desde tu móvil',
+                'cta-web-or': 'O entra directo desde el navegador:',
+                'cta-web-cta': 'Ingresar aquí',
                 'footer': '© 2026 Metriotes. Todos los derechos reservados.',
                 'privacy-link': 'Política de Privacidad',
                 'terms-link': 'Términos de Servicio'
@@ -5083,6 +5115,8 @@
                 'cta-sub': 'Available on iOS and Android.',
                 'cta-block-title': 'Free. No card. You start in two minutes.',
                 'cta-qr-label': 'Scan from your phone',
+                'cta-web-or': 'Or jump in directly from your browser:',
+                'cta-web-cta': 'Enter here',
                 'footer': '© 2026 Metriotes. All rights reserved.',
                 'privacy-link': 'Privacy Policy',
                 'terms-link': 'Terms of Service'

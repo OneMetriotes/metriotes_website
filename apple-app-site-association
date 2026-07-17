@@ -6,7 +6,9 @@
         "appID": "W3PHUFUMUY.com.metriotes.metriotesFront",
         "paths": [
           "/goals/*",
-          "/template/*"
+          "/template/*",
+          "/professional/*",
+          "/event/*"
         ]
       }
     ]

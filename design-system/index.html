@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/design-system/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Metriotes Design System">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Metriotes Design System">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Metriotes — Design System</title>
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1f232c;
+      --border: #262b36;
+      --text: #e6e8ee;
+      --muted: #9aa0ad;
+      --accent: #C4622D;
+      --accent-2: #D4833A;
+      --bad: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    #ds-gate {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg);
+      z-index: 9999;
+    }
+    #ds-gate .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 360px;
+    }
+    #ds-gate h1 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    #ds-gate p {
+      margin: 0 0 24px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    #ds-gate label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    #ds-gate input {
+      width: 100%;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #ds-gate input:focus { border-color: var(--accent); }
+    #ds-gate button {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 16px;
+    }
+    #ds-gate button:hover { background: var(--accent-2); }
+    #ds-gate button:disabled { opacity: 0.5; cursor: not-allowed; }
+    #ds-gate .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    #ds-gate .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="ds-gate">
+    <div class="card">
+      <h1>Metriotes — Design System</h1>
+      <p>Acceso interno. Ingresá la contraseña compartida por el equipo.</p>
+      <div id="ds-error" class="error hidden">Contraseña incorrecta</div>
+      <form id="ds-form" autocomplete="off">
+        <label for="ds-password">Contraseña</label>
+        <input type="password" id="ds-password" name="password" autocomplete="current-password" required>
+        <button type="submit" id="ds-submit">Ingresar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // SHA-256 de la contraseña compartida. Para cambiarla: calcular el hash
+    // nuevo (ej. `printf '%s' 'nueva-contraseña' | shasum -a 256` en una
+    // terminal) y reemplazar el valor de acá abajo. El gate solo tapa la
+    // pantalla — Flutter arranca igual en paralelo por debajo, así no hay
+    // que tocar el bootstrap de Flutter ni reordenar su carga.
+    var DS_PASSWORD_HASH =
+      '3a4a82f7ccd4ba7ebd3c6f3dbe9d9e7822b373ae8b447be41c9b452d5b481680';
+    var DS_SESSION_KEY = 'metriotes_ds_auth';
+
+    function toHex(buffer) {
+      return Array.prototype.map
+        .call(new Uint8Array(buffer), function (b) {
+          return b.toString(16).padStart(2, '0');
+        })
+        .join('');
+    }
+
+    function sha256Hex(text) {
+      var data = new TextEncoder().encode(text);
+      return crypto.subtle.digest('SHA-256', data).then(toHex);
+    }
+
+    (function () {
+      var gate = document.getElementById('ds-gate');
+
+      if (sessionStorage.getItem(DS_SESSION_KEY) === '1') {
+        gate.remove();
+        return;
+      }
+
+      var form = document.getElementById('ds-form');
+      var input = document.getElementById('ds-password');
+      var error = document.getElementById('ds-error');
+      var submit = document.getElementById('ds-submit');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        submit.disabled = true;
+        sha256Hex(input.value).then(function (hash) {
+          if (hash === DS_PASSWORD_HASH) {
+            sessionStorage.setItem(DS_SESSION_KEY, '1');
+            gate.remove();
+          } else {
+            error.classList.remove('hidden');
+            input.value = '';
+            input.focus();
+            submit.disabled = false;
+          }
+        });
+      });
+    })();
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

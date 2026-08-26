@@ -11,131 +11,204 @@ sitemap: false
     <title>Metriotes Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         :root {
-            --bg: #0f1115;
-            --panel: #171a21;
-            --panel-2: #1f232c;
-            --border: #262b36;
-            --text: #e6e8ee;
-            --muted: #9aa0ad;
-            --accent: #C4622D;
-            --accent-2: #D4833A;
-            --good: #4ade80;
-            --warn: #fbbf24;
-            --bad: #ef4444;
+            /* Soft3D-inspired dark palette (slate-teal ground, near-black relief cards) */
+            --bg:            #26312f;
+            --bg-2:          #1c2523;
+            --card-hi:       #232d2b;   /* sheen top-right */
+            --card-lo:       #141b1a;   /* sheen bottom-left */
+            --card:          #1a2221;
+            --inset:         #101615;
+            --text:          #E7EDE8;
+            --muted:         #8fa096;
+            --faint:         rgba(231,237,232,0.42);
+            --border:        rgba(231,237,232,0.07);
+            --border-strong: rgba(231,237,232,0.14);
+            --primary:       #DA7A64;   /* terracotta */
+            --primary-2:     #E9987F;
+            --sky:           #8DC9E7;
+            --good:          #34D399;
+            --warn:          #FBBF24;
+            --bad:           #F87171;
+            --violet:        #A78BFA;
+            /* Soft3D relief: down-left black drop + top highlight */
+            --relief:        -6px 8px 22px -8px rgba(0,0,0,0.60), inset 0 1px 0 rgba(255,255,255,0.05);
+            --relief-hover:  -8px 12px 30px -8px rgba(0,0,0,0.68), inset 0 1px 0 rgba(255,255,255,0.07);
+            --relief-sm:     -4px 5px 14px -6px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+            --sheen:         linear-gradient(145deg, var(--card-hi) 0%, var(--card-lo) 100%);
+            --ease-spring:   cubic-bezier(0.16, 1, 0.3, 1);
         }
         * { box-sizing: border-box; }
         body {
             margin: 0;
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            background:
+                radial-gradient(1200px 600px at 85% -10%, rgba(218,122,100,0.08), transparent 60%),
+                radial-gradient(900px 500px at 0% 0%, rgba(141,201,231,0.06), transparent 55%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+            background-attachment: fixed;
             color: var(--text);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
+        ::selection { background: rgba(218,122,100,0.35); }
 
-        /* Login */
+        /* ── Login ─────────────────────────────────────────────── */
         .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .login-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 380px; }
-        .login-card h1 { margin: 0 0 8px 0; font-size: 22px; font-weight: 600; }
-        .login-card p { margin: 0 0 28px 0; color: var(--muted); font-size: 14px; }
+        .login-card {
+            background: var(--sheen); border-radius: 24px; padding: 40px; width: 100%; max-width: 400px;
+            box-shadow: var(--relief);
+        }
+        .login-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+        .brand-mark {
+            width: 34px; height: 34px; border-radius: 11px; background: var(--sheen);
+            box-shadow: var(--relief-sm); display: grid; place-items: center; flex: none;
+        }
+        .brand-mark::after { content: ""; width: 13px; height: 13px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, var(--primary-2), var(--primary)); box-shadow: 0 0 12px rgba(218,122,100,0.6); }
+        .login-card h1 { margin: 0; font-family: 'Kalnia', Georgia, serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+        .login-card p.sub { margin: 4px 0 26px 0; color: var(--muted); font-size: 13px; }
         .field { margin-bottom: 16px; }
-        .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.08em; }
         .field input {
-            width: 100%; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
-            padding: 12px 14px; color: var(--text); font-family: inherit; font-size: 14px; outline: none;
-            transition: border-color 0.15s;
+            width: 100%; background: var(--inset); border: 1px solid var(--border); border-radius: 12px;
+            padding: 13px 15px; color: var(--text); font-family: inherit; font-size: 14px; outline: none;
+            box-shadow: inset 2px 2px 6px rgba(0,0,0,0.45), inset -1px -1px 2px rgba(255,255,255,0.03);
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .field input:focus { border-color: var(--accent); }
+        .field input:focus { border-color: rgba(218,122,100,0.6); box-shadow: inset 2px 2px 6px rgba(0,0,0,0.45), 0 0 0 3px rgba(218,122,100,0.15); }
         button.primary {
-            width: 100%; background: var(--accent); color: white; border: none; border-radius: 8px;
-            padding: 12px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
-            transition: background 0.15s; margin-top: 8px;
+            width: 100%; background: linear-gradient(145deg, var(--primary-2), var(--primary)); color: #fff; border: none; border-radius: 14px;
+            padding: 13px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+            box-shadow: -4px 6px 16px -4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+            transition: transform 0.18s var(--ease-spring), filter 0.15s; margin-top: 8px;
         }
-        button.primary:hover { background: var(--accent-2); }
+        button.primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+        button.primary:active { transform: scale(0.97); }
         button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
         .error {
-            background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5;
-            border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 16px;
+            background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); color: #fca5a5;
+            border-radius: 12px; padding: 11px 13px; font-size: 13px; margin-bottom: 16px;
         }
 
-        /* Dashboard header */
+        /* ── Header ────────────────────────────────────────────── */
         header {
-            padding: 16px 32px; border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 32px; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 20;
+            background: rgba(28,37,35,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
         }
-        header h1 { margin: 0; font-size: 18px; font-weight: 600; }
-        header .user { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; }
+        header .brand { display: flex; align-items: center; gap: 12px; }
+        header h1 { margin: 0; font-family: 'Kalnia', Georgia, serif; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+        header .user { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12.5px; flex-wrap: wrap; justify-content: flex-end; }
+        header .user .chip { padding: 5px 10px; border-radius: 8px; background: var(--inset); box-shadow: var(--relief-sm); }
         header .user button {
-            background: transparent; border: 1px solid var(--border); color: var(--muted);
-            padding: 6px 12px; border-radius: 6px; font-family: inherit; font-size: 12px; cursor: pointer;
+            background: var(--sheen); border: none; color: var(--text);
+            padding: 7px 13px; border-radius: 10px; font-family: inherit; font-size: 12px; cursor: pointer;
+            box-shadow: var(--relief-sm); transition: transform 0.16s var(--ease-spring), filter 0.15s;
         }
-        header .user button:hover { border-color: var(--accent); color: var(--accent); }
+        header .user button:hover { filter: brightness(1.12); transform: translateY(-1px); }
+        header .user button:active { transform: scale(0.96); }
 
-        /* Main tabs */
+        /* ── Tabs ──────────────────────────────────────────────── */
         .main-tabs {
-            display: flex; gap: 0; padding: 0 32px; border-bottom: 1px solid var(--border);
-            background: var(--panel);
+            display: flex; gap: 8px; padding: 18px 32px 0; max-width: 1440px; margin: 0 auto; flex-wrap: wrap;
         }
         .main-tab {
-            padding: 14px 20px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted);
-            border-bottom: 2px solid transparent; transition: all 0.15s;
+            padding: 11px 20px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted);
+            border-radius: 12px 12px 0 0; transition: all 0.18s var(--ease-spring); position: relative;
         }
         .main-tab:hover { color: var(--text); }
-        .main-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .main-tab.active {
+            color: var(--text); background: var(--sheen);
+            box-shadow: -4px 4px 14px -6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .main-tab.active::after {
+            content: ""; position: absolute; left: 20px; right: 20px; bottom: 8px; height: 2px; border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        }
 
-        main { padding: 32px; max-width: 1400px; margin: 0 auto; }
-        .tab-panel { display: none; }
+        main { padding: 26px 32px 80px; max-width: 1440px; margin: 0 auto; }
+        .tab-panel { display: none; animation: fade 0.35s var(--ease-spring); }
         .tab-panel.active { display: block; }
-        section { margin-bottom: 40px; }
-        h2 {
-            font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
-            color: var(--muted); margin: 0 0 16px 0; font-weight: 600;
+        @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        section { margin-bottom: 34px; }
+        .sec-head { display: flex; align-items: baseline; gap: 12px; margin: 0 0 16px 2px; flex-wrap: wrap; }
+        .sec-head h2 {
+            font-family: 'Kalnia', Georgia, serif; font-size: 17px; letter-spacing: -0.01em;
+            color: var(--text); margin: 0; font-weight: 600;
         }
-        .kpi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;
-        }
+        .sec-head .hint { font-size: 12px; color: var(--muted); }
+
+        /* ── KPI cards ─────────────────────────────────────────── */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); gap: 14px; }
         .kpi {
-            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+            background: var(--sheen); border-radius: 18px; padding: 18px 18px 16px;
+            box-shadow: var(--relief); transition: transform 0.22s var(--ease-spring), box-shadow 0.22s var(--ease-spring);
+            position: relative; overflow: hidden;
         }
-        .kpi .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .kpi .value { font-size: 26px; font-weight: 700; margin-top: 8px; font-variant-numeric: tabular-nums; }
-        .kpi .value.accent { color: var(--accent); }
+        .kpi::before {
+            content: ""; position: absolute; top: 0; right: 0; width: 90px; height: 90px;
+            background: radial-gradient(circle at 75% 25%, rgba(255,255,255,0.05), transparent 70%); pointer-events: none;
+        }
+        .kpi:hover { transform: translateY(-3px); box-shadow: var(--relief-hover); }
+        .kpi .label { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+        .kpi .value { font-size: 27px; font-weight: 700; margin-top: 8px; font-variant-numeric: tabular-nums; line-height: 1.1; letter-spacing: -0.02em; }
+        .kpi .value.accent { color: var(--primary-2); }
         .kpi .value.good { color: var(--good); }
         .kpi .value.warn { color: var(--warn); }
         .kpi .value.bad { color: var(--bad); }
-        .kpi .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+        .kpi .value.sky { color: var(--sky); }
+        .kpi .sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
+        .kpi--hero { grid-column: span 2; }
+        .kpi--hero .value { font-family: 'Kalnia', Georgia, serif; font-size: 38px; font-weight: 700; }
+        @media (max-width: 520px) { .kpi--hero { grid-column: span 1; } }
 
-        .chart-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;
-        }
+        /* ── Chart cards ───────────────────────────────────────── */
+        .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; margin-top: 16px; }
         .chart-card {
-            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+            background: var(--sheen); border-radius: 20px; padding: 20px; box-shadow: var(--relief);
         }
-        .chart-card h3 { margin: 0 0 16px 0; font-size: 13px; font-weight: 500; }
+        .chart-card.full { margin-top: 16px; }
+        .chart-card h3 { margin: 0 0 16px 0; font-size: 13px; font-weight: 600; color: var(--text); }
         .chart-card canvas { max-height: 300px; }
+        .chart-empty { color: var(--faint); font-size: 13px; text-align: center; padding: 40px 0; }
 
+        /* ── Tables ────────────────────────────────────────────── */
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-        th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--muted); font-weight: 500; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; }
         td.num { text-align: right; font-variant-numeric: tabular-nums; }
         tr:last-child td { border-bottom: none; }
-
-        .sub-tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
-        .sub-tab {
-            padding: 8px 14px; background: var(--panel-2); border: 1px solid var(--border);
-            border-radius: 8px; cursor: pointer; font-size: 12px; color: var(--muted);
+        tbody tr { transition: background 0.15s; }
+        tbody tr:hover { background: rgba(255,255,255,0.025); }
+        .rank {
+            display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 7px;
+            background: var(--inset); box-shadow: var(--relief-sm); font-size: 11px; font-weight: 600; color: var(--muted);
         }
-        .sub-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .rank.top { background: linear-gradient(145deg, var(--primary-2), var(--primary)); color: #fff; box-shadow: -2px 3px 8px -2px rgba(0,0,0,0.5); }
+
+        /* ── Sub tabs (pills) ──────────────────────────────────── */
+        .sub-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .sub-tab {
+            padding: 8px 15px; background: var(--sheen); border-radius: 999px; cursor: pointer; font-size: 12px; color: var(--muted);
+            box-shadow: var(--relief-sm); transition: all 0.16s var(--ease-spring);
+        }
+        .sub-tab:hover { color: var(--text); transform: translateY(-1px); }
+        .sub-tab.active { color: #fff; background: linear-gradient(145deg, var(--primary-2), var(--primary)); box-shadow: -3px 4px 10px -3px rgba(0,0,0,0.5); }
 
         .hidden { display: none !important; }
-        .loading { display: flex; align-items: center; justify-content: center; min-height: 100vh; color: var(--muted); }
+        .loading { display: flex; align-items: center; justify-content: center; min-height: 100vh; color: var(--muted); gap: 12px; }
+        .spinner { width: 22px; height: 22px; border: 3px solid var(--border-strong); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 640px) {
-            main { padding: 20px 16px; }
+            main { padding: 20px 16px 60px; }
             header, .main-tabs { padding-left: 16px; padding-right: 16px; }
+            .chart-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -143,8 +216,14 @@ sitemap: false
     <!-- Login -->
     <div id="view-login" class="login-wrap">
         <div class="login-card">
-            <h1>Metriotes Dashboard</h1>
-            <p>Acceso restringido</p>
+            <div class="login-brand">
+                <div class="brand-mark"></div>
+                <div>
+                    <h1>Metriotes</h1>
+                    <div style="font-size:11px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;">Dashboard</div>
+                </div>
+            </div>
+            <p class="sub">Acceso restringido · solo superusuarios</p>
             <div id="login-error" class="error hidden"></div>
             <form id="login-form">
                 <div class="field">
@@ -160,33 +239,37 @@ sitemap: false
         </div>
     </div>
 
-    <div id="view-loading" class="loading hidden">Cargando datos…</div>
+    <div id="view-loading" class="loading hidden"><div class="spinner"></div> Cargando datos…</div>
 
     <!-- Dashboard -->
     <div id="view-dashboard" class="hidden">
         <header>
-            <h1>Metriotes Dashboard</h1>
+            <div class="brand">
+                <div class="brand-mark"></div>
+                <h1>Metriotes Dashboard</h1>
+            </div>
             <div class="user">
-                <span id="generated-at"></span>
+                <span class="chip" id="generated-at"></span>
                 <span id="user-label"></span>
                 <button id="refresh-btn">↻ Refrescar</button>
-                <button id="logout-btn">Cerrar sesión</button>
+                <button id="logout-btn">Salir</button>
             </div>
         </header>
 
         <div class="main-tabs">
             <div class="main-tab active" data-panel="panel-users">Usuarios</div>
             <div class="main-tab" data-panel="panel-professionals">Profesionales</div>
+            <div class="main-tab" data-panel="panel-business">Negocio Pro</div>
         </div>
 
         <main>
             <!-- ========================= USUARIOS ========================= -->
             <div id="panel-users" class="tab-panel active">
                 <section>
-                    <h2>Usuarios Resumen</h2>
+                    <div class="sec-head"><h2>Resumen de usuarios</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total users</div><div class="value" id="k-total-users">–</div></div>
-                        <div class="kpi"><div class="label">Profiles</div><div class="value" id="k-total-profiles">–</div></div>
+                        <div class="kpi"><div class="label">Perfiles</div><div class="value" id="k-total-profiles">–</div></div>
                         <div class="kpi"><div class="label">Activos (30d)</div><div class="value good" id="k-active-users">–</div></div>
                         <div class="kpi"><div class="label">Inactivos</div><div class="value warn" id="k-inactive-users">–</div></div>
                         <div class="kpi"><div class="label">Nunca logueados</div><div class="value" id="k-never-users">–</div></div>
@@ -204,7 +287,7 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Objetivos</h2>
+                    <div class="sec-head"><h2>Objetivos</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total goals</div><div class="value" id="k-total-goals">–</div></div>
                         <div class="kpi"><div class="label">Promedio / user</div><div class="value accent" id="k-avg-goals">–</div></div>
@@ -219,12 +302,12 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Actividad y contenido</h2>
+                    <div class="sec-head"><h2>Actividad y contenido</h2></div>
                     <div class="kpi-grid" id="content-totals-grid"></div>
                 </section>
 
                 <section>
-                    <h2>Suscripciones premium</h2>
+                    <div class="sec-head"><h2>Suscripciones premium</h2><span class="hint">usuarios finales</span></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Premium activas</div><div class="value good" id="k-prem-active">–</div></div>
                         <div class="kpi"><div class="label">Expiradas</div><div class="value warn" id="k-prem-expired">–</div></div>
@@ -236,20 +319,20 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Notificaciones</h2>
+                    <div class="sec-head"><h2>Notificaciones</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total enviadas</div><div class="value" id="k-notif-total">–</div></div>
                         <div class="kpi"><div class="label">Últimos 7d</div><div class="value accent" id="k-notif-7d">–</div></div>
                         <div class="kpi"><div class="label">Tasa de lectura</div><div class="value good" id="k-notif-read-rate">–</div></div>
                     </div>
-                    <div class="chart-card" style="margin-top:20px;">
+                    <div class="chart-card full">
                         <h3>Top tipos de notificación</h3>
                         <table id="t-notif-types"><thead><tr><th>#</th><th>Tipo</th><th class="num">Envíos</th></tr></thead><tbody></tbody></table>
                     </div>
                 </section>
 
                 <section>
-                    <h2>Circles (grupos compartidos)</h2>
+                    <div class="sec-head"><h2>Circles</h2><span class="hint">grupos compartidos</span></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total grupos</div><div class="value" id="k-circles-total">–</div></div>
                         <div class="kpi"><div class="label">Miembros promedio</div><div class="value accent" id="k-circles-avg">–</div></div>
@@ -260,7 +343,7 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Template Goals (Store)</h2>
+                    <div class="sec-head"><h2>Template Goals</h2><span class="hint">store</span></div>
                     <div class="sub-tabs">
                         <div class="sub-tab active" data-metric="usage_count">Más agregados</div>
                         <div class="sub-tab" data-metric="views_count">Más vistos</div>
@@ -275,7 +358,7 @@ sitemap: false
             <!-- ========================= PROFESIONALES ========================= -->
             <div id="panel-professionals" class="tab-panel">
                 <section>
-                    <h2>Profesionales Resumen</h2>
+                    <div class="sec-head"><h2>Resumen de profesionales</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total</div><div class="value" id="k-p-total">–</div></div>
                         <div class="kpi"><div class="label">Visibles</div><div class="value good" id="k-p-visible">–</div></div>
@@ -284,7 +367,8 @@ sitemap: false
                         <div class="kpi"><div class="label">No Pro</div><div class="value" id="k-p-nonpro">–</div></div>
                         <div class="kpi"><div class="label">Pro expiradas</div><div class="value warn" id="k-p-proexp">–</div></div>
                         <div class="kpi"><div class="label">Rating promedio</div><div class="value good" id="k-p-avg-rating">–</div></div>
-                        <div class="kpi"><div class="label">Años exp. promedio</div><div class="value" id="k-p-avg-exp">–</div></div>
+                        <div class="kpi"><div class="label">Reseñas prom. / perfil</div><div class="value" id="k-p-avg-ratings">–</div></div>
+                        <div class="kpi"><div class="label">Cerrando cuenta</div><div class="value bad" id="k-p-closing">–</div></div>
                     </div>
                     <div class="chart-grid">
                         <div class="chart-card"><h3>Pro vs No Pro</h3><canvas id="c-p-pro"></canvas></div>
@@ -293,7 +377,7 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Completitud del perfil</h2>
+                    <div class="sec-head"><h2>Completitud del perfil</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Con avatar</div><div class="value" id="k-p-avatar">–</div></div>
                         <div class="kpi"><div class="label">Con video</div><div class="value" id="k-p-video">–</div></div>
@@ -304,25 +388,29 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Distribución por profesión y ubicación</h2>
+                    <div class="sec-head"><h2>Distribución</h2><span class="hint">profesión y ubicación</span></div>
                     <div class="chart-grid">
                         <div class="chart-card"><h3>Por profesión</h3><canvas id="c-p-profession"></canvas></div>
                         <div class="chart-card"><h3>Por país</h3><canvas id="c-p-country"></canvas></div>
                     </div>
-                    <div class="chart-card" style="margin-top:20px;">
+                    <div class="chart-card full">
                         <h3>Top ciudades</h3>
                         <table id="t-p-city"><thead><tr><th>#</th><th>País</th><th>Ciudad</th><th class="num">Coaches</th></tr></thead><tbody></tbody></table>
                     </div>
                 </section>
 
                 <section>
-                    <h2>Eventos, sesiones y servicios</h2>
+                    <div class="sec-head"><h2>Eventos, sesiones y servicios</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Eventos totales</div><div class="value" id="k-p-ev-total">–</div></div>
                         <div class="kpi"><div class="label">Eventos activos</div><div class="value good" id="k-p-ev-active">–</div></div>
                         <div class="kpi"><div class="label">Completados</div><div class="value" id="k-p-ev-completed">–</div></div>
                         <div class="kpi"><div class="label">Online</div><div class="value" id="k-p-ev-online">–</div></div>
+                        <div class="kpi"><div class="label">Recurrentes</div><div class="value accent" id="k-p-ev-recurring">–</div></div>
+                        <div class="kpi"><div class="label">Cancelados</div><div class="value bad" id="k-p-ev-cancelled">–</div></div>
                         <div class="kpi"><div class="label">Sesiones totales</div><div class="value" id="k-p-ses-total">–</div></div>
+                        <div class="kpi"><div class="label">Sesiones pagadas</div><div class="value good" id="k-p-ses-paid">–</div></div>
+                        <div class="kpi"><div class="label">Sesiones recurrentes</div><div class="value" id="k-p-ses-recurring">–</div></div>
                         <div class="kpi"><div class="label">Servicios totales</div><div class="value" id="k-p-svc-total">–</div></div>
                         <div class="kpi"><div class="label">Servicios activos</div><div class="value good" id="k-p-svc-active">–</div></div>
                         <div class="kpi"><div class="label">Bookables</div><div class="value accent" id="k-p-svc-book">–</div></div>
@@ -335,7 +423,7 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Inscripciones a eventos</h2>
+                    <div class="sec-head"><h2>Inscripciones a eventos</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total</div><div class="value" id="k-p-reg-total">–</div></div>
                         <div class="kpi"><div class="label">Confirmadas</div><div class="value good" id="k-p-reg-conf">–</div></div>
@@ -346,7 +434,21 @@ sitemap: false
                 </section>
 
                 <section>
-                    <h2>Rankings Top 10</h2>
+                    <div class="sec-head"><h2>Vistas de perfil</h2><span class="hint">interés del directorio</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Vistas totales</div><div class="value" id="k-p-views-total">–</div></div>
+                        <div class="kpi"><div class="label">Últimos 7d</div><div class="value accent" id="k-p-views-7d">–</div></div>
+                        <div class="kpi"><div class="label">Últimos 30d</div><div class="value accent" id="k-p-views-30d">–</div></div>
+                        <div class="kpi"><div class="label">Visitantes únicos</div><div class="value sky" id="k-p-views-unique">–</div></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card"><h3>Vistas por día (30d)</h3><canvas id="c-p-views-trend"></canvas></div>
+                        <div class="chart-card"><h3>Perfiles más vistos</h3><table id="t-p-views-top"><thead><tr><th>#</th><th>Profesional</th><th>Ubicación</th><th class="num">Vistas</th></tr></thead><tbody></tbody></table></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Rankings Top 10</h2></div>
                     <div class="sub-tabs">
                         <div class="sub-tab active" data-ranking="top_by_clients">Por clientes</div>
                         <div class="sub-tab" data-ranking="top_by_sessions">Por sesiones</div>
@@ -356,6 +458,84 @@ sitemap: false
                     </div>
                     <div class="chart-card">
                         <table id="t-p-rankings"><thead></thead><tbody></tbody></table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ========================= NEGOCIO PRO ========================= -->
+            <div id="panel-business" class="tab-panel">
+                <section>
+                    <div class="sec-head"><h2>Ingresos estimados</h2><span class="hint">sobre precios cobrados (snapshots)</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi kpi--hero"><div class="label">Ingresos totales</div><div class="value accent" id="k-b-rev-total">–</div><div class="sub">eventos + sesiones + bonos</div></div>
+                        <div class="kpi"><div class="label">Eventos</div><div class="value" id="k-b-rev-events">–</div></div>
+                        <div class="kpi"><div class="label">Sesiones 1:1</div><div class="value" id="k-b-rev-sessions">–</div></div>
+                        <div class="kpi"><div class="label">Bonos</div><div class="value" id="k-b-rev-bonos">–</div></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Bonos</h2><span class="hint">packs de clases prepagas</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Packs creados</div><div class="value" id="k-b-packs-total">–</div></div>
+                        <div class="kpi"><div class="label">Packs activos</div><div class="value good" id="k-b-packs-active">–</div></div>
+                        <div class="kpi"><div class="label">Créditos prom. / pack</div><div class="value" id="k-b-avg-credits">–</div></div>
+                        <div class="kpi"><div class="label">Bonos comprados</div><div class="value accent" id="k-b-purch-total">–</div></div>
+                        <div class="kpi"><div class="label">Bonos pagados</div><div class="value good" id="k-b-purch-paid">–</div></div>
+                        <div class="kpi"><div class="label">Créditos vendidos</div><div class="value" id="k-b-credits-sold">–</div></div>
+                        <div class="kpi"><div class="label">Créditos usados</div><div class="value" id="k-b-credits-used">–</div></div>
+                        <div class="kpi"><div class="label">Reembolsos pedidos</div><div class="value warn" id="k-b-refund-req">–</div></div>
+                        <div class="kpi"><div class="label">Reembolsados</div><div class="value bad" id="k-b-refunded">–</div></div>
+                        <div class="kpi"><div class="label">Ingresos por bonos</div><div class="value accent" id="k-b-bono-rev">–</div></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card"><h3>Compras de bonos por estado</h3><canvas id="c-b-bono-status"></canvas></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Métodos de pago</h2><span class="hint">efectivo · tarjeta · transferencia</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Perfiles con cuenta de transferencia</div><div class="value sky" id="k-b-transfer-accounts">–</div></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card"><h3>Eventos que aceptan cada método</h3><canvas id="c-b-pay-events"></canvas></div>
+                        <div class="chart-card"><h3>Inscripciones por método usado</h3><canvas id="c-b-pay-regs"></canvas></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Precios y descuentos</h2><span class="hint">con descuento activo ahora</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Servicios con descuento</div><div class="value accent" id="k-b-disc-services">–</div></div>
+                        <div class="kpi"><div class="label">Eventos con descuento</div><div class="value accent" id="k-b-disc-events">–</div></div>
+                        <div class="kpi"><div class="label">Bonos con descuento</div><div class="value accent" id="k-b-disc-packs">–</div></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Reseñas de eventos</h2></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Total reseñas</div><div class="value" id="k-b-review-count">–</div></div>
+                        <div class="kpi"><div class="label">Rating promedio</div><div class="value good" id="k-b-review-avg">–</div></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card"><h3>Distribución de estrellas</h3><canvas id="c-b-review-dist"></canvas></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Suscripciones PRO</h2><span class="hint">profesionales</span></div>
+                    <div class="chart-grid">
+                        <div class="chart-card"><h3>PRO activas por store</h3><canvas id="c-b-pro-store"></canvas></div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="sec-head"><h2>Cierre de cuentas</h2><span class="hint">flujo de baja con período de gracia</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Cierre solicitado</div><div class="value warn" id="k-b-closing">–</div></div>
+                        <div class="kpi"><div class="label">Borrado programado</div><div class="value bad" id="k-b-scheduled">–</div></div>
                     </div>
                 </section>
             </div>
@@ -371,8 +551,16 @@ sitemap: false
         const hide = (id) => $(id).classList.add('hidden');
         const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g,
             c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const arr = (a) => Array.isArray(a) ? a : [];
+        const has = (v) => v === 0 || (v !== null && v !== undefined && v !== '');
+        const setText = (id, v, fb = '–') => { const el = $(id); if (el) el.textContent = has(v) ? v : fb; };
+        const setNum = (id, v, fb = '–') => { const el = $(id); if (el) el.textContent = has(v) ? Number(v).toLocaleString('es-ES') : fb; };
+        const money = (v) => has(v) ? '€' + Number(v).toLocaleString('es-ES', { maximumFractionDigits: 0 }) : '–';
 
-        const PALETTE = ['#C4622D', '#D4833A', '#4ade80', '#fbbf24', '#ef4444', '#f472b6', '#60a5fa', '#a78bfa', '#22d3ee', '#f59e0b'];
+        // Terracotta + sky Soft3D chart palette
+        const PALETTE = ['#DA7A64', '#8DC9E7', '#34D399', '#FBBF24', '#E9987F', '#A78BFA', '#22d3ee', '#F87171', '#f472b6', '#60a5fa'];
+        const GRID = 'rgba(231,237,232,0.06)';
+        const CARD_BG = '#1a2221';
 
         let stats = null;
         let charts = {};
@@ -401,9 +589,8 @@ sitemap: false
         }
 
         function parseJwt(token) {
-            try {
-                return JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-            } catch { return null; }
+            try { return JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); }
+            catch { return null; }
         }
 
         function destroyCharts() {
@@ -411,37 +598,57 @@ sitemap: false
             charts = {};
         }
 
-        function makeChart(id, config) {
+        function markEmpty(id) {
+            const el = $(id);
+            if (!el || !el.parentElement) return true;
+            if (!el.parentElement.querySelector('.chart-empty')) {
+                const p = document.createElement('div');
+                p.className = 'chart-empty';
+                p.textContent = 'Sin datos';
+                el.style.display = 'none';
+                el.parentElement.appendChild(p);
+            }
+            return true;
+        }
+
+        function makeChart(id, labels, config) {
             const el = $(id);
             if (!el) return;
+            // clean previous empty state
+            const prevEmpty = el.parentElement && el.parentElement.querySelector('.chart-empty');
+            if (prevEmpty) prevEmpty.remove();
+            el.style.display = '';
+            const total = arr(labels).length;
+            const sum = arr(config?.data?.datasets?.[0]?.data).reduce((a, b) => a + (Number(b) || 0), 0);
+            if (!total || sum === 0) return markEmpty(id);
             charts[id] = new Chart(el, config);
         }
 
         function barConfig(labels, data, color) {
             return {
                 type: 'bar',
-                data: { labels, datasets: [{ data, backgroundColor: color || PALETTE[0] }] },
+                data: { labels, datasets: [{ data, backgroundColor: color || PALETTE[0], borderRadius: 7, borderSkipped: false, maxBarThickness: 46 }] },
                 options: {
                     responsive: true, plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: GRID } }, x: { grid: { display: false } } }
                 }
             };
         }
         function hBarConfig(labels, data, color) {
             return {
                 type: 'bar',
-                data: { labels, datasets: [{ data, backgroundColor: color || PALETTE[1] }] },
+                data: { labels, datasets: [{ data, backgroundColor: color || PALETTE[1], borderRadius: 7, borderSkipped: false, maxBarThickness: 26 }] },
                 options: {
                     indexAxis: 'y', responsive: true, plugins: { legend: { display: false } },
-                    scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+                    scales: { x: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: GRID } }, y: { grid: { display: false } } }
                 }
             };
         }
         function doughnutConfig(labels, data) {
             return {
                 type: 'doughnut',
-                data: { labels, datasets: [{ data, backgroundColor: PALETTE, borderColor: '#171a21', borderWidth: 2 }] },
-                options: { responsive: true, plugins: { legend: { position: 'right' } } }
+                data: { labels, datasets: [{ data, backgroundColor: PALETTE, borderColor: CARD_BG, borderWidth: 3, hoverOffset: 6 }] },
+                options: { responsive: true, cutout: '64%', plugins: { legend: { position: 'right', labels: { boxWidth: 12, boxHeight: 12, padding: 12 } } } }
             };
         }
         function lineConfig(labels, data) {
@@ -450,259 +657,227 @@ sitemap: false
                 data: {
                     labels,
                     datasets: [{
-                        data, borderColor: PALETTE[0], backgroundColor: 'rgba(196,98,45,0.15)',
-                        tension: 0.3, fill: true, pointRadius: 2,
+                        data, borderColor: PALETTE[0], backgroundColor: 'rgba(218,122,100,0.14)',
+                        tension: 0.35, fill: true, pointRadius: 2, pointBackgroundColor: PALETTE[0], borderWidth: 2,
                     }]
                 },
                 options: {
                     responsive: true, plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: GRID } }, x: { grid: { display: false }, ticks: { maxTicksLimit: 8 } } }
                 }
             };
         }
 
+        function prof_loc(it) { return escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '—'); }
+
+        /* ─────────────────────────── USERS ─────────────────────────── */
         function renderUsers() {
-            const u = stats.users;
-            $('k-total-users').textContent = u.total_users;
-            $('k-total-profiles').textContent = u.total_profiles;
-            $('k-active-users').textContent = u.active_users;
-            $('k-inactive-users').textContent = u.inactive_users;
-            $('k-never-users').textContent = u.never_logged_in;
-            $('k-new-7d').textContent = u.new_users_last_7_days;
-            $('k-new-30d').textContent = u.new_users_last_30_days;
-            $('k-avg-days').textContent = u.engagement_stats.avg_days_since_last_login;
+            const u = stats.users || {};
+            setNum('k-total-users', u.total_users); setNum('k-total-profiles', u.total_profiles);
+            setNum('k-active-users', u.active_users); setNum('k-inactive-users', u.inactive_users);
+            setNum('k-never-users', u.never_logged_in); setNum('k-new-7d', u.new_users_last_7_days);
+            setNum('k-new-30d', u.new_users_last_30_days);
+            setText('k-avg-days', u.engagement_stats?.avg_days_since_last_login);
 
-            makeChart('c-users-activity', doughnutConfig(
-                u.engagement_stats.users_by_activity.map(x => x.label),
-                u.engagement_stats.users_by_activity.map(x => x.count),
-            ));
-            makeChart('c-users-signups', lineConfig(
-                u.signups_per_day.map(x => x.date),
-                u.signups_per_day.map(x => x.count),
-            ));
-            makeChart('c-users-language', doughnutConfig(
-                u.by_language.map(x => x.label),
-                u.by_language.map(x => x.count),
-            ));
-            makeChart('c-users-age', barConfig(
-                u.by_age_range.map(x => x.label),
-                u.by_age_range.map(x => x.count),
-                PALETTE[1]
-            ));
-            makeChart('c-users-country', hBarConfig(
-                u.by_country.map(x => x.label),
-                u.by_country.map(x => x.count),
-            ));
+            const act = arr(u.engagement_stats?.users_by_activity);
+            makeChart('c-users-activity', act.map(x => x.label), doughnutConfig(act.map(x => x.label), act.map(x => x.count)));
+            const sp = arr(u.signups_per_day);
+            makeChart('c-users-signups', sp.map(x => x.date), lineConfig(sp.map(x => x.date), sp.map(x => x.count)));
+            const lang = arr(u.by_language);
+            makeChart('c-users-language', lang.map(x => x.label), doughnutConfig(lang.map(x => x.label), lang.map(x => x.count)));
+            const age = arr(u.by_age_range);
+            makeChart('c-users-age', age.map(x => x.label), barConfig(age.map(x => x.label), age.map(x => x.count), PALETTE[1]));
+            const ctry = arr(u.by_country);
+            makeChart('c-users-country', ctry.map(x => x.label), hBarConfig(ctry.map(x => x.label), ctry.map(x => x.count)));
 
-            // Goals
-            const g = stats.goals;
-            $('k-total-goals').textContent = g.total_goals;
-            $('k-avg-goals').textContent = g.avg_goals_per_user;
-            $('k-completed-goals').textContent = g.completed_goals;
-            $('k-shared-goals').textContent = g.shared_goals;
-            $('k-group-goals').textContent = g.group_goals;
-            makeChart('c-goals-status', barConfig(
-                g.goals_by_status.map(x => x.label),
-                g.goals_by_status.map(x => x.count),
-            ));
-            makeChart('c-goals-context', hBarConfig(
-                g.goals_by_context.map(x => x.context_name),
-                g.goals_by_context.map(x => x.count),
-                PALETTE[1]
-            ));
+            const g = stats.goals || {};
+            setNum('k-total-goals', g.total_goals); setText('k-avg-goals', g.avg_goals_per_user);
+            setNum('k-completed-goals', g.completed_goals); setNum('k-shared-goals', g.shared_goals);
+            setNum('k-group-goals', g.group_goals);
+            const gs = arr(g.goals_by_status);
+            makeChart('c-goals-status', gs.map(x => x.label), barConfig(gs.map(x => x.label), gs.map(x => x.count)));
+            const gc = arr(g.goals_by_context);
+            makeChart('c-goals-context', gc.map(x => x.context_name), hBarConfig(gc.map(x => x.context_name), gc.map(x => x.count), PALETTE[1]));
 
-            // Content activity
-            const ca = stats.content_activity;
-            const contentGrid = $('content-totals-grid');
+            const ca = stats.content_activity || {};
             const CONTENT_LABELS = {
-                happenings: 'Diario (happenings)',
-                gratitude_entries: 'Gratitud',
-                north_entries: 'Norte',
-                north_closeness_entries: 'Cercanía al norte',
-                steps: 'Steps',
-                habits: 'Habits',
-                habit_completions: 'Habit completions',
-                saved_quotes: 'Frases guardadas',
+                happenings: 'Diario (happenings)', gratitude_entries: 'Gratitud', north_entries: 'Norte',
+                north_closeness_entries: 'Cercanía al norte', steps: 'Steps', habits: 'Habits',
+                habit_completions: 'Habit completions', saved_quotes: 'Frases guardadas',
             };
-            contentGrid.innerHTML = Object.entries(ca.totals).map(([k, v]) => `
-                <div class="kpi">
-                    <div class="label">${escapeHtml(CONTENT_LABELS[k] || k)}</div>
-                    <div class="value">${v}</div>
-                    <div class="sub">${ca.per_user[k]} / user</div>
-                </div>
+            const grid = $('content-totals-grid');
+            grid.innerHTML = Object.entries(ca.totals || {}).map(([k, v]) => `
+                <div class="kpi"><div class="label">${escapeHtml(CONTENT_LABELS[k] || k)}</div>
+                <div class="value">${Number(v).toLocaleString('es-ES')}</div>
+                <div class="sub">${ca.per_user?.[k] ?? '–'} / user</div></div>
             `).join('') + `
-                <div class="kpi">
-                    <div class="label">Happenings con IA</div>
-                    <div class="value accent">${ca.happenings_ai_assisted}</div>
-                </div>
-            `;
+                <div class="kpi"><div class="label">Happenings con IA</div>
+                <div class="value accent">${Number(ca.happenings_ai_assisted || 0).toLocaleString('es-ES')}</div></div>`;
 
-            // Subscriptions
-            const s = stats.subscriptions;
-            $('k-prem-active').textContent = s.premium_active;
-            $('k-prem-expired').textContent = s.premium_expired;
-            $('k-prem-cancelled').textContent = s.premium_cancelled;
-            makeChart('c-prem-store', doughnutConfig(
-                s.by_store.map(x => x.label),
-                s.by_store.map(x => x.count),
-            ));
+            const s = stats.subscriptions || {};
+            setNum('k-prem-active', s.premium_active); setNum('k-prem-expired', s.premium_expired);
+            setNum('k-prem-cancelled', s.premium_cancelled);
+            const store = arr(s.by_store);
+            makeChart('c-prem-store', store.map(x => x.label), doughnutConfig(store.map(x => x.label), store.map(x => x.count)));
 
-            // Notifications
-            const n = stats.notifications;
-            $('k-notif-total').textContent = n.total;
-            $('k-notif-7d').textContent = n.last_7_days;
-            $('k-notif-read-rate').textContent = n.read_rate_pct + '%';
-            document.querySelector('#t-notif-types tbody').innerHTML = n.top_types.map((x, i) => `
-                <tr><td>${i + 1}</td><td>${escapeHtml(x.type)}</td><td class="num">${x.count}</td></tr>
-            `).join('') || '<tr><td colspan="3" style="color:var(--muted)">Sin datos</td></tr>';
+            const n = stats.notifications || {};
+            setNum('k-notif-total', n.total); setNum('k-notif-7d', n.last_7_days);
+            setText('k-notif-read-rate', has(n.read_rate_pct) ? n.read_rate_pct + '%' : undefined);
+            document.querySelector('#t-notif-types tbody').innerHTML = arr(n.top_types).map((x, i) => `
+                <tr><td><span class="rank ${i < 3 ? 'top' : ''}">${i + 1}</span></td><td>${escapeHtml(x.type)}</td><td class="num">${Number(x.count).toLocaleString('es-ES')}</td></tr>
+            `).join('') || '<tr><td colspan="3" style="color:var(--faint)">Sin datos</td></tr>';
 
-            // Circles
-            const c = stats.circles;
-            $('k-circles-total').textContent = c.total_groups;
-            $('k-circles-avg').textContent = c.avg_members;
-            makeChart('c-circles-category', doughnutConfig(
-                c.by_category.map(x => x.label),
-                c.by_category.map(x => x.count),
-            ));
+            const c = stats.circles || {};
+            setNum('k-circles-total', c.total_groups); setText('k-circles-avg', c.avg_members);
+            const cat = arr(c.by_category);
+            makeChart('c-circles-category', cat.map(x => x.label), doughnutConfig(cat.map(x => x.label), cat.map(x => x.count)));
 
-            // Templates
             renderTemplates('usage_count');
         }
 
-        const METRIC_MAP = {
-            usage_count: 'most_added',
-            views_count: 'most_viewed',
-            shares_count: 'most_shared',
-        };
+        const METRIC_MAP = { usage_count: 'most_added', views_count: 'most_viewed', shares_count: 'most_shared' };
         function renderTemplates(metric) {
-            const items = stats.template_goals[METRIC_MAP[metric]];
+            const items = arr(stats.template_goals?.[METRIC_MAP[metric]]);
             document.querySelector('#t-templates tbody').innerHTML = items.map((it, i) => `
                 <tr>
-                    <td>${i + 1}</td>
+                    <td><span class="rank ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
                     <td>${escapeHtml(it.title)}</td>
-                    <td>${it.contexts.map(c => escapeHtml(c.name)).join(', ') || ''}</td>
-                    <td class="num">${it[metric]}</td>
+                    <td style="color:var(--muted)">${arr(it.contexts).map(c => escapeHtml(c.name)).join(', ')}</td>
+                    <td class="num">${Number(it[metric] || 0).toLocaleString('es-ES')}</td>
                 </tr>
-            `).join('') || '<tr><td colspan="4" style="color:var(--muted)">Sin datos</td></tr>';
+            `).join('') || '<tr><td colspan="4" style="color:var(--faint)">Sin datos</td></tr>';
         }
 
+        /* ────────────────────── PROFESSIONALS ───────────────────────── */
         function renderProfessionals() {
-            const p = stats.professionals;
-            $('k-p-total').textContent = p.total;
-            $('k-p-visible').textContent = p.visible;
-            $('k-p-hidden').textContent = p.hidden;
-            $('k-p-pro').textContent = p.pro_count;
-            $('k-p-nonpro').textContent = p.non_pro_count;
-            $('k-p-proexp').textContent = p.pro_expired;
-            $('k-p-avg-rating').textContent = p.avg_rating;
-            $('k-p-avg-exp').textContent = p.avg_experience_years;
+            const p = stats.professionals || {};
+            setNum('k-p-total', p.total); setNum('k-p-visible', p.visible); setNum('k-p-hidden', p.hidden);
+            setNum('k-p-pro', p.pro_count); setNum('k-p-nonpro', p.non_pro_count); setNum('k-p-proexp', p.pro_expired);
+            setText('k-p-avg-rating', p.avg_rating); setText('k-p-avg-ratings', p.avg_ratings_count);
+            setNum('k-p-closing', p.closing_count);
 
-            $('k-p-avatar').textContent = p.with_avatar;
-            $('k-p-video').textContent = p.with_video;
-            $('k-p-website').textContent = p.with_website;
-            $('k-p-ig').textContent = p.with_instagram;
-            $('k-p-ln').textContent = p.with_linkedin;
+            setNum('k-p-avatar', p.with_avatar); setNum('k-p-video', p.with_video);
+            setNum('k-p-website', p.with_website); setNum('k-p-ig', p.with_instagram); setNum('k-p-ln', p.with_linkedin);
 
-            makeChart('c-p-pro', doughnutConfig(
-                ['Pro', 'No Pro'], [p.pro_count, p.non_pro_count]
-            ));
-            makeChart('c-p-contact', doughnutConfig(
-                p.by_contact.map(x => x.label),
-                p.by_contact.map(x => x.count),
-            ));
-            makeChart('c-p-profession', hBarConfig(
-                p.by_profession.map(x => x.profession_name),
-                p.by_profession.map(x => x.count),
-                PALETTE[0]
-            ));
-            makeChart('c-p-country', hBarConfig(
-                p.by_country.map(x => x.label),
-                p.by_country.map(x => x.count),
-                PALETTE[1]
-            ));
+            makeChart('c-p-pro', ['Pro', 'No Pro'], doughnutConfig(['Pro', 'No Pro'], [p.pro_count || 0, p.non_pro_count || 0]));
+            const contact = arr(p.by_contact);
+            makeChart('c-p-contact', contact.map(x => x.label), doughnutConfig(contact.map(x => x.label), contact.map(x => x.count)));
+            const prof = arr(p.by_profession);
+            makeChart('c-p-profession', prof.map(x => x.profession_name), hBarConfig(prof.map(x => x.profession_name), prof.map(x => x.count), PALETTE[0]));
+            const pctry = arr(p.by_country);
+            makeChart('c-p-country', pctry.map(x => x.label), hBarConfig(pctry.map(x => x.label), pctry.map(x => x.count), PALETTE[1]));
 
-            document.querySelector('#t-p-city tbody').innerHTML = p.by_city.map((x, i) => `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${escapeHtml(x.country)}</td>
-                    <td>${escapeHtml(x.city)}</td>
-                    <td class="num">${x.count}</td>
-                </tr>
-            `).join('') || '<tr><td colspan="4" style="color:var(--muted)">Sin datos</td></tr>';
+            document.querySelector('#t-p-city tbody').innerHTML = arr(p.by_city).map((x, i) => `
+                <tr><td><span class="rank ${i < 3 ? 'top' : ''}">${i + 1}</span></td><td>${escapeHtml(x.country)}</td><td>${escapeHtml(x.city)}</td><td class="num">${x.count}</td></tr>
+            `).join('') || '<tr><td colspan="4" style="color:var(--faint)">Sin datos</td></tr>';
 
-            // Events / sessions / services
-            const e = p.events;
-            $('k-p-ev-total').textContent = e.total;
-            $('k-p-ev-active').textContent = e.active;
-            $('k-p-ev-completed').textContent = e.completed;
-            $('k-p-ev-online').textContent = e.online;
-            makeChart('c-p-ev-type', barConfig(
-                e.by_type.map(x => x.label),
-                e.by_type.map(x => x.count),
-                PALETTE[0]
-            ));
+            const e = p.events || {};
+            setNum('k-p-ev-total', e.total); setNum('k-p-ev-active', e.active); setNum('k-p-ev-completed', e.completed);
+            setNum('k-p-ev-online', e.online); setNum('k-p-ev-recurring', e.recurring); setNum('k-p-ev-cancelled', e.cancelled);
+            const et = arr(e.by_type);
+            makeChart('c-p-ev-type', et.map(x => x.label), barConfig(et.map(x => x.label), et.map(x => x.count), PALETTE[0]));
 
-            $('k-p-ses-total').textContent = p.sessions.total;
-            makeChart('c-p-ses-status', doughnutConfig(
-                p.sessions.by_status.map(x => x.label),
-                p.sessions.by_status.map(x => x.count),
-            ));
+            const ses = p.sessions || {};
+            setNum('k-p-ses-total', ses.total); setNum('k-p-ses-paid', ses.paid); setNum('k-p-ses-recurring', ses.recurring);
+            const st = arr(ses.by_status);
+            makeChart('c-p-ses-status', st.map(x => x.label), doughnutConfig(st.map(x => x.label), st.map(x => x.count)));
 
-            $('k-p-svc-total').textContent = p.services.total;
-            $('k-p-svc-active').textContent = p.services.active;
-            $('k-p-svc-book').textContent = p.services.bookable;
-            $('k-p-testi').textContent = p.testimonials_total;
+            const svc = p.services || {};
+            setNum('k-p-svc-total', svc.total); setNum('k-p-svc-active', svc.active); setNum('k-p-svc-book', svc.bookable);
+            setNum('k-p-testi', p.testimonials_total);
 
-            const r = p.registrations;
-            $('k-p-reg-total').textContent = r.total;
-            $('k-p-reg-conf').textContent = r.confirmed;
-            $('k-p-reg-wait').textContent = r.waitlist;
-            $('k-p-reg-cancel').textContent = r.cancelled;
-            $('k-p-reg-att').textContent = r.attended;
+            const r = p.registrations || {};
+            setNum('k-p-reg-total', r.total); setNum('k-p-reg-conf', r.confirmed); setNum('k-p-reg-wait', r.waitlist);
+            setNum('k-p-reg-cancel', r.cancelled); setNum('k-p-reg-att', r.attended);
+
+            // Profile views
+            const v = p.profile_views || {};
+            setNum('k-p-views-total', v.total); setNum('k-p-views-7d', v.last_7_days);
+            setNum('k-p-views-30d', v.last_30_days); setNum('k-p-views-unique', v.unique_viewers);
+            const pd = arr(v.per_day);
+            makeChart('c-p-views-trend', pd.map(x => x.date), lineConfig(pd.map(x => x.date), pd.map(x => x.count)));
+            document.querySelector('#t-p-views-top tbody').innerHTML = arr(v.top).map((it, i) => `
+                <tr><td><span class="rank ${i < 3 ? 'top' : ''}">${i + 1}</span></td><td>${escapeHtml(it.name)}</td><td style="color:var(--muted)">${prof_loc(it)}</td><td class="num">${it.value}</td></tr>
+            `).join('') || '<tr><td colspan="4" style="color:var(--faint)">Sin datos</td></tr>';
 
             renderRanking('top_by_clients');
         }
 
         const RANKING_LABELS = {
-            top_by_clients: 'Clientes',
-            top_by_sessions: 'Sesiones',
-            top_by_events: 'Eventos',
-            top_by_classes: 'Clases',
-            top_by_rating: 'Rating',
+            top_by_clients: 'Clientes', top_by_sessions: 'Sesiones', top_by_events: 'Eventos',
+            top_by_classes: 'Clases', top_by_rating: 'Rating',
         };
         function renderRanking(key) {
-            const items = stats.professionals[key] || [];
+            const items = arr(stats.professionals?.[key]);
             const table = $('t-p-rankings');
             table.querySelector('thead').innerHTML = `
-                <tr>
-                    <th>#</th>
-                    <th>Profesional</th>
-                    <th>País / Ciudad</th>
-                    <th class="num">${escapeHtml(RANKING_LABELS[key])}</th>
-                    ${key === 'top_by_rating' ? '<th class="num">Ratings</th>' : ''}
-                </tr>
-            `;
+                <tr><th>#</th><th>Profesional</th><th>País / Ciudad</th>
+                <th class="num">${escapeHtml(RANKING_LABELS[key])}</th>
+                ${key === 'top_by_rating' ? '<th class="num">Reseñas</th>' : ''}</tr>`;
             table.querySelector('tbody').innerHTML = items.map((it, i) => `
                 <tr>
-                    <td>${i + 1}</td>
+                    <td><span class="rank ${i < 3 ? 'top' : ''}">${i + 1}</span></td>
                     <td>${escapeHtml(it.name)}</td>
-                    <td>${escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '')}</td>
-                    <td class="num">${key === 'top_by_rating' ? it.value.toFixed(2) : it.value}</td>
+                    <td style="color:var(--muted)">${prof_loc(it)}</td>
+                    <td class="num">${key === 'top_by_rating' ? Number(it.value).toFixed(2) : it.value}</td>
                     ${key === 'top_by_rating' ? `<td class="num">${it.ratings_count}</td>` : ''}
                 </tr>
-            `).join('') || `<tr><td colspan="5" style="color:var(--muted)">Sin datos</td></tr>`;
+            `).join('') || `<tr><td colspan="5" style="color:var(--faint)">Sin datos</td></tr>`;
+        }
+
+        /* ─────────────────────── BUSINESS (Negocio Pro) ─────────────── */
+        function renderBusiness() {
+            const p = stats.professionals || {};
+            const rev = p.revenue || {};
+            setText('k-b-rev-total', money(rev.total)); setText('k-b-rev-events', money(rev.events));
+            setText('k-b-rev-sessions', money(rev.sessions)); setText('k-b-rev-bonos', money(rev.bonos));
+
+            const b = p.bonos || {};
+            setNum('k-b-packs-total', b.packs_total); setNum('k-b-packs-active', b.packs_active);
+            setText('k-b-avg-credits', b.avg_credits); setNum('k-b-purch-total', b.purchases_total);
+            setNum('k-b-purch-paid', b.purchases_paid); setNum('k-b-credits-sold', b.credits_sold);
+            setNum('k-b-credits-used', b.credits_used); setNum('k-b-refund-req', b.refunds_requested);
+            setNum('k-b-refunded', b.refunded); setText('k-b-bono-rev', money(b.revenue));
+            const bs = arr(b.by_status);
+            makeChart('c-b-bono-status', bs.map(x => x.label), barConfig(bs.map(x => x.label), bs.map(x => x.count), PALETTE[0]));
+
+            const pay = p.payments || {};
+            setNum('k-b-transfer-accounts', pay.profiles_with_transfer_account);
+            const pe = arr(pay.events_accept);
+            makeChart('c-b-pay-events', pe.map(x => x.label), doughnutConfig(pe.map(x => x.label), pe.map(x => x.count)));
+            const pr = arr(pay.registrations_by_method);
+            makeChart('c-b-pay-regs', pr.map(x => x.label), doughnutConfig(pr.map(x => x.label), pr.map(x => x.count)));
+
+            const pr2 = p.pricing || {};
+            setNum('k-b-disc-services', pr2.services_with_discount); setNum('k-b-disc-events', pr2.events_with_discount);
+            setNum('k-b-disc-packs', pr2.packs_with_discount);
+
+            const er = p.event_reviews || {};
+            setNum('k-b-review-count', er.total); setText('k-b-review-avg', er.avg_rating);
+            const dist = arr(er.by_rating);
+            makeChart('c-b-review-dist', dist.map(x => x.rating + '★'), barConfig(dist.map(x => x.rating + '★'), dist.map(x => x.count), PALETTE[3]));
+
+            const store = arr(p.by_pro_store);
+            makeChart('c-b-pro-store', store.map(x => x.label), doughnutConfig(store.map(x => x.label), store.map(x => x.count)));
+
+            setNum('k-b-closing', p.closing_count); setNum('k-b-scheduled', p.scheduled_deletion_count);
         }
 
         function renderDashboard() {
-            Chart.defaults.color = '#9aa0ad';
-            Chart.defaults.borderColor = '#262b36';
+            Chart.defaults.color = '#8fa096';
+            Chart.defaults.borderColor = GRID;
             Chart.defaults.font.family = 'Poppins, -apple-system, sans-serif';
+            Chart.defaults.font.size = 12;
+            Chart.defaults.plugins.tooltip.backgroundColor = '#10161599';
+            Chart.defaults.plugins.tooltip.padding = 10;
+            Chart.defaults.plugins.tooltip.cornerRadius = 10;
             destroyCharts();
             renderUsers();
             renderProfessionals();
+            renderBusiness();
             if (stats.generated_at) {
                 const d = new Date(stats.generated_at);
-                $('generated-at').textContent = 'Actualizado ' + d.toLocaleString();
+                $('generated-at').textContent = 'Actualizado ' + d.toLocaleString('es-ES');
             }
         }
 
@@ -762,6 +937,8 @@ sitemap: false
                 tab.classList.add('active');
                 document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
                 $(tab.dataset.panel).classList.add('active');
+                // charts rendered while their panel was hidden start at 0px; resize on reveal
+                requestAnimationFrame(() => Object.values(charts).forEach(c => { try { c.resize(); } catch (_) {} }));
             });
         });
 

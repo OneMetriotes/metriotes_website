@@ -8,7 +8,9 @@
           "/goals/*",
           "/template/*",
           "/professional/*",
-          "/event/*"
+          "/event/*",
+          "/app/professional/*",
+          "/app/event/*"
         ]
       }
     ]

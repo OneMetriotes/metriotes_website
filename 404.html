@@ -145,6 +145,12 @@
             color: var(--text-muted);
         }
         .footer a { color: var(--terra); font-weight: 500; }
+        .hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 0.25rem;
+        }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -155,35 +161,19 @@
             Metriotes
         </a>
 
-        <!-- Landing para /professional/* -->
-        <div id="landing-professional" class="card hidden">
-            <div class="eyebrow">Perfil profesional</div>
-            <h1>Abrí este perfil en Metriotes</h1>
-            <p class="lead">
-                Este perfil se ve mejor dentro de la app. Descargá Metriotes gratis para conocer al profesional, ver su agenda y reservar sesiones.
+        <!-- Landing de share: evento / perfil profesional.
+             Ahora el contenido se ve directamente en la web app (/app/), sin
+             obligar a descargar. Igual intentamos abrir la app nativa si está
+             instalada (útil en in-app browsers que ignoran los universal links). -->
+        <div id="landing-share" class="card hidden">
+            <div class="eyebrow" id="share-eyebrow">Metriotes</div>
+            <h1 id="share-title">Abriendo en Metriotes…</h1>
+            <p class="lead" id="share-lead">
+                Te estamos llevando al contenido. Si no carga en un momento, tocá el botón.
             </p>
             <div class="actions">
-                <a id="open-app-pro" class="btn btn-primary" href="#">Abrir en la app</a>
-                <div class="stores">
-                    <a href="https://apple.co/3LX7yom" target="_blank" rel="noopener" aria-label="Descargar en el App Store">
-                        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Descargar en el App Store">
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front" target="_blank" rel="noopener" aria-label="Disponible en Google Play">
-                        <img src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play">
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Landing para /event/* -->
-        <div id="landing-event" class="card hidden">
-            <div class="eyebrow">Evento</div>
-            <h1>Abrí este evento en Metriotes</h1>
-            <p class="lead">
-                Descargá Metriotes gratis para ver los detalles del evento, precios, cupos disponibles y anotarte.
-            </p>
-            <div class="actions">
-                <a id="open-app-event" class="btn btn-primary" href="#">Abrir en la app</a>
+                <a id="open-web" class="btn btn-primary" href="/app/">Ver ahora</a>
+                <p class="hint">¿Preferís la app? Descargala para gestionar tu reserva.</p>
                 <div class="stores">
                     <a href="https://apple.co/3LX7yom" target="_blank" rel="noopener" aria-label="Descargar en el App Store">
                         <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Descargar en el App Store">
@@ -215,45 +205,54 @@
     <script>
         (function() {
             var path = window.location.pathname || '';
-            var currentUrl = window.location.href;
             var ua = navigator.userAgent || '';
 
-            var proMatch = path.match(/^\/professional\/([^\/?#]+)/);
-            var eventMatch = path.match(/^\/event\/([^\/?#]+)/);
+            // Acepta los links canónicos /app/event|professional/<hash> y los
+            // viejos de raíz /event|professional/<hash> (retrocompat).
+            var m = path.match(/^\/(?:app\/)?(event|professional)\/([^\/?#]+)/);
 
-            // Custom scheme para forzar apertura de la app desde in-app
-            // browsers que ignoran universal links (Instagram, WhatsApp, etc).
-            var appScheme = null;
-            if (proMatch) appScheme = 'metriotes://professional/' + proMatch[1];
-            else if (eventMatch) appScheme = 'metriotes://event/' + eventMatch[1];
+            var generic = document.getElementById('landing-generic');
+            var share = document.getElementById('landing-share');
 
-            var target;
-            if (proMatch) {
-                target = document.getElementById('landing-professional');
-                var linkPro = document.getElementById('open-app-pro');
-                if (linkPro) linkPro.setAttribute('href', appScheme || currentUrl);
-            } else if (eventMatch) {
-                target = document.getElementById('landing-event');
-                var linkEv = document.getElementById('open-app-event');
-                if (linkEv) linkEv.setAttribute('href', appScheme || currentUrl);
-            } else {
-                target = document.getElementById('landing-generic');
+            if (!m) {
+                if (generic) generic.classList.remove('hidden');
+                return;
             }
 
-            if (target) target.classList.remove('hidden');
+            var kind = m[1];   // 'event' | 'professional'
+            var hash = m[2];
+            // La web app (metriotes.com/app/) lee este query param al arrancar
+            // y renderiza el detalle público sin pedir login.
+            var webUrl = '/app/?' + kind + '=' + encodeURIComponent(hash);
+            var appScheme = 'metriotes://' + kind + '/' + hash;
+
+            // Textos según el tipo de contenido.
+            var eyebrow = document.getElementById('share-eyebrow');
+            var title = document.getElementById('share-title');
+            var lead = document.getElementById('share-lead');
+            if (kind === 'event') {
+                if (eyebrow) eyebrow.textContent = 'Evento';
+                if (title) title.textContent = 'Abriendo el evento…';
+                if (lead) lead.textContent = 'Te llevamos al evento en Metriotes. Si no carga en un momento, tocá el botón.';
+            } else {
+                if (eyebrow) eyebrow.textContent = 'Perfil profesional';
+                if (title) title.textContent = 'Abriendo el perfil…';
+                if (lead) lead.textContent = 'Te llevamos al perfil en Metriotes. Si no carga en un momento, tocá el botón.';
+            }
+
+            var openWeb = document.getElementById('open-web');
+            if (openWeb) openWeb.setAttribute('href', webUrl);
+            if (share) share.classList.remove('hidden');
 
             // In-app browsers (Instagram, WhatsApp, FB, Messenger, TikTok,
-            // LinkedIn, Line, Snapchat) no respetan universal links. Si
-            // detectamos uno y el path es un share válido, intentamos abrir
-            // el custom scheme automáticamente. Si la app está instalada,
-            // salta a la app; si no, el intento falla silenciosamente y el
-            // usuario ve la landing con los botones de descarga.
+            // LinkedIn, Line, Snapchat) ignoran los universal links. Solo en
+            // esos intentamos el custom scheme (en Safari/Chrome normales el
+            // universal link ya tuvo su chance antes de llegar acá, y disparar
+            // el scheme ahí tira un error molesto si la app no está instalada).
             var isInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|MessengerLiteForiOS|Messenger|WhatsApp|Line|Snapchat|TikTok|LinkedInApp/i.test(ua);
 
-            if (isInAppBrowser && appScheme) {
-                // Usamos un iframe oculto: si el scheme está registrado,
-                // iOS/Android abre la app; si no, el iframe falla en silencio
-                // sin sacar al usuario del in-app browser ni tirar error.
+            var delay = 300;
+            if (isInAppBrowser) {
                 try {
                     var iframe = document.createElement('iframe');
                     iframe.style.display = 'none';
@@ -261,9 +260,15 @@
                     document.body.appendChild(iframe);
                     setTimeout(function() {
                         if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-                    }, 1500);
+                    }, 1200);
                 } catch (e) { /* noop */ }
+                delay = 1500; // darle tiempo al scheme antes de caer a la web
             }
+
+            // Pase lo que pase, llevamos al usuario a ver el contenido en la web
+            // app. Si la app nativa se abrió, este redirect queda en segundo
+            // plano y es inocuo.
+            setTimeout(function() { window.location.replace(webUrl); }, delay);
         })();
     </script>
 </body>

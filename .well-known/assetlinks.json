@@ -5,9 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.metriotes.metriotes_front",
       "sha256_cert_fingerprints": [
-        "REEMPLAZAR_SHA256_PLAY_APP_SIGNING",
-        "REEMPLAZAR_SHA256_UPLOAD_KEY",
-        "REEMPLAZAR_SHA256_DEBUG_KEY"
+        "25:BB:C6:58:1A:70:9A:C4:56:2D:66:2C:DE:D4:D7:B7:36:57:00:DC:6E:F0:BA:FC:8D:08:5F:F3:60:F4:07:0D",
+        "E5:D4:9D:A3:BD:A4:23:C4:04:C1:81:D4:F4:D2:92:5D:75:66:D8:7E:21:04:65:37:B4:3A:69:CD:54:5D:D1:96"
       ]
     }
   }

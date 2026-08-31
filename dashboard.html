@@ -668,7 +668,7 @@ sitemap: false
             };
         }
 
-        function prof_loc(it) { return escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '—'); }
+        function prof_loc(it) { return escapeHtml([it.country, it.city].filter(Boolean).join(' · ') || '-'); }
 
         /* ─────────────────────────── USERS ─────────────────────────── */
         function renderUsers() {

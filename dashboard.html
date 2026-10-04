@@ -200,6 +200,19 @@ sitemap: false
         .sub-tab:hover { color: var(--text); transform: translateY(-1px); }
         .sub-tab.active { color: #fff; background: linear-gradient(145deg, var(--primary-2), var(--primary)); box-shadow: -3px 4px 10px -3px rgba(0,0,0,0.5); }
 
+        /* ── Detalle colapsable (secciones de bajo valor para decidir) ──── */
+        .detail-block { margin-top: 16px; }
+        .detail-block summary {
+            cursor: pointer; list-style: none; font-size: 12px; color: var(--muted);
+            padding: 10px 14px; border-radius: 10px; background: var(--inset); box-shadow: var(--relief-sm);
+            display: inline-flex; align-items: center; gap: 6px; user-select: none;
+        }
+        .detail-block summary::-webkit-details-marker { display: none; }
+        .detail-block summary::before { content: '▸'; font-size: 10px; transition: transform 0.16s var(--ease-spring); }
+        .detail-block[open] summary::before { transform: rotate(90deg); }
+        .detail-block summary:hover { color: var(--text); }
+        .detail-block .chart-grid { margin-top: 14px; }
+
         .hidden { display: none !important; }
         .loading { display: flex; align-items: center; justify-content: center; min-height: 100vh; color: var(--muted); gap: 12px; }
         .spinner { width: 22px; height: 22px; border: 3px solid var(--border-strong); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -266,6 +279,19 @@ sitemap: false
             <!-- ========================= USUARIOS ========================= -->
             <div id="panel-users" class="tab-panel active">
                 <section>
+                    <div class="sec-head"><h2>Uso de la app</h2><span class="hint">qué secciones visita la gente</span></div>
+                    <div class="kpi-grid">
+                        <div class="kpi"><div class="label">Eventos totales</div><div class="value" id="k-usage-total">–</div></div>
+                        <div class="kpi"><div class="label">Eventos (7d)</div><div class="value accent" id="k-usage-7d">–</div></div>
+                        <div class="kpi"><div class="label">Activos por uso (7d)</div><div class="value good" id="k-usage-active-7d">–</div><div class="sub">entraron a alguna sección, no sólo login</div></div>
+                        <div class="kpi"><div class="label">Activos por uso (30d)</div><div class="value" id="k-usage-active-30d">–</div></div>
+                    </div>
+                    <div class="chart-grid">
+                        <div class="chart-card full"><h3>Pantallas más visitadas (30d)</h3><canvas id="c-usage-screens"></canvas></div>
+                    </div>
+                </section>
+
+                <section>
                     <div class="sec-head"><h2>Resumen de usuarios</h2></div>
                     <div class="kpi-grid">
                         <div class="kpi"><div class="label">Total users</div><div class="value" id="k-total-users">–</div></div>
@@ -279,19 +305,27 @@ sitemap: false
                     </div>
                     <div class="chart-grid">
                         <div class="chart-card"><h3>Distribución por actividad</h3><canvas id="c-users-activity"></canvas></div>
-                        <div class="chart-card"><h3>Signups por día (30d)</h3><canvas id="c-users-signups"></canvas></div>
                         <div class="chart-card"><h3>Idioma preferido</h3><canvas id="c-users-language"></canvas></div>
-                        <div class="chart-card"><h3>Rango de edad</h3><canvas id="c-users-age"></canvas></div>
-                        <div class="chart-card"><h3>Por país</h3><canvas id="c-users-country"></canvas></div>
                     </div>
+                    <details class="detail-block">
+                        <summary>Más detalle: signups, edad, país</summary>
+                        <div class="chart-grid">
+                            <div class="chart-card"><h3>Signups por día (30d)</h3><canvas id="c-users-signups"></canvas></div>
+                            <div class="chart-card"><h3>Rango de edad</h3><canvas id="c-users-age"></canvas></div>
+                            <div class="chart-card"><h3>Por país</h3><canvas id="c-users-country"></canvas></div>
+                        </div>
+                    </details>
                 </section>
 
                 <section>
-                    <div class="sec-head"><h2>Objetivos</h2></div>
+                    <div class="sec-head"><h2>Objetivos y Norte</h2><span class="hint">lo que más importa para decidir</span></div>
                     <div class="kpi-grid">
+                        <div class="kpi kpi--hero"><div class="label">Perfiles con Norte definido</div><div class="value good" id="k-norte-pct">–</div><div class="sub" id="k-norte-sub"></div></div>
+                        <div class="kpi"><div class="label">Promedio objetivos / perfil</div><div class="value accent" id="k-avg-goals">–</div></div>
                         <div class="kpi"><div class="label">Total goals</div><div class="value" id="k-total-goals">–</div></div>
-                        <div class="kpi"><div class="label">Promedio / user</div><div class="value accent" id="k-avg-goals">–</div></div>
                         <div class="kpi"><div class="label">Completados</div><div class="value good" id="k-completed-goals">–</div></div>
+                        <div class="kpi"><div class="label">De inspiración (store)</div><div class="value sky" id="k-goals-template-pct">–</div><div class="sub" id="k-goals-template-sub"></div></div>
+                        <div class="kpi"><div class="label">Con testigo aceptado</div><div class="value accent" id="k-goals-witness-pct">–</div><div class="sub" id="k-goals-witness-sub"></div></div>
                         <div class="kpi"><div class="label">Compartidos</div><div class="value" id="k-shared-goals">–</div></div>
                         <div class="kpi"><div class="label">Grupales</div><div class="value" id="k-group-goals">–</div></div>
                     </div>
@@ -325,10 +359,12 @@ sitemap: false
                         <div class="kpi"><div class="label">Últimos 7d</div><div class="value accent" id="k-notif-7d">–</div></div>
                         <div class="kpi"><div class="label">Tasa de lectura</div><div class="value good" id="k-notif-read-rate">–</div></div>
                     </div>
-                    <div class="chart-card full">
-                        <h3>Top tipos de notificación</h3>
-                        <table id="t-notif-types"><thead><tr><th>#</th><th>Tipo</th><th class="num">Envíos</th></tr></thead><tbody></tbody></table>
-                    </div>
+                    <details class="detail-block">
+                        <summary>Más detalle: top tipos de notificación</summary>
+                        <div class="chart-card full">
+                            <table id="t-notif-types"><thead><tr><th>#</th><th>Tipo</th><th class="num">Envíos</th></tr></thead><tbody></tbody></table>
+                        </div>
+                    </details>
                 </section>
 
                 <section>
@@ -368,6 +404,8 @@ sitemap: false
                         <div class="kpi"><div class="label">Pro expiradas</div><div class="value warn" id="k-p-proexp">–</div></div>
                         <div class="kpi"><div class="label">Rating promedio</div><div class="value good" id="k-p-avg-rating">–</div></div>
                         <div class="kpi"><div class="label">Reseñas prom. / perfil</div><div class="value" id="k-p-avg-ratings">–</div></div>
+                        <div class="kpi kpi--hero"><div class="label">Crean al menos 1 servicio</div><div class="value accent" id="k-p-svc-pros-pct">–</div><div class="sub" id="k-p-svc-pros-sub"></div></div>
+                        <div class="kpi kpi--hero"><div class="label">Tienen clases recurrentes</div><div class="value sky" id="k-p-rec-pros-pct">–</div><div class="sub" id="k-p-rec-pros-sub"></div></div>
                         <div class="kpi"><div class="label">Cerrando cuenta</div><div class="value bad" id="k-p-closing">–</div></div>
                     </div>
                     <div class="chart-grid">
@@ -391,12 +429,19 @@ sitemap: false
                     <div class="sec-head"><h2>Distribución</h2><span class="hint">profesión y ubicación</span></div>
                     <div class="chart-grid">
                         <div class="chart-card"><h3>Por profesión</h3><canvas id="c-p-profession"></canvas></div>
-                        <div class="chart-card"><h3>Por país</h3><canvas id="c-p-country"></canvas></div>
+                        <div class="chart-card"><h3>Servicios por profesión</h3><canvas id="c-p-svc-profession"></canvas></div>
+                        <div class="chart-card"><h3>Clases recurrentes por profesión</h3><canvas id="c-p-rec-profession"></canvas></div>
                     </div>
-                    <div class="chart-card full">
-                        <h3>Top ciudades</h3>
-                        <table id="t-p-city"><thead><tr><th>#</th><th>País</th><th>Ciudad</th><th class="num">Coaches</th></tr></thead><tbody></tbody></table>
-                    </div>
+                    <details class="detail-block">
+                        <summary>Más detalle: país y ciudades</summary>
+                        <div class="chart-grid">
+                            <div class="chart-card"><h3>Por país</h3><canvas id="c-p-country"></canvas></div>
+                        </div>
+                        <div class="chart-card full">
+                            <h3>Top ciudades</h3>
+                            <table id="t-p-city"><thead><tr><th>#</th><th>País</th><th>Ciudad</th><th class="num">Coaches</th></tr></thead><tbody></tbody></table>
+                        </div>
+                    </details>
                 </section>
 
                 <section>
@@ -672,6 +717,12 @@ sitemap: false
 
         /* ─────────────────────────── USERS ─────────────────────────── */
         function renderUsers() {
+            const pu = stats.product_usage || {};
+            setNum('k-usage-total', pu.events_total); setNum('k-usage-7d', pu.events_last_7_days);
+            setNum('k-usage-active-7d', pu.active_profiles_7d); setNum('k-usage-active-30d', pu.active_profiles_30d);
+            const scr = arr(pu.top_screens);
+            makeChart('c-usage-screens', scr.map(x => x.screen), hBarConfig(scr.map(x => x.screen), scr.map(x => x.count), PALETTE[0]));
+
             const u = stats.users || {};
             setNum('k-total-users', u.total_users); setNum('k-total-profiles', u.total_profiles);
             setNum('k-active-users', u.active_users); setNum('k-inactive-users', u.inactive_users);
@@ -694,6 +745,12 @@ sitemap: false
             setNum('k-total-goals', g.total_goals); setText('k-avg-goals', g.avg_goals_per_user);
             setNum('k-completed-goals', g.completed_goals); setNum('k-shared-goals', g.shared_goals);
             setNum('k-group-goals', g.group_goals);
+            setText('k-norte-pct', has(g.profiles_with_north_pct) ? g.profiles_with_north_pct + '%' : undefined);
+            setText('k-norte-sub', has(g.profiles_with_north) ? `${g.profiles_with_north} perfiles` : '');
+            setText('k-goals-template-pct', has(g.goals_from_template_pct) ? g.goals_from_template_pct + '%' : undefined);
+            setText('k-goals-template-sub', has(g.goals_from_template) ? `${g.goals_from_template} de ${g.total_goals}, resto personal` : '');
+            setText('k-goals-witness-pct', has(g.goals_with_accepted_witness_pct) ? g.goals_with_accepted_witness_pct + '%' : undefined);
+            setText('k-goals-witness-sub', has(g.goals_with_pending_witness) ? `+ ${g.goals_with_pending_witness} con invitación pendiente` : '');
             const gs = arr(g.goals_by_status);
             makeChart('c-goals-status', gs.map(x => x.label), barConfig(gs.map(x => x.label), gs.map(x => x.count)));
             const gc = arr(g.goals_by_context);
@@ -755,6 +812,10 @@ sitemap: false
             setNum('k-p-pro', p.pro_count); setNum('k-p-nonpro', p.non_pro_count); setNum('k-p-proexp', p.pro_expired);
             setText('k-p-avg-rating', p.avg_rating); setText('k-p-avg-ratings', p.avg_ratings_count);
             setNum('k-p-closing', p.closing_count);
+            setText('k-p-svc-pros-pct', has(p.pros_with_services_pct) ? p.pros_with_services_pct + '%' : undefined);
+            setText('k-p-svc-pros-sub', has(p.pros_with_services) ? `${p.pros_with_services} de ${p.total}` : '');
+            setText('k-p-rec-pros-pct', has(p.pros_with_recurring_classes_pct) ? p.pros_with_recurring_classes_pct + '%' : undefined);
+            setText('k-p-rec-pros-sub', has(p.pros_with_recurring_classes) ? `${p.pros_with_recurring_classes} de ${p.total}` : '');
 
             setNum('k-p-avatar', p.with_avatar); setNum('k-p-video', p.with_video);
             setNum('k-p-website', p.with_website); setNum('k-p-ig', p.with_instagram); setNum('k-p-ln', p.with_linkedin);
@@ -764,6 +825,10 @@ sitemap: false
             makeChart('c-p-contact', contact.map(x => x.label), doughnutConfig(contact.map(x => x.label), contact.map(x => x.count)));
             const prof = arr(p.by_profession);
             makeChart('c-p-profession', prof.map(x => x.profession_name), hBarConfig(prof.map(x => x.profession_name), prof.map(x => x.count), PALETTE[0]));
+            const svcProf = arr(p.services_by_profession);
+            makeChart('c-p-svc-profession', svcProf.map(x => x.profession_name), hBarConfig(svcProf.map(x => x.profession_name), svcProf.map(x => x.count), PALETTE[2]));
+            const recProf = arr(p.recurring_classes_by_profession);
+            makeChart('c-p-rec-profession', recProf.map(x => x.profession_name), hBarConfig(recProf.map(x => x.profession_name), recProf.map(x => x.count), PALETTE[1]));
             const pctry = arr(p.by_country);
             makeChart('c-p-country', pctry.map(x => x.label), hBarConfig(pctry.map(x => x.label), pctry.map(x => x.count), PALETTE[1]));
 
@@ -938,6 +1003,15 @@ sitemap: false
                 document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
                 $(tab.dataset.panel).classList.add('active');
                 // charts rendered while their panel was hidden start at 0px; resize on reveal
+                requestAnimationFrame(() => Object.values(charts).forEach(c => { try { c.resize(); } catch (_) {} }));
+            });
+        });
+
+        // Detalles colapsables: los charts adentro arrancan en 0px si se crearon
+        // mientras el <details> estaba cerrado; hay que resizearlos al abrir.
+        document.querySelectorAll('.detail-block').forEach(block => {
+            block.addEventListener('toggle', () => {
+                if (!block.open) return;
                 requestAnimationFrame(() => Object.values(charts).forEach(c => { try { c.resize(); } catch (_) {} }));
             });
         });

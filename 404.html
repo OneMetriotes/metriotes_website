@@ -209,7 +209,7 @@
 
             // Acepta los links canónicos /app/event|professional/<hash> y los
             // viejos de raíz /event|professional/<hash> (retrocompat).
-            var m = path.match(/^\/(?:app\/)?(event|professional)\/([^\/?#]+)/);
+            var m = path.match(/^\/(?:app\/)?(event|professional)\/([^\/?#]+)(\/review)?/);
 
             var generic = document.getElementById('landing-generic');
             var share = document.getElementById('landing-share');
@@ -221,9 +221,12 @@
 
             var kind = m[1];   // 'event' | 'professional'
             var hash = m[2];
+            // /app/professional/<hash>/review (QR de valoración): abre el perfil
+            // con el formulario de reseña, sin cuenta.
+            var isReview = kind === 'professional' && !!m[3];
             // La web app (metriotes.com/app/) lee este query param al arrancar
             // y renderiza el detalle público sin pedir login.
-            var webUrl = '/app/?' + kind + '=' + encodeURIComponent(hash);
+            var webUrl = '/app/?' + kind + '=' + encodeURIComponent(hash) + (isReview ? '&review=1' : '');
             var appScheme = 'metriotes://' + kind + '/' + hash;
 
             // Textos según el tipo de contenido.
@@ -234,6 +237,10 @@
                 if (eyebrow) eyebrow.textContent = 'Evento';
                 if (title) title.textContent = 'Abriendo el evento…';
                 if (lead) lead.textContent = 'Te llevamos al evento en Metriotes. Si no carga en un momento, toca el botón.';
+            } else if (isReview) {
+                if (eyebrow) eyebrow.textContent = 'Valoración';
+                if (title) title.textContent = 'Abriendo el formulario…';
+                if (lead) lead.textContent = 'Te llevamos al perfil para que dejes tu valoración. Si no carga en un momento, toca el botón.';
             } else {
                 if (eyebrow) eyebrow.textContent = 'Perfil profesional';
                 if (title) title.textContent = 'Abriendo el perfil…';
@@ -249,7 +256,7 @@
             // esos intentamos el custom scheme (en Safari/Chrome normales el
             // universal link ya tuvo su chance antes de llegar acá, y disparar
             // el scheme ahí tira un error molesto si la app no está instalada).
-            var isInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|MessengerLiteForiOS|Messenger|WhatsApp|Line|Snapchat|TikTok|LinkedInApp/i.test(ua);
+            var isInAppBrowser = !isReview &&  /Instagram|FBAN|FBAV|FB_IAB|FBIOS|MessengerLiteForiOS|Messenger|WhatsApp|Line|Snapchat|TikTok|LinkedInApp/i.test(ua);
 
             var delay = 300;
             if (isInAppBrowser) {

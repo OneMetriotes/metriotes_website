@@ -276,6 +276,18 @@ sitemap: false
         </div>
 
         <main>
+            <!-- Pendientes de revisión: visible en todas las pestañas -->
+            <section id="review-banner">
+                <div class="kpi-grid">
+                    <div class="kpi kpi--hero">
+                        <div class="label">Desafíos y objetivos en revisión</div>
+                        <div class="value" id="k-review-pending">–</div>
+                        <div class="sub" id="k-review-sub"></div>
+                        <div class="sub"><a id="review-link" href="#" target="_blank" rel="noopener" style="color: var(--primary-2); font-weight: 600; text-decoration: none;">Revisarlos en el admin →</a></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- ========================= USUARIOS ========================= -->
             <div id="panel-users" class="tab-panel active">
                 <section>
@@ -928,6 +940,17 @@ sitemap: false
             setNum('k-b-closing', p.closing_count); setNum('k-b-scheduled', p.scheduled_deletion_count);
         }
 
+        function renderReview() {
+            const r = stats.template_review || {};
+            setNum('k-review-pending', r.pending);
+            const el = $('k-review-pending');
+            if (el) el.className = 'value ' + ((r.pending || 0) > 0 ? 'warn' : 'good');
+            $('k-review-sub').textContent = (r.pending || 0) > 0
+                ? `${r.pending_challenges || 0} desafíos · ${r.pending_objectives || 0} objetivos modelo`
+                : 'Nada pendiente';
+            $('review-link').href = `${API_BASE}/admin/store/templategoalreview/`;
+        }
+
         function renderDashboard() {
             Chart.defaults.color = '#8fa096';
             Chart.defaults.borderColor = GRID;
@@ -937,6 +960,7 @@ sitemap: false
             Chart.defaults.plugins.tooltip.padding = 10;
             Chart.defaults.plugins.tooltip.cornerRadius = 10;
             destroyCharts();
+            renderReview();
             renderUsers();
             renderProfessionals();
             renderBusiness();

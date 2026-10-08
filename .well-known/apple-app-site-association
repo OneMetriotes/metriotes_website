@@ -10,7 +10,9 @@
           "/professional/*",
           "/event/*",
           "/app/professional/*",
-          "/app/event/*"
+          "/app/event/*",
+          "/app/group/*",
+          "/app/tournament/*"
         ]
       }
     ]

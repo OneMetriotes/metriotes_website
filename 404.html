@@ -207,9 +207,18 @@
             var path = window.location.pathname || '';
             var ua = navigator.userAgent || '';
 
+            // Resultados públicos de un torneo: /app/tournament/results/<token>.
+            // Es una página estática propia (no la web app), así que se redirige
+            // antes de evaluar el resto de los links compartidos.
+            var res = path.match(/^\/(?:app\/)?tournament\/results\/([^\/?#]+)/);
+            if (res) {
+                window.location.replace('/tournament-results.html?t=' + encodeURIComponent(res[1]));
+                return;
+            }
+
             // Acepta los links canónicos /app/event|professional/<hash> y los
             // viejos de raíz /event|professional/<hash> (retrocompat).
-            var m = path.match(/^\/(?:app\/)?(event|professional)\/([^\/?#]+)(\/review)?/);
+            var m = path.match(/^\/(?:app\/)?(event|professional|group|tournament)\/([^\/?#]+)(\/review)?/);
 
             var generic = document.getElementById('landing-generic');
             var share = document.getElementById('landing-share');
@@ -233,7 +242,15 @@
             var eyebrow = document.getElementById('share-eyebrow');
             var title = document.getElementById('share-title');
             var lead = document.getElementById('share-lead');
-            if (kind === 'event') {
+            if (kind === 'tournament') {
+                if (eyebrow) eyebrow.textContent = 'Torneo';
+                if (title) title.textContent = 'Abriendo el torneo…';
+                if (lead) lead.textContent = 'Te llevamos al torneo en Metriotes para que te inscribas. Si no carga en un momento, toca el botón.';
+            } else if (kind === 'group') {
+                if (eyebrow) eyebrow.textContent = 'Grupo';
+                if (title) title.textContent = 'Abriendo el grupo…';
+                if (lead) lead.textContent = 'Te llevamos al grupo en Metriotes. Si no carga en un momento, toca el botón.';
+            } else if (kind === 'event') {
                 if (eyebrow) eyebrow.textContent = 'Evento';
                 if (title) title.textContent = 'Abriendo el evento…';
                 if (lead) lead.textContent = 'Te llevamos al evento en Metriotes. Si no carga en un momento, toca el botón.';

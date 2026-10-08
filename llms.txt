@@ -1,0 +1,32 @@
+# Metriotes
+
+> Metriotes es una app para convertir tus valores en objetivos y hábitos, y encontrar profesionales de bienestar (psicólogos, coaches, instructores de pilates y yoga, profesores de idiomas, nutricionistas, entrenadores) en tu ciudad. Disponible en iOS, Android y web. Gratis para empezar.
+
+## Directorio de profesionales
+- [Pilates](https://metriotes.com/profesionales/pilates/): Pilates en estudio, en casa o en el parque. Compara perfiles reales, revisa reseñas y reserva tu clase sin intermediarios.
+- [Yoga](https://metriotes.com/profesionales/yoga/): Encuentra un estilo y una persona que te acompañe. Clases en estudio, al aire libre o desde casa.
+- [Meditación y mindfulness](https://metriotes.com/profesionales/meditacion-mindfulness/): Aprende a meditar con guía real, en grupo o de forma individual, y conviértelo en un hábito que dure.
+- [Idiomas](https://metriotes.com/profesionales/idiomas/): Clases particulares o en grupo con profesores reales, online o en tu ciudad. Elige por objetivo, nivel y horario.
+- [Psicología y terapia](https://metriotes.com/profesionales/psicologos/): Un primer paso más fácil: perfiles claros, especialidades visibles y reserva de sesión en la misma app donde llevas tu proceso.
+- [Coaching y mentoría](https://metriotes.com/profesionales/coaching/): Alguien que te ayude a ordenar lo que quieres, definir pasos concretos y sostenerlos en el tiempo.
+- [Nutrición](https://metriotes.com/profesionales/nutricion/): Un plan de alimentación hecho para ti, que recibes en tu móvil y puedes seguir comida por comida.
+- [Entrenamiento personal](https://metriotes.com/profesionales/entrenadores/): Rutinas hechas para tu nivel y tu objetivo, con seguimiento real de cada entrenamiento.
+- [Fisioterapia y terapias manuales](https://metriotes.com/profesionales/fisioterapia/): Cuida tu cuerpo con profesionales de tu zona y reserva tu cita de forma sencilla.
+- [Música, arte y danza](https://metriotes.com/profesionales/musica-arte-danza/): Aprende un instrumento, retoma el dibujo o súmate a una clase de baile con profesores independientes de tu ciudad.
+
+## Guías
+- [App para gestionar clases, reservas y pagos: qué debe tener](https://metriotes.com/blog/app-para-gestionar-clases-y-reservas/): Qué buscar en una app para gestionar clases, reservas, clientes y cobros si eres profesor, entrenador o terapeuta independiente. Checklist y comparación.
+- [Clases de pilates y yoga al aire libre: cómo encontrar una en tu parque](https://metriotes.com/blog/clases-al-aire-libre-pilates-yoga/): Todo sobre las clases de pilates y yoga en parques y playas: beneficios, qué llevar, cómo encontrar instructoras cerca de ti y qué preguntar antes de apuntarte.
+- [Cómo conseguir alumnos si eres instructor o profesor independiente](https://metriotes.com/blog/como-conseguir-alumnos-instructor-independiente/): Estrategias reales para conseguir tus primeros alumnos y clientes siendo profesor independiente: perfil, visibilidad local, reseñas, eventos y reservas online.
+- [Cómo crear hábitos que duran: del objetivo a la rutina diaria](https://metriotes.com/blog/como-crear-habitos-que-duran/): Un método simple para crear hábitos que se mantienen: parte de tus valores, empieza pequeño, ata el hábito a algo que ya haces y mide tu constancia.
+- [Cómo definir objetivos con propósito (y no abandonarlos en febrero)](https://metriotes.com/blog/como-definir-objetivos-con-proposito/): Un método de cuatro pasos para definir objetivos personales con sentido: parte de tus valores, divide en pasos, crea hábitos y revisa cada semana.
+- [Cómo elegir profesor o profesora de pilates (guía práctica)](https://metriotes.com/blog/como-elegir-profesor-pilates/): Qué preguntar, qué mirar y cómo comparar instructoras de pilates antes de reservar: método, grupo, lesiones, precio y lugar. Guía clara para elegir bien.
+- [Cómo elegir psicólogo y qué esperar de la primera sesión](https://metriotes.com/blog/como-elegir-psicologo-primera-sesion/): Qué diferencia a un psicólogo, un psicoterapeuta y un psiquiatra, qué enfoque elegir, cómo preparar la primera sesión y qué preguntar para saber si conectas.
+- [Cómo empezar yoga desde cero: guía para principiantes](https://metriotes.com/blog/como-empezar-yoga-guia-principiantes/): Qué estilo de yoga elegir, qué necesitas para tu primera clase, errores comunes y cómo encontrar una instructora que te acompañe. Guía paso a paso.
+- [Cómo encontrar un buen profesor de idiomas particular](https://metriotes.com/blog/como-encontrar-profesor-idiomas-particular/): Online o presencial, individual o grupal, nivel nativo o titulado: criterios para elegir profesor de idiomas particular, preguntas clave y cómo comparar precios.
+- [Diario de gratitud: cómo empezar y qué escribir (con ejemplos)](https://metriotes.com/blog/diario-de-gratitud-como-empezar/): Cómo llevar un diario de gratitud en 3 minutos al día: pasos, preguntas para empezar, ejemplos y errores comunes. Un hábito simple con efecto real en el ánimo.
+- [Qué es un coach de vida y cuándo conviene trabajar con uno](https://metriotes.com/blog/que-es-un-coach-de-vida/): Qué hace un coach de vida, en qué se diferencia de un terapeuta o un mentor, cómo es un proceso y qué preguntar antes de contratar uno.
+
+## Más
+- [Inicio](https://metriotes.com/)
+- [Eventos y clases](https://metriotes.com/eventos/)

@@ -1,0 +1,27 @@
+name: Regenerar páginas SEO
+
+# Vuelve a generar blog, directorio, fichas de profesionales, eventos y sitemap
+# con los datos en vivo de la API pública. Corre cada día y a mano.
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/seo/build.py
+      - name: Commit si hay cambios
+        run: |
+          git config user.name "metriotes-seo-bot"
+          git config user.email "info@metriotes.com"
+          git add -A blog profesionales perfil eventos sitemap.xml robots.txt llms.txt
+          if git diff --cached --quiet; then echo "Sin cambios"; else git commit -m "chore(seo): regenerar páginas y sitemap" && git push; fi

@@ -50,6 +50,16 @@ Google Fonts: **Kalnia** + **Poppins** (consistente con la app Flutter).
 
 ---
 
+## SEO (páginas generadas)
+
+`python3 tools/seo/build.py` (stdlib, lee la API pública) regenera por completo `blog/`, `profesionales/`, `perfil/`, `eventos/`, `sitemap.xml`, `robots.txt` y `llms.txt`. **No editar esos archivos a mano**: se pisan. Un GitHub Action (`.github/workflows/seo-build.yml`) lo corre cada día.
+
+- Artículos: `tools/seo/articles/<slug>.md` (front matter `title`, `description`, `date`, `tag`, `related` = slug de categoría). Sin guiones largos, tuteo neutro.
+- Categorías del directorio: `tools/seo/categories.py` (`match` = fragmentos del nombre de la profesión en el backend).
+- Páginas de ciudad y fichas sólo existen si hay profesionales reales (`is_visible`, bio ≥ 80 caracteres). Nunca se publican email/teléfono.
+- CSS compartido: `assets/seo.css`. La landing (`index.html`) sigue siendo manual.
+- La web app Flutter (`/app/`) es `noindex`: es un canvas que Google no lee.
+
 ## Estilos
 
 - CSS inline en `<style>` dentro de cada HTML

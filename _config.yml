@@ -2,3 +2,8 @@
 include:
   - .well-known
   - apple-app-site-association
+# Herramientas de build, no se publican
+exclude:
+  - tools
+  - AGENTS.md
+  - README.md

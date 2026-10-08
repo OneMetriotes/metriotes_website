@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+# /app/ (la web app de Flutter, un lienzo sin texto indexable) NO se bloquea acá a
+# propósito: lleva <meta name="robots" content="noindex"> y para que Google lo lea
+# tiene que poder rastrearla. Sus equivalentes públicos viven en /perfil/,
+# /eventos/ y /profesionales/.
+Disallow: /design-system/
+Disallow: /dashboard.html
+Disallow: /tournament-results.html
+
+# Rastreadores de IA y buscadores conversacionales: permitidos.
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://metriotes.com/sitemap.xml

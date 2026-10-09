@@ -12,7 +12,8 @@
           "/app/professional/*",
           "/app/event/*",
           "/app/group/*",
-          "/app/tournament/*"
+          "/app/tournament/*",
+          "/app/challenge/*"
         ]
       }
     ]

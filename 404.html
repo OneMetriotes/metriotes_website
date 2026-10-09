@@ -218,7 +218,13 @@
 
             // Acepta los links canónicos /app/event|professional/<hash> y los
             // viejos de raíz /event|professional/<hash> (retrocompat).
-            var m = path.match(/^\/(?:app\/)?(event|professional|group|tournament)\/([^\/?#]+)(\/review)?/);
+            var m = path.match(/^\/(?:app\/)?(event|professional|group|tournament|challenge)\/([^\/?#]+)(\/review)?/);
+            // /app/challenge/<hash>[/<token>]: edición de un desafío (el token solo en las cerradas).
+            var challengeToken = null;
+            if (m && m[1] === 'challenge') {
+                var ct = path.match(/^\/(?:app\/)?challenge\/[^\/?#]+\/([^\/?#]+)/);
+                challengeToken = ct ? ct[1] : null;
+            }
 
             var generic = document.getElementById('landing-generic');
             var share = document.getElementById('landing-share');
@@ -235,14 +241,19 @@
             var isReview = kind === 'professional' && !!m[3];
             // La web app (metriotes.com/app/) lee este query param al arrancar
             // y renderiza el detalle público sin pedir login.
-            var webUrl = '/app/?' + kind + '=' + encodeURIComponent(hash) + (isReview ? '&review=1' : '');
-            var appScheme = 'metriotes://' + kind + '/' + hash;
+            var webUrl = '/app/?' + kind + '=' + encodeURIComponent(hash) + (isReview ? '&review=1' : '') +
+                (challengeToken ? '&token=' + encodeURIComponent(challengeToken) : '');
+            var appScheme = 'metriotes://' + kind + '/' + hash + (challengeToken ? '/' + challengeToken : '');
 
             // Textos según el tipo de contenido.
             var eyebrow = document.getElementById('share-eyebrow');
             var title = document.getElementById('share-title');
             var lead = document.getElementById('share-lead');
-            if (kind === 'tournament') {
+            if (kind === 'challenge') {
+                if (eyebrow) eyebrow.textContent = 'Desafío';
+                if (title) title.textContent = 'Abriendo el desafío…';
+                if (lead) lead.textContent = 'Te llevamos al desafío en Metriotes para que veas de qué se trata y te sumes. Si no carga en un momento, toca el botón.';
+            } else if (kind === 'tournament') {
                 if (eyebrow) eyebrow.textContent = 'Torneo';
                 if (title) title.textContent = 'Abriendo el torneo…';
                 if (lead) lead.textContent = 'Te llevamos al torneo en Metriotes para que te inscribas. Si no carga en un momento, toca el botón.';

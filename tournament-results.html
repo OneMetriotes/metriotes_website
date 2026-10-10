@@ -152,6 +152,7 @@
         .side.win .n { font-weight: 700; }
         .side .sc { min-width: 1.4rem; text-align: center; font-variant-numeric: tabular-nums; }
         .side.win .sc { font-weight: 800; }
+        .side .sc.pt { margin-left: 0.35rem; padding: 0 0.3rem; border-radius: 6px; font-weight: 800; color: var(--terra); background: rgba(0,0,0,0.05); }
         .side .tag { font-size: 0.7rem; font-weight: 700; color: var(--terra); }
 
         /* Llave */
@@ -168,6 +169,10 @@
         .bracket .bm .foot { font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .empty { text-align: center; color: var(--text-secondary); padding: 3rem 1rem; }
+        .app-banner { margin-top: 1rem; }
+        .app-banner .app-title { font-weight: 800; margin-bottom: 0.25rem; }
+        .app-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.8rem; }
+        .app-actions .store { font-size: 0.85rem; font-weight: 700; color: var(--terra); text-decoration: none; padding: 0.35rem 0.2rem; }
         .cta { margin-top: 2.5rem; text-align: center; }
         .cta p { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0.9rem; }
         .btn {
@@ -204,6 +209,15 @@
                 <div class="muted" id="organizer"></div>
                 <div class="muted" id="updated"></div>
             </div>
+            <div class="card app-banner">
+                <p class="app-title" data-i18n="app-title">Síguelo en vivo en la app</p>
+                <p class="muted" data-i18n="app-body">Marcador punto a punto, avisos de tus partidos y la imagen para compartir tus resultados.</p>
+                <div class="app-actions">
+                    <a class="btn" id="open-app" href="#" data-i18n="app-open">Abrir en la app</a>
+                    <a class="store" href="https://apple.co/3LX7yom" target="_blank" rel="noopener">App Store</a>
+                    <a class="store" href="https://play.google.com/store/apps/details?id=com.metriotes.metriotes_front" target="_blank" rel="noopener">Google Play</a>
+                </div>
+            </div>
             <div class="tabs" id="tabs"></div>
             <div id="division"></div>
 
@@ -222,6 +236,9 @@
 
         var T = {
             es: {
+                'app-title': 'Síguelo en vivo en la app',
+                'app-body': 'Marcador punto a punto, avisos de tus partidos y la imagen para compartir tus resultados.',
+                'app-open': 'Abrir en la app',
                 'loading': 'Cargando resultados...',
                 'unavailable-title': 'Resultados no disponibles',
                 'unavailable-body': 'El link no existe o el organizador desactivó los resultados públicos.',
@@ -245,6 +262,9 @@
                 sports: { padel: 'Pádel', tennis: 'Tenis', volley: 'Vóley', football: 'Fútbol', basketball: 'Básquet', other: 'Torneo' }
             },
             en: {
+                'app-title': 'Follow it live in the app',
+                'app-body': 'Point by point scoring, alerts for your matches and an image to share your results.',
+                'app-open': 'Open in the app',
                 'loading': 'Loading results...',
                 'unavailable-title': 'Results not available',
                 'unavailable-body': 'The link does not exist or the organizer turned off public results.',
@@ -292,6 +312,11 @@
 
         // Token: ?t=... (redirect de 404.html) o el último segmento del path.
         var token = new URLSearchParams(location.search).get('t');
+        // Si la app está instalada abre los resultados ahí (custom scheme).
+        if (token) {
+            var openApp = document.getElementById('open-app');
+            if (openApp) openApp.href = 'metriotes://tournament/results/' + encodeURIComponent(token);
+        }
         if (!token) {
             var m = location.pathname.match(/\/results\/([^\/?#]+)/);
             if (m) token = decodeURIComponent(m[1]);
@@ -354,6 +379,17 @@
             var win = m.winner_entry_id && side && m.winner_entry_id === side.entry_id;
             var sc = (m.games || []).map(function (g) { return '<span class="sc">' + g['score_' + which] + '</span>'; }).join('');
             var tag = (m.status === 'walkover' && win) ? '<span class="tag">' + esc(t('walkover')) + '</span>' : '';
+            // En juego: sets cerrados + el set en curso y, en tenis/pádel, el punto del game.
+            var lv = m.live;
+            if (lv && lv.state) {
+                var s = lv.state, f = lv.format || {}, i = which === 'a' ? 0 : 1;
+                var nums = (s.sets || []).map(function (x) { return x[which]; });
+                if (f.kind === 'single' || f.kind === 'free') nums = [s.points[i]];
+                else if (!s.finished) nums.push(f.kind === 'sets' && s.mode !== 'super' ? s.games[i] : s.points[i]);
+                sc = nums.map(function (v) { return '<span class="sc">' + v + '</span>'; }).join('');
+                if (f.kind === 'sets' && !s.finished && lv.started) sc += '<span class="sc pt">' + esc(s.display[i]) + '</span>';
+                if (s.server === which) name = '\u25CF ' + name;
+            }
             return '<div class="side' + (side ? '' : ' tbd') + (win ? ' win' : '') + '"><span class="n">' + esc(name) + '</span>' + tag + sc + '</div>';
         }
 
@@ -539,8 +575,19 @@
 
         applyLang();
         load(false);
-        // Resultados en vivo: se refresca solo.
-        setInterval(function () { if (!document.hidden) load(true); }, 60000);
+        // Resultados en vivo: se refresca solo; cada 10 s si hay partidos en juego.
+        var ticks = 0;
+        function anyLive() {
+            return !!data && (data.divisions || []).some(function (d) {
+                var f = flatten(d);
+                return f.ko.concat(f.rr).some(function (m) { return m.status === 'live'; });
+            });
+        }
+        setInterval(function () {
+            ticks++;
+            if (document.hidden) return;
+            if (anyLive() || ticks % 6 === 0) load(true);
+        }, 10000);
     })();
     </script>
 </body>

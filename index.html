@@ -3830,6 +3830,203 @@
             .feat-compass-orbit, .feat-compass-orbit .feat-compass-marker { animation: none !important; }
             .sticky-cta { transition: none; }
         }
+
+        /* ═══ Profesionales: qué arma cada profesión ═══ */
+        .pt { margin: 2.25rem 0 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); }
+        .pt-intro { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
+        .pt-intro .pros-audience-label { width: auto; margin: 0; }
+        .pt-intro-text { margin: 0; max-width: 560px; color: rgba(255,255,255,0.68); font-size: 0.95rem; }
+        .pt-tabs {
+            position: relative;
+            display: flex;
+            gap: 0.25rem;
+            margin: 1.25rem 0 1.5rem;
+            padding: 0.3rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.09);
+            overflow-x: auto;
+            scrollbar-width: none;
+            scroll-snap-type: x proximity;
+        }
+        .pt-tabs::-webkit-scrollbar { display: none; }
+        .pt-tab {
+            position: relative;
+            z-index: 1;
+            flex: 1 0 auto;
+            padding: 0.7rem 1.1rem;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            font: 500 0.9rem/1 'Poppins', sans-serif;
+            white-space: nowrap;
+            cursor: pointer;
+            scroll-snap-align: center;
+            transition: color 300ms var(--ease-out);
+        }
+        .pt-tab:hover { color: #FFFFFF; }
+        .pt-tab.is-active { color: #FFFFFF; font-weight: 600; }
+        .pt-tab:focus-visible { outline: 2px solid #FF9F43; outline-offset: 2px; }
+        .pt-tab-indicator {
+            position: absolute;
+            z-index: 0;
+            top: 0.3rem;
+            bottom: 0.3rem;
+            left: 0;
+            width: var(--w, 0px);
+            transform: translateX(var(--x, 0px));
+            border-radius: 999px;
+            background: var(--grad-brand);
+            box-shadow: 0 10px 30px -10px rgba(255,90,54,0.8);
+            transition: transform 550ms var(--ease-spring), width 550ms var(--ease-spring);
+        }
+        .pt-stage {
+            position: relative;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.09);
+            background:
+                radial-gradient(90% 120% at 100% 0%, rgba(139,92,246,0.16), transparent 55%),
+                radial-gradient(80% 120% at 0% 100%, rgba(255,90,54,0.14), transparent 55%),
+                linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+            overflow: hidden;
+        }
+        .pt-panel {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem;
+        }
+        .pt-stage { display: grid; grid-template-columns: minmax(0, 1fr); }
+        .pt-panel { grid-area: 1 / 1; min-width: 0; }
+        .pt-copy, .pt-mock { min-width: 0; }
+        .pt-panel[hidden] { display: grid; visibility: hidden; }
+        .pt-copy h3 {
+            font-family: 'Kalnia', Georgia, serif;
+            font-weight: 600;
+            font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+            line-height: 1.12;
+            color: #FFFFFF;
+            margin: 0.6rem 0 0.9rem;
+            text-wrap: balance;
+        }
+        .pt-desc { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.6; margin: 0 0 1.4rem; }
+        .pt-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+        .pt-list li { display: flex; gap: 0.7rem; align-items: flex-start; color: rgba(255,255,255,0.88); font-size: 0.95rem; line-height: 1.45; }
+        .pt-li-ico {
+            flex: none;
+            display: inline-grid;
+            place-items: center;
+            width: 22px;
+            height: 22px;
+            margin-top: 1px;
+            border-radius: 50%;
+            background: var(--grad-brand);
+            color: #FFFFFF;
+        }
+        .pt-li-ico svg { width: 13px; height: 13px; }
+
+        /* Maqueta del móvil */
+        .pt-mock {
+            position: relative;
+            justify-self: end;
+            width: 100%;
+            max-width: 340px;
+            min-height: 380px;
+            padding: 1.25rem;
+            background: linear-gradient(180deg, #221A28, #14101A);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 22px;
+            box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+            color: #FFFFFF;
+        }
+        .pt-mock-head { margin-bottom: 0.9rem; }
+        .pt-mock-head--person { display: flex; gap: 0.75rem; align-items: center; }
+        .pt-mock-title { display: block; font-family: 'Kalnia', Georgia, serif; font-weight: 600; font-size: 1.15rem; }
+        .pt-mock-sub { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 0.15rem; }
+        .pt-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--grad-brand); font-weight: 600; }
+        .pt-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.65rem 0.75rem;
+            margin-bottom: 0.45rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .pt-row--tight { padding: 0.5rem 0.7rem; margin-bottom: 0.35rem; }
+        .pt-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
+        .pt-label { display: block; font-size: 0.68rem; color: rgba(255,255,255,0.55); letter-spacing: 0.02em; }
+        .pt-val { display: block; font-size: 0.82rem; font-weight: 500; color: #FFFFFF; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pt-anon { font-style: italic; color: rgba(255,255,255,0.7); }
+        .pt-badge { flex: none; font-size: 0.65rem; font-weight: 600; padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap; }
+        .pt-badge--ok { background: rgba(72,199,142,0.18); color: #7FE0B4; }
+        .pt-badge--alt { background: rgba(255,159,67,0.18); color: #FFC285; }
+        .pt-badge--warn { background: rgba(236,77,122,0.2); color: #FF9DB9; }
+        .pt-badge--wait { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); }
+        .pt-alt { margin: -0.2rem 0 0.5rem 0.75rem; font-size: 0.7rem; color: rgba(255,255,255,0.5); font-style: italic; }
+        .pt-check { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); color: transparent; }
+        .pt-check svg { width: 13px; height: 13px; }
+        .pt-check.is-done { background: var(--grad-brand); border-color: transparent; color: #FFFFFF; }
+        .pt-progress { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin: 0.8rem 0 0.4rem; }
+        .pt-progress-bar { height: 100%; width: var(--p); border-radius: inherit; background: var(--grad-brand); transform-origin: left; }
+        .pt-progress-label { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.55); }
+        .pt-sec { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #FFB27A; margin: 0.6rem 0 0.35rem; }
+        .pt-run {
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            margin-top: 0.8rem; padding: 0.7rem; border-radius: 999px;
+            background: var(--grad-brand); font-weight: 600; font-size: 0.85rem;
+        }
+        .pt-run-dot { width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; animation: pt-pulse 1.6s ease-in-out infinite; }
+        @keyframes pt-pulse { 50% { transform: scale(1.8); opacity: 0.4; } }
+        .pt-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; margin-bottom: 0.6rem; }
+        .pt-kpis > div { padding: 0.6rem 0.4rem; border-radius: 12px; background: rgba(255,255,255,0.05); text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.55); }
+        .pt-kpis b { display: block; font-size: 0.95rem; color: #FFFFFF; margin-bottom: 0.1rem; }
+        .pt-kpis b.pt-ok { display: grid; place-items: center; height: 1.2rem; color: #7FE0B4; }
+        .pt-kpis b.pt-ok svg { width: 16px; height: 16px; }
+        .pt-note { padding: 0.7rem 0.8rem; margin-bottom: 0.45rem; border-radius: 12px; background: rgba(255,255,255,0.05); border-left: 3px solid #FF5A36; }
+        .pt-note .pt-val { white-space: normal; font-weight: 400; line-height: 1.4; margin-top: 0.15rem; }
+        .pt-note--typing { border-left-color: #8B5CF6; }
+        .pt-rank { display: grid; grid-template-columns: 1.2rem 5.2rem 1fr 2.4rem; align-items: center; gap: 0.5rem; padding: 0.55rem 0.6rem; margin-bottom: 0.35rem; border-radius: 12px; background: rgba(255,255,255,0.05); }
+        .pt-rank-n { font-weight: 700; font-size: 0.8rem; color: #FFB27A; }
+        .pt-rank-bar, .pt-seats-bar { display: block; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+        .pt-rank-bar > span, .pt-seats-bar > span { display: block; height: 100%; width: var(--p); background: var(--grad-brand); border-radius: inherit; transform-origin: left; }
+        .pt-rank-pc { font-size: 0.72rem; text-align: right; color: rgba(255,255,255,0.75); }
+        .pt-seats { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 0.2rem; width: 3.6rem; }
+        .pt-seats-bar { width: 100%; }
+        .pt-seats-n { font-size: 0.65rem; color: rgba(255,255,255,0.6); }
+
+        /* Entrada al cambiar de pestaña */
+        .pt-panel.is-entering .pt-copy > *, .pt-panel.is-entering .pt-list li { animation: pt-up 600ms var(--ease-spring) both; animation-delay: calc(var(--i, 0) * 60ms + 60ms); }
+        .pt-panel.is-entering .pt-copy > :nth-child(1) { --i: 0; }
+        .pt-panel.is-entering .pt-copy > :nth-child(2) { --i: 1; }
+        .pt-panel.is-entering .pt-copy > :nth-child(3) { --i: 2; }
+        .pt-panel.is-entering .pt-list li { animation-delay: calc(var(--i) * 70ms + 260ms); }
+        .pt-panel.is-entering .pt-mock { animation: pt-mock-in 700ms var(--ease-spring) both; }
+        .pt-panel.is-entering .pt-mock [style*="--i"] { animation: pt-up 520ms var(--ease-spring) both; animation-delay: calc(var(--i) * 80ms + 220ms); }
+        .pt-panel.is-entering .pt-progress-bar,
+        .pt-panel.is-entering .pt-rank-bar > span,
+        .pt-panel.is-entering .pt-seats-bar > span { animation: pt-grow 1100ms var(--ease-spring) both; animation-delay: 500ms; }
+        .pt-panel.is-entering .pt-check.is-done, .pt-panel.is-entering .pt-badge { animation: pt-pop 500ms var(--ease-spring) both; animation-delay: 700ms; }
+        .pt-panel.is-entering .pt-typing { animation: pt-type 1.4s steps(30) both; animation-delay: 700ms; }
+        @keyframes pt-up { from { opacity: 0; transform: translateY(14px); } }
+        @keyframes pt-mock-in { from { opacity: 0; transform: translateY(24px) rotate(2deg) scale(0.96); } }
+        @keyframes pt-grow { from { transform: scaleX(0); } }
+        @keyframes pt-pop { from { opacity: 0; transform: scale(0.4); } }
+        @keyframes pt-type { from { clip-path: inset(0 100% 0 0); } }
+
+        @media (max-width: 900px) {
+            .pt-panel { grid-template-columns: minmax(0, 1fr); gap: 2rem; padding: 1.75rem 1.25rem; }
+            .pt-mock { justify-self: center; min-height: 0; }
+            .pt-tabs { border-radius: 16px; margin-left: -2px; margin-right: -2px; }
+            .pt-tab { flex: 0 0 auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pt-tab-indicator { transition: none; }
+            .pt-panel.is-entering *, .pt-run-dot { animation: none !important; }
+        }
     </style>
 </head>
 
@@ -4490,19 +4687,20 @@
                 <p class="section-sub" data-reveal style="--index:2" data-i18n="pros-sub">Deja de saltar entre Instagram, WhatsApp, hojas de cálculo y Calendly. Metriotes reúne tu perfil, tus servicios, tu calendario, tus clientes y el plan que les armas en un solo lugar, en el móvil y en el ordenador, para que dediques tu tiempo a lo que haces mejor.</p>
             </div>
 
-            <div class="pros-audience" data-reveal style="--index:3">
-                <div class="pros-audience-label" data-i18n="pros-audience-label">Diseñado para</div>
-                <span class="pros-chip" data-i18n="audience-coach">Coaches</span>
-                <span class="pros-chip" data-i18n="audience-psy">Psicólogos</span>
-                <span class="pros-chip" data-i18n="audience-nutri">Nutricionistas</span>
-                <span class="pros-chip" data-i18n="audience-yoga">Instructores de yoga</span>
-                <span class="pros-chip" data-i18n="audience-pilates">Pilates</span>
-                <span class="pros-chip" data-i18n="audience-fitness">Personal trainers</span>
-                <span class="pros-chip" data-i18n="audience-mindfulness">Meditación y mindfulness</span>
-                <span class="pros-chip" data-i18n="audience-lang">Profesores de idiomas</span>
-                <span class="pros-chip" data-i18n="audience-music">Profesores de música</span>
-                <span class="pros-chip" data-i18n="audience-therapy">Terapeutas y fisios</span>
-                <span class="pros-chip" data-i18n="audience-more">y más</span>
+            <div class="pt" id="por-profesion" data-reveal style="--index:3">
+                <div class="pt-intro">
+                    <div class="pros-audience-label" data-i18n="pt-label">¿A qué te dedicas?</div>
+                    <p class="pt-intro-text" data-i18n="pt-intro">La app se adapta a tu profesión: habla de pacientes, clientes o alumnos, y te pone a mano las herramientas que usas.</p>
+                </div>
+                <div class="pt-tabs" role="tablist" aria-label="Profesiones"><span class="pt-tab-indicator" aria-hidden="true"></span><button class="pt-tab is-active" role="tab" id="pt-tab-nutricion" data-pt="nutricion" aria-controls="pt-panel-nutricion" aria-selected="true" tabindex="0"><span data-i18n="pt-tab-nutricion">Nutrición</span></button><button class="pt-tab" role="tab" id="pt-tab-entrenamiento" data-pt="entrenamiento" aria-controls="pt-panel-entrenamiento" aria-selected="false" tabindex="-1"><span data-i18n="pt-tab-entrenamiento">Entrenamiento</span></button><button class="pt-tab" role="tab" id="pt-tab-yoga-pilates" data-pt="yoga-pilates" aria-controls="pt-panel-yoga-pilates" aria-selected="false" tabindex="-1"><span data-i18n="pt-tab-yoga-pilates">Yoga y pilates</span></button><button class="pt-tab" role="tab" id="pt-tab-psicologia" data-pt="psicologia" aria-controls="pt-panel-psicologia" aria-selected="false" tabindex="-1"><span data-i18n="pt-tab-psicologia">Psicología y terapia</span></button><button class="pt-tab" role="tab" id="pt-tab-coaching" data-pt="coaching" aria-controls="pt-panel-coaching" aria-selected="false" tabindex="-1"><span data-i18n="pt-tab-coaching">Coaching</span></button><button class="pt-tab" role="tab" id="pt-tab-clases" data-pt="clases" aria-controls="pt-panel-clases" aria-selected="false" tabindex="-1"><span data-i18n="pt-tab-clases">Clases y talleres</span></button></div>
+                <div class="pt-stage">
+<div class="pt-panel is-active" role="tabpanel" id="pt-panel-nutricion" aria-labelledby="pt-tab-nutricion"><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-nutricion-eye">Para nutricionistas</div><h3 data-i18n="pt-nutricion-title">Armas el plan de alimentación. Tu paciente lo vive cada día.</h3><p class="pt-desc" data-i18n="pt-nutricion-desc">Nada de PDF que se abre una vez. El plan queda dentro de su app, día por día, y tú ves cómo lo lleva.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-nutricion-b0">Plan de los 7 días con cada comida y sus alternativas</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-nutricion-b1">Platos con ingredientes y cantidades, o empiezas desde un plan base</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-nutricion-b2">Se lo propones con una nota y tu paciente lo acepta</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-nutricion-b3">Ves qué comió en cada comida, y su peso si te da permiso</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head"><span class="pt-mock-title" data-i18n="pt-m-nutricion-t">Plan de Lucía</span><span class="pt-mock-sub" data-i18n="pt-m-nutricion-s">Semana 2 · Martes</span></div><div class="pt-row " style="--i:0"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-nutricion-m0">Desayuno</span><span class="pt-val" data-i18n="pt-m-nutricion-d0">Avena con fruta</span></div><span class="pt-badge pt-badge--ok" data-i18n="pt-m-nutricion-b0">Lo del plan</span></div><div class="pt-row " style="--i:1"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-nutricion-m1">Almuerzo</span><span class="pt-val" data-i18n="pt-m-nutricion-d1">Ensalada de garbanzos</span></div><span class="pt-badge pt-badge--ok" data-i18n="pt-m-nutricion-b1">Lo del plan</span></div><div class="pt-alt" style="--i:1"><span data-i18n="pt-m-nutricion-o">Alternativa: pollo con arroz</span></div><div class="pt-row " style="--i:2"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-nutricion-m2">Merienda</span><span class="pt-val" data-i18n="pt-m-nutricion-d2">Yogur con nueces</span></div><span class="pt-badge pt-badge--alt" data-i18n="pt-m-nutricion-b2">Otra cosa</span></div><div class="pt-row " style="--i:3"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-nutricion-m3">Cena</span><span class="pt-val" data-i18n="pt-m-nutricion-d3">Pescado con verduras</span></div><span class="pt-badge pt-badge--wait" data-i18n="pt-m-nutricion-b3">Pendiente</span></div></div></div>
+<div class="pt-panel" role="tabpanel" id="pt-panel-entrenamiento" aria-labelledby="pt-tab-entrenamiento" hidden><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-entrenamiento-eye">Para entrenadores</div><h3 data-i18n="pt-entrenamiento-title">Tu rutina, en el bolsillo de tu cliente.</h3><p class="pt-desc" data-i18n="pt-entrenamiento-desc">Armas la semana ejercicio por ejercicio. Tu cliente la sigue en el gimnasio y anota lo que hizo.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-entrenamiento-b0">Rutina por días, con series, repeticiones y peso</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-entrenamiento-b1">Catálogo de ejercicios para armarla rápido, y los tuyos propios</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-entrenamiento-b2">Tu cliente la acepta y registra cada entrenamiento con el peso que usó</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-entrenamiento-b3">Clases grupales, bonos y torneos de pádel o tenis si también organizas</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head"><span class="pt-mock-title" data-i18n="pt-m-entrenamiento-t">Rutina de Diego</span><span class="pt-mock-sub" data-i18n="pt-m-entrenamiento-s">Lunes · Fuerza</span></div><div class="pt-row " style="--i:0"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-entrenamiento-e0">Sentadilla</span><span class="pt-label">4 × 8 · 60 kg</span></div><span class="pt-check is-done"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="pt-row " style="--i:1"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-entrenamiento-e1">Press de banca</span><span class="pt-label">4 × 10 · 40 kg</span></div><span class="pt-check is-done"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="pt-row " style="--i:2"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-entrenamiento-e2">Remo con mancuerna</span><span class="pt-label">3 × 12 · 18 kg</span></div><span class="pt-check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="pt-row " style="--i:3"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-entrenamiento-e3">Plancha</span><span class="pt-label">3 × 45 s</span></div><span class="pt-check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="pt-progress" style="--i:4"><div class="pt-progress-bar" style="--p:50%"></div></div><span class="pt-progress-label" data-i18n="pt-m-entrenamiento-p">2 de 4 ejercicios</span></div></div>
+<div class="pt-panel" role="tabpanel" id="pt-panel-yoga-pilates" aria-labelledby="pt-tab-yoga-pilates" hidden><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-yoga-pilates-eye">Para profesoras de yoga y pilates</div><h3 data-i18n="pt-yoga-pilates-title">Planifica la clase. Dala con el móvil en la mano.</h3><p class="pt-desc" data-i18n="pt-yoga-pilates-desc">Un planificador hecho para yoga, pilates mat, reformer y barre. Armas la secuencia una vez y la usas en todas tus clases.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-yoga-pilates-b0">Más de 200 movimientos de catálogo, y los que crees tú</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-yoga-pilates-b1">Inicio, parte principal y cierre, con respiraciones, segundos o repeticiones</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-yoga-pilates-b2">Guía de qué evitar o adaptar: embarazo, zona lumbar, cervical</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-yoga-pilates-b3">Modo clase: queda guardado lo que diste para no repetirlo la semana siguiente</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head"><span class="pt-mock-title" data-i18n="pt-m-yoga-pilates-t">Pilates mat · Inicial</span><span class="pt-mock-sub" data-i18n="pt-m-yoga-pilates-s">50 min · Espalda sana</span></div><div class="pt-sec" style="--i:0"><span data-i18n="pt-m-yoga-pilates-s0">Inicio</span></div><div class="pt-row pt-row--tight" style="--i:1"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-yoga-pilates-v00">Respiración costal</span><span class="pt-label" data-i18n="pt-m-yoga-pilates-q00">8 resp.</span></div></div><div class="pt-sec" style="--i:2"><span data-i18n="pt-m-yoga-pilates-s1">Parte principal</span></div><div class="pt-row pt-row--tight" style="--i:3"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-yoga-pilates-v10">Puente de hombros</span><span class="pt-label" data-i18n="pt-m-yoga-pilates-q10">10 rep.</span></div></div><div class="pt-row pt-row--tight" style="--i:4"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-yoga-pilates-v11">Almeja</span><span class="pt-label" data-i18n="pt-m-yoga-pilates-q11">12 rep. · ambos lados</span></div></div><div class="pt-row pt-row--tight" style="--i:5"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-yoga-pilates-v12">Rodar como pelota</span><span class="pt-label" data-i18n="pt-m-yoga-pilates-q12">6 rep.</span></div><span class="pt-badge pt-badge--warn" data-i18n="pt-m-yoga-pilates-c12">Cuidado: lumbar</span></div><div class="pt-sec" style="--i:6"><span data-i18n="pt-m-yoga-pilates-s2">Cierre</span></div><div class="pt-row pt-row--tight" style="--i:7"><div class="pt-row-main"><span class="pt-val" data-i18n="pt-m-yoga-pilates-v20">Estiramiento de gato</span><span class="pt-label" data-i18n="pt-m-yoga-pilates-q20">6 resp.</span></div></div><div class="pt-run" style="--i:8"><span class="pt-run-dot"></span><span data-i18n="pt-m-yoga-pilates-r">Empezar clase</span></div></div></div>
+<div class="pt-panel" role="tabpanel" id="pt-panel-psicologia" aria-labelledby="pt-tab-psicologia" hidden><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-psicologia-eye">Para psicólogos y terapeutas</div><h3 data-i18n="pt-psicologia-title">Cada paciente, su historia. Todo en orden.</h3><p class="pt-desc" data-i18n="pt-psicologia-desc">La app habla de pacientes, no de clientes, y te da lo que necesitas para llegar preparado a cada sesión.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-psicologia-b0">Formulario de admisión que completan antes de la primera sesión</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-psicologia-b1">Notas privadas antes y después de cada sesión</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-psicologia-b2">Ficha de cada paciente con sus sesiones, pagos y lo pendiente</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-psicologia-b3">Reservas online o presenciales según tu disponibilidad</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head pt-mock-head--person"><span class="pt-avatar">A</span><div><span class="pt-mock-title" data-i18n="pt-m-psicologia-t">Ana M.</span><span class="pt-mock-sub" data-i18n="pt-m-psicologia-s">Paciente desde marzo</span></div></div><div class="pt-kpis" style="--i:0"><div><b>7</b><span data-i18n="pt-m-psicologia-k1">sesiones</span></div><div><b class="pt-ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></b><span data-i18n="pt-m-psicologia-k2">pagos al día</span></div><div><b data-i18n="pt-m-psicologia-k4">Mar 16:00</b><span data-i18n="pt-m-psicologia-k3">próxima</span></div></div><div class="pt-note" style="--i:1"><span class="pt-label" data-i18n="pt-m-psicologia-n1l">Admisión</span><span class="pt-val" data-i18n="pt-m-psicologia-n1">Motivo de consulta: ansiedad en el trabajo.</span></div><div class="pt-note" style="--i:2"><span class="pt-label" data-i18n="pt-m-psicologia-n2l">Antes de la sesión</span><span class="pt-val" data-i18n="pt-m-psicologia-n2">Retomar el cambio de trabajo. Ver si probó el ejercicio.</span></div><div class="pt-note pt-note--typing" style="--i:3"><span class="pt-label" data-i18n="pt-m-psicologia-n3l">Después</span><span class="pt-val pt-typing" data-i18n="pt-m-psicologia-n3">Muy buena respuesta. Enviar lectura sobre límites.</span></div></div></div>
+<div class="pt-panel" role="tabpanel" id="pt-panel-coaching" aria-labelledby="pt-tab-coaching" hidden><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-coaching-eye">Para coaches y mentores</div><h3 data-i18n="pt-coaching-title">Acompaña procesos, no solo sesiones.</h3><p class="pt-desc" data-i18n="pt-coaching-desc">Entre sesión y sesión, tus clientes avanzan con desafíos que diseñas tú y que viven en su app.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-coaching-b0">Desafíos propios con hábitos diarios y una duración, publicados en la tienda</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-coaching-b1">Ediciones con fecha para muchas personas a la vez</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-coaching-b2">Tabla de posiciones opcional; quien prefiere, aparece como anónimo</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-coaching-b3">Sesiones 1:1 con notas antes y después</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head"><span class="pt-mock-title" data-i18n="pt-m-coaching-t">21 días de foco</span><span class="pt-mock-sub" data-i18n="pt-m-coaching-s">Edición de octubre · Día 8 de 21</span></div><div class="pt-progress" style="--i:0"><div class="pt-progress-bar" style="--p:38%"></div></div><div class="pt-rank" style="--i:1"><span class="pt-rank-n">1</span><span class="pt-val" data-i18n="pt-m-coaching-p0">Carla</span><span class="pt-rank-bar"><span style="--p:96%"></span></span><span class="pt-rank-pc">96%</span></div><div class="pt-rank" style="--i:2"><span class="pt-rank-n">2</span><span class="pt-val pt-anon" data-i18n="pt-m-coaching-p1">Anónimo</span><span class="pt-rank-bar"><span style="--p:91%"></span></span><span class="pt-rank-pc">91%</span></div><div class="pt-rank" style="--i:3"><span class="pt-rank-n">3</span><span class="pt-val" data-i18n="pt-m-coaching-p2">Tomás</span><span class="pt-rank-bar"><span style="--p:88%"></span></span><span class="pt-rank-pc">88%</span></div><div class="pt-rank" style="--i:4"><span class="pt-rank-n">4</span><span class="pt-val" data-i18n="pt-m-coaching-p3">Lucía</span><span class="pt-rank-bar"><span style="--p:84%"></span></span><span class="pt-rank-pc">84%</span></div><span class="pt-progress-label" data-i18n="pt-m-coaching-f">124 personas en esta edición</span></div></div>
+<div class="pt-panel" role="tabpanel" id="pt-panel-clases" aria-labelledby="pt-tab-clases" hidden><div class="pt-copy"><div class="pros-featured-eyebrow" data-i18n="pt-clases-eye">Para clases, talleres y retiros</div><h3 data-i18n="pt-clases-title">Tu semana de clases, llena sola.</h3><p class="pt-desc" data-i18n="pt-clases-desc">Meditación, danza, idiomas, música o retiros: publicas una vez y la gente se anota desde la app.</p><ul class="pt-list"><li style="--i:0"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-clases-b0">Clases recurrentes con cupo y lista de asistencia</span></li><li style="--i:1"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-clases-b1">Grupos fijos con cuota mensual o pago por clase</span></li><li style="--i:2"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-clases-b2">Bonos de clases que cobras por adelantado</span></li><li style="--i:3"><span class="pt-li-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="pt-clases-b3">Talleres y retiros con lista de espera y entrada con QR</span></li></ul></div><div class="pt-mock" aria-hidden="true"><div class="pros-mockup-notch"></div><div class="pt-mock-head"><span class="pt-mock-title" data-i18n="pt-m-clases-t">Esta semana</span><span class="pt-mock-sub" data-i18n="pt-m-clases-s">4 clases · 2 grupos fijos</span></div><div class="pt-row " style="--i:0"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-clases-d0">Lun 19:00</span><span class="pt-val" data-i18n="pt-m-clases-n0">Meditación</span></div><span class="pt-seats"><span class="pt-seats-bar"><span style="--p:86%"></span></span><span class="pt-seats-n">12/14</span></span></div><div class="pt-row " style="--i:1"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-clases-d1">Mié 20:00</span><span class="pt-val" data-i18n="pt-m-clases-n1">Danza</span></div><span class="pt-seats"><span class="pt-seats-bar"><span style="--p:100%"></span></span><span class="pt-seats-n">14/14</span></span><span class="pt-badge pt-badge--alt" data-i18n="pt-m-clases-b1">Completo</span></div><div class="pt-row " style="--i:2"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-clases-d2">Jue 18:30</span><span class="pt-val" data-i18n="pt-m-clases-n2">Inglés conversación</span></div><span class="pt-seats"><span class="pt-seats-bar"><span style="--p:75%"></span></span><span class="pt-seats-n">6/8</span></span></div><div class="pt-row " style="--i:3"><div class="pt-row-main"><span class="pt-label" data-i18n="pt-m-clases-d3">Sáb 10:00</span><span class="pt-val" data-i18n="pt-m-clases-n3">Retiro de un día</span></div><span class="pt-seats"><span class="pt-seats-bar"><span style="--p:100%"></span></span><span class="pt-seats-n">20/20</span></span><span class="pt-badge pt-badge--warn" data-i18n="pt-m-clases-b3">Espera: 3</span></div></div></div>
+                </div>
             </div>
 
             <!-- Featured hero card: Reservas -->
@@ -4653,47 +4851,6 @@
                         <div class="pros-mockup-note-label">Después</div>
                         <div class="pros-mockup-note-text">Muy buena respuesta al ejercicio. Enviar lectura sobre límites.</div>
                     </div>
-                </div>
-            </article>
-
-            <!-- Featured #2b: planes de alimentación y rutinas de entrenamiento (mockup a la derecha) -->
-            <article class="pros-featured" data-reveal style="--index:0; margin-top: 3rem;">
-                <div class="pros-featured-body">
-                    <div class="pros-featured-eyebrow" data-i18n="pros-featured5-eyebrow">Entre sesión y sesión</div>
-                    <h3 data-i18n="pros-featured5-title">El plan que le armas, dentro del móvil de tu cliente.</h3>
-                    <p class="pros-featured-desc" data-i18n="pros-featured5-desc">Si eres nutricionista, armas el plan de comidas de la semana con sus alternativas para cada momento del día. Si entrenas, armas la rutina ejercicio por ejercicio, con sus series y sus repeticiones. Se lo envías, tu cliente lo acepta y lo lleva encima todos los días. Se acabó el PDF que se abre una vez y no se abre nunca más.</p>
-                    <div class="pros-featured-tags">
-                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v16M8 4v6a2 2 0 0 1-4 0"/><path d="M16 4c-2 0-3 2-3 5s1 4 3 4v7"/></svg><span data-i18n="pros-featured5-tag1">Plan de comidas de 7 días</span></span>
-                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg><span data-i18n="pros-featured5-tag2">Rutinas con series, repeticiones y peso</span></span>
-                        <span class="pros-featured-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg><span data-i18n="pros-featured5-tag3">Lo acepta tu cliente, nadie le impone nada</span></span>
-                    </div>
-                </div>
-                <div class="pros-mockup" aria-hidden="true">
-                    <div class="pros-mockup-notch"></div>
-                    <div class="pros-mockup-title">Plan de Lucía · Lunes</div>
-                    <div class="pros-mockup-week">
-                        <div class="pros-mockup-week-row">
-                            <span class="pros-mockup-week-day">DES</span>
-                            <span class="pros-mockup-week-name">Avena con fruta</span>
-                            <span class="pros-mockup-week-hour">08:00</span>
-                        </div>
-                        <div class="pros-mockup-week-row pros-mockup-week-row--active">
-                            <span class="pros-mockup-week-day">ALM</span>
-                            <span class="pros-mockup-week-name">Pollo y arroz</span>
-                            <span class="pros-mockup-week-hour">13:30</span>
-                        </div>
-                        <div class="pros-mockup-week-row">
-                            <span class="pros-mockup-week-day">MER</span>
-                            <span class="pros-mockup-week-name">Yogur y nueces</span>
-                            <span class="pros-mockup-week-hour">17:00</span>
-                        </div>
-                        <div class="pros-mockup-week-row">
-                            <span class="pros-mockup-week-day">CEN</span>
-                            <span class="pros-mockup-week-name">Wok de verduras</span>
-                            <span class="pros-mockup-week-hour">21:00</span>
-                        </div>
-                    </div>
-                    <div class="pros-mockup-confirm">Enviar plan a Lucía</div>
                 </div>
             </article>
 
@@ -5836,6 +5993,66 @@
                 .observe(document.getElementById('descarga'));
         }
 
+        // Profesionales: pestañas por profesión
+        (() => {
+            const root = document.getElementById('por-profesion');
+            if (!root) return;
+            const tabsEl = root.querySelector('.pt-tabs');
+            const tabs = [...root.querySelectorAll('.pt-tab')];
+            const indicator = root.querySelector('.pt-tab-indicator');
+            const place = () => {
+                const a = root.querySelector('.pt-tab.is-active');
+                if (!a) return;
+                indicator.style.setProperty('--x', a.offsetLeft + 'px');
+                indicator.style.setProperty('--w', a.offsetWidth + 'px');
+            };
+            const select = (tab, focus) => {
+                tabs.forEach(t => {
+                    const on = t === tab;
+                    t.classList.toggle('is-active', on);
+                    t.setAttribute('aria-selected', on ? 'true' : 'false');
+                    t.tabIndex = on ? 0 : -1;
+                    const panel = document.getElementById(t.getAttribute('aria-controls'));
+                    panel.hidden = !on;
+                    panel.classList.toggle('is-active', on);
+                    panel.classList.remove('is-entering');
+                    if (on) { void panel.offsetWidth; panel.classList.add('is-entering'); }
+                });
+                if (focus) tab.focus();
+                place();
+                const left = tab.offsetLeft - (tabsEl.clientWidth - tab.offsetWidth) / 2;
+                tabsEl.scrollTo({ left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+            };
+            tabs.forEach((tab, i) => {
+                tab.addEventListener('click', () => select(tab));
+                tab.addEventListener('keydown', e => {
+                    const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+                    if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
+                    if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+                    if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+                });
+            });
+            // Enlace directo: ?pro=nutricion o #pro-nutricion
+            const wanted = new URLSearchParams(location.search).get('pro') || (location.hash.match(/^#pro-(.+)$/) || [])[1];
+            const initial = tabs.find(t => t.dataset.pt === wanted);
+            if (initial) {
+                select(initial);
+                requestAnimationFrame(() => root.scrollIntoView({ block: 'start' }));
+            }
+            place();
+            window.addEventListener('resize', place);
+            if (document.fonts) document.fonts.ready.then(place);
+            // Animar la primera pestaña cuando la sección entra en pantalla
+            new IntersectionObserver((entries, obs) => {
+                if (entries[0].isIntersecting) {
+                    place();
+                    const p = root.querySelector('.pt-panel.is-active');
+                    p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering');
+                    obs.disconnect();
+                }
+            }, { threshold: 0.3 }).observe(root.querySelector('.pt-stage'));
+        })();
+
         // Pausa las animaciones en bucle de las secciones que no se ven
         const pauseObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => entry.target.classList.toggle('motion-paused', !entry.isIntersecting));
@@ -6069,6 +6286,126 @@
                 'pros-cta-button': 'Descargar Metriotes',
                 'pros-cta-fine': 'Disponible para iOS y Android',
                 'pros-audience-label': 'Diseñado para',
+                'pt-tab-nutricion': "Nutrición",
+                'pt-nutricion-b0': "Plan de los 7 días con cada comida y sus alternativas",
+                'pt-nutricion-b1': "Platos con ingredientes y cantidades, o empiezas desde un plan base",
+                'pt-nutricion-b2': "Se lo propones con una nota y tu paciente lo acepta",
+                'pt-nutricion-b3': "Ves qué comió en cada comida, y su peso si te da permiso",
+                'pt-nutricion-eye': "Para nutricionistas",
+                'pt-nutricion-title': "Armas el plan de alimentación. Tu paciente lo vive cada día.",
+                'pt-nutricion-desc': "Nada de PDF que se abre una vez. El plan queda dentro de su app, día por día, y tú ves cómo lo lleva.",
+                'pt-m-nutricion-t': "Plan de Lucía",
+                'pt-m-nutricion-s': "Semana 2 · Martes",
+                'pt-m-nutricion-m0': "Desayuno",
+                'pt-m-nutricion-d0': "Avena con fruta",
+                'pt-m-nutricion-b0': "Lo del plan",
+                'pt-m-nutricion-m1': "Almuerzo",
+                'pt-m-nutricion-d1': "Ensalada de garbanzos",
+                'pt-m-nutricion-b1': "Lo del plan",
+                'pt-m-nutricion-o': "Alternativa: pollo con arroz",
+                'pt-m-nutricion-m2': "Merienda",
+                'pt-m-nutricion-d2': "Yogur con nueces",
+                'pt-m-nutricion-b2': "Otra cosa",
+                'pt-m-nutricion-m3': "Cena",
+                'pt-m-nutricion-d3': "Pescado con verduras",
+                'pt-m-nutricion-b3': "Pendiente",
+                'pt-tab-entrenamiento': "Entrenamiento",
+                'pt-entrenamiento-b0': "Rutina por días, con series, repeticiones y peso",
+                'pt-entrenamiento-b1': "Catálogo de ejercicios para armarla rápido, y los tuyos propios",
+                'pt-entrenamiento-b2': "Tu cliente la acepta y registra cada entrenamiento con el peso que usó",
+                'pt-entrenamiento-b3': "Clases grupales, bonos y torneos de pádel o tenis si también organizas",
+                'pt-entrenamiento-eye': "Para entrenadores",
+                'pt-entrenamiento-title': "Tu rutina, en el bolsillo de tu cliente.",
+                'pt-entrenamiento-desc': "Armas la semana ejercicio por ejercicio. Tu cliente la sigue en el gimnasio y anota lo que hizo.",
+                'pt-m-entrenamiento-t': "Rutina de Diego",
+                'pt-m-entrenamiento-s': "Lunes · Fuerza",
+                'pt-m-entrenamiento-e0': "Sentadilla",
+                'pt-m-entrenamiento-e1': "Press de banca",
+                'pt-m-entrenamiento-e2': "Remo con mancuerna",
+                'pt-m-entrenamiento-e3': "Plancha",
+                'pt-m-entrenamiento-p': "2 de 4 ejercicios",
+                'pt-tab-yoga-pilates': "Yoga y pilates",
+                'pt-yoga-pilates-b0': "Más de 200 movimientos de catálogo, y los que crees tú",
+                'pt-yoga-pilates-b1': "Inicio, parte principal y cierre, con respiraciones, segundos o repeticiones",
+                'pt-yoga-pilates-b2': "Guía de qué evitar o adaptar: embarazo, zona lumbar, cervical",
+                'pt-yoga-pilates-b3': "Modo clase: queda guardado lo que diste para no repetirlo la semana siguiente",
+                'pt-yoga-pilates-eye': "Para profesoras de yoga y pilates",
+                'pt-yoga-pilates-title': "Planifica la clase. Dala con el móvil en la mano.",
+                'pt-yoga-pilates-desc': "Un planificador hecho para yoga, pilates mat, reformer y barre. Armas la secuencia una vez y la usas en todas tus clases.",
+                'pt-m-yoga-pilates-t': "Pilates mat · Inicial",
+                'pt-m-yoga-pilates-s': "50 min · Espalda sana",
+                'pt-m-yoga-pilates-s0': "Inicio",
+                'pt-m-yoga-pilates-v00': "Respiración costal",
+                'pt-m-yoga-pilates-q00': "8 resp.",
+                'pt-m-yoga-pilates-s1': "Parte principal",
+                'pt-m-yoga-pilates-v10': "Puente de hombros",
+                'pt-m-yoga-pilates-q10': "10 rep.",
+                'pt-m-yoga-pilates-v11': "Almeja",
+                'pt-m-yoga-pilates-q11': "12 rep. · ambos lados",
+                'pt-m-yoga-pilates-v12': "Rodar como pelota",
+                'pt-m-yoga-pilates-q12': "6 rep.",
+                'pt-m-yoga-pilates-c12': "Cuidado: lumbar",
+                'pt-m-yoga-pilates-s2': "Cierre",
+                'pt-m-yoga-pilates-v20': "Estiramiento de gato",
+                'pt-m-yoga-pilates-q20': "6 resp.",
+                'pt-m-yoga-pilates-r': "Empezar clase",
+                'pt-tab-psicologia': "Psicología y terapia",
+                'pt-psicologia-b0': "Formulario de admisión que completan antes de la primera sesión",
+                'pt-psicologia-b1': "Notas privadas antes y después de cada sesión",
+                'pt-psicologia-b2': "Ficha de cada paciente con sus sesiones, pagos y lo pendiente",
+                'pt-psicologia-b3': "Reservas online o presenciales según tu disponibilidad",
+                'pt-psicologia-eye': "Para psicólogos y terapeutas",
+                'pt-psicologia-title': "Cada paciente, su historia. Todo en orden.",
+                'pt-psicologia-desc': "La app habla de pacientes, no de clientes, y te da lo que necesitas para llegar preparado a cada sesión.",
+                'pt-m-psicologia-t': "Ana M.",
+                'pt-m-psicologia-s': "Paciente desde marzo",
+                'pt-m-psicologia-k1': "sesiones",
+                'pt-m-psicologia-k2': "pagos al día",
+                'pt-m-psicologia-k4': "Mar 16:00",
+                'pt-m-psicologia-k3': "próxima",
+                'pt-m-psicologia-n1l': "Admisión",
+                'pt-m-psicologia-n1': "Motivo de consulta: ansiedad en el trabajo.",
+                'pt-m-psicologia-n2l': "Antes de la sesión",
+                'pt-m-psicologia-n2': "Retomar el cambio de trabajo. Ver si probó el ejercicio.",
+                'pt-m-psicologia-n3l': "Después",
+                'pt-m-psicologia-n3': "Muy buena respuesta. Enviar lectura sobre límites.",
+                'pt-tab-coaching': "Coaching",
+                'pt-coaching-b0': "Desafíos propios con hábitos diarios y una duración, publicados en la tienda",
+                'pt-coaching-b1': "Ediciones con fecha para muchas personas a la vez",
+                'pt-coaching-b2': "Tabla de posiciones opcional; quien prefiere, aparece como anónimo",
+                'pt-coaching-b3': "Sesiones 1:1 con notas antes y después",
+                'pt-coaching-eye': "Para coaches y mentores",
+                'pt-coaching-title': "Acompaña procesos, no solo sesiones.",
+                'pt-coaching-desc': "Entre sesión y sesión, tus clientes avanzan con desafíos que diseñas tú y que viven en su app.",
+                'pt-m-coaching-t': "21 días de foco",
+                'pt-m-coaching-s': "Edición de octubre · Día 8 de 21",
+                'pt-m-coaching-p0': "Carla",
+                'pt-m-coaching-p1': "Anónimo",
+                'pt-m-coaching-p2': "Tomás",
+                'pt-m-coaching-p3': "Lucía",
+                'pt-m-coaching-f': "124 personas en esta edición",
+                'pt-tab-clases': "Clases y talleres",
+                'pt-clases-b0': "Clases recurrentes con cupo y lista de asistencia",
+                'pt-clases-b1': "Grupos fijos con cuota mensual o pago por clase",
+                'pt-clases-b2': "Bonos de clases que cobras por adelantado",
+                'pt-clases-b3': "Talleres y retiros con lista de espera y entrada con QR",
+                'pt-clases-eye': "Para clases, talleres y retiros",
+                'pt-clases-title': "Tu semana de clases, llena sola.",
+                'pt-clases-desc': "Meditación, danza, idiomas, música o retiros: publicas una vez y la gente se anota desde la app.",
+                'pt-m-clases-t': "Esta semana",
+                'pt-m-clases-s': "4 clases · 2 grupos fijos",
+                'pt-m-clases-d0': "Lun 19:00",
+                'pt-m-clases-n0': "Meditación",
+                'pt-m-clases-d1': "Mié 20:00",
+                'pt-m-clases-n1': "Danza",
+                'pt-m-clases-b1': "Completo",
+                'pt-m-clases-d2': "Jue 18:30",
+                'pt-m-clases-n2': "Inglés conversación",
+                'pt-m-clases-d3': "Sáb 10:00",
+                'pt-m-clases-n3': "Retiro de un día",
+                'pt-m-clases-b3': "Espera: 3",
+                'pt-label': "¿A qué te dedicas?",
+                'pt-intro': "La app se adapta a tu profesión: habla de pacientes, clientes o alumnos, y te pone a mano las herramientas que usas.",
                 'audience-coach': 'Coaches',
                 'audience-psy': 'Psicólogos',
                 'audience-nutri': 'Nutricionistas',
@@ -6573,6 +6910,126 @@
                 'pros-cta-button': 'Download Metriotes',
                 'pros-cta-fine': 'Available for iOS and Android',
                 'pros-audience-label': 'Built for',
+                'pt-tab-nutricion': "Nutrition",
+                'pt-nutricion-b0': "A 7-day plan with every meal and its alternatives",
+                'pt-nutricion-b1': "Dishes with ingredients and amounts, or start from a base plan",
+                'pt-nutricion-b2': "You send it with a note and your patient accepts it",
+                'pt-nutricion-b3': "You see what they ate at each meal, and their weight if they allow it",
+                'pt-nutricion-eye': "For nutritionists",
+                'pt-nutricion-title': "You build the meal plan. Your patient lives it every day.",
+                'pt-nutricion-desc': "No more PDFs opened once. The plan lives in their app, day by day, and you see how it is going.",
+                'pt-m-nutricion-t': "Lucía’s plan",
+                'pt-m-nutricion-s': "Week 2 · Tuesday",
+                'pt-m-nutricion-m0': "Breakfast",
+                'pt-m-nutricion-d0': "Oats with fruit",
+                'pt-m-nutricion-b0': "As planned",
+                'pt-m-nutricion-m1': "Lunch",
+                'pt-m-nutricion-d1': "Chickpea salad",
+                'pt-m-nutricion-b1': "As planned",
+                'pt-m-nutricion-o': "Alternative: chicken with rice",
+                'pt-m-nutricion-m2': "Snack",
+                'pt-m-nutricion-d2': "Yogurt with walnuts",
+                'pt-m-nutricion-b2': "Something else",
+                'pt-m-nutricion-m3': "Dinner",
+                'pt-m-nutricion-d3': "Fish with vegetables",
+                'pt-m-nutricion-b3': "Pending",
+                'pt-tab-entrenamiento': "Training",
+                'pt-entrenamiento-b0': "A routine by day, with sets, reps and weight",
+                'pt-entrenamiento-b1': "An exercise catalog to build it fast, plus your own",
+                'pt-entrenamiento-b2': "Your client accepts it and logs every workout with the weight used",
+                'pt-entrenamiento-b3': "Group classes, class packs and padel or tennis tournaments if you organise them",
+                'pt-entrenamiento-eye': "For trainers",
+                'pt-entrenamiento-title': "Your routine, in your client’s pocket.",
+                'pt-entrenamiento-desc': "You build the week exercise by exercise. Your client follows it at the gym and logs what they did.",
+                'pt-m-entrenamiento-t': "Diego’s routine",
+                'pt-m-entrenamiento-s': "Monday · Strength",
+                'pt-m-entrenamiento-e0': "Squat",
+                'pt-m-entrenamiento-e1': "Bench press",
+                'pt-m-entrenamiento-e2': "Dumbbell row",
+                'pt-m-entrenamiento-e3': "Plank",
+                'pt-m-entrenamiento-p': "2 of 4 exercises",
+                'pt-tab-yoga-pilates': "Yoga & pilates",
+                'pt-yoga-pilates-b0': "More than 200 catalog movements, plus your own",
+                'pt-yoga-pilates-b1': "Opening, main part and closing, with breaths, seconds or reps",
+                'pt-yoga-pilates-b2': "A guide to what to avoid or adapt: pregnancy, lower back, neck",
+                'pt-yoga-pilates-b3': "Class mode: what you taught is saved so you don’t repeat it next week",
+                'pt-yoga-pilates-eye': "For yoga and pilates teachers",
+                'pt-yoga-pilates-title': "Plan the class. Teach it with your phone in hand.",
+                'pt-yoga-pilates-desc': "A planner made for yoga, mat pilates, reformer and barre. Build the sequence once and use it in all your classes.",
+                'pt-m-yoga-pilates-t': "Mat pilates · Beginner",
+                'pt-m-yoga-pilates-s': "50 min · Back care",
+                'pt-m-yoga-pilates-s0': "Opening",
+                'pt-m-yoga-pilates-v00': "Rib-cage breathing",
+                'pt-m-yoga-pilates-q00': "8 breaths",
+                'pt-m-yoga-pilates-s1': "Main part",
+                'pt-m-yoga-pilates-v10': "Shoulder bridge",
+                'pt-m-yoga-pilates-q10': "10 reps",
+                'pt-m-yoga-pilates-v11': "Clam",
+                'pt-m-yoga-pilates-q11': "12 reps · both sides",
+                'pt-m-yoga-pilates-v12': "Rolling like a ball",
+                'pt-m-yoga-pilates-q12': "6 reps",
+                'pt-m-yoga-pilates-c12': "Caution: lower back",
+                'pt-m-yoga-pilates-s2': "Closing",
+                'pt-m-yoga-pilates-v20': "Cat stretch",
+                'pt-m-yoga-pilates-q20': "6 breaths",
+                'pt-m-yoga-pilates-r': "Start class",
+                'pt-tab-psicologia': "Psychology & therapy",
+                'pt-psicologia-b0': "An intake form they fill in before the first session",
+                'pt-psicologia-b1': "Private notes before and after every session",
+                'pt-psicologia-b2': "A file for each patient with sessions, payments and what is pending",
+                'pt-psicologia-b3': "Online or in-person bookings based on your availability",
+                'pt-psicologia-eye': "For psychologists and therapists",
+                'pt-psicologia-title': "Every patient, their story. All in order.",
+                'pt-psicologia-desc': "The app talks about patients, not clients, and gives you what you need to arrive prepared for every session.",
+                'pt-m-psicologia-t': "Ana M.",
+                'pt-m-psicologia-s': "Patient since March",
+                'pt-m-psicologia-k1': "sessions",
+                'pt-m-psicologia-k2': "paid up",
+                'pt-m-psicologia-k4': "Tue 16:00",
+                'pt-m-psicologia-k3': "next",
+                'pt-m-psicologia-n1l': "Intake",
+                'pt-m-psicologia-n1': "Reason for visit: anxiety at work.",
+                'pt-m-psicologia-n2l': "Before the session",
+                'pt-m-psicologia-n2': "Pick up the job change. Check whether she tried the exercise.",
+                'pt-m-psicologia-n3l': "After",
+                'pt-m-psicologia-n3': "Very good response. Send reading on boundaries.",
+                'pt-tab-coaching': "Coaching",
+                'pt-coaching-b0': "Your own challenges with daily habits and a set length, published in the store",
+                'pt-coaching-b1': "Dated editions for many people at once",
+                'pt-coaching-b2': "Optional leaderboard; anyone who prefers appears as anonymous",
+                'pt-coaching-b3': "1:1 sessions with notes before and after",
+                'pt-coaching-eye': "For coaches and mentors",
+                'pt-coaching-title': "Guide processes, not just sessions.",
+                'pt-coaching-desc': "Between sessions, your clients move forward with challenges you design that live in their app.",
+                'pt-m-coaching-t': "21 days of focus",
+                'pt-m-coaching-s': "October edition · Day 8 of 21",
+                'pt-m-coaching-p0': "Carla",
+                'pt-m-coaching-p1': "Anonymous",
+                'pt-m-coaching-p2': "Tomás",
+                'pt-m-coaching-p3': "Lucía",
+                'pt-m-coaching-f': "124 people in this edition",
+                'pt-tab-clases': "Classes & workshops",
+                'pt-clases-b0': "Recurring classes with capacity and an attendance list",
+                'pt-clases-b1': "Fixed groups with a monthly fee or pay per class",
+                'pt-clases-b2': "Class packs you collect up front",
+                'pt-clases-b3': "Workshops and retreats with a waitlist and QR tickets",
+                'pt-clases-eye': "For classes, workshops and retreats",
+                'pt-clases-title': "Your week of classes, filling up on its own.",
+                'pt-clases-desc': "Meditation, dance, languages, music or retreats: publish once and people sign up from the app.",
+                'pt-m-clases-t': "This week",
+                'pt-m-clases-s': "4 classes · 2 fixed groups",
+                'pt-m-clases-d0': "Mon 19:00",
+                'pt-m-clases-n0': "Meditation",
+                'pt-m-clases-d1': "Wed 20:00",
+                'pt-m-clases-n1': "Dance",
+                'pt-m-clases-b1': "Full",
+                'pt-m-clases-d2': "Thu 18:30",
+                'pt-m-clases-n2': "English conversation",
+                'pt-m-clases-d3': "Sat 10:00",
+                'pt-m-clases-n3': "Day retreat",
+                'pt-m-clases-b3': "Waitlist: 3",
+                'pt-label': "What do you do?",
+                'pt-intro': "The app adapts to your profession: it talks about patients, clients or students, and puts the tools you use within reach.",
                 'audience-coach': 'Coaches',
                 'audience-psy': 'Psychologists',
                 'audience-nutri': 'Nutritionists',

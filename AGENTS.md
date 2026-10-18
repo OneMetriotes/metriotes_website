@@ -6,6 +6,18 @@ Metriotes es una plataforma de bienestar y desarrollo personal. Este es el sitio
 
 ---
 
+## Producto y backlog
+
+La documentación de producto vive en `../metriotes_docs` (al lado de este repo). Antes de trabajar en una funcionalidad:
+
+1. Busca su fila en `../metriotes_docs/backlog.md` (ID, estado, fase y dónde vive). Es una copia de la hoja de Google "Metriotes · Backlog de funcionalidades", que manda.
+2. Lee su ficha en `../metriotes_docs/funcionalidades/`.
+3. Si tu cambio cambia lo que ve el usuario o el estado de la función, actualiza la ficha y la fila del backlog (añade `(cambiado en código AAAA-MM-DD)` en Notas).
+
+No empieces filas con fase "Por decidir" sin que Franco lo pida.
+
+---
+
 ## Stack
 
 Sitio estático puro: HTML + CSS + JS inline en cada página. Sin framework, bundler ni `package.json`.

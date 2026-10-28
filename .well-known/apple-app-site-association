@@ -14,7 +14,8 @@
           "/app/group/*",
           "/app/tournament/*",
           "/app/challenge/*",
-          "/app/score/*"
+          "/app/score/*",
+          "/app/v/*"
         ]
       }
     ]

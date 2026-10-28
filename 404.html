@@ -218,7 +218,7 @@
 
             // Acepta los links canónicos /app/event|professional/<hash> y los
             // viejos de raíz /event|professional/<hash> (retrocompat).
-            var m = path.match(/^\/(?:app\/)?(event|professional|group|tournament|challenge|score)\/([^\/?#]+)(\/review)?/);
+            var m = path.match(/^\/(?:app\/)?(event|professional|group|tournament|challenge|score|v)\/([^\/?#]+)(\/review)?/);
             // /app/challenge/<hash>[/<token>]: edición de un desafío (el token solo en las cerradas).
             var challengeToken = null;
             if (m && m[1] === 'challenge') {
@@ -261,6 +261,10 @@
                 if (eyebrow) eyebrow.textContent = 'Torneo';
                 if (title) title.textContent = 'Abriendo el torneo…';
                 if (lead) lead.textContent = 'Te llevamos al torneo en Metriotes para que te inscribas. Si no carga en un momento, toca el botón.';
+            } else if (kind === 'v') {
+                if (eyebrow) eyebrow.textContent = 'Invitación';
+                if (title) title.textContent = 'Abriendo la invitación…';
+                if (lead) lead.textContent = 'Alguien te sumó a su gente en Metriotes. Te llevamos para que lo aceptes si quieres. Si no carga en un momento, toca el botón.';
             } else if (kind === 'group') {
                 if (eyebrow) eyebrow.textContent = 'Grupo';
                 if (title) title.textContent = 'Abriendo el grupo…';

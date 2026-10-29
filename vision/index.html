@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Visión | Metriotes</title>
+    <meta name="description" content="Misión, visión y valores de los talleres Descubre tu Norte de Metriotes.">
+    <meta name="theme-color" content="#ECEEE7">
+    <!-- Página oculta (borrador): sin enlaces desde el sitio, fuera del sitemap y sin indexar -->
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <meta name="googlebot" content="noindex,nofollow">
+    <link rel="icon" type="image/svg+xml" href="/assets/web/estrella.svg">
+
+    <link rel="preload" href="/assets/fonts/kalnia-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        @font-face { font-family: 'Kalnia'; font-weight: 400; font-display: swap; src: url('/assets/fonts/kalnia-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Kalnia'; font-weight: 600; font-display: swap; src: url('/assets/fonts/kalnia-latin-600-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 400; font-display: swap; src: url('/assets/fonts/poppins-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 500; font-display: swap; src: url('/assets/fonts/poppins-latin-500-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 600; font-display: swap; src: url('/assets/fonts/poppins-latin-600-normal.woff2') format('woff2'); }
+
+        /* ─── Expedición: los tokens de la app ───────────────── */
+        :root {
+            --bg: #ECEEE7;
+            --card: #F7F7F2;
+            --sand: #EFE7DC;
+            --peach: #F1D6C7;
+            --ink: #1E2B25;
+            --ink-2: #4B5751;
+            --muted: #7B8580;
+            --line: rgba(30,43,37,0.10);
+            --orange: #E4602F;
+            --orange-2: #EE8D63;
+            --orange-soft: rgba(228,96,47,0.12);
+            --night: #17221D;
+            --radius: 24px;
+            --shadow: 0 1px 2px rgba(30,43,37,0.06), 0 10px 30px rgba(30,43,37,0.10);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --pad: clamp(1.25rem, 5vw, 3rem);
+            --max: 1180px;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--bg);
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; overflow-x: clip;
+        }
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+        :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 8px; }
+
+        .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: .5rem;
+            font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--orange);
+        }
+        h1, h2, h3 { font-family: 'Kalnia', Georgia, serif; font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
+        h2 { font-size: clamp(2rem, 6.4vw, 3.4rem); margin: .8rem 0 1rem; }
+        h3 { font-size: 1.35rem; line-height: 1.2; }
+        em { font-style: normal; color: var(--orange); }
+        .lead { font-size: clamp(1.02rem, 2.6vw, 1.15rem); color: var(--ink-2); max-width: 38rem; }
+        section { position: relative; }
+        .section { padding: clamp(4.5rem, 12vw, 8rem) 0; }
+        .center { text-align: center; }
+        .center .lead { margin-left: auto; margin-right: auto; }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+            min-height: 52px; padding: 0 1.5rem; border-radius: 999px; font-weight: 600; font-size: .98rem;
+            transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+        }
+        .btn-primary { color: #fff; background: linear-gradient(90deg, var(--orange), var(--orange-2)); box-shadow: 0 8px 22px rgba(228,96,47,.32), inset 0 1px 0 rgba(255,255,255,.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(228,96,47,.38); }
+
+        /* ─── Navegación ─────────────────────────────────────── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            padding-top: env(safe-area-inset-top, 0px);
+            background: rgba(236,238,231,.82); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            border-bottom: 1px solid transparent; transition: border-color .3s;
+        }
+        .nav.scrolled { border-bottom-color: var(--line); }
+        main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+        .nav-in { display: flex; align-items: center; gap: 1rem; height: 64px; }
+        .brand { display: inline-flex; align-items: center; gap: .55rem; font-family: 'Kalnia', serif; font-weight: 600; font-size: 1.3rem; }
+        .brand svg { width: 28px; height: 28px; }
+        .nav-right { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+        .lang { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(30,43,37,.06); font-size: .75rem; font-weight: 600; }
+        .lang button { padding: .3rem .55rem; border-radius: 999px; color: var(--muted); background: none; border: 0; cursor: pointer; font: inherit; }
+        .lang button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+        .nav .btn { min-height: 40px; padding: 0 1.1rem; font-size: .88rem; }
+
+
+        /* ─── Fondos de curvas de nivel ──────────────────────── */
+        .contours { position: absolute; inset: 0; background: url('/assets/web/curvas-claro.svg') center / cover no-repeat; opacity: .8; pointer-events: none; }
+        .contours.night { background-image: url('/assets/web/curvas-noche.svg'); opacity: 1; }
+        .contours.peach { background-image: url('/assets/web/curvas-melocoton.svg'); opacity: 1; }
+
+        /* ─── Hero ───────────────────────────────────────────── */
+        .hero { overflow: hidden; padding: clamp(4rem, 12vw, 7rem) 0 clamp(4rem, 10vw, 6rem); text-align: center; }
+        .hero .contours { mask-image: linear-gradient(180deg, #000 60%, transparent); -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); }
+        .hero .star-big { width: 64px; height: 64px; margin: 0 auto 1.5rem; animation: spin 40s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .hero h1 { font-size: clamp(2.5rem, 10vw, 4.6rem); margin: 1rem auto 1.1rem; max-width: 16ch; }
+        .hero .lead { margin: 0 auto; }
+
+        /* ─── Misión (noche) ─────────────────────────────────── */
+        .mission { background: var(--night); color: #F2F1EA; overflow: hidden; }
+        .mission .eyebrow { color: var(--orange-2); }
+        .mission em { color: var(--orange-2); }
+        .statement { font-family: 'Kalnia', Georgia, serif; font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; font-size: clamp(1.75rem, 5vw, 3rem); max-width: 26ch; margin: 1rem 0 1.5rem; }
+        .mission .how { display: flex; gap: .75rem; align-items: center; color: rgba(242,241,234,.75); font-size: 1rem; }
+        .mission .how::before { content: ''; width: 40px; height: 2px; background: var(--orange-2); flex: none; }
+
+        /* ─── Visión ─────────────────────────────────────────── */
+        .vision { text-align: center; }
+        .vision .statement { margin: 1rem auto 0; max-width: 24ch; }
+
+        /* ─── Para quién ─────────────────────────────────────── */
+        .who { background: var(--sand); }
+        .who-grid { display: grid; gap: 2.5rem; align-items: start; }
+        .facts { display: grid; gap: .75rem; }
+        .fact { background: var(--card); border-radius: 20px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
+        .fact b { display: block; font-family: 'Kalnia', serif; font-weight: 600; font-size: 1.25rem; }
+        .fact span { font-size: .88rem; color: var(--ink-2); }
+
+        /* ─── Valores ────────────────────────────────────────── */
+        .values { display: grid; gap: 1rem; margin-top: 2.5rem; }
+        .value { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem 1.4rem; }
+        .value .n { font-size: .72rem; font-weight: 600; letter-spacing: .14em; color: var(--orange); }
+        .value h3 { margin: .5rem 0 .4rem; }
+        .value p { font-size: .92rem; color: var(--ink-2); }
+
+        /* ─── Qué no es ──────────────────────────────────────── */
+        .not { background: var(--peach); overflow: hidden; }
+        .not-grid { display: grid; gap: 1rem; margin-top: 2.5rem; }
+        .not-card { border-radius: var(--radius); padding: 1.4rem; background: rgba(255,255,255,.55); }
+        .not-card .x { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; margin-bottom: .8rem; }
+        .not-card .x svg { width: 16px; height: 16px; }
+        .not-card h3 { font-size: 1.2rem; margin-bottom: .35rem; }
+        .not-card p { font-size: .92rem; color: var(--ink-2); }
+        .is { margin-top: 2rem; display: flex; gap: 1rem; align-items: flex-start; padding: 1.3rem 1.4rem; border-radius: var(--radius); background: var(--ink); color: #fff; }
+        .is .ic { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(238,141,99,.18); color: var(--orange-2); }
+        .is .ic svg { width: 20px; height: 20px; }
+        .is p { color: rgba(255,255,255,.82); font-size: .95rem; }
+        .is b { color: #fff; }
+
+        /* ─── Propuesta de valor ─────────────────────────────── */
+        .offer-grid { display: grid; gap: 1rem; margin-top: 2.5rem; }
+        .offer { border-radius: var(--radius); padding: 1.6rem 1.5rem; background: var(--card); box-shadow: var(--shadow); }
+        .offer.dark { background: var(--ink); color: #fff; }
+        .offer .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 99px; font-size: .75rem; font-weight: 600; background: var(--orange-soft); color: var(--orange); margin-bottom: .9rem; }
+        .offer.dark .tag { background: rgba(238,141,99,.18); color: var(--orange-2); }
+        .offer h3 { margin-bottom: .5rem; }
+        .offer p { font-size: .93rem; color: var(--ink-2); }
+        .offer.dark p { color: rgba(255,255,255,.75); }
+
+        /* ─── Filtro ─────────────────────────────────────────── */
+        .filter { overflow: hidden; text-align: center; }
+        .filter .q { font-family: 'Kalnia', Georgia, serif; font-weight: 600; font-size: clamp(1.5rem, 4.4vw, 2.4rem); line-height: 1.2; max-width: 28ch; margin: 1rem auto 1.5rem; }
+        .yesno { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+        .yesno span { padding: .5rem 1rem; border-radius: 99px; background: var(--card); box-shadow: var(--shadow); font-size: .9rem; }
+        .yesno b { color: var(--orange); }
+
+        /* ─── Pendientes ─────────────────────────────────────── */
+        .next { margin-top: 2.5rem; }
+
+        footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; font-size: .85rem; color: var(--ink-2); }
+
+        /* ─── Aparición al hacer scroll ──────────────────────── */
+        .js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--d, 0) * 90ms); }
+        .js .rv.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .js .rv { opacity: 1; transform: none; transition: none; }
+            .hero .star-big { animation: none; }
+            html { scroll-behavior: auto; }
+        }
+
+        @media (min-width: 720px) {
+            .values { grid-template-columns: 1fr 1fr; }
+            .not-grid { grid-template-columns: repeat(3, 1fr); }
+            .offer-grid { grid-template-columns: 1fr 1fr; }
+            .facts { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 1000px) {
+            .values { grid-template-columns: repeat(3, 1fr); }
+            .who-grid { grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <script>document.documentElement.classList.add('js');</script>
+
+    <header class="nav" id="nav">
+        <div class="wrap nav-in">
+            <a href="/" class="brand" aria-label="Metriotes">
+                <svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                Metriotes
+            </a>
+            <div class="nav-right">
+                <div class="lang" role="group" aria-label="Idioma">
+                    <button type="button" data-lang="es" class="on">ES</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a data-i18n="v1" href="/taller/" class="btn btn-primary">Ver el taller</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+    <!-- ── Hero ───────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <svg class="star-big rv" viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <span data-i18n="v2" class="eyebrow rv" style="--d:1">Descubre tu Norte · Talleres</span>
+            <h1 data-i18n="v3" class="rv" style="--d:2">Para decidir con <em>claridad</em>, no por inercia.</h1>
+            <p data-i18n="v4" class="lead rv" style="--d:3">Nuestra misión, nuestra visión y lo que nos guía. Lo que hay detrás de cada taller de Metriotes.</p>
+        </div>
+    </section>
+
+    <!-- ── Misión ─────────────────────────────────────────── -->
+    <section class="section mission">
+        <div class="contours night" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <span data-i18n="v5" class="eyebrow rv">Misión</span>
+            <p data-i18n="v6" class="statement rv" style="--d:1">Ayudamos a jóvenes adultos a <em>definir su Norte</em> y a convertirlo en <em>10 acciones propias</em>, para decidir con claridad y no perderse en el camino.</p>
+            <p data-i18n="v7" class="how rv" style="--d:2">Mediante talleres presenciales, prácticos y en grupo.</p>
+        </div>
+    </section>
+
+    <!-- ── Visión ─────────────────────────────────────────── -->
+    <section class="section vision">
+        <div class="wrap">
+            <span data-i18n="v8" class="eyebrow rv">Visión</span>
+            <p data-i18n="v9" class="statement rv" style="--d:1">Una generación que elige <em>con conciencia</em>, paso a paso y acompañada, en lugar de por inercia o presión.</p>
+        </div>
+    </section>
+
+    <!-- ── Para quién ─────────────────────────────────────── -->
+    <section class="section who">
+        <div class="wrap who-grid">
+            <div>
+                <span data-i18n="v10" class="eyebrow rv">Para quién</span>
+                <h2 data-i18n="v11" class="rv" style="--d:1">Jóvenes adultos que <em>quieren cambiar</em> y todavía no saben hacia dónde.</h2>
+                <p data-i18n="v12" class="lead rv" style="--d:2">Están en sus primeras experiencias laborales, no se sienten conformes o sienten que no les pagan lo que valen. Y están abiertos a vivir algo distinto.</p>
+            </div>
+            <div class="facts">
+                <div class="fact rv"><b data-i18n="v13">23 a 36 años</b><span data-i18n="v14">Aproximadamente</span></div>
+                <div class="fact rv" style="--d:1"><b data-i18n="v15">Primeros trabajos</b><span data-i18n="v16">Poco conformes o mal pagados</span></div>
+                <div class="fact rv" style="--d:2"><b data-i18n="v17">Ganas de cambiar</b><span data-i18n="v18">Sin un rumbo claro todavía</span></div>
+                <div class="fact rv" style="--d:3"><b data-i18n="v19">Abiertos</b><span data-i18n="v20">A experiencias distintas</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Valores ────────────────────────────────────────── -->
+    <section class="section">
+        <div class="wrap">
+            <div class="center">
+                <span data-i18n="v21" class="eyebrow rv">Valores</span>
+                <h2 data-i18n="v22" class="rv" style="--d:1">Lo que nos guía</h2>
+            </div>
+            <div class="values">
+                <div class="value rv"><span class="n">01</span><h3 data-i18n="v23">Conciencia antes que impulso</h3><p data-i18n="v24">Primero entender, después decidir.</p></div>
+                <div class="value rv" style="--d:1"><span class="n">02</span><h3 data-i18n="v25">Práctica sobre teoría</h3><p data-i18n="v26">Ejercicios concretos, no charlas.</p></div>
+                <div class="value rv" style="--d:2"><span class="n">03</span><h3 data-i18n="v27">Cada uno llega a su respuesta</h3><p data-i18n="v28">No decimos qué hacer: acompañamos.</p></div>
+                <div class="value rv"><span class="n">04</span><h3 data-i18n="v29">Paso a paso</h3><p data-i18n="v30">Avances pequeños y sostenibles.</p></div>
+                <div class="value rv" style="--d:1"><span class="n">05</span><h3 data-i18n="v31">Comunidad</h3><p data-i18n="v32">Nadie cambia de rumbo solo.</p></div>
+                <div class="value rv" style="--d:2"><span class="n">06</span><h3 data-i18n="v33">Honestidad de quien lo vivió</h3><p data-i18n="v34">Hablamos desde la experiencia propia.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Qué no es ──────────────────────────────────────── -->
+    <section class="section not">
+        <div class="contours peach" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <span data-i18n="v35" class="eyebrow rv">Qué no es</span>
+            <h2 data-i18n="v36" class="rv" style="--d:1">No venimos a decirte qué hacer</h2>
+            <div class="not-grid">
+                <div class="not-card rv"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></span><h3 data-i18n="v37">Terapia</h3><p data-i18n="v38">Es coaching grupal, no un espacio terapéutico.</p></div>
+                <div class="not-card rv" style="--d:1"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></span><h3 data-i18n="v39">Una charla motivacional</h3><p data-i18n="v40">No es inspiración de un rato: es trabajo práctico.</p></div>
+                <div class="not-card rv" style="--d:2"><span class="x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></span><h3 data-i18n="v41">Un gurú que dice qué hacer</h3><p data-i18n="v42">Cada persona encuentra y escribe sus propias respuestas.</p></div>
+            </div>
+            <div class="is rv">
+                <span class="ic"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span>
+                <p data-i18n="v43"><b>Lo que sí es:</b> un espacio práctico, en grupo y presencial, con ejercicios para que cada persona descubra su propio rumbo. Lo importante es lo que cada uno se lleva.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Propuesta de valor ─────────────────────────────── -->
+    <section class="section">
+        <div class="wrap">
+            <div class="center">
+                <span data-i18n="v44" class="eyebrow rv">Propuesta de valor</span>
+                <h2 data-i18n="v45" class="rv" style="--d:1">Impacto y negocio, en el mismo camino</h2>
+                <p data-i18n="v46" class="lead rv" style="--d:2">Los talleres son la propuesta de valor. La app acompaña, no se vende.</p>
+            </div>
+            <div class="offer-grid">
+                <div class="offer dark rv"><span data-i18n="v47" class="tag">Impacto</span><h3 data-i18n="v48">Personas que eligen con conciencia</h3><p data-i18n="v49">Jóvenes adultos que deciden con claridad en lugar de por inercia, y una comunidad que se acompaña en el cambio.</p></div>
+                <div class="offer rv" style="--d:1"><span data-i18n="v50" class="tag">Talleres</span><h3 data-i18n="v51">Grupos pequeños y presenciales</h3><p data-i18n="v52">Hasta 20 personas, en lugares distintos: un parque, una biblioteca, un café, una librería. Modelo, precio y canales: por definir.</p></div>
+                <div class="offer rv"><span data-i18n="v53" class="tag">App Metriotes</span><h3 data-i18n="v54">100% gratuita</h3><p data-i18n="v55">Acompaña entre sesiones y después del taller: tu Norte, tus pasos y tus 10 mandamientos siempre a mano.</p></div>
+                <div class="offer rv" style="--d:1"><span data-i18n="v31" class="tag">Comunidad</span><h3 data-i18n="v56">Abierta, después del taller</h3><p data-i18n="v57">Un espacio para seguir en contacto y acompañarse cuando el taller termina.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Filtro ─────────────────────────────────────────── -->
+    <section class="section filter" style="background:var(--sand)">
+        <div class="wrap">
+            <span data-i18n="v58" class="eyebrow rv">Nuestro propio filtro</span>
+            <p data-i18n="v59" class="q rv" style="--d:1">¿Esto nos acerca a ayudar a jóvenes adultos a <em>decidir con claridad</em>, paso a paso y acompañados?</p>
+            <div class="yesno rv" style="--d:2"><span data-i18n="v60"><b>Sí</b>, avanzamos.</span><span data-i18n="v61"><b>No</b>, lo dejamos ir.</span></div>
+
+            <div class="next rv"><a data-i18n="v62" href="/taller/" class="btn btn-primary">Ver la propuesta del taller</a></div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <a href="/" class="brand" aria-label="Metriotes"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.6" stroke-linejoin="round"/></svg>Metriotes</a>
+            <p data-i18n="v63" style="margin-top:1rem">© 2026 Metriotes. Todo empieza por tu Norte.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        /* ── Idioma: el HTML es el español; aquí va el inglés ── */
+        const en = {
+            'v1': "See the workshop",
+            'v2': "Find your North · Workshops",
+            'v3': "To decide with <em>clarity</em>, not out of inertia.",
+            'v4': "Our mission, our vision and what guides us. What lies behind every Metriotes workshop.",
+            'v5': "Mission",
+            'v6': "We help young adults <em>define their North</em> and turn it into <em>10 actions of their own</em>, so they can decide with clarity and not get lost along the way.",
+            'v7': "Through in-person, hands-on group workshops.",
+            'v8': "Vision",
+            'v9': "A generation that chooses <em>consciously</em>, step by step and in good company, rather than out of inertia or pressure.",
+            'v10': "Who it's for",
+            'v11': "Young adults who <em>want to change</em> and don't yet know where to.",
+            'v12': "They're in their first jobs, they're not happy or they feel they're not paid what they're worth. And they're open to trying something different.",
+            'v13': "23 to 36 years old",
+            'v14': "Roughly",
+            'v15': "First jobs",
+            'v16': "Unhappy or underpaid",
+            'v17': "Wanting to change",
+            'v18': "Without a clear direction yet",
+            'v19': "Open",
+            'v20': "To different experiences",
+            'v21': "Values",
+            'v22': "What guides us",
+            'v23': "Awareness before impulse",
+            'v24': "Understand first, then decide.",
+            'v25': "Practice over theory",
+            'v26': "Concrete exercises, not talks.",
+            'v27': "Everyone reaches their own answer",
+            'v28': "We don't say what to do: we walk alongside.",
+            'v29': "Step by step",
+            'v30': "Small, sustainable progress.",
+            'v31': "Community",
+            'v32': "Nobody changes course alone.",
+            'v33': "The honesty of someone who's been there",
+            'v34': "We speak from our own experience.",
+            'v35': "What it isn't",
+            'v36': "We're not here to tell you what to do",
+            'v37': "Therapy",
+            'v38': "It's group coaching, not a therapeutic space.",
+            'v39': "A motivational talk",
+            'v40': "It's not a quick dose of inspiration: it's practical work.",
+            'v41': "A guru telling you what to do",
+            'v42': "Everyone finds and writes their own answers.",
+            'v43': "<b>What it is:</b> a practical, in-person group space, with exercises so each person discovers their own direction. What matters is what each person takes home.",
+            'v44': "Value proposition",
+            'v45': "Impact and business, on the same path",
+            'v46': "The workshops are the value proposition. The app supports them; it isn't sold.",
+            'v47': "Impact",
+            'v48': "People who choose consciously",
+            'v49': "Young adults who decide with clarity instead of out of inertia, and a community that supports each other through change.",
+            'v50': "Workshops",
+            'v51': "Small, in-person groups",
+            'v52': "Up to 20 people, in different places: a park, a library, a café, a bookshop. Model, price and channels: to be confirmed.",
+            'v53': "Metriotes app",
+            'v54': "100% free",
+            'v55': "It's with you between sessions and after the workshop: your North, your steps and your 10 commandments always at hand.",
+            'v56': "Open, after the workshop",
+            'v57': "A space to stay in touch and support each other once the workshop ends.",
+            'v58': "Our own filter",
+            'v59': "Does this bring us closer to helping young adults <em>decide with clarity</em>, step by step and in good company?",
+            'v60': "<b>Yes</b>, we go ahead.",
+            'v61': "<b>No</b>, we let it go.",
+            'v62': "See the workshop",
+            'v63': "© 2026 Metriotes. It all starts with your North."
+        };
+        /* Textos en atributos (placeholder, aria-label) y del documento */
+        const attrsEn = [[".lang", "aria-label", "Language"]];
+        const meta = {
+            es: { title: document.title, desc: document.querySelector('meta[name="description"]').content },
+            en: { title: "Vision | Metriotes", desc: "Mission, vision and values behind the Metriotes Find your North workshops." }
+        };
+        const es = {};
+        document.querySelectorAll('[data-i18n]').forEach(el => { es[el.dataset.i18n] = el.innerHTML; });
+        const attrsEs = [];
+        attrsEn.forEach(([sel, attr]) => { const el = document.querySelector(sel); attrsEs.push(el ? el.getAttribute(attr) : null); });
+
+        function setLanguage(l) {
+            const lang = l === 'en' ? 'en' : 'es';
+            const dict = lang === 'en' ? en : es;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.dataset.i18n;
+                if (dict[k] !== undefined) el.innerHTML = dict[k];
+            });
+            attrsEn.forEach(([sel, attr, val], i) => {
+                const el = document.querySelector(sel);
+                if (el) el.setAttribute(attr, lang === 'en' ? val : attrsEs[i]);
+            });
+            document.title = meta[lang].title;
+            document.querySelector('meta[name="description"]').content = meta[lang].desc;
+            document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+            document.documentElement.lang = lang;
+            try { localStorage.setItem('preferredLang', lang); } catch (e) {}
+        }
+        document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.lang)));
+
+        const params = new URLSearchParams(location.search);
+        let initial = params.get('lang');
+        if (!initial) { try { initial = localStorage.getItem('preferredLang'); } catch (e) {} }
+        if (!initial) initial = (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+        if (initial === 'en') setLanguage('en');
+
+        /* ── Aparición al hacer scroll ── */
+        const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }) : null;
+        document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+        /* ── Nav con borde al bajar ── */
+        const nav = document.getElementById('nav');
+        addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+    })();
+    </script>
+</body>
+</html>

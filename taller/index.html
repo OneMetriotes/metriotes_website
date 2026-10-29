@@ -83,8 +83,6 @@
 
         /* Marcadores de lo que falta definir */
         .tbd { display: inline-flex; align-items: center; padding: .15rem .55rem; border-radius: 99px; font-size: .75rem; font-weight: 600; background: var(--orange-soft); color: var(--orange); border: 1px dashed rgba(228,96,47,.45); white-space: nowrap; vertical-align: middle; }
-        .draft { display: inline-flex; align-items: center; gap: .45rem; padding: .3rem .75rem; border-radius: 99px; font-size: .72rem; font-weight: 600; letter-spacing: .04em; background: var(--ink); color: #fff; }
-        .draft::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--orange-2); }
 
         /* ─── Navegación ─────────────────────────────────────── */
         .nav {
@@ -101,6 +99,9 @@
         .nav-links { display: none; gap: 1.75rem; margin-left: 2.5rem; font-size: .93rem; color: var(--ink-2); }
         .nav-links a:hover { color: var(--ink); }
         .nav-right { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+        .lang { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(30,43,37,.06); font-size: .75rem; font-weight: 600; }
+        .lang button { padding: .3rem .55rem; border-radius: 999px; color: var(--muted); background: none; border: 0; cursor: pointer; font: inherit; }
+        .lang button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
         .nav .btn { min-height: 40px; padding: 0 1.1rem; font-size: .88rem; }
 
         /* ─── Fondos de curvas de nivel ──────────────────────── */
@@ -114,6 +115,7 @@
         .hero-grid { position: relative; display: grid; gap: 2.5rem; align-items: center; }
         .hero h1 { font-size: clamp(2.6rem, 11vw, 5rem); margin: 1rem 0 1.1rem; }
         .hero .lead { margin-bottom: 1.75rem; }
+        .hero-note { margin-top: 1rem; font-size: .9rem; color: var(--ink-2); }
         .hero-cta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
         .facts-card { background: var(--card); border-radius: 30px; box-shadow: var(--shadow); padding: 1.5rem; }
         .facts-card .star { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange); margin-bottom: 1rem; }
@@ -270,14 +272,17 @@
                 Metriotes
             </a>
             <nav class="nav-links" aria-label="Secciones">
-                <a href="#que-te-llevas">Qué te llevas</a>
-                <a href="#semanas">Las 3 semanas</a>
-                <a href="#mandamientos">10 mandamientos</a>
-                <a href="#preguntas">Preguntas</a>
+                <a data-i18n="t1" href="#que-te-llevas">Qué te llevas</a>
+                <a data-i18n="t2" href="#semanas">Las 3 semanas</a>
+                <a data-i18n="t3" href="#mandamientos">10 mandamientos</a>
+                <a data-i18n="t4" href="#preguntas">Preguntas</a>
             </nav>
             <div class="nav-right">
-                <span class="draft">Borrador</span>
-                <a href="#inscripcion" class="btn btn-primary">Anotarme</a>
+                <div class="lang" role="group" aria-label="Idioma">
+                    <button type="button" data-lang="es" class="on">ES</button>
+                    <button type="button" data-lang="en">EN</button>
+                </div>
+                <a data-i18n="t5" href="#inscripcion" class="btn btn-primary">Inscribirme</a>
             </div>
         </div>
     </header>
@@ -288,25 +293,26 @@
         <div class="contours" aria-hidden="true"></div>
         <div class="wrap hero-grid">
             <div>
-                <span class="eyebrow rv">Taller presencial · Descubre tu Norte</span>
-                <h1 class="rv" style="--d:1">Quieres cambiar. <em>Descubre hacia dónde.</em></h1>
-                <p class="lead rv" style="--d:2">Tres encuentros en grupo para definir tu Norte, ver con honestidad dónde estás hoy, trazar cómo llegar y escribir tus 10 mandamientos: tu filtro para cada decisión.</p>
+                <span data-i18n="t6" class="eyebrow rv">Taller presencial · Descubre tu Norte</span>
+                <h1 data-i18n="t7" class="rv" style="--d:1">Quieres cambiar. <em>Descubre hacia dónde.</em></h1>
+                <p data-i18n="t8" class="lead rv" style="--d:2">Tres encuentros en grupo para definir tu Norte, ver con honestidad dónde estás hoy, trazar cómo llegar y escribir tus 10 mandamientos: tu filtro para cada decisión.</p>
                 <div class="hero-cta rv" style="--d:3">
-                    <a href="#inscripcion" class="btn btn-primary">Quiero anotarme</a>
-                    <a href="#semanas" class="btn btn-ghost">Ver el programa</a>
+                    <a data-i18n="t9" href="#inscripcion" class="btn btn-primary">Quiero inscribirme</a>
+                    <a data-i18n="t10" href="#semanas" class="btn btn-ghost">Ver el programa</a>
                 </div>
+                <p data-i18n="t11" class="hero-note rv" style="--d:4">Coaching grupal y práctico. No es terapia ni una charla motivacional.</p>
             </div>
             <aside class="facts-card rv" style="--d:2" aria-label="El taller en datos">
                 <span class="star"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span>
                 <dl>
-                    <div><dt>Duración</dt><dd>3 semanas</dd></div>
-                    <div><dt>Frecuencia</dt><dd>1 encuentro por semana</dd></div>
-                    <div><dt>Cada sesión</dt><dd>2 a 3 horas</dd></div>
-                    <div><dt>Formato</dt><dd>Presencial, en grupo</dd></div>
-                    <div><dt>Plazas</dt><dd>Hasta 20 personas</dd></div>
-                    <div><dt>Fechas</dt><dd><span class="tbd">Por definir</span></dd></div>
-                    <div><dt>Lugar</dt><dd><span class="tbd">Por definir</span></dd></div>
-                    <div><dt>Precio</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t12">Duración</dt><dd data-i18n="t13">3 semanas</dd></div>
+                    <div><dt data-i18n="t14">Frecuencia</dt><dd data-i18n="t15">1 encuentro por semana</dd></div>
+                    <div><dt data-i18n="t16">Cada sesión</dt><dd data-i18n="t17">2 a 3 horas</dd></div>
+                    <div><dt data-i18n="t18">Formato</dt><dd data-i18n="t19">Presencial, en grupo</dd></div>
+                    <div><dt data-i18n="t20">Plazas</dt><dd data-i18n="t21">Hasta 20 personas</dd></div>
+                    <div><dt data-i18n="t22">Fechas</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t23">Lugar</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t24">Precio</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
                 </dl>
             </aside>
         </div>
@@ -316,15 +322,15 @@
     <section class="section foryou" id="para-ti">
         <div class="wrap foryou-grid">
             <div>
-                <span class="eyebrow rv">¿Es para ti?</span>
-                <h2 class="rv" style="--d:1">Si sientes que algo tiene que cambiar, <em>empieza aquí</em>.</h2>
-                <p class="lead rv" style="--d:2">Pensado para jóvenes adultos, de 23 a 36 años aproximadamente, en sus primeras experiencias laborales.</p>
+                <span data-i18n="t26" class="eyebrow rv">¿Es para ti?</span>
+                <h2 data-i18n="t27" class="rv" style="--d:1">Si sientes que algo tiene que cambiar, <em>empieza aquí</em>.</h2>
+                <p data-i18n="t28" class="lead rv" style="--d:2">Pensado para jóvenes adultos, de 23 a 36 años aproximadamente, en sus primeras experiencias laborales.</p>
             </div>
             <ul class="checks">
-                <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Trabajas, pero no te sientes conforme o sientes que no te pagan lo que vales.</li>
-                <li class="rv" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tienes ganas de cambiar y todavía no sabes hacia dónde.</li>
-                <li class="rv" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Quieres decidir con claridad, no por inercia ni por presión.</li>
-                <li class="rv" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te animas a vivir algo distinto, con otras personas que están en lo mismo.</li>
+                <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="t29">Trabajas, pero no te sientes conforme o sientes que no te pagan lo que vales.</span></li>
+                <li class="rv" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="t30">Tienes ganas de cambiar y todavía no sabes hacia dónde.</span></li>
+                <li class="rv" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="t31">Quieres decidir con claridad, no por inercia ni por presión.</span></li>
+                <li class="rv" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="t32">Te animas a vivir algo distinto, con otras personas que están en lo mismo.</span></li>
             </ul>
         </div>
     </section>
@@ -333,31 +339,31 @@
     <section class="section" id="que-te-llevas">
         <div class="wrap">
             <div class="center">
-                <span class="eyebrow rv">Qué te llevas</span>
-                <h2 class="rv" style="--d:1">Un camino con cuatro paradas</h2>
-                <p class="lead rv" style="--d:2">Al terminar el taller sales con cuatro cosas tuyas, escritas por ti.</p>
+                <span data-i18n="t1" class="eyebrow rv">Qué te llevas</span>
+                <h2 data-i18n="t33" class="rv" style="--d:1">Un camino con cuatro paradas</h2>
+                <p data-i18n="t34" class="lead rv" style="--d:2">Al terminar el taller sales con cuatro cosas tuyas, escritas por ti.</p>
             </div>
             <div class="stops">
                 <div class="trail" aria-hidden="true"></div>
                 <div class="stop-card rv">
-                    <div class="stop-num"><span class="dot"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span><span>1 · Norte</span></div>
-                    <h3>Mi Norte</h3>
-                    <p>Hacia dónde quiero ir. Lo que da sentido a mis decisiones.</p>
+                    <div class="stop-num"><span class="dot"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span><span data-i18n="t35">1 · Norte</span></div>
+                    <h3 data-i18n="t36">Mi Norte</h3>
+                    <p data-i18n="t37">Hacia dónde quiero ir. Lo que da sentido a mis decisiones.</p>
                 </div>
                 <div class="stop-card rv" style="--d:1">
-                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/></svg></span><span>2 · Hoy</span></div>
-                    <h3>Dónde estoy hoy</h3>
-                    <p>Una mirada honesta a mi punto de partida.</p>
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/></svg></span><span data-i18n="t38">2 · Hoy</span></div>
+                    <h3 data-i18n="t39">Dónde estoy hoy</h3>
+                    <p data-i18n="t40">Una mirada honesta a mi punto de partida.</p>
                 </div>
                 <div class="stop-card rv" style="--d:2">
-                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span><span>3 · Estrategia</span></div>
-                    <h3>Cómo llegar</h3>
-                    <p>El camino concreto entre hoy y mi Norte.</p>
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span><span data-i18n="t41">3 · Estrategia</span></div>
+                    <h3 data-i18n="t42">Cómo llegar</h3>
+                    <p data-i18n="t43">El camino concreto entre hoy y mi Norte.</p>
                 </div>
                 <div class="stop-card rv" style="--d:3">
-                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span>4 · Mandamientos</span></div>
-                    <h3>Mis 10 mandamientos</h3>
-                    <p>Acciones propias para vivir bajo mi Norte y saber si cada decisión me acerca o me aleja.</p>
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span data-i18n="t44">4 · Mandamientos</span></div>
+                    <h3 data-i18n="t45">Mis 10 mandamientos</h3>
+                    <p data-i18n="t46">Acciones propias para vivir bajo mi Norte y saber si cada decisión me acerca o me aleja.</p>
                 </div>
             </div>
         </div>
@@ -367,30 +373,30 @@
     <section class="section weeks" id="semanas">
         <div class="contours night" aria-hidden="true"></div>
         <div class="wrap" style="position:relative">
-            <span class="eyebrow rv">El programa</span>
-            <h2 class="rv" style="--d:1">Tres semanas, <em>un encuentro cada una</em></h2>
-            <p class="lead rv" style="--d:2">Sesiones de 2 a 3 horas, presenciales y en grupo. Coaching grupal con ejercicios: nadie te dice qué hacer, cada uno llega a su respuesta.</p>
+            <span data-i18n="t47" class="eyebrow rv">El programa</span>
+            <h2 data-i18n="t48" class="rv" style="--d:1">Tres semanas, <em>un encuentro cada una</em></h2>
+            <p data-i18n="t49" class="lead rv" style="--d:2">Sesiones de 2 a 3 horas, presenciales y en grupo. Coaching grupal con ejercicios: nadie te dice qué hacer, cada uno llega a su respuesta.</p>
             <div class="week-list">
                 <div class="week rv">
-                    <div class="k"><b>Semana 1</b><span>2 a 3 horas</span></div>
-                    <h3>Mi Norte</h3>
-                    <p>Descubrir hacia dónde quieres ir y ponerlo en palabras.</p>
-                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                    <div class="k"><b data-i18n="t50">Semana 1</b><span data-i18n="t17">2 a 3 horas</span></div>
+                    <h3 data-i18n="t36">Mi Norte</h3>
+                    <p data-i18n="t51">Descubrir hacia dónde quieres ir y ponerlo en palabras.</p>
+                    <ul><li><span data-i18n="t52">Ejercicios de la sesión</span>&nbsp;<span data-i18n="t25" class="tbd">Por definir</span></li></ul>
                 </div>
                 <div class="week rv" style="--d:1">
-                    <div class="k"><b>Semana 2</b><span>2 a 3 horas</span></div>
-                    <h3>Dónde estoy y cómo llegar</h3>
-                    <p>Mirar con honestidad tu punto de partida y trazar la estrategia hacia tu Norte.</p>
-                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                    <div class="k"><b data-i18n="t53">Semana 2</b><span data-i18n="t17">2 a 3 horas</span></div>
+                    <h3 data-i18n="t54">Dónde estoy y cómo llegar</h3>
+                    <p data-i18n="t55">Mirar con honestidad tu punto de partida y trazar la estrategia hacia tu Norte.</p>
+                    <ul><li><span data-i18n="t52">Ejercicios de la sesión</span>&nbsp;<span data-i18n="t25" class="tbd">Por definir</span></li></ul>
                 </div>
                 <div class="week rv" style="--d:2">
-                    <div class="k"><b>Semana 3</b><span>2 a 3 horas</span></div>
-                    <h3>Mis 10 mandamientos</h3>
-                    <p>Escribir tus 10 acciones, probarlas como filtro y elegir con quién compartirlas.</p>
-                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                    <div class="k"><b data-i18n="t56">Semana 3</b><span data-i18n="t17">2 a 3 horas</span></div>
+                    <h3 data-i18n="t45">Mis 10 mandamientos</h3>
+                    <p data-i18n="t57">Escribir tus 10 acciones, probarlas como filtro y elegir con quién compartirlas.</p>
+                    <ul><li><span data-i18n="t52">Ejercicios de la sesión</span>&nbsp;<span data-i18n="t25" class="tbd">Por definir</span></li></ul>
                 </div>
             </div>
-            <p class="weeks-note rv">Reparto de contenidos por semana: propuesta inicial, puede cambiar.</p>
+            <p data-i18n="t58" class="weeks-note rv">Reparto de contenidos por semana: propuesta inicial, puede cambiar.</p>
         </div>
     </section>
 
@@ -398,24 +404,24 @@
     <section class="section" id="mandamientos">
         <div class="wrap cmd-grid">
             <div>
-                <span class="eyebrow rv">Tus 10 mandamientos</span>
-                <h2 class="rv" style="--d:1">Tu Norte, convertido en <em>10 acciones</em></h2>
+                <span data-i18n="t59" class="eyebrow rv">Tus 10 mandamientos</span>
+                <h2 data-i18n="t60" class="rv" style="--d:1">Tu Norte, convertido en <em>10 acciones</em></h2>
                 <ul class="cmd-points">
-                    <li class="rv"><span class="n">1</span>Cada persona escribe los suyos, en primera persona.</li>
-                    <li class="rv" style="--d:1"><span class="n">2</span>Son 10 acciones concretas que haría alguien que vive bajo ese Norte.</li>
-                    <li class="rv" style="--d:2"><span class="n">3</span>Funcionan como filtro sí o no: ¿esta decisión me acerca o me aleja?</li>
-                    <li class="rv" style="--d:3"><span class="n">4</span>Los compartes con alguien de confianza para sostenerlos.</li>
+                    <li class="rv"><span class="n">1</span><span data-i18n="t61">Cada persona escribe los suyos, en primera persona.</span></li>
+                    <li class="rv" style="--d:1"><span class="n">2</span><span data-i18n="t62">Son 10 acciones concretas que haría alguien que vive bajo ese Norte.</span></li>
+                    <li class="rv" style="--d:2"><span class="n">3</span><span data-i18n="t63">Funcionan como filtro sí o no: ¿esta decisión me acerca o me aleja?</span></li>
+                    <li class="rv" style="--d:3"><span class="n">4</span><span data-i18n="t64">Los compartes con alguien de confianza para sostenerlos.</span></li>
                 </ul>
             </div>
             <div class="example rv" style="--d:2">
-                <small>Ejemplo · Norte</small>
-                <div class="norte">Dar amor</div>
+                <small data-i18n="t65">Ejemplo · Norte</small>
+                <div data-i18n="t66" class="norte">Dar amor</div>
                 <ol>
-                    <li>Llamo a mis amigos una vez por semana.</li>
-                    <li>Ayudo a personas que lo necesitan.</li>
-                    <li class="more">y ocho más, escritas por ti</li>
+                    <li data-i18n="t67">Llamo a mis amigos una vez por semana.</li>
+                    <li data-i18n="t68">Ayudo a personas que lo necesitan.</li>
+                    <li data-i18n="t69" class="more">y ocho más, escritas por ti</li>
                 </ol>
-                <div class="decide">¿Me anoto a este curso? <b>¿Me acerca a dar amor?</b> Sí, avanzo. No, lo dejo ir.</div>
+                <div data-i18n="t70" class="decide">¿Me inscribo en este curso? <b>¿Me acerca a dar amor?</b> Sí, avanzo. No, lo dejo ir.</div>
             </div>
         </div>
     </section>
@@ -424,14 +430,14 @@
     <section class="section places" id="lugares">
         <div class="contours peach" aria-hidden="true"></div>
         <div class="wrap" style="position:relative">
-            <span class="eyebrow rv">Un taller distinto</span>
-            <h2 class="rv" style="--d:1">Fuera de la sala de siempre</h2>
-            <p class="lead rv" style="--d:2">Nos encontramos en lugares que invitan a pensar distinto.</p>
-            <div class="chips rv" style="--d:3"><span class="chip">Un parque</span><span class="chip">Una biblioteca</span><span class="chip">Un café</span><span class="chip">Una librería</span></div>
+            <span data-i18n="t71" class="eyebrow rv">Un taller distinto</span>
+            <h2 data-i18n="t72" class="rv" style="--d:1">Fuera de la sala de siempre</h2>
+            <p data-i18n="t73" class="lead rv" style="--d:2">Nos encontramos en lugares que invitan a pensar distinto.</p>
+            <div class="chips rv" style="--d:3"><span data-i18n="t74" class="chip">Un parque</span><span data-i18n="t75" class="chip">Una biblioteca</span><span data-i18n="t76" class="chip">Un café</span><span data-i18n="t77" class="chip">Una librería</span></div>
             <div class="places-grid">
-                <div class="place-card rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a4 4 0 0 1 6-3.5"/></svg></span><h3>Hasta 20 personas</h3><p>Un grupo chico para que haya tiempo de trabajar, hablar y escucharse.</p></div>
-                <div class="place-card rv" style="--d:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 3 4 4.5 4 8a4 4 0 0 1-8 0c0-2 1-3 1-3s.5 2 2 2c0-3 1-5 1-7Z"/><path d="M4 21l16-3M4 18l16 3"/></svg></span><h3>Comunidad, después</h3><p>Al terminar, un espacio abierto para seguir en contacto y acompañarse.</p></div>
-                <div class="place-card rv" style="--d:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg></span><h3>La app, gratis</h3><p>Metriotes te acompaña entre sesiones y después, sin coste: tu Norte y tus mandamientos siempre a mano.</p></div>
+                <div class="place-card rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a4 4 0 0 1 6-3.5"/></svg></span><h3 data-i18n="t21">Hasta 20 personas</h3><p data-i18n="t78">Un grupo pequeño para que haya tiempo de trabajar, hablar y escucharse.</p></div>
+                <div class="place-card rv" style="--d:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 3 4 4.5 4 8a4 4 0 0 1-8 0c0-2 1-3 1-3s.5 2 2 2c0-3 1-5 1-7Z"/><path d="M4 21l16-3M4 18l16 3"/></svg></span><h3 data-i18n="t79">Comunidad, después</h3><p data-i18n="t80">Al terminar, un espacio abierto para seguir en contacto y acompañarse.</p></div>
+                <div class="place-card rv" style="--d:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg></span><h3 data-i18n="t81">La app, gratis</h3><p data-i18n="t82">Metriotes te acompaña entre sesiones y después, sin coste: tu Norte y tus mandamientos siempre a mano.</p></div>
             </div>
         </div>
     </section>
@@ -440,14 +446,14 @@
     <section class="section" id="quien">
         <div class="wrap guide-grid">
             <div>
-                <span class="eyebrow rv">Quién lo guía</span>
-                <h2 class="rv" style="--d:1">Franco, alguien que <em>cambió de rumbo</em> varias veces</h2>
-                <p class="lead rv" style="--d:2">Pasó por la arquitectura, la tecnología en un colegio, el software, el producto, el coaching y la fotografía. Hay personas que cambiaron su vida después de conversar con él. El taller nace de esa experiencia: no desde la teoría, sino desde haberlo vivido.</p>
+                <span data-i18n="t83" class="eyebrow rv">Quién lo guía</span>
+                <h2 data-i18n="t84" class="rv" style="--d:1">Franco, alguien que <em>cambió de rumbo</em> varias veces</h2>
+                <p data-i18n="t85" class="lead rv" style="--d:2">Pasó por la arquitectura, la tecnología en un colegio, el software, el producto, el coaching y la fotografía. Hay personas que cambiaron su vida después de conversar con él. El taller nace de esa experiencia: no desde la teoría, sino desde haberlo vivido.</p>
                 <div class="path rv" style="--d:3" aria-label="Su recorrido">
-                    <span>Arquitectura</span><i></i><span>Tecnología en un colegio</span><i></i><span>Software</span><i></i><span>Producto</span><i></i><span>Coaching</span><i></i><span>Fotografía</span><i></i><span class="now">Talleres</span>
+                    <span data-i18n="t86">Arquitectura</span><i></i><span data-i18n="t87">Tecnología en un colegio</span><i></i><span data-i18n="t88">Software</span><i></i><span data-i18n="t89">Producto</span><i></i><span data-i18n="t90">Coaching</span><i></i><span data-i18n="t91">Fotografía</span><i></i><span data-i18n="t92" class="now">Talleres</span>
                 </div>
             </div>
-            <div class="photo rv" style="--d:1"><span>Foto de Franco<br><span class="tbd" style="margin-top:.6rem">Por definir</span></span></div>
+            <div class="photo rv" style="--d:1"><span><span data-i18n="t93">Foto de Franco</span><br><span data-i18n="t25" class="tbd" style="margin-top:.6rem">Por definir</span></span></div>
         </div>
     </section>
 
@@ -455,33 +461,33 @@
     <section class="section signup" id="inscripcion">
         <div class="wrap">
             <div class="center">
-                <span class="eyebrow rv">Inscripción</span>
-                <h2 class="rv" style="--d:1">Reserva tu lugar</h2>
-                <p class="lead rv" style="--d:2">Plazas limitadas a 20 personas por grupo.</p>
+                <span data-i18n="t94" class="eyebrow rv">Inscripción</span>
+                <h2 data-i18n="t95" class="rv" style="--d:1">Reserva tu lugar</h2>
+                <p data-i18n="t96" class="lead rv" style="--d:2">Plazas limitadas a 20 personas por grupo.</p>
             </div>
             <div class="signup-card rv">
                 <div class="pending" role="note">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                    <span><b>Pendiente:</b> la inscripción todavía no está activa. Este formulario es solo una vista previa y no envía nada.</span>
+                    <span data-i18n="t97"><b>Pendiente:</b> la inscripción todavía no está activa. Este formulario es solo una vista previa y no envía nada.</span>
                 </div>
                 <dl class="edition">
-                    <div><dt>Primera edición</dt><dd><span class="tbd">Fechas por definir</span></dd></div>
-                    <div><dt>Día y horario</dt><dd><span class="tbd">Por definir</span></dd></div>
-                    <div><dt>Lugar</dt><dd><span class="tbd">Por definir</span></dd></div>
-                    <div><dt>Precio</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t98">Primera edición</dt><dd><span data-i18n="t99" class="tbd">Fechas por definir</span></dd></div>
+                    <div><dt data-i18n="t100">Día y horario</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t23">Lugar</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
+                    <div><dt data-i18n="t24">Precio</dt><dd><span data-i18n="t25" class="tbd">Por definir</span></dd></div>
                 </dl>
                 <form class="form" onsubmit="return false" aria-describedby="form-fine">
                     <div class="row">
-                        <div class="field"><label for="f-name">Nombre</label><input id="f-name" type="text" autocomplete="name" placeholder="Tu nombre" disabled></div>
-                        <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email" placeholder="tu@email.com" disabled></div>
+                        <div class="field"><label data-i18n="t101" for="f-name">Nombre</label><input id="f-name" type="text" autocomplete="name" placeholder="Tu nombre" disabled></div>
+                        <div class="field"><label data-i18n="t102" for="f-email">Email</label><input id="f-email" type="email" autocomplete="email" placeholder="tu@email.com" disabled></div>
                     </div>
                     <div class="row">
-                        <div class="field"><label for="f-age">Edad</label><input id="f-age" type="number" min="18" max="99" placeholder="28" disabled></div>
-                        <div class="field"><label for="f-city">Ciudad</label><input id="f-city" type="text" autocomplete="address-level2" placeholder="Tu ciudad" disabled></div>
+                        <div class="field"><label data-i18n="t103" for="f-age">Edad</label><input id="f-age" type="number" min="18" max="99" placeholder="28" disabled></div>
+                        <div class="field"><label data-i18n="t104" for="f-city">Ciudad</label><input id="f-city" type="text" autocomplete="address-level2" placeholder="Tu ciudad" disabled></div>
                     </div>
-                    <div class="field"><label for="f-why">¿Qué te gustaría cambiar? (opcional)</label><textarea id="f-why" placeholder="Unas líneas, como te salga" disabled></textarea></div>
-                    <button type="submit" class="btn btn-primary" disabled>Quiero anotarme · Próximamente</button>
-                    <p class="form-fine" id="form-fine">Cuando abramos las inscripciones te avisamos por email. Nunca compartimos tus datos.</p>
+                    <div class="field"><label data-i18n="t105" for="f-why">¿Qué te gustaría cambiar? (opcional)</label><textarea id="f-why" placeholder="Unas líneas, como te salga" disabled></textarea></div>
+                    <button data-i18n="t106" type="submit" class="btn btn-primary" disabled>Inscribirme · Próximamente</button>
+                    <p data-i18n="t107" class="form-fine" id="form-fine">Cuando abramos las inscripciones te avisamos por email. Nunca compartimos tus datos.</p>
                 </form>
             </div>
         </div>
@@ -491,15 +497,15 @@
     <section class="section" id="preguntas">
         <div class="wrap">
             <div class="center">
-                <span class="eyebrow rv">Preguntas</span>
-                <h2 class="rv" style="--d:1">Lo que suelen preguntar</h2>
+                <span data-i18n="t4" class="eyebrow rv">Preguntas</span>
+                <h2 data-i18n="t108" class="rv" style="--d:1">Lo que suelen preguntar</h2>
             </div>
             <div class="faq">
-                <details class="rv"><summary>¿Es terapia?</summary><p>No. Es coaching grupal con ejercicios prácticos. No es un espacio terapéutico ni una charla motivacional, y nadie te va a decir qué hacer: cada persona llega a su propia respuesta.</p></details>
-                <details class="rv"><summary>¿Tengo que tener algo claro antes de venir?</summary><p>No. El taller es justamente para quienes quieren cambiar y todavía no saben hacia dónde. Solo hace falta ganas de trabajar y de compartir con el grupo.</p></details>
-                <details class="rv"><summary>¿Tengo que ir a las tres sesiones?</summary><p>Sí, es lo ideal: cada semana construye sobre la anterior, desde tu Norte hasta tus 10 mandamientos.</p></details>
-                <details class="rv"><summary>¿Necesito descargar la app?</summary><p>No es obligatorio. Metriotes es gratuita y te sirve para tener tu Norte y tus mandamientos a mano entre sesiones y después del taller.</p></details>
-                <details class="rv"><summary>¿Cuánto cuesta y cuándo empieza?</summary><p>Precio, fechas y lugar de la primera edición: <span class="tbd">Por definir</span></p></details>
+                <details class="rv"><summary data-i18n="t109">¿Es terapia?</summary><p data-i18n="t110">No. Es coaching grupal con ejercicios prácticos. No es un espacio terapéutico ni una charla motivacional, y nadie te va a decir qué hacer: cada persona llega a su propia respuesta.</p></details>
+                <details class="rv"><summary data-i18n="t111">¿Tengo que tener algo claro antes de venir?</summary><p data-i18n="t112">No. El taller es justamente para quienes quieren cambiar y todavía no saben hacia dónde. Solo hace falta ganas de trabajar y de compartir con el grupo.</p></details>
+                <details class="rv"><summary data-i18n="t113">¿Tengo que ir a las tres sesiones?</summary><p data-i18n="t114">Sí, es lo ideal: cada semana construye sobre la anterior, desde tu Norte hasta tus 10 mandamientos.</p></details>
+                <details class="rv"><summary data-i18n="t115">¿Necesito descargar la app?</summary><p data-i18n="t116">No es obligatorio. Metriotes es gratuita y te sirve para tener tu Norte y tus mandamientos a mano entre sesiones y después del taller.</p></details>
+                <details class="rv"><summary data-i18n="t117">¿Cuánto cuesta y cuándo empieza?</summary><p data-i18n="t118">Precio, fechas y lugar de la primera edición: todavía por definir. Te avisamos en cuanto estén.</p></details>
             </div>
         </div>
     </section>
@@ -509,9 +515,9 @@
         <div class="contours" aria-hidden="true"></div>
         <div class="wrap" style="position:relative">
             <svg class="star-big" viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.2" stroke-linejoin="round"/></svg>
-            <h2 class="rv">Tres semanas para encontrar tu Norte</h2>
-            <p class="lead rv" style="--d:1">Y diez acciones tuyas para no perderte en el camino.</p>
-            <a href="#inscripcion" class="btn btn-primary rv" style="--d:2">Quiero anotarme</a>
+            <h2 data-i18n="t119" class="rv">Tres semanas para encontrar tu Norte</h2>
+            <p data-i18n="t120" class="lead rv" style="--d:1">Y diez acciones tuyas para no perderte en el camino.</p>
+            <a data-i18n="t9" href="#inscripcion" class="btn btn-primary rv" style="--d:2">Quiero inscribirme</a>
         </div>
     </section>
     </main>
@@ -519,17 +525,179 @@
     <footer>
         <div class="wrap">
             <a href="/" class="brand" aria-label="Metriotes"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.6" stroke-linejoin="round"/></svg>Metriotes</a>
-            <p style="margin-top:1rem">© 2026 Metriotes. Todo empieza por tu Norte.</p>
+            <p data-i18n="t121" style="margin-top:1rem">© 2026 Metriotes. Todo empieza por tu Norte.</p>
         </div>
     </footer>
 
     <script>
     (function () {
+        /* ── Idioma: el HTML es el español; aquí va el inglés ── */
+        const en = {
+            't1': "What you take home",
+            't2': "The 3 weeks",
+            't3': "10 commandments",
+            't4': "Questions",
+            't5': "Sign up",
+            't6': "In-person workshop · Find your North",
+            't7': "You want a change. <em>Find out where to.</em>",
+            't8': "Three group sessions to define your North, take an honest look at where you are today, map out how to get there and write your 10 commandments: your filter for every decision.",
+            't9': "I want to sign up",
+            't10': "See the programme",
+            't11': "Hands-on group coaching. Not therapy, not a motivational talk.",
+            't12': "Length",
+            't13': "3 weeks",
+            't14': "Frequency",
+            't15': "1 session a week",
+            't16': "Each session",
+            't17': "2 to 3 hours",
+            't18': "Format",
+            't19': "In person, in a group",
+            't20': "Places",
+            't21': "Up to 20 people",
+            't22': "Dates",
+            't23': "Venue",
+            't24': "Price",
+            't25': "To be confirmed",
+            't26': "Is it for you?",
+            't27': "If you feel something has to change, <em>start here</em>.",
+            't28': "Designed for young adults, roughly 23 to 36, in their first jobs.",
+            't29': "You work, but you're not happy with it or you feel you're not paid what you're worth.",
+            't30': "You want to change, but you don't know where to yet.",
+            't31': "You want to decide with clarity, not out of inertia or pressure.",
+            't32': "You're up for something different, with other people in the same place.",
+            't33': "A path with four stops",
+            't34': "You leave the workshop with four things of your own, written by you.",
+            't35': "1 · North",
+            't36': "My North",
+            't37': "Where I want to go. What gives meaning to my decisions.",
+            't38': "2 · Today",
+            't39': "Where I am today",
+            't40': "An honest look at my starting point.",
+            't41': "3 · Strategy",
+            't42': "How to get there",
+            't43': "The concrete path between today and my North.",
+            't44': "4 · Commandments",
+            't45': "My 10 commandments",
+            't46': "My own actions for living by my North and knowing whether each decision brings me closer or takes me further away.",
+            't47': "The programme",
+            't48': "Three weeks, <em>one session each</em>",
+            't49': "2 to 3 hour sessions, in person and in a group. Group coaching with exercises: nobody tells you what to do, everyone reaches their own answer.",
+            't50': "Week 1",
+            't51': "Discover where you want to go and put it into words.",
+            't52': "Session exercises",
+            't53': "Week 2",
+            't54': "Where I am and how to get there",
+            't55': "Take an honest look at your starting point and map out the strategy towards your North.",
+            't56': "Week 3",
+            't57': "Write your 10 actions, try them out as a filter and choose who to share them with.",
+            't58': "Weekly breakdown: initial proposal, may change.",
+            't59': "Your 10 commandments",
+            't60': "Your North, turned into <em>10 actions</em>",
+            't61': "Everyone writes their own, in the first person.",
+            't62': "They are 10 concrete actions someone living by that North would take.",
+            't63': "They work as a yes-or-no filter: does this decision bring me closer or take me further away?",
+            't64': "You share them with someone you trust to help you keep them.",
+            't65': "Example · North",
+            't66': "Give love",
+            't67': "I call my friends once a week.",
+            't68': "I help people in need.",
+            't69': "and eight more, written by you",
+            't70': "Should I sign up for this course? <b>Does it bring me closer to giving love?</b> Yes, I go ahead. No, I let it go.",
+            't71': "A different kind of workshop",
+            't72': "Out of the usual room",
+            't73': "We meet in places that invite you to think differently.",
+            't74': "A park",
+            't75': "A library",
+            't76': "A café",
+            't77': "A bookshop",
+            't78': "A small group, so there's time to work, talk and listen to each other.",
+            't79': "Community, afterwards",
+            't80': "Once it ends, an open space to stay in touch and support each other.",
+            't81': "The app, free",
+            't82': "Metriotes is with you between sessions and afterwards, at no cost: your North and your commandments always at hand.",
+            't83': "Who leads it",
+            't84': "Franco, someone who <em>changed course</em> several times",
+            't85': "He went from architecture to technology at a school, software, product, coaching and photography. Some people changed their lives after talking with him. The workshop comes from that experience: not from theory, but from having lived it.",
+            't86': "Architecture",
+            't87': "Technology at a school",
+            't88': "Software",
+            't89': "Product",
+            't90': "Coaching",
+            't91': "Photography",
+            't92': "Workshops",
+            't93': "Photo of Franco",
+            't94': "Sign-up",
+            't95': "Save your place",
+            't96': "Limited to 20 people per group.",
+            't97': "<b>Pending:</b> sign-up isn't open yet. This form is only a preview and doesn't send anything.",
+            't98': "First edition",
+            't99': "Dates to be confirmed",
+            't100': "Day and time",
+            't101': "Name",
+            't102': "Email",
+            't103': "Age",
+            't104': "City",
+            't105': "What would you like to change? (optional)",
+            't106': "Sign up · Coming soon",
+            't107': "We'll email you when sign-up opens. We never share your data.",
+            't108': "What people usually ask",
+            't109': "Is it therapy?",
+            't110': "No. It's group coaching with practical exercises. It isn't a therapeutic space or a motivational talk, and nobody will tell you what to do: everyone reaches their own answer.",
+            't111': "Do I need to have anything figured out before I come?",
+            't112': "No. The workshop is precisely for people who want to change and don't yet know where to. All you need is the will to work and share with the group.",
+            't113': "Do I have to attend all three sessions?",
+            't114': "Yes, ideally: each week builds on the last, from your North to your 10 commandments.",
+            't115': "Do I need to download the app?",
+            't116': "It's not required. Metriotes is free and keeps your North and your commandments at hand between sessions and after the workshop.",
+            't117': "How much is it and when does it start?",
+            't118': "Price, dates and venue of the first edition: still to be confirmed. We'll let you know as soon as they are.",
+            't119': "Three weeks to find your North",
+            't120': "And ten actions of your own so you don't get lost along the way.",
+            't121': "© 2026 Metriotes. It all starts with your North."
+        };
+        /* Textos en atributos (placeholder, aria-label) y del documento */
+        const attrsEn = [[".lang", "aria-label", "Language"], [".nav-links", "aria-label", "Sections"], [".facts-card", "aria-label", "The workshop at a glance"], [".path", "aria-label", "His path"], ["#f-name", "placeholder", "Your name"], ["#f-email", "placeholder", "you@email.com"], ["#f-city", "placeholder", "Your city"], ["#f-why", "placeholder", "A few lines, however it comes out"]];
+        const meta = {
+            es: { title: document.title, desc: document.querySelector('meta[name="description"]').content },
+            en: { title: "Find your North workshop | Metriotes", desc: "A 3-week, in-person group workshop to define your North, see where you are today, plan your strategy and write your 10 commandments." }
+        };
+        const es = {};
+        document.querySelectorAll('[data-i18n]').forEach(el => { es[el.dataset.i18n] = el.innerHTML; });
+        const attrsEs = [];
+        attrsEn.forEach(([sel, attr]) => { const el = document.querySelector(sel); attrsEs.push(el ? el.getAttribute(attr) : null); });
+
+        function setLanguage(l) {
+            const lang = l === 'en' ? 'en' : 'es';
+            const dict = lang === 'en' ? en : es;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.dataset.i18n;
+                if (dict[k] !== undefined) el.innerHTML = dict[k];
+            });
+            attrsEn.forEach(([sel, attr, val], i) => {
+                const el = document.querySelector(sel);
+                if (el) el.setAttribute(attr, lang === 'en' ? val : attrsEs[i]);
+            });
+            document.title = meta[lang].title;
+            document.querySelector('meta[name="description"]').content = meta[lang].desc;
+            document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+            document.documentElement.lang = lang;
+            try { localStorage.setItem('preferredLang', lang); } catch (e) {}
+        }
+        document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.lang)));
+
+        const params = new URLSearchParams(location.search);
+        let initial = params.get('lang');
+        if (!initial) { try { initial = localStorage.getItem('preferredLang'); } catch (e) {} }
+        if (!initial) initial = (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+        if (initial === 'en') setLanguage('en');
+
+        /* ── Aparición al hacer scroll ── */
         const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
         }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }) : null;
         document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 
+        /* ── Nav con borde al bajar ── */
         const nav = document.getElementById('nav');
         addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
     })();

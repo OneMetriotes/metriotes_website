@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Taller Descubre tu Norte | Metriotes</title>
+    <meta name="description" content="Un taller presencial y en grupo de 3 semanas para definir tu Norte, ver dónde estás hoy, trazar tu estrategia y escribir tus 10 mandamientos.">
+    <meta name="theme-color" content="#ECEEE7">
+    <!-- Página oculta (borrador): sin enlaces desde el sitio, fuera del sitemap y sin indexar -->
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <meta name="googlebot" content="noindex,nofollow">
+    <link rel="icon" type="image/svg+xml" href="/assets/web/estrella.svg">
+
+    <link rel="preload" href="/assets/fonts/kalnia-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        @font-face { font-family: 'Kalnia'; font-weight: 400; font-display: swap; src: url('/assets/fonts/kalnia-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Kalnia'; font-weight: 600; font-display: swap; src: url('/assets/fonts/kalnia-latin-600-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 400; font-display: swap; src: url('/assets/fonts/poppins-latin-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 500; font-display: swap; src: url('/assets/fonts/poppins-latin-500-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Poppins'; font-weight: 600; font-display: swap; src: url('/assets/fonts/poppins-latin-600-normal.woff2') format('woff2'); }
+
+        /* ─── Expedición: los tokens de la app ───────────────── */
+        :root {
+            --bg: #ECEEE7;
+            --card: #F7F7F2;
+            --sand: #EFE7DC;
+            --peach: #F1D6C7;
+            --ink: #1E2B25;
+            --ink-2: #4B5751;
+            --muted: #7B8580;
+            --line: rgba(30,43,37,0.10);
+            --orange: #E4602F;
+            --orange-2: #EE8D63;
+            --orange-soft: rgba(228,96,47,0.12);
+            --night: #17221D;
+            --radius: 24px;
+            --shadow: 0 1px 2px rgba(30,43,37,0.06), 0 10px 30px rgba(30,43,37,0.10);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --pad: clamp(1.25rem, 5vw, 3rem);
+            --max: 1180px;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--bg);
+            -webkit-font-smoothing: antialiased; overflow-x: hidden; overflow-x: clip;
+        }
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+        button, input, select, textarea { font: inherit; color: inherit; }
+        button { background: none; border: 0; cursor: pointer; }
+        :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 8px; }
+
+        .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: .5rem;
+            font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--orange);
+        }
+        h1, h2, h3 { font-family: 'Kalnia', Georgia, serif; font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
+        h2 { font-size: clamp(2rem, 6.4vw, 3.4rem); margin: .8rem 0 1rem; }
+        h3 { font-size: 1.35rem; line-height: 1.2; }
+        em { font-style: normal; color: var(--orange); }
+        .lead { font-size: clamp(1.02rem, 2.6vw, 1.15rem); color: var(--ink-2); max-width: 38rem; }
+        section { position: relative; }
+        section[id] { scroll-margin-top: 72px; }
+        .section { padding: clamp(4.5rem, 12vw, 8rem) 0; }
+        .center { text-align: center; }
+        .center .lead { margin-left: auto; margin-right: auto; }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+            min-height: 52px; padding: 0 1.5rem; border-radius: 999px; font-weight: 600; font-size: .98rem;
+            transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+        }
+        .btn-primary { color: #fff; background: linear-gradient(90deg, var(--orange), var(--orange-2)); box-shadow: 0 8px 22px rgba(228,96,47,.32), inset 0 1px 0 rgba(255,255,255,.25); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(228,96,47,.38); }
+        .btn-ghost { background: var(--card); box-shadow: var(--shadow); }
+        .btn-ghost:hover { transform: translateY(-2px); }
+        .btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Marcadores de lo que falta definir */
+        .tbd { display: inline-flex; align-items: center; padding: .15rem .55rem; border-radius: 99px; font-size: .75rem; font-weight: 600; background: var(--orange-soft); color: var(--orange); border: 1px dashed rgba(228,96,47,.45); white-space: nowrap; vertical-align: middle; }
+        .draft { display: inline-flex; align-items: center; gap: .45rem; padding: .3rem .75rem; border-radius: 99px; font-size: .72rem; font-weight: 600; letter-spacing: .04em; background: var(--ink); color: #fff; }
+        .draft::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--orange-2); }
+
+        /* ─── Navegación ─────────────────────────────────────── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            padding-top: env(safe-area-inset-top, 0px);
+            background: rgba(236,238,231,.82); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3);
+            border-bottom: 1px solid transparent; transition: border-color .3s;
+        }
+        .nav.scrolled { border-bottom-color: var(--line); }
+        main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+        .nav-in { display: flex; align-items: center; gap: 1rem; height: 64px; }
+        .brand { display: inline-flex; align-items: center; gap: .55rem; font-family: 'Kalnia', serif; font-weight: 600; font-size: 1.3rem; }
+        .brand svg { width: 28px; height: 28px; }
+        .nav-links { display: none; gap: 1.75rem; margin-left: 2.5rem; font-size: .93rem; color: var(--ink-2); }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-right { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+        .nav .btn { min-height: 40px; padding: 0 1.1rem; font-size: .88rem; }
+
+        /* ─── Fondos de curvas de nivel ──────────────────────── */
+        .contours { position: absolute; inset: 0; background: url('/assets/web/curvas-claro.svg') center / cover no-repeat; opacity: .8; pointer-events: none; }
+        .contours.night { background-image: url('/assets/web/curvas-noche.svg'); opacity: 1; }
+        .contours.peach { background-image: url('/assets/web/curvas-melocoton.svg'); opacity: 1; }
+
+        /* ─── Hero ───────────────────────────────────────────── */
+        .hero { overflow: hidden; padding: clamp(3rem, 10vw, 6rem) 0 clamp(4rem, 10vw, 6rem); }
+        .hero .contours { mask-image: linear-gradient(180deg, #000 60%, transparent); -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); }
+        .hero-grid { position: relative; display: grid; gap: 2.5rem; align-items: center; }
+        .hero h1 { font-size: clamp(2.6rem, 11vw, 5rem); margin: 1rem 0 1.1rem; }
+        .hero .lead { margin-bottom: 1.75rem; }
+        .hero-cta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+        .facts-card { background: var(--card); border-radius: 30px; box-shadow: var(--shadow); padding: 1.5rem; }
+        .facts-card .star { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange); margin-bottom: 1rem; }
+        .facts-card .star svg { width: 17px; height: 17px; }
+        .facts-card dl { display: grid; gap: 0; }
+        .facts-card dl div { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-top: 1px solid var(--line); font-size: .93rem; }
+        .facts-card dt { color: var(--muted); }
+        .facts-card dd { font-weight: 600; text-align: right; }
+
+        /* ─── Es para ti si ──────────────────────────────────── */
+        .foryou { background: var(--sand); }
+        .foryou-grid { display: grid; gap: 2.5rem; align-items: center; }
+        .checks { display: grid; gap: .75rem; }
+        .checks li { display: flex; gap: .8rem; align-items: flex-start; background: var(--card); border-radius: 20px; padding: 1rem 1.2rem; box-shadow: var(--shadow); font-size: .95rem; }
+        .checks svg { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--orange); }
+
+        /* ─── Qué te llevas (paradas) ────────────────────────── */
+        .stops { display: grid; gap: 1rem; margin-top: 2.5rem; position: relative; }
+        .stop-card { position: relative; z-index: 1; border-radius: 30px; background: var(--card); box-shadow: var(--shadow); padding: 1.5rem 1.4rem; height: 100%; }
+        .stop-num { display: flex; align-items: center; gap: .6rem; margin-bottom: .9rem; }
+        .stop-num .dot { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange); }
+        .stop-num .dot svg { width: 17px; height: 17px; }
+        .stop-num span { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+        .stop-card h3 { margin-bottom: .5rem; }
+        .stop-card p { font-size: .93rem; color: var(--ink-2); }
+        .trail { display: none; }
+
+        /* ─── Las 3 semanas (noche) ──────────────────────────── */
+        .weeks { background: var(--night); color: #F2F1EA; overflow: hidden; }
+        .weeks .eyebrow { color: var(--orange-2); }
+        .weeks h2 { color: #fff; }
+        .weeks em { color: var(--orange-2); }
+        .weeks .lead { color: rgba(242,241,234,.72); }
+        .week-list { display: grid; gap: 1px; margin-top: 3rem; border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,.08); }
+        .week { background: var(--night); padding: 1.6rem 1.4rem; display: grid; gap: .6rem; }
+        .week .k { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+        .week .k b { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--orange-2); }
+        .week .k span { font-size: .8rem; color: rgba(242,241,234,.55); }
+        .week h3 { color: #fff; }
+        .week p { font-size: .92rem; color: rgba(242,241,234,.7); }
+        .week ul { display: grid; gap: .35rem; margin-top: .25rem; }
+        .week li { display: flex; gap: .55rem; font-size: .88rem; color: rgba(242,241,234,.82); }
+        .week li::before { content: ''; flex: none; width: 6px; height: 6px; margin-top: .55rem; border-radius: 50%; background: var(--orange-2); }
+        .weeks .tbd { background: rgba(238,141,99,.14); color: var(--orange-2); border-color: rgba(238,141,99,.4); }
+        .weeks-note { margin-top: 1.25rem; font-size: .85rem; color: rgba(242,241,234,.6); }
+
+        /* ─── 10 mandamientos ────────────────────────────────── */
+        .cmd-grid { display: grid; gap: 2.5rem; align-items: center; }
+        .cmd-points { display: grid; gap: .9rem; margin-top: 1.5rem; }
+        .cmd-points li { display: flex; gap: .8rem; font-size: .95rem; color: var(--ink-2); }
+        .cmd-points .n { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--orange-soft); color: var(--orange); font-size: .78rem; font-weight: 600; }
+        .example { border-radius: 30px; background: var(--card); box-shadow: var(--shadow); padding: 1.6rem 1.5rem; }
+        .example small { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--orange); margin-bottom: .35rem; }
+        .example .norte { font-family: 'Kalnia', serif; font-weight: 600; font-size: 1.8rem; line-height: 1.1; margin-bottom: 1.2rem; }
+        .example ol { list-style: none; counter-reset: c; display: grid; gap: .5rem; margin-bottom: 1.3rem; }
+        .example ol li { counter-increment: c; display: flex; gap: .7rem; align-items: baseline; padding: .7rem .9rem; border-radius: 14px; background: var(--bg); font-size: .93rem; }
+        .example ol li::before { content: counter(c); font-weight: 600; color: var(--orange); font-size: .8rem; }
+        .example ol li.more { color: var(--muted); font-style: italic; }
+        .example ol li.more::before { content: '…'; }
+        .decide { border-radius: 18px; padding: 1rem 1.1rem; background: var(--ink); color: #fff; font-size: .9rem; }
+        .decide b { color: var(--orange-2); }
+
+        /* ─── Lugares ────────────────────────────────────────── */
+        .places { background: var(--peach); overflow: hidden; }
+        .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 0; }
+        .chip { padding: .45rem .95rem; border-radius: 99px; background: var(--card); font-size: .9rem; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+        .places-grid { display: grid; gap: 1rem; margin-top: 2.5rem; }
+        .place-card { border-radius: var(--radius); padding: 1.4rem; background: rgba(255,255,255,.55); }
+        .place-card .ic { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--ink); color: #fff; margin-bottom: .8rem; }
+        .place-card .ic svg { width: 20px; height: 20px; }
+        .place-card h3 { font-size: 1.2rem; margin-bottom: .35rem; }
+        .place-card p { font-size: .92rem; color: var(--ink-2); }
+
+        /* ─── Quién lo guía ──────────────────────────────────── */
+        .guide-grid { display: grid; gap: 2.5rem; align-items: center; }
+        .path { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: 1.5rem; }
+        .path span { padding: .45rem .9rem; border-radius: 99px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.05); font-size: .88rem; }
+        .path span.now { background: var(--ink); color: #fff; }
+        .path i { width: 14px; height: 2px; background: var(--orange); opacity: .5; }
+        .photo { aspect-ratio: 4 / 5; border-radius: 30px; background: var(--sand); border: 2px dashed rgba(30,43,37,.18); display: grid; place-items: center; text-align: center; padding: 2rem; color: var(--muted); font-size: .9rem; max-width: 420px; width: 100%; margin: 0 auto; }
+
+        /* ─── Inscripción ────────────────────────────────────── */
+        .signup { background: var(--sand); }
+        .signup-card { max-width: 760px; margin: 2.5rem auto 0; border-radius: 30px; background: var(--card); box-shadow: var(--shadow); padding: clamp(1.5rem, 4vw, 2.5rem); position: relative; }
+        .pending { display: flex; gap: .75rem; align-items: flex-start; padding: .9rem 1rem; border-radius: 16px; background: var(--orange-soft); border: 1px dashed rgba(228,96,47,.45); color: var(--ink); font-size: .88rem; margin-bottom: 1.5rem; }
+        .pending svg { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--orange); }
+        .edition { display: grid; gap: .5rem; margin-bottom: 1.5rem; }
+        .edition div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--line); font-size: .93rem; }
+        .edition dt { color: var(--muted); }
+        .edition dd { font-weight: 600; text-align: right; }
+        .form { display: grid; gap: .9rem; }
+        .field { display: grid; gap: .35rem; }
+        .field label { font-size: .82rem; font-weight: 600; color: var(--ink-2); }
+        .field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: .75rem 1rem; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); }
+        .field textarea { min-height: 96px; resize: vertical; }
+        .field input:disabled, .field select:disabled, .field textarea:disabled { cursor: not-allowed; opacity: .75; }
+        .form .btn { width: 100%; margin-top: .4rem; }
+        .form-fine { font-size: .8rem; color: var(--muted); text-align: center; }
+
+        /* ─── FAQ ────────────────────────────────────────────── */
+        .faq { max-width: 760px; margin: 2.5rem auto 0; display: grid; gap: .6rem; }
+        .faq details { background: var(--card); border-radius: 18px; padding: 0 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+        .faq summary { list-style: none; cursor: pointer; padding: 1.1rem 0; font-weight: 600; display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after { content: '+'; font-size: 1.4rem; font-weight: 400; color: var(--orange); transition: transform .3s var(--ease); }
+        .faq details[open] summary::after { transform: rotate(45deg); }
+        .faq details p { padding: 0 0 1.2rem; color: var(--ink-2); font-size: .93rem; }
+
+        /* ─── CTA final y pie ────────────────────────────────── */
+        .final { overflow: hidden; text-align: center; }
+        .final .star-big { width: 72px; height: 72px; margin: 0 auto 1.5rem; animation: spin 40s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .final h2 { max-width: 16ch; margin: 0 auto 1rem; }
+        .final .lead { margin: 0 auto 2rem; }
+        footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; font-size: .85rem; color: var(--ink-2); }
+
+        /* ─── Aparición al hacer scroll ──────────────────────── */
+        .js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--d, 0) * 90ms); }
+        .js .rv.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .js .rv { opacity: 1; transform: none; transition: none; }
+            .final .star-big { animation: none; }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ─── Tablet y escritorio ────────────────────────────── */
+        @media (min-width: 720px) {
+            .stops { grid-template-columns: 1fr 1fr; }
+            .places-grid { grid-template-columns: repeat(3, 1fr); }
+            .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+        }
+        @media (max-width: 719px) {
+            .form .row { display: grid; gap: .9rem; }
+        }
+        @media (min-width: 1000px) {
+            .nav-links { display: flex; }
+            .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 4rem; }
+            .foryou-grid, .cmd-grid, .guide-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+            .stops { grid-template-columns: repeat(4, 1fr); }
+            .trail { display: block; position: absolute; left: 4%; right: 4%; top: 2.55rem; height: 2px; background-image: linear-gradient(90deg, var(--orange) 50%, transparent 50%); background-size: 10px 2px; opacity: .45; z-index: 0; }
+            .week-list { grid-template-columns: repeat(3, 1fr); }
+            .guide-grid .photo { order: -1; }
+        }
+    </style>
+</head>
+<body>
+    <script>document.documentElement.classList.add('js');</script>
+
+    <!-- ── Navegación ─────────────────────────────────────── -->
+    <header class="nav" id="nav">
+        <div class="wrap nav-in">
+            <a href="/" class="brand" aria-label="Metriotes">
+                <svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                Metriotes
+            </a>
+            <nav class="nav-links" aria-label="Secciones">
+                <a href="#que-te-llevas">Qué te llevas</a>
+                <a href="#semanas">Las 3 semanas</a>
+                <a href="#mandamientos">10 mandamientos</a>
+                <a href="#preguntas">Preguntas</a>
+            </nav>
+            <div class="nav-right">
+                <span class="draft">Borrador</span>
+                <a href="#inscripcion" class="btn btn-primary">Anotarme</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+    <!-- ── Hero ───────────────────────────────────────────── -->
+    <section class="hero" id="inicio">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="wrap hero-grid">
+            <div>
+                <span class="eyebrow rv">Taller presencial · Descubre tu Norte</span>
+                <h1 class="rv" style="--d:1">Quieres cambiar. <em>Descubre hacia dónde.</em></h1>
+                <p class="lead rv" style="--d:2">Tres encuentros en grupo para definir tu Norte, ver con honestidad dónde estás hoy, trazar cómo llegar y escribir tus 10 mandamientos: tu filtro para cada decisión.</p>
+                <div class="hero-cta rv" style="--d:3">
+                    <a href="#inscripcion" class="btn btn-primary">Quiero anotarme</a>
+                    <a href="#semanas" class="btn btn-ghost">Ver el programa</a>
+                </div>
+            </div>
+            <aside class="facts-card rv" style="--d:2" aria-label="El taller en datos">
+                <span class="star"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span>
+                <dl>
+                    <div><dt>Duración</dt><dd>3 semanas</dd></div>
+                    <div><dt>Frecuencia</dt><dd>1 encuentro por semana</dd></div>
+                    <div><dt>Cada sesión</dt><dd>2 a 3 horas</dd></div>
+                    <div><dt>Formato</dt><dd>Presencial, en grupo</dd></div>
+                    <div><dt>Plazas</dt><dd>Hasta 20 personas</dd></div>
+                    <div><dt>Fechas</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt>Lugar</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt>Precio</dt><dd><span class="tbd">Por definir</span></dd></div>
+                </dl>
+            </aside>
+        </div>
+    </section>
+
+    <!-- ── Es para ti si ──────────────────────────────────── -->
+    <section class="section foryou" id="para-ti">
+        <div class="wrap foryou-grid">
+            <div>
+                <span class="eyebrow rv">¿Es para ti?</span>
+                <h2 class="rv" style="--d:1">Si sientes que algo tiene que cambiar, <em>empieza aquí</em>.</h2>
+                <p class="lead rv" style="--d:2">Pensado para jóvenes adultos, de 23 a 36 años aproximadamente, en sus primeras experiencias laborales.</p>
+            </div>
+            <ul class="checks">
+                <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Trabajas, pero no te sientes conforme o sientes que no te pagan lo que vales.</li>
+                <li class="rv" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tienes ganas de cambiar y todavía no sabes hacia dónde.</li>
+                <li class="rv" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Quieres decidir con claridad, no por inercia ni por presión.</li>
+                <li class="rv" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te animas a vivir algo distinto, con otras personas que están en lo mismo.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── Qué te llevas ──────────────────────────────────── -->
+    <section class="section" id="que-te-llevas">
+        <div class="wrap">
+            <div class="center">
+                <span class="eyebrow rv">Qué te llevas</span>
+                <h2 class="rv" style="--d:1">Un camino con cuatro paradas</h2>
+                <p class="lead rv" style="--d:2">Al terminar el taller sales con cuatro cosas tuyas, escritas por ti.</p>
+            </div>
+            <div class="stops">
+                <div class="trail" aria-hidden="true"></div>
+                <div class="stop-card rv">
+                    <div class="stop-num"><span class="dot"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="currentColor"/></svg></span><span>1 · Norte</span></div>
+                    <h3>Mi Norte</h3>
+                    <p>Hacia dónde quiero ir. Lo que da sentido a mis decisiones.</p>
+                </div>
+                <div class="stop-card rv" style="--d:1">
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/></svg></span><span>2 · Hoy</span></div>
+                    <h3>Dónde estoy hoy</h3>
+                    <p>Una mirada honesta a mi punto de partida.</p>
+                </div>
+                <div class="stop-card rv" style="--d:2">
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span><span>3 · Estrategia</span></div>
+                    <h3>Cómo llegar</h3>
+                    <p>El camino concreto entre hoy y mi Norte.</p>
+                </div>
+                <div class="stop-card rv" style="--d:3">
+                    <div class="stop-num"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span>4 · Mandamientos</span></div>
+                    <h3>Mis 10 mandamientos</h3>
+                    <p>Acciones propias para vivir bajo mi Norte y saber si cada decisión me acerca o me aleja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Las 3 semanas ──────────────────────────────────── -->
+    <section class="section weeks" id="semanas">
+        <div class="contours night" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <span class="eyebrow rv">El programa</span>
+            <h2 class="rv" style="--d:1">Tres semanas, <em>un encuentro cada una</em></h2>
+            <p class="lead rv" style="--d:2">Sesiones de 2 a 3 horas, presenciales y en grupo. Coaching grupal con ejercicios: nadie te dice qué hacer, cada uno llega a su respuesta.</p>
+            <div class="week-list">
+                <div class="week rv">
+                    <div class="k"><b>Semana 1</b><span>2 a 3 horas</span></div>
+                    <h3>Mi Norte</h3>
+                    <p>Descubrir hacia dónde quieres ir y ponerlo en palabras.</p>
+                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                </div>
+                <div class="week rv" style="--d:1">
+                    <div class="k"><b>Semana 2</b><span>2 a 3 horas</span></div>
+                    <h3>Dónde estoy y cómo llegar</h3>
+                    <p>Mirar con honestidad tu punto de partida y trazar la estrategia hacia tu Norte.</p>
+                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                </div>
+                <div class="week rv" style="--d:2">
+                    <div class="k"><b>Semana 3</b><span>2 a 3 horas</span></div>
+                    <h3>Mis 10 mandamientos</h3>
+                    <p>Escribir tus 10 acciones, probarlas como filtro y elegir con quién compartirlas.</p>
+                    <ul><li>Ejercicios de la sesión <span class="tbd">Por definir</span></li></ul>
+                </div>
+            </div>
+            <p class="weeks-note rv">Reparto de contenidos por semana: propuesta inicial, puede cambiar.</p>
+        </div>
+    </section>
+
+    <!-- ── 10 mandamientos ────────────────────────────────── -->
+    <section class="section" id="mandamientos">
+        <div class="wrap cmd-grid">
+            <div>
+                <span class="eyebrow rv">Tus 10 mandamientos</span>
+                <h2 class="rv" style="--d:1">Tu Norte, convertido en <em>10 acciones</em></h2>
+                <ul class="cmd-points">
+                    <li class="rv"><span class="n">1</span>Cada persona escribe los suyos, en primera persona.</li>
+                    <li class="rv" style="--d:1"><span class="n">2</span>Son 10 acciones concretas que haría alguien que vive bajo ese Norte.</li>
+                    <li class="rv" style="--d:2"><span class="n">3</span>Funcionan como filtro sí o no: ¿esta decisión me acerca o me aleja?</li>
+                    <li class="rv" style="--d:3"><span class="n">4</span>Los compartes con alguien de confianza para sostenerlos.</li>
+                </ul>
+            </div>
+            <div class="example rv" style="--d:2">
+                <small>Ejemplo · Norte</small>
+                <div class="norte">Dar amor</div>
+                <ol>
+                    <li>Llamo a mis amigos una vez por semana.</li>
+                    <li>Ayudo a personas que lo necesitan.</li>
+                    <li class="more">y ocho más, escritas por ti</li>
+                </ol>
+                <div class="decide">¿Me anoto a este curso? <b>¿Me acerca a dar amor?</b> Sí, avanzo. No, lo dejo ir.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Lugares y después ──────────────────────────────── -->
+    <section class="section places" id="lugares">
+        <div class="contours peach" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <span class="eyebrow rv">Un taller distinto</span>
+            <h2 class="rv" style="--d:1">Fuera de la sala de siempre</h2>
+            <p class="lead rv" style="--d:2">Nos encontramos en lugares que invitan a pensar distinto.</p>
+            <div class="chips rv" style="--d:3"><span class="chip">Un parque</span><span class="chip">Una biblioteca</span><span class="chip">Un café</span><span class="chip">Una librería</span></div>
+            <div class="places-grid">
+                <div class="place-card rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M15 20a4 4 0 0 1 6-3.5"/></svg></span><h3>Hasta 20 personas</h3><p>Un grupo chico para que haya tiempo de trabajar, hablar y escucharse.</p></div>
+                <div class="place-card rv" style="--d:1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c2 3 4 4.5 4 8a4 4 0 0 1-8 0c0-2 1-3 1-3s.5 2 2 2c0-3 1-5 1-7Z"/><path d="M4 21l16-3M4 18l16 3"/></svg></span><h3>Comunidad, después</h3><p>Al terminar, un espacio abierto para seguir en contacto y acompañarse.</p></div>
+                <div class="place-card rv" style="--d:2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg></span><h3>La app, gratis</h3><p>Metriotes te acompaña entre sesiones y después, sin coste: tu Norte y tus mandamientos siempre a mano.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Quién lo guía ──────────────────────────────────── -->
+    <section class="section" id="quien">
+        <div class="wrap guide-grid">
+            <div>
+                <span class="eyebrow rv">Quién lo guía</span>
+                <h2 class="rv" style="--d:1">Franco, alguien que <em>cambió de rumbo</em> varias veces</h2>
+                <p class="lead rv" style="--d:2">Pasó por la arquitectura, la tecnología en un colegio, el software, el producto, el coaching y la fotografía. Hay personas que cambiaron su vida después de conversar con él. El taller nace de esa experiencia: no desde la teoría, sino desde haberlo vivido.</p>
+                <div class="path rv" style="--d:3" aria-label="Su recorrido">
+                    <span>Arquitectura</span><i></i><span>Tecnología en un colegio</span><i></i><span>Software</span><i></i><span>Producto</span><i></i><span>Coaching</span><i></i><span>Fotografía</span><i></i><span class="now">Talleres</span>
+                </div>
+            </div>
+            <div class="photo rv" style="--d:1"><span>Foto de Franco<br><span class="tbd" style="margin-top:.6rem">Por definir</span></span></div>
+        </div>
+    </section>
+
+    <!-- ── Inscripción ────────────────────────────────────── -->
+    <section class="section signup" id="inscripcion">
+        <div class="wrap">
+            <div class="center">
+                <span class="eyebrow rv">Inscripción</span>
+                <h2 class="rv" style="--d:1">Reserva tu lugar</h2>
+                <p class="lead rv" style="--d:2">Plazas limitadas a 20 personas por grupo.</p>
+            </div>
+            <div class="signup-card rv">
+                <div class="pending" role="note">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    <span><b>Pendiente:</b> la inscripción todavía no está activa. Este formulario es solo una vista previa y no envía nada.</span>
+                </div>
+                <dl class="edition">
+                    <div><dt>Primera edición</dt><dd><span class="tbd">Fechas por definir</span></dd></div>
+                    <div><dt>Día y horario</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt>Lugar</dt><dd><span class="tbd">Por definir</span></dd></div>
+                    <div><dt>Precio</dt><dd><span class="tbd">Por definir</span></dd></div>
+                </dl>
+                <form class="form" onsubmit="return false" aria-describedby="form-fine">
+                    <div class="row">
+                        <div class="field"><label for="f-name">Nombre</label><input id="f-name" type="text" autocomplete="name" placeholder="Tu nombre" disabled></div>
+                        <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email" placeholder="tu@email.com" disabled></div>
+                    </div>
+                    <div class="row">
+                        <div class="field"><label for="f-age">Edad</label><input id="f-age" type="number" min="18" max="99" placeholder="28" disabled></div>
+                        <div class="field"><label for="f-city">Ciudad</label><input id="f-city" type="text" autocomplete="address-level2" placeholder="Tu ciudad" disabled></div>
+                    </div>
+                    <div class="field"><label for="f-why">¿Qué te gustaría cambiar? (opcional)</label><textarea id="f-why" placeholder="Unas líneas, como te salga" disabled></textarea></div>
+                    <button type="submit" class="btn btn-primary" disabled>Quiero anotarme · Próximamente</button>
+                    <p class="form-fine" id="form-fine">Cuando abramos las inscripciones te avisamos por email. Nunca compartimos tus datos.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Preguntas ──────────────────────────────────────── -->
+    <section class="section" id="preguntas">
+        <div class="wrap">
+            <div class="center">
+                <span class="eyebrow rv">Preguntas</span>
+                <h2 class="rv" style="--d:1">Lo que suelen preguntar</h2>
+            </div>
+            <div class="faq">
+                <details class="rv"><summary>¿Es terapia?</summary><p>No. Es coaching grupal con ejercicios prácticos. No es un espacio terapéutico ni una charla motivacional, y nadie te va a decir qué hacer: cada persona llega a su propia respuesta.</p></details>
+                <details class="rv"><summary>¿Tengo que tener algo claro antes de venir?</summary><p>No. El taller es justamente para quienes quieren cambiar y todavía no saben hacia dónde. Solo hace falta ganas de trabajar y de compartir con el grupo.</p></details>
+                <details class="rv"><summary>¿Tengo que ir a las tres sesiones?</summary><p>Sí, es lo ideal: cada semana construye sobre la anterior, desde tu Norte hasta tus 10 mandamientos.</p></details>
+                <details class="rv"><summary>¿Necesito descargar la app?</summary><p>No es obligatorio. Metriotes es gratuita y te sirve para tener tu Norte y tus mandamientos a mano entre sesiones y después del taller.</p></details>
+                <details class="rv"><summary>¿Cuánto cuesta y cuándo empieza?</summary><p>Precio, fechas y lugar de la primera edición: <span class="tbd">Por definir</span></p></details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA final ──────────────────────────────────────── -->
+    <section class="section final">
+        <div class="contours" aria-hidden="true"></div>
+        <div class="wrap" style="position:relative">
+            <svg class="star-big" viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <h2 class="rv">Tres semanas para encontrar tu Norte</h2>
+            <p class="lead rv" style="--d:1">Y diez acciones tuyas para no perderte en el camino.</p>
+            <a href="#inscripcion" class="btn btn-primary rv" style="--d:2">Quiero anotarme</a>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <a href="/" class="brand" aria-label="Metriotes"><svg viewBox="2 2 20 20" aria-hidden="true"><path d="M12 2.8 13.8 10.2 21.2 12 13.8 13.8 12 21.2 10.2 13.8 2.8 12 10.2 10.2Z" fill="#E4602F" stroke="#1E2B25" stroke-width="1.6" stroke-linejoin="round"/></svg>Metriotes</a>
+            <p style="margin-top:1rem">© 2026 Metriotes. Todo empieza por tu Norte.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }) : null;
+        document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+        const nav = document.getElementById('nav');
+        addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+    })();
+    </script>
+</body>
+</html>
